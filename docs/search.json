@@ -1,0 +1,205 @@
+[
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "WarningUnder Construction\n\n\n\nThis syllabus is a draft placeholder. Content is incomplete and subject to change. Do not rely on anything here."
+  },
+  {
+    "objectID": "syllabus.html#course-description",
+    "href": "syllabus.html#course-description",
+    "title": "Syllabus",
+    "section": "Course Description",
+    "text": "Course Description\n[Placeholder — full description to be written.]\nIntroduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences. A core component is a semester-long applied project delivered to an external community partner."
+  },
+  {
+    "objectID": "syllabus.html#student-learning-outcomes",
+    "href": "syllabus.html#student-learning-outcomes",
+    "title": "Syllabus",
+    "section": "Student Learning Outcomes",
+    "text": "Student Learning Outcomes\n[Placeholder — outcomes to be finalized.]\nAfter completing this course the student will be able to:\n\nTBD\nTBD\nTBD"
+  },
+  {
+    "objectID": "syllabus.html#what-does-this-class-look-like",
+    "href": "syllabus.html#what-does-this-class-look-like",
+    "title": "Syllabus",
+    "section": "What Does This Class Look Like?",
+    "text": "What Does This Class Look Like?\n\nClass Format\n[Placeholder.]\n\n\nAttendance Policy\n[Placeholder.]\n\n\nGeneral Classroom Expectations\n[Placeholder.]"
+  },
+  {
+    "objectID": "syllabus.html#required-course-materials",
+    "href": "syllabus.html#required-course-materials",
+    "title": "Syllabus",
+    "section": "Required Course Materials",
+    "text": "Required Course Materials\nPrimary textbook: R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — free online.\nComputing: Posit Cloud. A workspace will be set up before the semester begins with required packages and shared datasets. Students use the Cloud Free plan; the instructor covers per-student fees.\n[Additional materials TBD.]"
+  },
+  {
+    "objectID": "syllabus.html#course-site",
+    "href": "syllabus.html#course-site",
+    "title": "Syllabus",
+    "section": "Course Site",
+    "text": "Course Site\n[Placeholder — to be finalized once LMS arrangements are confirmed.]"
+  },
+  {
+    "objectID": "syllabus.html#grading-policy",
+    "href": "syllabus.html#grading-policy",
+    "title": "Syllabus",
+    "section": "Grading Policy",
+    "text": "Grading Policy\n[Placeholder — grading breakdown to be finalized.]\n\n\n\nItem\nWeight\n\n\n\n\nHomework / Lab Assignments\nTBD\n\n\nCommunity Partner Project\nTBD\n\n\nParticipation\nTBD\n\n\nOther TBD\nTBD\n\n\n\n\nUse of Generative AI Tools\n[Placeholder — AI policy to be written.]"
+  },
+  {
+    "objectID": "syllabus.html#communication",
+    "href": "syllabus.html#communication",
+    "title": "Syllabus",
+    "section": "Communication",
+    "text": "Communication\n[Placeholder — office hours, email policy, etc.]"
+  },
+  {
+    "objectID": "syllabus.html#accommodations-university-policies",
+    "href": "syllabus.html#accommodations-university-policies",
+    "title": "Syllabus",
+    "section": "Accommodations & University Policies",
+    "text": "Accommodations & University Policies\n[Placeholder — standard UVM accommodation language to be added.]"
+  },
+  {
+    "objectID": "syllabus.html#schedule",
+    "href": "syllabus.html#schedule",
+    "title": "Syllabus",
+    "section": "Schedule",
+    "text": "Schedule\nSee the Schedule page for the full week-by-week breakdown."
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Community Partner Project",
+    "section": "",
+    "text": "WarningUnder Construction\n\n\n\nThis page is a draft placeholder. Team assignments, domain areas, and deliverable details have not been finalized."
+  },
+  {
+    "objectID": "project.html#overview",
+    "href": "project.html#overview",
+    "title": "Community Partner Project",
+    "section": "Overview",
+    "text": "Overview\n[Placeholder — full project description to be written.]\nThe semester-long applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nStudents work in small teams. Each team analyzes a different domain area across the full NBRC four-state territory (rather than each team covering a different state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC."
+  },
+  {
+    "objectID": "project.html#domain-areas",
+    "href": "project.html#domain-areas",
+    "title": "Community Partner Project",
+    "section": "Domain Areas",
+    "text": "Domain Areas\n[Placeholder — domain areas to be finalized before the semester begins. Likely candidates include:]\n\nHousing\nBroadband access\nWorkforce and labor markets\nHealthcare access\nForestry industry\nAgriculture\nEnergy\nTransportation"
+  },
+  {
+    "objectID": "project.html#team-assignments",
+    "href": "project.html#team-assignments",
+    "title": "Community Partner Project",
+    "section": "Team Assignments",
+    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the NBRC kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nTBD\nTBD\n\n\n2\nTBD\nTBD\n\n\n3\nTBD\nTBD\n\n\n4\nTBD\nTBD"
+  },
+  {
+    "objectID": "project.html#key-dates",
+    "href": "project.html#key-dates",
+    "title": "Community Partner Project",
+    "section": "Key Dates",
+    "text": "Key Dates\n\n\n\n\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nField trip: NBRC stakeholder meeting in Montpelier\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nFinal presentations in Montpelier (in-person, at NBRC or nearby)"
+  },
+  {
+    "objectID": "project.html#data-sources",
+    "href": "project.html#data-sources",
+    "title": "Community Partner Project",
+    "section": "Data Sources",
+    "text": "Data Sources\n[Placeholder — data sources to be specified as project scope is confirmed.]\nTeams will draw primarily on publicly available data:\n\nAmerican Community Survey (ACS)\nBureau of Labor Statistics (BLS)\nUSDA Economic Research Service\nCensus TIGER shapefiles\nPossibly some NBRC internal project/grantee data (TBD)"
+  },
+  {
+    "objectID": "project.html#deliverable-format",
+    "href": "project.html#deliverable-format",
+    "title": "Community Partner Project",
+    "section": "Deliverable Format",
+    "text": "Deliverable Format\n[Placeholder — deliverable specifications to be finalized.]"
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Overview",
+    "text": "Course Overview\nThis course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.\nA core component is a semester-long applied project delivered to an external community partner: the Northern Border Regional Commission (NBRC)."
+  },
+  {
+    "objectID": "index.html#logistics",
+    "href": "index.html#logistics",
+    "title": "Applied Data Science & Visualization",
+    "section": "Logistics",
+    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nSemester\nFall 2026\n\n\nComputing\nPosit Cloud\n\n\nPrimary language\nR"
+  },
+  {
+    "objectID": "index.html#textbook",
+    "href": "index.html#textbook",
+    "title": "Applied Data Science & Visualization",
+    "section": "Textbook",
+    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — available free online."
+  },
+  {
+    "objectID": "index.html#course-units",
+    "href": "index.html#course-units",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Units",
+    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: field trip + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
+  },
+  {
+    "objectID": "index.html#community-partner",
+    "href": "index.html#community-partner",
+    "title": "Applied Data Science & Visualization",
+    "section": "Community Partner",
+    "text": "Community Partner\nOur applied project partner is the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont. Student teams will produce data-driven analyses across domain areas (housing, broadband, workforce, etc.) covering the full NBRC four-state territory.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Course Schedule",
+    "section": "",
+    "text": "The course meets Thursdays, 4:35–7:35 pm. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses."
+  },
+  {
+    "objectID": "schedule.html#unit-1-foundations",
+    "href": "schedule.html#unit-1-foundations",
+    "title": "Course Schedule",
+    "section": "Unit 1 — Foundations",
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
+  },
+  {
+    "objectID": "schedule.html#unit-2-community-partnership",
+    "href": "schedule.html#unit-2-community-partnership",
+    "title": "Course Schedule",
+    "section": "Unit 2 — Community Partnership",
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is an off-campus field trip; no formal instruction. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nField trip: Montpelier — NBRC stakeholder meeting (no in-class instruction)\n—\n—\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
+  },
+  {
+    "objectID": "schedule.html#unit-3-spatial-analysis",
+    "href": "schedule.html#unit-3-spatial-analysis",
+    "title": "Course Schedule",
+    "section": "Unit 3 — Spatial Analysis",
+    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths\nWeek 8\nTBD\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography\nWeek 9\nTBD"
+  },
+  {
+    "objectID": "schedule.html#unit-4-communication",
+    "href": "schedule.html#unit-4-communication",
+    "title": "Course Schedule",
+    "section": "Unit 4 — Communication",
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data\nWeek 10\nTBD"
+  },
+  {
+    "objectID": "schedule.html#no-class",
+    "href": "schedule.html#no-class",
+    "title": "Course Schedule",
+    "section": "No Class",
+    "text": "No Class\n\n\n\nWeek\nDate\nNote\n\n\n\n\n11\nNov 12\nNo class — instructor at conference\n\n\n13\nNov 26\nNo class — Thanksgiving"
+  },
+  {
+    "objectID": "schedule.html#unit-5-project",
+    "href": "schedule.html#unit-5-project",
+    "title": "Course Schedule",
+    "section": "Unit 5 — Project",
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nFinal presentations in Montpelier (in-person, at NBRC or nearby)"
+  }
+]
