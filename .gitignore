@@ -24,3 +24,5 @@ CLAUDE.md
 *.utf8.md
 *.knit.md
 rsconnect/
+
+**/*.quarto_ipynb
