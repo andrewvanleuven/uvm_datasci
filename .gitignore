@@ -9,3 +9,18 @@
 
 # Context / AI
 CLAUDE.md
+
+# R
+.Rhistory
+.Rapp.history
+.RData
+.RDataTmp
+.Ruserdata
+.Renviron
+.httr-oauth
+.Rproj.user/
+*_cache/
+/cache/
+*.utf8.md
+*.knit.md
+rsconnect/
