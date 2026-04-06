@@ -1,8 +1,6 @@
 project:
   type: website
   output-dir: docs
-  resources:
-    - "docs/.nojekyll"
   render:
     - "*.qmd"
     - "slides/*.qmd"
