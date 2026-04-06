@@ -3,7 +3,7 @@ title: "Applied Data Science & Visualization"
 subtitle: "CDAE 7990 · Graduate Seminar · Fall 2026"
 ---
 
-![](uvm_datasci.png){fig-alt="Students working at computers in a Vermont classroom in autumn" .img-fluid style="border-radius: 6px; margin-bottom: 1.5rem;"}
+![](img/uvm_datasci.png){fig-alt="Students working at computers in a Vermont classroom in autumn" .img-fluid style="border-radius: 6px; margin-bottom: 1.5rem;"}
 
 ## Course Overview
 

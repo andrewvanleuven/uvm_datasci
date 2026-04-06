@@ -6,7 +6,7 @@ University of Vermont, Department of Community Development & Applied Economics
 > [!WARNING]
 > **DRAFT — Incomplete. Do not distribute.**
 
-![](uvm_datasci.png)
+![](img/uvm_datasci.png)
 
 Course website built with [Quarto](https://quarto.org), deployed via GitHub Pages at [andrewvanleuven.github.io/uvm_datasci](https://andrewvanleuven.github.io/uvm_datasci).
 

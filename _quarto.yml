@@ -10,6 +10,7 @@ website:
   title: "Applied Data Science & Visualization"
   site-url: https://andrewvanleuven.github.io/uvm_datasci
   repo-url: https://github.com/andrewvanleuven/uvm_datasci
+  favicon: img/favicon.png
   navbar:
     left:
       - text: "Home"
