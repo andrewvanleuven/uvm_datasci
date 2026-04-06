@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Quarto output
+/_site/
+/docs/
+/.quarto/
+
+# Context / AI
+CLAUDE.md

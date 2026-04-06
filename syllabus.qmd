@@ -1,0 +1,96 @@
+---
+title: "Syllabus"
+subtitle: "Applied Data Science & Visualization · CDAE XXXX · Fall 2026"
+---
+
+::: {.callout-warning}
+## Under Construction
+This syllabus is a draft placeholder. Content is incomplete and subject to change. Do not rely on anything here.
+:::
+
+---
+
+## Course Description
+
+*[Placeholder — full description to be written.]*
+
+Introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences. A core component is a semester-long applied project delivered to an external community partner.
+
+---
+
+## Student Learning Outcomes
+
+*[Placeholder — outcomes to be finalized.]*
+
+After completing this course the student will be able to:
+
+- *TBD*
+- *TBD*
+- *TBD*
+
+---
+
+## What Does This Class Look Like?
+
+### Class Format
+
+*[Placeholder.]*
+
+### Attendance Policy
+
+*[Placeholder.]*
+
+### General Classroom Expectations
+
+*[Placeholder.]*
+
+---
+
+## Required Course Materials
+
+**Primary textbook:** [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — free online.
+
+**Computing:** [Posit Cloud](https://posit.cloud). A workspace will be set up before the semester begins with required packages and shared datasets. Students use the Cloud Free plan; the instructor covers per-student fees.
+
+*[Additional materials TBD.]*
+
+---
+
+## Course Site
+
+*[Placeholder — to be finalized once LMS arrangements are confirmed.]*
+
+---
+
+## Grading Policy
+
+*[Placeholder — grading breakdown to be finalized.]*
+
+| Item | Weight |
+|---|---|
+| Homework / Lab Assignments | TBD |
+| Community Partner Project | TBD |
+| Participation | TBD |
+| *Other TBD* | TBD |
+
+### Use of Generative AI Tools
+
+*[Placeholder — AI policy to be written.]*
+
+---
+
+## Communication
+
+*[Placeholder — office hours, email policy, etc.]*
+
+---
+
+## Accommodations & University Policies
+
+*[Placeholder — standard UVM accommodation language to be added.]*
+
+---
+
+## Schedule
+
+See the [Schedule page](schedule.qmd) for the full week-by-week breakdown.

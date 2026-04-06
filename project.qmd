@@ -1,0 +1,79 @@
+---
+title: "Community Partner Project"
+subtitle: "Northern Border Regional Commission (NBRC)"
+---
+
+::: {.callout-warning}
+## Under Construction
+This page is a draft placeholder. Team assignments, domain areas, and deliverable details have not been finalized.
+:::
+
+---
+
+## Overview
+
+*[Placeholder — full project description to be written.]*
+
+The semester-long applied project is completed in partnership with the **[Northern Border Regional Commission (NBRC)](https://www.nbrc.gov)**, a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.
+
+Students work in small teams. Each team analyzes a different **domain area** across the full NBRC four-state territory (rather than each team covering a different state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC.
+
+---
+
+## Domain Areas
+
+*[Placeholder — domain areas to be finalized before the semester begins. Likely candidates include:]*
+
+- Housing
+- Broadband access
+- Workforce and labor markets
+- Healthcare access
+- Forestry industry
+- Agriculture
+- Energy
+- Transportation
+
+---
+
+## Team Assignments
+
+*[Placeholder — teams will be assigned in Week 7 (Oct 15) after the NBRC kickoff meeting.]*
+
+| Team | Domain Area | Members |
+|---|---|---|
+| 1 | TBD | TBD |
+| 2 | TBD | TBD |
+| 3 | TBD | TBD |
+| 4 | TBD | TBD |
+
+---
+
+## Key Dates
+
+| Date | Milestone |
+|---|---|
+| Oct 8 (Week 6) | Field trip: NBRC stakeholder meeting in Montpelier |
+| Oct 15 (Week 7) | Project teams and scope confirmed |
+| Nov 19 (Week 12) | Preliminary outputs due; peer critique in class |
+| Dec 3 (Week 14) | Draft deliverables due; instructor feedback |
+| Dec 17 (Week 16) | **Final presentations in Montpelier** (in-person, at NBRC or nearby) |
+
+---
+
+## Data Sources
+
+*[Placeholder — data sources to be specified as project scope is confirmed.]*
+
+Teams will draw primarily on publicly available data:
+
+- American Community Survey (ACS)
+- Bureau of Labor Statistics (BLS)
+- USDA Economic Research Service
+- Census TIGER shapefiles
+- *Possibly some NBRC internal project/grantee data (TBD)*
+
+---
+
+## Deliverable Format
+
+*[Placeholder — deliverable specifications to be finalized.]*
