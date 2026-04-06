@@ -15,7 +15,7 @@ Core skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 1 | Sep 3 | What is data? What is data science? Intro to R | [Week 1](#) | R4DS Intro |
+| 1 | Sep 3 | What is data? What is data science? Intro to R | [Week 1](slides/week01.html) | R4DS Intro |
 | 2 | Sep 10 | dplyr basics; into the tidyverse | [Week 2](#) | R4DS Ch. 3–4 |
 | 3 | Sep 17 | Getting data: APIs, scraping, joins | [Week 3](#) | R4DS Ch. 7–8 |
 | 4 | Sep 24 | Exploratory data analysis; intro to ggplot2 | [Week 4](#) | R4DS Ch. 10–11 |
