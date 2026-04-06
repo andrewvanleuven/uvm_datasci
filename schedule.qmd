@@ -31,7 +31,7 @@ Week 6 is an off-campus field trip; no formal instruction. Week 7 bridges visual
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 6 | Oct 8 | **Field trip: Montpelier — NBRC stakeholder meeting** *(no in-class instruction)* | — | — |
+| 6 | Oct 8 | **Field trip** *(no in-class instruction)* | — | — |
 | 7 | Oct 15 | Chart types and visual communication; project teams + scope confirmed | [Week 7](#) | TBD |
 
 ---
@@ -81,4 +81,4 @@ No new instruction. Instructor acts as coach and reviewer.
 | 12 | Nov 19 | Workday + peer critique — *preliminary outputs due* |
 | 14 | Dec 3 | Draft deliverables due; in-class feedback and revision |
 | 15 | Dec 10 | Final polish; presentation prep; semester wrap-up |
-| 16 | Dec 17 | **Final presentations in Montpelier** *(in-person, at NBRC or nearby)* |
+| 16 | Dec 17 | **Final presentations** *(in-person)* |

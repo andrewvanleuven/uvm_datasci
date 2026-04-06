@@ -70,90 +70,6 @@
     "text": "Schedule\nSee the Schedule page for the full week-by-week breakdown."
   },
   {
-    "objectID": "project.html",
-    "href": "project.html",
-    "title": "Community Partner Project",
-    "section": "",
-    "text": "WarningUnder Construction\n\n\n\nThis page is a draft placeholder. Team assignments, domain areas, and deliverable details have not been finalized."
-  },
-  {
-    "objectID": "project.html#overview",
-    "href": "project.html#overview",
-    "title": "Community Partner Project",
-    "section": "Overview",
-    "text": "Overview\n[Placeholder — full project description to be written.]\nThe semester-long applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nStudents work in small teams. Each team analyzes a different domain area across the full NBRC four-state territory (rather than each team covering a different state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC."
-  },
-  {
-    "objectID": "project.html#domain-areas",
-    "href": "project.html#domain-areas",
-    "title": "Community Partner Project",
-    "section": "Domain Areas",
-    "text": "Domain Areas\n[Placeholder — domain areas to be finalized before the semester begins. Likely candidates include:]\n\nHousing\nBroadband access\nWorkforce and labor markets\nHealthcare access\nForestry industry\nAgriculture\nEnergy\nTransportation"
-  },
-  {
-    "objectID": "project.html#team-assignments",
-    "href": "project.html#team-assignments",
-    "title": "Community Partner Project",
-    "section": "Team Assignments",
-    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the NBRC kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nTBD\nTBD\n\n\n2\nTBD\nTBD\n\n\n3\nTBD\nTBD\n\n\n4\nTBD\nTBD"
-  },
-  {
-    "objectID": "project.html#key-dates",
-    "href": "project.html#key-dates",
-    "title": "Community Partner Project",
-    "section": "Key Dates",
-    "text": "Key Dates\n\n\n\n\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nField trip: NBRC stakeholder meeting in Montpelier\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nFinal presentations in Montpelier (in-person, at NBRC or nearby)"
-  },
-  {
-    "objectID": "project.html#data-sources",
-    "href": "project.html#data-sources",
-    "title": "Community Partner Project",
-    "section": "Data Sources",
-    "text": "Data Sources\n[Placeholder — data sources to be specified as project scope is confirmed.]\nTeams will draw primarily on publicly available data:\n\nAmerican Community Survey (ACS)\nBureau of Labor Statistics (BLS)\nUSDA Economic Research Service\nCensus TIGER shapefiles\nPossibly some NBRC internal project/grantee data (TBD)"
-  },
-  {
-    "objectID": "project.html#deliverable-format",
-    "href": "project.html#deliverable-format",
-    "title": "Community Partner Project",
-    "section": "Deliverable Format",
-    "text": "Deliverable Format\n[Placeholder — deliverable specifications to be finalized.]"
-  },
-  {
-    "objectID": "index.html#course-overview",
-    "href": "index.html#course-overview",
-    "title": "Applied Data Science & Visualization",
-    "section": "Course Overview",
-    "text": "Course Overview\nThis course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.\nA core component is a semester-long applied project delivered to an external community partner: the Northern Border Regional Commission (NBRC)."
-  },
-  {
-    "objectID": "index.html#logistics",
-    "href": "index.html#logistics",
-    "title": "Applied Data Science & Visualization",
-    "section": "Logistics",
-    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nSemester\nFall 2026\n\n\nComputing\nPosit Cloud\n\n\nPrimary language\nR"
-  },
-  {
-    "objectID": "index.html#textbook",
-    "href": "index.html#textbook",
-    "title": "Applied Data Science & Visualization",
-    "section": "Textbook",
-    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — available free online."
-  },
-  {
-    "objectID": "index.html#course-units",
-    "href": "index.html#course-units",
-    "title": "Applied Data Science & Visualization",
-    "section": "Course Units",
-    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: field trip + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
-  },
-  {
-    "objectID": "index.html#community-partner",
-    "href": "index.html#community-partner",
-    "title": "Applied Data Science & Visualization",
-    "section": "Community Partner",
-    "text": "Community Partner\nOur applied project partner is the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont. Student teams will produce data-driven analyses across domain areas (housing, broadband, workforce, etc.) covering the full NBRC four-state territory.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
-  },
-  {
     "objectID": "schedule.html",
     "href": "schedule.html",
     "title": "Course Schedule",
@@ -172,7 +88,7 @@
     "href": "schedule.html#unit-2-community-partnership",
     "title": "Course Schedule",
     "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is an off-campus field trip; no formal instruction. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nField trip: Montpelier — NBRC stakeholder meeting (no in-class instruction)\n—\n—\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is an off-campus field trip; no formal instruction. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nField trip (no in-class instruction)\n—\n—\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
   },
   {
     "objectID": "schedule.html#unit-3-spatial-analysis",
@@ -200,6 +116,181 @@
     "href": "schedule.html#unit-5-project",
     "title": "Course Schedule",
     "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nFinal presentations in Montpelier (in-person, at NBRC or nearby)"
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nFinal presentations (in-person)"
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Overview",
+    "text": "Course Overview\nThis course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.\nA core component is a semester-long applied project delivered to an external community partner."
+  },
+  {
+    "objectID": "index.html#logistics",
+    "href": "index.html#logistics",
+    "title": "Applied Data Science & Visualization",
+    "section": "Logistics",
+    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nSemester\nFall 2026\n\n\nComputing\nPosit Cloud\n\n\nPrimary language\nR"
+  },
+  {
+    "objectID": "index.html#textbook",
+    "href": "index.html#textbook",
+    "title": "Applied Data Science & Visualization",
+    "section": "Textbook",
+    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — available free online."
+  },
+  {
+    "objectID": "index.html#course-units",
+    "href": "index.html#course-units",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Units",
+    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: field trip + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
+  },
+  {
+    "objectID": "index.html#community-partner",
+    "href": "index.html#community-partner",
+    "title": "Applied Data Science & Visualization",
+    "section": "Community Partner",
+    "text": "Community Partner\nOur applied project partner is a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Community Partner Project",
+    "section": "",
+    "text": "WarningUnder Construction\n\n\n\nThis page is a draft placeholder. Team assignments, domain areas, and deliverable details have not been finalized."
+  },
+  {
+    "objectID": "project.html#overview",
+    "href": "project.html#overview",
+    "title": "Community Partner Project",
+    "section": "Overview",
+    "text": "Overview\n[Placeholder — full project description to be written.]\nThe semester-long applied project is completed in partnership with a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\nStudents work in small teams. Each team analyzes a different domain area across a multi-state territory. All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for the partner organization."
+  },
+  {
+    "objectID": "project.html#domain-areas",
+    "href": "project.html#domain-areas",
+    "title": "Community Partner Project",
+    "section": "Domain Areas",
+    "text": "Domain Areas\n[Placeholder — domain areas to be finalized before the semester begins. Likely candidates include:]\n\nHousing\nBroadband access\nWorkforce and labor markets\nHealthcare access\nForestry industry\nAgriculture\nEnergy\nTransportation"
+  },
+  {
+    "objectID": "project.html#team-assignments",
+    "href": "project.html#team-assignments",
+    "title": "Community Partner Project",
+    "section": "Team Assignments",
+    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nTBD\nTBD\n\n\n2\nTBD\nTBD\n\n\n3\nTBD\nTBD\n\n\n4\nTBD\nTBD"
+  },
+  {
+    "objectID": "project.html#key-dates",
+    "href": "project.html#key-dates",
+    "title": "Community Partner Project",
+    "section": "Key Dates",
+    "text": "Key Dates\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nField trip: partner kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nFinal presentations (in-person)"
+  },
+  {
+    "objectID": "project.html#data-sources",
+    "href": "project.html#data-sources",
+    "title": "Community Partner Project",
+    "section": "Data Sources",
+    "text": "Data Sources\n[Placeholder — data sources to be specified as project scope is confirmed.]\nTeams will draw primarily on publicly available data:\n\nAmerican Community Survey (ACS)\nBureau of Labor Statistics (BLS)\nUSDA Economic Research Service\nCensus TIGER shapefiles\nPossibly some partner-provided data (TBD)"
+  },
+  {
+    "objectID": "project.html#deliverable-format",
+    "href": "project.html#deliverable-format",
+    "title": "Community Partner Project",
+    "section": "Deliverable Format",
+    "text": "Deliverable Format\n[Placeholder — deliverable specifications to be finalized.]"
+  },
+  {
+    "objectID": "slides/week01.html#how-these-slides-work",
+    "href": "slides/week01.html#how-these-slides-work",
+    "title": "Week 1: What is Data Science?",
+    "section": "How these slides work",
+    "text": "How these slides work\n\nEach ## heading creates a new slide\nUse # Heading (single #) for a section title slide\nAdd {background-color=\"#154734\"} to a section slide for a full-color break\nSpeaker notes go in a ::: {.notes} block (visible in presenter view, not to audience)\n\n\nThis is a speaker note. Press S in the browser to open presenter view."
+  },
+  {
+    "objectID": "slides/week01.html#incremental-bullet-points",
+    "href": "slides/week01.html#incremental-bullet-points",
+    "title": "Week 1: What is Data Science?",
+    "section": "Incremental bullet points",
+    "text": "Incremental bullet points\nUse . . . between items to reveal them one at a time:\n\nFirst point\n\n\n\nSecond point (appears on next click)\n\n\n\n\nThird point (appears on next click)"
+  },
+  {
+    "objectID": "slides/week01.html#two-column-layout",
+    "href": "slides/week01.html#two-column-layout",
+    "title": "Week 1: What is Data Science?",
+    "section": "Two-column layout",
+    "text": "Two-column layout\n\n\nLeft column\nUse this for text alongside a figure, or to compare two things side by side.\n\nRight column\n# code can go here too\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "slides/week01.html#the-pipe-operator",
+    "href": "slides/week01.html#the-pipe-operator",
+    "title": "Week 1: What is Data Science?",
+    "section": "The pipe operator",
+    "text": "The pipe operator\nThe pipe |&gt; passes the left-hand object into the first argument of the right-hand function.\n# Without pipe\nfilter(mpg, cyl == 4)\n\n# With pipe — reads like a sentence\nmpg |&gt; filter(cyl == 4)\nChain multiple steps together:\nmpg |&gt;\n  filter(cyl == 4) |&gt;\n  select(manufacturer, model, hwy) |&gt;\n  arrange(desc(hwy))"
+  },
+  {
+    "objectID": "slides/week01.html#filter",
+    "href": "slides/week01.html#filter",
+    "title": "Week 1: What is Data Science?",
+    "section": "filter()",
+    "text": "filter()\nKeep rows that match a condition.\nlibrary(tidyverse)\n\n# Single condition\nmpg |&gt; filter(year == 2008)\n\n# Multiple conditions (AND)\nmpg |&gt; filter(year == 2008, cyl == 4)\n\n# OR condition\nmpg |&gt; filter(class == \"suv\" | class == \"pickup\")\n\n# Useful shorthand for OR on one variable\nmpg |&gt; filter(class %in% c(\"suv\", \"pickup\"))"
+  },
+  {
+    "objectID": "slides/week01.html#select",
+    "href": "slides/week01.html#select",
+    "title": "Week 1: What is Data Science?",
+    "section": "select()",
+    "text": "select()\nKeep (or drop) columns by name.\n# Keep specific columns\nmpg |&gt; select(manufacturer, model, year, hwy)\n\n# Drop a column with -\nmpg |&gt; select(-model)\n\n# Select a range\nmpg |&gt; select(manufacturer:year)\n\n# Rename while selecting\nmpg |&gt; select(make = manufacturer, highway_mpg = hwy)"
+  },
+  {
+    "objectID": "slides/week01.html#mutate",
+    "href": "slides/week01.html#mutate",
+    "title": "Week 1: What is Data Science?",
+    "section": "mutate()",
+    "text": "mutate()\nCreate new columns or overwrite existing ones.\nmpg |&gt;\n  mutate(\n    hwy_kpl = hwy * 0.425,           # highway km per liter\n    efficient = hwy &gt; 30             # logical column\n  ) |&gt;\n  select(manufacturer, model, hwy, hwy_kpl, efficient)"
+  },
+  {
+    "objectID": "slides/week01.html#summarize-group_by",
+    "href": "slides/week01.html#summarize-group_by",
+    "title": "Week 1: What is Data Science?",
+    "section": "summarize() + group_by()",
+    "text": "summarize() + group_by()\nCollapse rows to summary statistics, optionally by group.\n# Overall mean\nmpg |&gt; summarize(mean_hwy = mean(hwy))\n\n# By group\nmpg |&gt;\n  group_by(class) |&gt;\n  summarize(\n    mean_hwy = mean(hwy),\n    n = n()\n  ) |&gt;\n  arrange(desc(mean_hwy))"
+  },
+  {
+    "objectID": "slides/week01.html#the-ggplot2-template",
+    "href": "slides/week01.html#the-ggplot2-template",
+    "title": "Week 1: What is Data Science?",
+    "section": "The ggplot2 template",
+    "text": "The ggplot2 template\nEvery plot follows the same structure:\nggplot(data = &lt;DATA&gt;, aes(x = &lt;X&gt;, y = &lt;Y&gt;)) +\n  geom_&lt;TYPE&gt;()\n\nggplot() initializes the plot and sets the data\naes() maps variables to visual properties (aesthetics)\ngeom_*() determines the type of plot"
+  },
+  {
+    "objectID": "slides/week01.html#scatter-plot",
+    "href": "slides/week01.html#scatter-plot",
+    "title": "Week 1: What is Data Science?",
+    "section": "Scatter plot",
+    "text": "Scatter plot\nggplot(data = mpg, aes(x = displ, y = hwy)) +\n  geom_point()\nAdd color by a third variable:\nggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point()"
+  },
+  {
+    "objectID": "slides/week01.html#bar-chart",
+    "href": "slides/week01.html#bar-chart",
+    "title": "Week 1: What is Data Science?",
+    "section": "Bar chart",
+    "text": "Bar chart\n# Count of cars by class\nggplot(data = mpg, aes(x = class)) +\n  geom_bar()\n\n# Pre-summarized data: use geom_col()\nmpg |&gt;\n  group_by(class) |&gt;\n  summarize(mean_hwy = mean(hwy)) |&gt;\n  ggplot(aes(x = class, y = mean_hwy)) +\n  geom_col()"
+  },
+  {
+    "objectID": "slides/week01.html#labels-theme",
+    "href": "slides/week01.html#labels-theme",
+    "title": "Week 1: What is Data Science?",
+    "section": "Labels + theme",
+    "text": "Labels + theme\nggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point() +\n  labs(\n    title = \"Fuel efficiency vs. engine size\",\n    x = \"Engine displacement (liters)\",\n    y = \"Highway MPG\",\n    color = \"Vehicle class\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "slides/week01.html#facets",
+    "href": "slides/week01.html#facets",
+    "title": "Week 1: What is Data Science?",
+    "section": "Facets",
+    "text": "Facets\nSplit one plot into small multiples by a variable.\nggplot(data = mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class)\nTwo-variable facet grid:\nggplot(data = mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_grid(drv ~ cyl)"
   }
 ]

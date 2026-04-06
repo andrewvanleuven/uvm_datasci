@@ -1,6 +1,6 @@
 ---
 title: "Syllabus"
-subtitle: "Applied Data Science & Visualization · CDAE XXXX · Fall 2026"
+subtitle: "Applied Data Science & Visualization · CDAE 7990 · Fall 2026"
 ---
 
 ::: {.callout-warning}

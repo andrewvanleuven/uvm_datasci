@@ -1,0 +1,276 @@
+---
+title: "Week 1: What is Data Science?"
+subtitle: "CDAE 7990 · Applied Data Science & Visualization"
+author: "Andrew Van Leuven"
+date: "September 3, 2026"
+format:
+  revealjs:
+    theme: [default, ../slides.scss]
+    slide-number: true
+    show-slide-number: speaker
+    footer: "CDAE 7990 · Week 1"
+    logo: ""
+    transition: fade
+    code-line-numbers: false
+execute:
+  echo: true
+  eval: false
+---
+
+# DRAFT {background-color="#154734"}
+
+::: {style="font-size: 0.6em; color: #a8c5a0; margin-top: 1em;"}
+This is a placeholder slide deck. Content is not finalized.
+:::
+
+---
+
+## How these slides work
+
+- Each `##` heading creates a new slide
+- Use `# Heading` (single `#`) for a section title slide
+- Add `{background-color="#154734"}` to a section slide for a full-color break
+- Speaker notes go in a `::: {.notes}` block (visible in presenter view, not to audience)
+
+::: {.notes}
+This is a speaker note. Press `S` in the browser to open presenter view.
+:::
+
+---
+
+## Incremental bullet points
+
+Use `. . .` between items to reveal them one at a time:
+
+- First point
+
+. . .
+
+- Second point (appears on next click)
+
+. . .
+
+- Third point (appears on next click)
+
+---
+
+## Two-column layout
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Left column**
+
+Use this for text alongside a figure, or to compare two things side by side.
+:::
+
+::: {.column width="50%"}
+**Right column**
+
+```r
+# code can go here too
+library(tidyverse)
+```
+:::
+
+::::
+
+---
+
+# dplyr basics {background-color="#154734"}
+
+::: {style="font-size: 0.7em; color: #a8c5a0;"}
+The core verbs for data manipulation
+:::
+
+---
+
+## The pipe operator
+
+The pipe `|>` passes the left-hand object into the first argument of the right-hand function.
+
+```r
+# Without pipe
+filter(mpg, cyl == 4)
+
+# With pipe — reads like a sentence
+mpg |> filter(cyl == 4)
+```
+
+Chain multiple steps together:
+
+```r
+mpg |>
+  filter(cyl == 4) |>
+  select(manufacturer, model, hwy) |>
+  arrange(desc(hwy))
+```
+
+---
+
+## filter()
+
+Keep rows that match a condition.
+
+```r
+library(tidyverse)
+
+# Single condition
+mpg |> filter(year == 2008)
+
+# Multiple conditions (AND)
+mpg |> filter(year == 2008, cyl == 4)
+
+# OR condition
+mpg |> filter(class == "suv" | class == "pickup")
+
+# Useful shorthand for OR on one variable
+mpg |> filter(class %in% c("suv", "pickup"))
+```
+
+---
+
+## select()
+
+Keep (or drop) columns by name.
+
+```r
+# Keep specific columns
+mpg |> select(manufacturer, model, year, hwy)
+
+# Drop a column with -
+mpg |> select(-model)
+
+# Select a range
+mpg |> select(manufacturer:year)
+
+# Rename while selecting
+mpg |> select(make = manufacturer, highway_mpg = hwy)
+```
+
+---
+
+## mutate()
+
+Create new columns or overwrite existing ones.
+
+```r
+mpg |>
+  mutate(
+    hwy_kpl = hwy * 0.425,           # highway km per liter
+    efficient = hwy > 30             # logical column
+  ) |>
+  select(manufacturer, model, hwy, hwy_kpl, efficient)
+```
+
+---
+
+## summarize() + group_by()
+
+Collapse rows to summary statistics, optionally by group.
+
+```r
+# Overall mean
+mpg |> summarize(mean_hwy = mean(hwy))
+
+# By group
+mpg |>
+  group_by(class) |>
+  summarize(
+    mean_hwy = mean(hwy),
+    n = n()
+  ) |>
+  arrange(desc(mean_hwy))
+```
+
+---
+
+# ggplot2 basics {background-color="#154734"}
+
+::: {style="font-size: 0.7em; color: #a8c5a0;"}
+The grammar of graphics
+:::
+
+---
+
+## The ggplot2 template
+
+Every plot follows the same structure:
+
+```r
+ggplot(data = <DATA>, aes(x = <X>, y = <Y>)) +
+  geom_<TYPE>()
+```
+
+- `ggplot()` initializes the plot and sets the data
+- `aes()` maps variables to visual properties (aesthetics)
+- `geom_*()` determines the type of plot
+
+---
+
+## Scatter plot
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+Add color by a third variable:
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+```
+
+---
+
+## Bar chart
+
+```r
+# Count of cars by class
+ggplot(data = mpg, aes(x = class)) +
+  geom_bar()
+
+# Pre-summarized data: use geom_col()
+mpg |>
+  group_by(class) |>
+  summarize(mean_hwy = mean(hwy)) |>
+  ggplot(aes(x = class, y = mean_hwy)) +
+  geom_col()
+```
+
+---
+
+## Labels + theme
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  labs(
+    title = "Fuel efficiency vs. engine size",
+    x = "Engine displacement (liters)",
+    y = "Highway MPG",
+    color = "Vehicle class"
+  ) +
+  theme_minimal()
+```
+
+---
+
+## Facets
+
+Split one plot into small multiples by a variable.
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class)
+```
+
+Two-variable facet grid:
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(drv ~ cyl)
+```

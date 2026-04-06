@@ -1,6 +1,6 @@
 ---
 title: "Applied Data Science & Visualization"
-subtitle: "CDAE XXXX · Graduate Seminar · Fall 2026"
+subtitle: "CDAE 7990 · Graduate Seminar · Fall 2026"
 ---
 
 ![](uvm_datasci.png){fig-alt="Students working at computers in a Vermont classroom in autumn" .img-fluid style="border-radius: 6px; margin-bottom: 1.5rem;"}
@@ -9,7 +9,7 @@ subtitle: "CDAE XXXX · Graduate Seminar · Fall 2026"
 
 This course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.
 
-A core component is a semester-long applied project delivered to an external community partner: the [Northern Border Regional Commission (NBRC)](https://www.nbrc.gov).
+A core component is a semester-long applied project delivered to an external community partner.
 
 ---
 
@@ -46,7 +46,7 @@ We follow [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wi
 
 ## Community Partner
 
-Our applied project partner is the **Northern Border Regional Commission (NBRC)**, a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont. Student teams will produce data-driven analyses across domain areas (housing, broadband, workforce, etc.) covering the full NBRC four-state territory.
+Our applied project partner is a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 
 See the [Project page](project.qmd) for team assignments and deliverables.
 

@@ -1,6 +1,6 @@
 ---
 title: "Community Partner Project"
-subtitle: "Northern Border Regional Commission (NBRC)"
+subtitle: "TBD"
 ---
 
 ::: {.callout-warning}
@@ -14,9 +14,9 @@ This page is a draft placeholder. Team assignments, domain areas, and deliverabl
 
 *[Placeholder — full project description to be written.]*
 
-The semester-long applied project is completed in partnership with the **[Northern Border Regional Commission (NBRC)](https://www.nbrc.gov)**, a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.
+The semester-long applied project is completed in partnership with a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-Students work in small teams. Each team analyzes a different **domain area** across the full NBRC four-state territory (rather than each team covering a different state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC.
+Students work in small teams. Each team analyzes a different **domain area** across a multi-state territory. All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for the partner organization.
 
 ---
 
@@ -37,7 +37,7 @@ Students work in small teams. Each team analyzes a different **domain area** acr
 
 ## Team Assignments
 
-*[Placeholder — teams will be assigned in Week 7 (Oct 15) after the NBRC kickoff meeting.]*
+*[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]*
 
 | Team | Domain Area | Members |
 |---|---|---|
@@ -52,11 +52,11 @@ Students work in small teams. Each team analyzes a different **domain area** acr
 
 | Date | Milestone |
 |---|---|
-| Oct 8 (Week 6) | Field trip: NBRC stakeholder meeting in Montpelier |
+| Oct 8 (Week 6) | Field trip: partner kickoff meeting |
 | Oct 15 (Week 7) | Project teams and scope confirmed |
 | Nov 19 (Week 12) | Preliminary outputs due; peer critique in class |
 | Dec 3 (Week 14) | Draft deliverables due; instructor feedback |
-| Dec 17 (Week 16) | **Final presentations in Montpelier** (in-person, at NBRC or nearby) |
+| Dec 17 (Week 16) | **Final presentations** (in-person) |
 
 ---
 
@@ -70,7 +70,7 @@ Teams will draw primarily on publicly available data:
 - Bureau of Labor Statistics (BLS)
 - USDA Economic Research Service
 - Census TIGER shapefiles
-- *Possibly some NBRC internal project/grantee data (TBD)*
+- *Possibly some partner-provided data (TBD)*
 
 ---
 
