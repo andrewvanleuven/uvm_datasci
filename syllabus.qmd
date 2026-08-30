@@ -34,15 +34,15 @@ After completing this course the student will be able to:
 
 ### Class Format
 
-*[Placeholder.]*
+We meet once a week for three hours. Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I'll build in a break (or two) to divide the three hours into distinct chunks.
 
 ### Attendance Policy
 
-*[Placeholder.]*
+You are required to attend class. Put simply, class is better — and your project team is more functional — when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets **one** free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you'll miss a class, give me a heads-up in advance rather than after the fact.
 
 ### General Classroom Expectations
 
-*[Placeholder.]*
+My goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice — this is a lab-heavy course, and you learn R by writing R, not by watching it get written. You're in charge of your own learning, but you're never doing it alone.
 
 ---
 
@@ -58,36 +58,48 @@ After completing this course the student will be able to:
 
 ## Course Site
 
-*[Placeholder — to be finalized once LMS arrangements are confirmed.]*
+This Quarto site is the course's home base for the syllabus, schedule, slides, and the project page. **This course does not use Brightspace.** Assignment instructions, readings, and any other materials will be distributed here or announced in class.
 
 ---
 
 ## Grading Policy
 
-*[Placeholder — grading breakdown to be finalized.]*
-
 | Item | Weight |
 |---|---|
-| Homework / Lab Assignments | TBD |
-| Community Partner Project | TBD |
-| Participation | TBD |
-| *Other TBD* | TBD |
+| Community Partner Project | 70% |
+| Homework / Lab Assignments (4–5 total) | 15% |
+| Participation & Attendance | 15% |
+
+There is no extra credit. Letter grades are assigned from your cumulative percentage as follows:
+
+| Percentage | Letter Grade | | Percentage | Letter Grade |
+|---|---|---|---|---|
+| 93–100% | A | | 77–79% | C+ |
+| 90–92% | A− | | 73–76% | C |
+| 87–89% | B+ | | 70–72% | C− |
+| 83–86% | B | | 67–69% | D+ |
+| 80–82% | B− | | 64–66% | D |
+| | | | 0–63% | F |
 
 ### Use of Generative AI Tools
 
-*[Placeholder — AI policy to be written.]*
+Students are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work.
 
 ---
 
 ## Communication
 
-*[Placeholder — office hours, email policy, etc.]*
+If you need to reach me digitally, email is best. I follow a "one business day" rule for responding to student email: if you send something at 10am Monday, I have until 10am Tuesday to respond; if you send it at 6pm Friday, I have until start of business Tuesday. If more than a business day has passed, feel free to send a polite nudge.
+
+Office hours are by appointment — email me and we'll find a time. On most class days I'll also stick around afterward for quick questions; please keep it brief if others are waiting.
 
 ---
 
 ## Accommodations & University Policies
 
-*[Placeholder — standard UVM accommodation language to be added.]*
+In keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact [Student Accessibility Services (SAS)](https://www.uvm.edu/access). All students are encouraged to discuss with the instructor any accommodations they plan to use in this course.
+
+The full set of standard UVM policies and campus resources (academic integrity, FERPA, religious holidays, health & safety, and more) is collected on a separate page so it doesn't clutter this syllabus — see **[University Policies & Resources](policies.qmd)**.
 
 ---
 

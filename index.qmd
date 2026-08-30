@@ -21,6 +21,9 @@ A core component is a semester-long applied project delivered to an external com
 | **Department** | Community Development & Applied Economics (CDAE), UVM Extension |
 | **Meets** | Thursdays, 4:35–7:35 pm |
 | **Semester** | Fall 2026 |
+| **Credit Hours** | 3 |
+| **Office Hours** | By appointment |
+| **Office Location** | 209AA Morrill Hall |
 | **Computing** | [Posit Cloud](https://posit.cloud) |
 | **Primary language** | R |
 
@@ -46,7 +49,7 @@ We follow [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wi
 
 ## Community Partner
 
-Our applied project partner is a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+This semester's applied project is completed in partnership with the [Northern Border Regional Commission (NBRC)](https://www.nbrc.gov), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.
 
 See the [Project page](project.qmd) for team assignments and deliverables.
 

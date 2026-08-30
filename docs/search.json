@@ -25,7 +25,7 @@
     "href": "syllabus.html#what-does-this-class-look-like",
     "title": "Syllabus",
     "section": "What Does This Class Look Like?",
-    "text": "What Does This Class Look Like?\n\nClass Format\n[Placeholder.]\n\n\nAttendance Policy\n[Placeholder.]\n\n\nGeneral Classroom Expectations\n[Placeholder.]"
+    "text": "What Does This Class Look Like?\n\nClass Format\nWe meet once a week for three hours. Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I’ll build in a break (or two) to divide the three hours into distinct chunks.\n\n\nAttendance Policy\nYou are required to attend class. Put simply, class is better — and your project team is more functional — when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets one free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you’ll miss a class, give me a heads-up in advance rather than after the fact.\n\n\nGeneral Classroom Expectations\nMy goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice — this is a lab-heavy course, and you learn R by writing R, not by watching it get written. You’re in charge of your own learning, but you’re never doing it alone."
   },
   {
     "objectID": "syllabus.html#required-course-materials",
@@ -39,28 +39,28 @@
     "href": "syllabus.html#course-site",
     "title": "Syllabus",
     "section": "Course Site",
-    "text": "Course Site\n[Placeholder — to be finalized once LMS arrangements are confirmed.]"
+    "text": "Course Site\nThis Quarto site is the course’s home base for the syllabus, schedule, slides, and the project page. This course does not use Brightspace. Assignment instructions, readings, and any other materials will be distributed here or announced in class."
   },
   {
     "objectID": "syllabus.html#grading-policy",
     "href": "syllabus.html#grading-policy",
     "title": "Syllabus",
     "section": "Grading Policy",
-    "text": "Grading Policy\n[Placeholder — grading breakdown to be finalized.]\n\n\n\nItem\nWeight\n\n\n\n\nHomework / Lab Assignments\nTBD\n\n\nCommunity Partner Project\nTBD\n\n\nParticipation\nTBD\n\n\nOther TBD\nTBD\n\n\n\n\nUse of Generative AI Tools\n[Placeholder — AI policy to be written.]"
+    "text": "Grading Policy\n\n\n\nItem\nWeight\n\n\n\n\nCommunity Partner Project\n70%\n\n\nHomework / Lab Assignments (4–5 total)\n15%\n\n\nParticipation & Attendance\n15%\n\n\n\nThere is no extra credit. Letter grades are assigned from your cumulative percentage as follows:\n\n\n\nPercentage\nLetter Grade\n\nPercentage\nLetter Grade\n\n\n\n\n93–100%\nA\n\n77–79%\nC+\n\n\n90–92%\nA−\n\n73–76%\nC\n\n\n87–89%\nB+\n\n70–72%\nC−\n\n\n83–86%\nB\n\n67–69%\nD+\n\n\n80–82%\nB−\n\n64–66%\nD\n\n\n\n\n\n0–63%\nF\n\n\n\n\nUse of Generative AI Tools\nStudents are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work."
   },
   {
     "objectID": "syllabus.html#communication",
     "href": "syllabus.html#communication",
     "title": "Syllabus",
     "section": "Communication",
-    "text": "Communication\n[Placeholder — office hours, email policy, etc.]"
+    "text": "Communication\nIf you need to reach me digitally, email is best. I follow a “one business day” rule for responding to student email: if you send something at 10am Monday, I have until 10am Tuesday to respond; if you send it at 6pm Friday, I have until start of business Tuesday. If more than a business day has passed, feel free to send a polite nudge.\nOffice hours are by appointment — email me and we’ll find a time. On most class days I’ll also stick around afterward for quick questions; please keep it brief if others are waiting."
   },
   {
     "objectID": "syllabus.html#accommodations-university-policies",
     "href": "syllabus.html#accommodations-university-policies",
     "title": "Syllabus",
     "section": "Accommodations & University Policies",
-    "text": "Accommodations & University Policies\n[Placeholder — standard UVM accommodation language to be added.]"
+    "text": "Accommodations & University Policies\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS). All students are encouraged to discuss with the instructor any accommodations they plan to use in this course.\nThe full set of standard UVM policies and campus resources (academic integrity, FERPA, religious holidays, health & safety, and more) is collected on a separate page so it doesn’t clutter this syllabus — see University Policies & Resources."
   },
   {
     "objectID": "syllabus.html#schedule",
@@ -81,14 +81,14 @@
     "href": "schedule.html#unit-1-foundations",
     "title": "Course Schedule",
     "section": "Unit 1 — Foundations",
-    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R — virtual session\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
   },
   {
     "objectID": "schedule.html#unit-2-community-partnership",
     "href": "schedule.html#unit-2-community-partnership",
     "title": "Course Schedule",
     "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is an off-campus field trip; no formal instruction. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nField trip (no in-class instruction)\n—\n—\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is an off-campus field trip; no formal instruction. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nField trip: Montpelier, NBRC kickoff meeting (no in-class instruction)\n—\n—\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
   },
   {
     "objectID": "schedule.html#unit-3-spatial-analysis",
@@ -102,7 +102,7 @@
     "href": "schedule.html#unit-4-communication",
     "title": "Course Schedule",
     "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data\nWeek 10\nTBD"
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer (just enough to publish and version a Quarto project — not a full version-control unit).\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics\nWeek 10\nTBD"
   },
   {
     "objectID": "schedule.html#no-class",
@@ -116,7 +116,77 @@
     "href": "schedule.html#unit-5-project",
     "title": "Course Schedule",
     "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nFinal presentations (in-person)"
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nFinal presentations (in-person)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
+  },
+  {
+    "objectID": "policies.html",
+    "href": "policies.html",
+    "title": "University Policies & Resources",
+    "section": "",
+    "text": "The information below is lifted straight from official UVM documents and campus resources. You’ve likely already seen most of it in your other course syllabi — it’s the same for every UVM class. It’s still worth a skim at the start of the semester. Anything in the main Syllabus is an additional layer on top of these bedrock university guidelines."
+  },
+  {
+    "objectID": "policies.html#lived-name-and-pronoun-information",
+    "href": "policies.html#lived-name-and-pronoun-information",
+    "title": "University Policies & Resources",
+    "section": "Lived Name and Pronoun Information",
+    "text": "Lived Name and Pronoun Information\nThe UVM Directory includes fields for indicating your lived name and your pronouns. Lived names (preferred names, names in use) are names that an individual wants to be known by in the University community. Entering your pronouns is strongly encouraged to help create a more inclusive and respectful campus community. To update your information, log in to the UVM Directory. A preview box will let you see how this information will appear in other campus systems."
+  },
+  {
+    "objectID": "policies.html#research-and-citation-help",
+    "href": "policies.html#research-and-citation-help",
+    "title": "University Policies & Resources",
+    "section": "Research and Citation Help",
+    "text": "Research and Citation Help\nFor help selecting research topics, finding information, citing sources, and more, ask a librarian. The UVM Libraries are eager to help, by phone, email, chat, text, or individual consultation.\n\nHowe Library: library.uvm.edu/askhowe\nDana Medical Library: dana.uvm.edu/help/ask\nSilver Special Collections Library: specialcollections.uvm.edu/help/ask"
+  },
+  {
+    "objectID": "policies.html#course-evaluation",
+    "href": "policies.html#course-evaluation",
+    "title": "University Policies & Resources",
+    "section": "Course Evaluation",
+    "text": "Course Evaluation\nAll students are expected to complete an evaluation of the course at its conclusion. Evaluations are anonymous and confidential; the feedback gained, including constructive criticism, is used to improve the course."
+  },
+  {
+    "objectID": "policies.html#potential-changes-during-the-semester",
+    "href": "policies.html#potential-changes-during-the-semester",
+    "title": "University Policies & Resources",
+    "section": "Potential Changes During the Semester",
+    "text": "Potential Changes During the Semester\nThe University of Vermont reserves the right to make changes in course offerings, mode of delivery, degree requirements, charges, regulations, and procedures as educational, financial, health, safety, and welfare considerations require, or as necessary to comply with governmental, accreditation, or public health directives. See the UVM Catalogue for the general statement."
+  },
+  {
+    "objectID": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
+    "href": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
+    "title": "University Policies & Resources",
+    "section": "Intellectual Property / Prohibition on Sharing Academic Materials",
+    "text": "Intellectual Property / Prohibition on Sharing Academic Materials\nStudents are prohibited from publicly sharing or selling academic materials they did not author — for example, the class syllabus, outlines or presentations authored by the professor, practice questions, textbook excerpts, or other copyrighted class materials — and from sharing assessments such as homework or take-home exams. Violations are handled under UVM’s Intellectual Property policy and Code of Academic Integrity."
+  },
+  {
+    "objectID": "policies.html#tips-for-success",
+    "href": "policies.html#tips-for-success",
+    "title": "University Policies & Resources",
+    "section": "Tips for Success",
+    "text": "Tips for Success\nA few general resources for students, including for remote/online sessions:\n\nChecklist for success in online/remote courses\nAcademic support for online learning\n\nOther helpful resources beyond your professor: the Graduate Writing Center, Supplemental Instruction, Learning Co-op tutors."
+  },
+  {
+    "objectID": "policies.html#student-learning-accommodations",
+    "href": "policies.html#student-learning-accommodations",
+    "title": "University Policies & Resources",
+    "section": "Student Learning Accommodations",
+    "text": "Student Learning Accommodations\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS), UVM’s office of Disability Services for students. SAS works with students and faculty in an interactive process to explore reasonable and appropriate accommodations, which are communicated to faculty in an accommodation letter. All students are strongly encouraged to discuss with their instructor the accommodations they plan to use in each course.\nContact SAS: A170 Living/Learning Center · (802) 656-7753 · access@uvm.edu · www.uvm.edu/access"
+  },
+  {
+    "objectID": "policies.html#important-uvm-policies",
+    "href": "policies.html#important-uvm-policies",
+    "title": "University Policies & Resources",
+    "section": "Important UVM Policies",
+    "text": "Important UVM Policies\nAcademic Integrity — Addresses plagiarism, fabrication, collusion, and cheating.\nCode of Student Conduct — Outlines conduct expectations as well as students’ rights and responsibilities.\nFERPA Rights Disclosure — Communicates students’ rights regarding access to, and privacy of, their educational records under the Family Educational Rights and Privacy Act (FERPA) of 1974.\nFinal Exam Policy — Outlines expectations during final exams and explains the timing and process of the examination period.\nGrade Appeals — The procedure to follow if you would like to contest a grade.\nGrading — GPA calculation and general grading information.\nReligious Holidays — Students have the right to practice the religion of their choice. Each semester, students should submit in writing to their instructor(s) — as early as possible, and at least one week before a documented religious holiday — the date(s) of any conflict or absence. Faculty must permit students who miss work or exams for religious observance to make up that work.\n(Full text of these policies is maintained centrally by UVM. Search uvm.edu/policies for the current version of any policy named above.)"
+  },
+  {
+    "objectID": "policies.html#promoting-health-safety",
+    "href": "policies.html#promoting-health-safety",
+    "title": "University Policies & Resources",
+    "section": "Promoting Health & Safety",
+    "text": "Promoting Health & Safety\nThe University of Vermont’s top priority is supporting a healthy and safe community:\n\nCenter for Health and Wellbeing — uvm.edu/health\nCounseling & Psychiatry Services (CAPS) — Direct line: (802) 656-3340\nC.A.R.E. — If you’re concerned about a UVM community member or a specific event, contact the Dean of Students Office at (802) 656-3380, or report anonymously online via the C.A.R.E. Team website."
   },
   {
     "objectID": "index.html#course-overview",
@@ -130,7 +200,7 @@
     "href": "index.html#logistics",
     "title": "Applied Data Science & Visualization",
     "section": "Logistics",
-    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nSemester\nFall 2026\n\n\nComputing\nPosit Cloud\n\n\nPrimary language\nR"
+    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud\n\n\nPrimary language\nR"
   },
   {
     "objectID": "index.html#textbook",
@@ -151,49 +221,49 @@
     "href": "index.html#community-partner",
     "title": "Applied Data Science & Visualization",
     "section": "Community Partner",
-    "text": "Community Partner\nOur applied project partner is a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
+    "text": "Community Partner\nThis semester’s applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
   },
   {
     "objectID": "project.html",
     "href": "project.html",
     "title": "Community Partner Project",
     "section": "",
-    "text": "WarningUnder Construction\n\n\n\nThis page is a draft placeholder. Team assignments, domain areas, and deliverable details have not been finalized."
+    "text": "WarningTeam Assignments Pending\n\n\n\nDomain areas and team assignments will be finalized during the Week 6 field trip and kickoff meeting with NBRC. The structure below is provisional."
   },
   {
     "objectID": "project.html#overview",
     "href": "project.html#overview",
     "title": "Community Partner Project",
     "section": "Overview",
-    "text": "Overview\n[Placeholder — full project description to be written.]\nThe semester-long applied project is completed in partnership with a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\nStudents work in small teams. Each team analyzes a different domain area across a multi-state territory. All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for the partner organization."
+    "text": "Overview\nThe semester-long applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nStudents work in small teams. Each team analyzes a different domain area across NBRC’s full four-state territory (rather than each team covering a single state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC."
   },
   {
     "objectID": "project.html#domain-areas",
     "href": "project.html#domain-areas",
     "title": "Community Partner Project",
     "section": "Domain Areas",
-    "text": "Domain Areas\n[Placeholder — domain areas to be finalized before the semester begins. Likely candidates include:]\n\nHousing\nBroadband access\nWorkforce and labor markets\nHealthcare access\nForestry industry\nAgriculture\nEnergy\nTransportation"
+    "text": "Domain Areas\nFor now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):\n\nRural Housing\nRural Hub Services"
   },
   {
     "objectID": "project.html#team-assignments",
     "href": "project.html#team-assignments",
     "title": "Community Partner Project",
     "section": "Team Assignments",
-    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nTBD\nTBD\n\n\n2\nTBD\nTBD\n\n\n3\nTBD\nTBD\n\n\n4\nTBD\nTBD"
+    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nRural Housing\nTBD\n\n\n2\nRural Hub Services\nTBD"
   },
   {
     "objectID": "project.html#key-dates",
     "href": "project.html#key-dates",
     "title": "Community Partner Project",
     "section": "Key Dates",
-    "text": "Key Dates\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nField trip: partner kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nFinal presentations (in-person)"
+    "text": "Key Dates\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nField trip to Montpelier: NBRC kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nFinal presentations in Montpelier (in-person)"
   },
   {
     "objectID": "project.html#data-sources",
     "href": "project.html#data-sources",
     "title": "Community Partner Project",
     "section": "Data Sources",
-    "text": "Data Sources\n[Placeholder — data sources to be specified as project scope is confirmed.]\nTeams will draw primarily on publicly available data:\n\nAmerican Community Survey (ACS)\nBureau of Labor Statistics (BLS)\nUSDA Economic Research Service\nCensus TIGER shapefiles\nPossibly some partner-provided data (TBD)"
+    "text": "Data Sources\n[Placeholder — data sources to be specified as project scope is confirmed.]\nTeams will draw primarily on publicly available data:\n\nAmerican Community Survey (ACS)\nBureau of Labor Statistics (BLS)\nUSDA Economic Research Service\nCensus TIGER shapefiles\nPossibly some NBRC-provided grantee/project data (TBD)"
   },
   {
     "objectID": "project.html#deliverable-format",
@@ -201,96 +271,5 @@
     "title": "Community Partner Project",
     "section": "Deliverable Format",
     "text": "Deliverable Format\n[Placeholder — deliverable specifications to be finalized.]"
-  },
-  {
-    "objectID": "slides/week01.html#how-these-slides-work",
-    "href": "slides/week01.html#how-these-slides-work",
-    "title": "Week 1: What is Data Science?",
-    "section": "How these slides work",
-    "text": "How these slides work\n\nEach ## heading creates a new slide\nUse # Heading (single #) for a section title slide\nAdd {background-color=\"#154734\"} to a section slide for a full-color break\nSpeaker notes go in a ::: {.notes} block (visible in presenter view, not to audience)\n\n\nThis is a speaker note. Press S in the browser to open presenter view."
-  },
-  {
-    "objectID": "slides/week01.html#incremental-bullet-points",
-    "href": "slides/week01.html#incremental-bullet-points",
-    "title": "Week 1: What is Data Science?",
-    "section": "Incremental bullet points",
-    "text": "Incremental bullet points\nUse . . . between items to reveal them one at a time:\n\nFirst point\n\n\n\nSecond point (appears on next click)\n\n\n\n\nThird point (appears on next click)"
-  },
-  {
-    "objectID": "slides/week01.html#two-column-layout",
-    "href": "slides/week01.html#two-column-layout",
-    "title": "Week 1: What is Data Science?",
-    "section": "Two-column layout",
-    "text": "Two-column layout\n\n\nLeft column\nUse this for text alongside a figure, or to compare two things side by side.\n\nRight column\n# code can go here too\nlibrary(tidyverse)"
-  },
-  {
-    "objectID": "slides/week01.html#the-pipe-operator",
-    "href": "slides/week01.html#the-pipe-operator",
-    "title": "Week 1: What is Data Science?",
-    "section": "The pipe operator",
-    "text": "The pipe operator\nThe pipe |&gt; passes the left-hand object into the first argument of the right-hand function.\n# Without pipe\nfilter(mpg, cyl == 4)\n\n# With pipe — reads like a sentence\nmpg |&gt; filter(cyl == 4)\nChain multiple steps together:\nmpg |&gt;\n  filter(cyl == 4) |&gt;\n  select(manufacturer, model, hwy) |&gt;\n  arrange(desc(hwy))"
-  },
-  {
-    "objectID": "slides/week01.html#filter",
-    "href": "slides/week01.html#filter",
-    "title": "Week 1: What is Data Science?",
-    "section": "filter()",
-    "text": "filter()\nKeep rows that match a condition.\nlibrary(tidyverse)\n\n# Single condition\nmpg |&gt; filter(year == 2008)\n\n# Multiple conditions (AND)\nmpg |&gt; filter(year == 2008, cyl == 4)\n\n# OR condition\nmpg |&gt; filter(class == \"suv\" | class == \"pickup\")\n\n# Useful shorthand for OR on one variable\nmpg |&gt; filter(class %in% c(\"suv\", \"pickup\"))"
-  },
-  {
-    "objectID": "slides/week01.html#select",
-    "href": "slides/week01.html#select",
-    "title": "Week 1: What is Data Science?",
-    "section": "select()",
-    "text": "select()\nKeep (or drop) columns by name.\n# Keep specific columns\nmpg |&gt; select(manufacturer, model, year, hwy)\n\n# Drop a column with -\nmpg |&gt; select(-model)\n\n# Select a range\nmpg |&gt; select(manufacturer:year)\n\n# Rename while selecting\nmpg |&gt; select(make = manufacturer, highway_mpg = hwy)"
-  },
-  {
-    "objectID": "slides/week01.html#mutate",
-    "href": "slides/week01.html#mutate",
-    "title": "Week 1: What is Data Science?",
-    "section": "mutate()",
-    "text": "mutate()\nCreate new columns or overwrite existing ones.\nmpg |&gt;\n  mutate(\n    hwy_kpl = hwy * 0.425,           # highway km per liter\n    efficient = hwy &gt; 30             # logical column\n  ) |&gt;\n  select(manufacturer, model, hwy, hwy_kpl, efficient)"
-  },
-  {
-    "objectID": "slides/week01.html#summarize-group_by",
-    "href": "slides/week01.html#summarize-group_by",
-    "title": "Week 1: What is Data Science?",
-    "section": "summarize() + group_by()",
-    "text": "summarize() + group_by()\nCollapse rows to summary statistics, optionally by group.\n# Overall mean\nmpg |&gt; summarize(mean_hwy = mean(hwy))\n\n# By group\nmpg |&gt;\n  group_by(class) |&gt;\n  summarize(\n    mean_hwy = mean(hwy),\n    n = n()\n  ) |&gt;\n  arrange(desc(mean_hwy))"
-  },
-  {
-    "objectID": "slides/week01.html#the-ggplot2-template",
-    "href": "slides/week01.html#the-ggplot2-template",
-    "title": "Week 1: What is Data Science?",
-    "section": "The ggplot2 template",
-    "text": "The ggplot2 template\nEvery plot follows the same structure:\nggplot(data = &lt;DATA&gt;, aes(x = &lt;X&gt;, y = &lt;Y&gt;)) +\n  geom_&lt;TYPE&gt;()\n\nggplot() initializes the plot and sets the data\naes() maps variables to visual properties (aesthetics)\ngeom_*() determines the type of plot"
-  },
-  {
-    "objectID": "slides/week01.html#scatter-plot",
-    "href": "slides/week01.html#scatter-plot",
-    "title": "Week 1: What is Data Science?",
-    "section": "Scatter plot",
-    "text": "Scatter plot\nggplot(data = mpg, aes(x = displ, y = hwy)) +\n  geom_point()\nAdd color by a third variable:\nggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point()"
-  },
-  {
-    "objectID": "slides/week01.html#bar-chart",
-    "href": "slides/week01.html#bar-chart",
-    "title": "Week 1: What is Data Science?",
-    "section": "Bar chart",
-    "text": "Bar chart\n# Count of cars by class\nggplot(data = mpg, aes(x = class)) +\n  geom_bar()\n\n# Pre-summarized data: use geom_col()\nmpg |&gt;\n  group_by(class) |&gt;\n  summarize(mean_hwy = mean(hwy)) |&gt;\n  ggplot(aes(x = class, y = mean_hwy)) +\n  geom_col()"
-  },
-  {
-    "objectID": "slides/week01.html#labels-theme",
-    "href": "slides/week01.html#labels-theme",
-    "title": "Week 1: What is Data Science?",
-    "section": "Labels + theme",
-    "text": "Labels + theme\nggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point() +\n  labs(\n    title = \"Fuel efficiency vs. engine size\",\n    x = \"Engine displacement (liters)\",\n    y = \"Highway MPG\",\n    color = \"Vehicle class\"\n  ) +\n  theme_minimal()"
-  },
-  {
-    "objectID": "slides/week01.html#facets",
-    "href": "slides/week01.html#facets",
-    "title": "Week 1: What is Data Science?",
-    "section": "Facets",
-    "text": "Facets\nSplit one plot into small multiples by a variable.\nggplot(data = mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class)\nTwo-variable facet grid:\nggplot(data = mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_grid(drv ~ cyl)"
   }
 ]

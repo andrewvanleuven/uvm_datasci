@@ -1,37 +1,29 @@
 ---
 title: "Community Partner Project"
-subtitle: "TBD"
+subtitle: "Northern Border Regional Commission (NBRC)"
 ---
 
 ::: {.callout-warning}
-## Under Construction
-This page is a draft placeholder. Team assignments, domain areas, and deliverable details have not been finalized.
+## Team Assignments Pending
+Domain areas and team assignments will be finalized during the Week 6 field trip and kickoff meeting with NBRC. The structure below is provisional.
 :::
 
 ---
 
 ## Overview
 
-*[Placeholder — full project description to be written.]*
+The semester-long applied project is completed in partnership with the [Northern Border Regional Commission (NBRC)](https://www.nbrc.gov), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.
 
-The semester-long applied project is completed in partnership with a regional economic and community development organization. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Students work in small teams. Each team analyzes a different **domain area** across a multi-state territory. All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for the partner organization.
+Students work in small teams. Each team analyzes a different **domain area** across NBRC's full four-state territory (rather than each team covering a single state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC.
 
 ---
 
 ## Domain Areas
 
-*[Placeholder — domain areas to be finalized before the semester begins. Likely candidates include:]*
+For now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):
 
-- Housing
-- Broadband access
-- Workforce and labor markets
-- Healthcare access
-- Forestry industry
-- Agriculture
-- Energy
-- Transportation
+- Rural Housing
+- Rural Hub Services
 
 ---
 
@@ -41,10 +33,8 @@ Students work in small teams. Each team analyzes a different **domain area** acr
 
 | Team | Domain Area | Members |
 |---|---|---|
-| 1 | TBD | TBD |
-| 2 | TBD | TBD |
-| 3 | TBD | TBD |
-| 4 | TBD | TBD |
+| 1 | Rural Housing | TBD |
+| 2 | Rural Hub Services | TBD |
 
 ---
 
@@ -52,11 +42,11 @@ Students work in small teams. Each team analyzes a different **domain area** acr
 
 | Date | Milestone |
 |---|---|
-| Oct 8 (Week 6) | Field trip: partner kickoff meeting |
+| Oct 8 (Week 6) | Field trip to Montpelier: NBRC kickoff meeting |
 | Oct 15 (Week 7) | Project teams and scope confirmed |
 | Nov 19 (Week 12) | Preliminary outputs due; peer critique in class |
 | Dec 3 (Week 14) | Draft deliverables due; instructor feedback |
-| Dec 17 (Week 16) | **Final presentations** (in-person) |
+| Dec 17 (Week 16) | **Final presentations** in Montpelier (in-person) |
 
 ---
 
@@ -70,7 +60,7 @@ Teams will draw primarily on publicly available data:
 - Bureau of Labor Statistics (BLS)
 - USDA Economic Research Service
 - Census TIGER shapefiles
-- *Possibly some partner-provided data (TBD)*
+- *Possibly some NBRC-provided grantee/project data (TBD)*
 
 ---
 
