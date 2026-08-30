@@ -52,21 +52,15 @@ Supplemental to R4DS. Packages: `sf`, `tidycensus`, `tigris`, `ggspatial`
 ## Unit 4 — Communication {.unit-header}
 
 ::: {.callout-note appearance="minimal"}
-Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includes a brief git/GitHub primer (just enough to publish and version a Quarto project — not a full version-control unit).
+Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includes a brief git/GitHub primer.
 :::
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
 | 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics | [Week 10](#) | TBD |
-
----
-
-## No Class {.unit-header}
-
-| Week | Date | Note |
-|---|---|---|
 | 11 | Nov 12 | **No class** — instructor at conference |
-| 13 | Nov 26 | **No class** — Thanksgiving |
+
+
 
 ---
 
@@ -79,6 +73,7 @@ No new instruction. Instructor acts as coach and reviewer.
 | Week | Date | Topic / Milestone |
 |---|---|---|
 | 12 | Nov 19 | Workday + peer critique — *preliminary outputs due* |
+| 13 | Nov 26 | **No class** — Thanksgiving |
 | 14 | Dec 3 | Draft deliverables due; in-class feedback and revision |
 | 15 | Dec 10 | Final polish; presentation prep; semester wrap-up |
 | 16 | Dec 17 | **Field trip to Montpelier** — final presentations *(in-person)* |

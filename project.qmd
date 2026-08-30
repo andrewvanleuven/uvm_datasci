@@ -22,8 +22,8 @@ Students work in small teams. Each team analyzes a different **domain area** acr
 
 For now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):
 
-- Rural Housing
-- Rural Hub Services
+- *Rural Housing*: issues relating to supply, demand, and affordability of housing in NBRC counties
+- *Rural Hub Services*: quantifying and visualizing the essential businesses or amenities that appear in central regional towns to serve all the smaller surrounding communities
 
 ---
 
@@ -48,9 +48,11 @@ For now, teams will be organized around two domain areas (more may be added befo
 | Dec 3 (Week 14) | Draft deliverables due; instructor feedback |
 | Dec 17 (Week 16) | **Field trip**: final presentations (in-person) |
 
+
+<!--
 ---
 
-<!-- ## Data Sources
+## Data Sources
 
 *[Placeholder — data sources to be specified as project scope is confirmed.]*
 
@@ -62,8 +64,8 @@ Teams will draw primarily on publicly available data:
 - Census TIGER shapefiles
 - *Possibly some NBRC-provided grantee/project data (TBD)* -->
 
-<!-- ---
+---
 
 ## Deliverable Format
 
-*[Placeholder — deliverable specifications to be finalized.]* -->
+*[Placeholder — deliverable specifications to be finalized.]*

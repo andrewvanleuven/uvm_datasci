@@ -11,14 +11,14 @@
     "href": "syllabus.html#course-description",
     "title": "Syllabus",
     "section": "Course Description",
-    "text": "Course Description\n[Placeholder — full description to be written.]\nIntroduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences. A core component is a semester-long applied project delivered to an external community partner."
+    "text": "Course Description\nThis course introduces students to the foundations of data science and visualization as tools for making sense of complex social, economic, and environmental questions. Students will learn what data are, where they come from, and how different data types shape the kinds of questions we can ask and answer. Using the R programming language as the primary tool, students will practice cleaning, transforming, and organizing data for analysis, with an emphasis on reproducible workflows and clear documentation. While the course focuses on R, students will also be introduced to alternative software commonly used for data work, such as Python, Stata, Tableau, and Excel.\nThe course highlights best practices for visualizing data, guiding students through the creation of effective charts, graphs, and maps that communicate clearly to a range of audiences. Students will be introduced to spatial data and basic cartographic principles, using R to create maps that illuminate patterns across communities and places. Throughout the semester, students will practice telling evidence-based stories with data, critically evaluating how visual choices influence interpretation, trust, and decision-making in public and professional contexts.\nA core component is a semester-long applied project delivered to an external community partner (see Community Partner)."
   },
   {
     "objectID": "syllabus.html#student-learning-outcomes",
     "href": "syllabus.html#student-learning-outcomes",
     "title": "Syllabus",
     "section": "Student Learning Outcomes",
-    "text": "Student Learning Outcomes\n[Placeholder — outcomes to be finalized.]\nAfter completing this course the student will be able to:\n\nTBD\nTBD\nTBD"
+    "text": "Student Learning Outcomes\nBy the end of this course, you will be able to:\n\nDevelop fluency with core concepts in data, including data types, common sources of quantitative and spatial data, and key issues related to data quality and ethics.\nBuild practical skills in R for data wrangling, including importing, cleaning, transforming, and reshaping data, as well as writing reusable code to automate repetitive data tasks.\nDesign and critique static visualizations using principles of visual perception, clarity, and accessibility, focusing on how to match chart types to questions and audiences.\nWork with spatial data in R to produce maps and other spatial visualizations that effectively communicate patterns across geographic units and communities.\nConstruct short, data-driven narratives that integrate text, tables, and graphics to communicate findings to non-technical stakeholders."
   },
   {
     "objectID": "syllabus.html#what-does-this-class-look-like",
@@ -46,7 +46,7 @@
     "href": "syllabus.html#grading-policy",
     "title": "Syllabus",
     "section": "Grading Policy",
-    "text": "Grading Policy\n\n\n\nItem\nWeight\n\n\n\n\nCommunity Partner Project\n70%\n\n\nHomework / Lab Assignments (4–5 total)\n15%\n\n\nParticipation & Attendance\n15%\n\n\n\nThere is no extra credit. Letter grades are assigned from your cumulative percentage as follows:\n\n\n\nPercentage\nLetter Grade\n\nPercentage\nLetter Grade\n\n\n\n\n93–100%\nA\n\n77–79%\nC+\n\n\n90–92%\nA−\n\n73–76%\nC\n\n\n87–89%\nB+\n\n70–72%\nC−\n\n\n83–86%\nB\n\n67–69%\nD+\n\n\n80–82%\nB−\n\n64–66%\nD\n\n\n\n\n\n0–63%\nF\n\n\n\n\nUse of Generative AI Tools\nStudents are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work."
+    "text": "Grading Policy\nYou’ll be evaluated through a combination of applied homework, in-class labs and participation, and the culminating NBRC project. Homework focuses on hands-on data wrangling and visualization tasks in R; in-class labs and participation give you chances to practice reading, critiquing, and revising visualizations alongside your peers. The project asks your team to take a real dataset from raw data to a clear, audience-appropriate deliverable for NBRC.\n\n\n\nItem\nWeight\n\n\n\n\nCommunity Partner Project\n70%\n\n\nHomework / Lab Assignments (4–5 total)\n15%\n\n\nParticipation & Attendance\n15%\n\n\n\nThere is no extra credit. Letter grades are assigned from your cumulative percentage as follows:\n\n\n\nPercentage\nLetter Grade\n\nPercentage\nLetter Grade\n\n\n\n\n93–100%\nA\n\n77–79%\nC+\n\n\n90–92%\nA−\n\n73–76%\nC\n\n\n87–89%\nB+\n\n70–72%\nC−\n\n\n83–86%\nB\n\n67–69%\nD+\n\n\n80–82%\nB−\n\n64–66%\nD\n\n\n\n\n\n0–63%\nF\n\n\n\n\nUse of Generative AI Tools\nStudents are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work."
   },
   {
     "objectID": "syllabus.html#communication",
@@ -102,21 +102,14 @@
     "href": "schedule.html#unit-4-communication",
     "title": "Course Schedule",
     "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer (just enough to publish and version a Quarto project — not a full version-control unit).\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics\nWeek 10\nTBD"
-  },
-  {
-    "objectID": "schedule.html#no-class",
-    "href": "schedule.html#no-class",
-    "title": "Course Schedule",
-    "section": "No Class",
-    "text": "No Class\n\n\n\nWeek\nDate\nNote\n\n\n\n\n11\nNov 12\nNo class — instructor at conference\n\n\n13\nNov 26\nNo class — Thanksgiving"
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics\nWeek 10\nTBD\n\n\n11\nNov 12\nNo class — instructor at conference"
   },
   {
     "objectID": "schedule.html#unit-5-project",
     "href": "schedule.html#unit-5-project",
     "title": "Course Schedule",
     "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier — final presentations (in-person)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n13\nNov 26\nNo class — Thanksgiving\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier — final presentations (in-person)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
   },
   {
     "objectID": "policies.html",
@@ -242,7 +235,7 @@
     "href": "project.html#domain-areas",
     "title": "Community Partner Project",
     "section": "Domain Areas",
-    "text": "Domain Areas\nFor now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):\n\nRural Housing\nRural Hub Services"
+    "text": "Domain Areas\nFor now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):\n\nRural Housing: issues relating to supply, demand, and affordability of housing in NBRC counties\nRural Hub Services: quantifying and visualizing the essential businesses or amenities that appear in central regional towns to serve all the smaller surrounding communities"
   },
   {
     "objectID": "project.html#team-assignments",
@@ -256,6 +249,13 @@
     "href": "project.html#key-dates",
     "title": "Community Partner Project",
     "section": "Key Dates",
-    "text": "Key Dates\n\n\n\n\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nField trip to Montpelier: final presentations (in-person)"
+    "text": "Key Dates\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nField trip: final presentations (in-person)"
+  },
+  {
+    "objectID": "project.html#deliverable-format",
+    "href": "project.html#deliverable-format",
+    "title": "Community Partner Project",
+    "section": "Deliverable Format",
+    "text": "Deliverable Format\n[Placeholder — deliverable specifications to be finalized.]"
   }
 ]
