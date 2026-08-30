@@ -66,14 +66,38 @@ This Quarto site is the course's home base for the syllabus, schedule, slides, a
 
 ## Grading Policy
 
+::: {.callout-box}
+
 You'll be evaluated through a combination of applied homework, in-class labs and participation, and the culminating NBRC project. Homework focuses on hands-on data wrangling and visualization tasks in R; in-class labs and participation give you chances to practice reading, critiquing, and revising visualizations alongside your peers. The project asks your team to take a real dataset from raw data to a clear, audience-appropriate deliverable for NBRC.
 
 | Item | Weight |
 |---|---|
 | Community Partner Project | 70% |
-| Homework / Lab Assignments (4–5 total) | 15% |
+| Homework / Lab Assignments (5 total) | 15% |
 | Participation & Attendance | 15% |
 
+### Homework breakdown
+Five assignments, each tied to a skill unit and due the week shown:
+
+| # | Due | Topic | Weight |
+|---|---|---|---|
+| HW1 | Week 2 | dplyr / tidyverse basics | 3% |
+| HW2 | Week 4 | EDA + ggplot2 intro | 3% |
+| HW3 | Week 8 | GIS / tidycensus basics | 3% |
+| HW4 | Week 9 | Advanced GIS | 3% |
+| HW5 | Week 10 | Quarto / communication | 3% |
+
+### Project breakdown
+The 70% NBRC project grade is built from four milestones already on the [schedule](schedule.qmd), not assigned all at once at the end of the semester:
+
+| Milestone | Due | Weight |
+|---|---|---|
+| Scope & Team Charter | Week 7 | 10% |
+| Preliminary Outputs + Peer Critique | Week 12 | 20% |
+| Draft Deliverable + Revision | Week 14 | 20% |
+| Final Deliverable + Presentation | Week 16 | 20% |
+
+### Letter Grade Assignment
 There is no extra credit. Letter grades are assigned from your cumulative percentage as follows:
 
 | Percentage | Letter Grade | | Percentage | Letter Grade |
@@ -88,6 +112,8 @@ There is no extra credit. Letter grades are assigned from your cumulative percen
 ### Use of Generative AI Tools
 
 Students are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work.
+
+:::
 
 ---
 

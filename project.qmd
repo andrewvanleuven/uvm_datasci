@@ -38,15 +38,17 @@ For now, teams will be organized around two domain areas (more may be added befo
 
 ---
 
-## Key Dates
+## Key Dates & Grading
 
-| Date | Milestone |
-|---|---|
-| Oct 8 (Week 6) | NBRC visits class: partner kickoff meeting |
-| Oct 15 (Week 7) | Project teams and scope confirmed |
-| Nov 19 (Week 12) | Preliminary outputs due; peer critique in class |
-| Dec 3 (Week 14) | Draft deliverables due; instructor feedback |
-| Dec 17 (Week 16) | **Field trip**: final presentations (in-person) |
+The project is worth 70% of your course grade, broken into four graded milestones (see the [Syllabus](syllabus.qmd) for the full grading policy):
+
+| Date | Milestone | Weight |
+|---|---|---|
+| Oct 8 (Week 6) | NBRC visits class: partner kickoff meeting | — |
+| Oct 15 (Week 7) | **Scope & Team Charter** due | 10% |
+| Nov 19 (Week 12) | **Preliminary Outputs + Peer Critique** due | 20% |
+| Dec 3 (Week 14) | **Draft Deliverable + Revision** due | 20% |
+| Dec 17 (Week 16) | **Field trip**: **Final Deliverable + Presentation** due (in-person) | 20% |
 
 
 <!--

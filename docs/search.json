@@ -46,7 +46,7 @@
     "href": "syllabus.html#grading-policy",
     "title": "Syllabus",
     "section": "Grading Policy",
-    "text": "Grading Policy\nYou’ll be evaluated through a combination of applied homework, in-class labs and participation, and the culminating NBRC project. Homework focuses on hands-on data wrangling and visualization tasks in R; in-class labs and participation give you chances to practice reading, critiquing, and revising visualizations alongside your peers. The project asks your team to take a real dataset from raw data to a clear, audience-appropriate deliverable for NBRC.\n\n\n\nItem\nWeight\n\n\n\n\nCommunity Partner Project\n70%\n\n\nHomework / Lab Assignments (4–5 total)\n15%\n\n\nParticipation & Attendance\n15%\n\n\n\nThere is no extra credit. Letter grades are assigned from your cumulative percentage as follows:\n\n\n\nPercentage\nLetter Grade\n\nPercentage\nLetter Grade\n\n\n\n\n93–100%\nA\n\n77–79%\nC+\n\n\n90–92%\nA−\n\n73–76%\nC\n\n\n87–89%\nB+\n\n70–72%\nC−\n\n\n83–86%\nB\n\n67–69%\nD+\n\n\n80–82%\nB−\n\n64–66%\nD\n\n\n\n\n\n0–63%\nF\n\n\n\n\nUse of Generative AI Tools\nStudents are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work."
+    "text": "Grading Policy\n\nYou’ll be evaluated through a combination of applied homework, in-class labs and participation, and the culminating NBRC project. Homework focuses on hands-on data wrangling and visualization tasks in R; in-class labs and participation give you chances to practice reading, critiquing, and revising visualizations alongside your peers. The project asks your team to take a real dataset from raw data to a clear, audience-appropriate deliverable for NBRC.\n\n\n\nItem\nWeight\n\n\n\n\nCommunity Partner Project\n70%\n\n\nHomework / Lab Assignments (5 total)\n15%\n\n\nParticipation & Attendance\n15%\n\n\n\n\nHomework breakdown\nFive assignments, each tied to a skill unit and due the week shown:\n\n\n\n#\nDue\nTopic\nWeight\n\n\n\n\nHW1\nWeek 2\ndplyr / tidyverse basics\n3%\n\n\nHW2\nWeek 4\nEDA + ggplot2 intro\n3%\n\n\nHW3\nWeek 8\nGIS / tidycensus basics\n3%\n\n\nHW4\nWeek 9\nAdvanced GIS\n3%\n\n\nHW5\nWeek 10\nQuarto / communication\n3%\n\n\n\n\n\nProject breakdown\nThe 70% NBRC project grade is built from four milestones already on the schedule, not assigned all at once at the end of the semester:\n\n\n\nMilestone\nDue\nWeight\n\n\n\n\nScope & Team Charter\nWeek 7\n10%\n\n\nPreliminary Outputs + Peer Critique\nWeek 12\n20%\n\n\nDraft Deliverable + Revision\nWeek 14\n20%\n\n\nFinal Deliverable + Presentation\nWeek 16\n20%\n\n\n\n\n\nLetter Grade Assignment\nThere is no extra credit. Letter grades are assigned from your cumulative percentage as follows:\n\n\n\nPercentage\nLetter Grade\n\nPercentage\nLetter Grade\n\n\n\n\n93–100%\nA\n\n77–79%\nC+\n\n\n90–92%\nA−\n\n73–76%\nC\n\n\n87–89%\nB+\n\n70–72%\nC−\n\n\n83–86%\nB\n\n67–69%\nD+\n\n\n80–82%\nB−\n\n64–66%\nD\n\n\n\n\n\n0–63%\nF\n\n\n\n\n\nUse of Generative AI Tools\nStudents are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work."
   },
   {
     "objectID": "syllabus.html#communication",
@@ -81,35 +81,35 @@
     "href": "schedule.html#unit-1-foundations",
     "title": "Course Schedule",
     "section": "Unit 1 — Foundations",
-    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R — virtual session\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R — virtual session\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse — HW1 due\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2 — HW2 due\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
   },
   {
     "objectID": "schedule.html#unit-2-community-partnership",
     "href": "schedule.html#unit-2-community-partnership",
     "title": "Course Schedule",
     "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nNBRC comes to us: Week 6 is a normal in-class day with NBRC visiting for the project kickoff meeting (no mid-semester field trip). Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nNBRC visits class: partner kickoff meeting (lecture topic TBD)\nWeek 6\nTBD\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nNBRC comes to us: Week 6 is a normal in-class day with NBRC visiting for the project kickoff meeting (no mid-semester field trip). Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nNBRC visits class: partner kickoff meeting (lecture topic TBD)\nWeek 6\nTBD\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed — Scope & Team Charter due (10% of project grade)\nWeek 7\nTBD"
   },
   {
     "objectID": "schedule.html#unit-3-spatial-analysis",
     "href": "schedule.html#unit-3-spatial-analysis",
     "title": "Course Schedule",
     "section": "Unit 3 — Spatial Analysis",
-    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths\nWeek 8\nTBD\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography\nWeek 9\nTBD"
+    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths — HW3 due\nWeek 8\nTBD\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography — HW4 due\nWeek 9\nTBD"
   },
   {
     "objectID": "schedule.html#unit-4-communication",
     "href": "schedule.html#unit-4-communication",
     "title": "Course Schedule",
     "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics\nWeek 10\nTBD\n\n\n11\nNov 12\nNo class — instructor at conference"
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics — HW5 due\nWeek 10\nTBD\n\n\n11\nNov 12\nNo class — instructor at conference"
   },
   {
     "objectID": "schedule.html#unit-5-project",
     "href": "schedule.html#unit-5-project",
     "title": "Course Schedule",
     "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n13\nNov 26\nNo class — Thanksgiving\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier — final presentations (in-person)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — Preliminary Outputs + Peer Critique due (20% of project grade)\n\n\n13\nNov 26\nNo class — Thanksgiving\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision — Draft Deliverable + Revision due (20% of project grade)\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier — final presentations (in-person) — Final Deliverable + Presentation due (20% of project grade)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
   },
   {
     "objectID": "policies.html",
@@ -245,11 +245,11 @@
     "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nRural Housing\nTBD\n\n\n2\nRural Hub Services\nTBD"
   },
   {
-    "objectID": "project.html#key-dates",
-    "href": "project.html#key-dates",
+    "objectID": "project.html#key-dates-grading",
+    "href": "project.html#key-dates-grading",
     "title": "Community Partner Project",
-    "section": "Key Dates",
-    "text": "Key Dates\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nField trip: final presentations (in-person)"
+    "section": "Key Dates & Grading",
+    "text": "Key Dates & Grading\nThe project is worth 70% of your course grade, broken into four graded milestones (see the Syllabus for the full grading policy):\n\n\n\n\n\n\n\n\nDate\nMilestone\nWeight\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n—\n\n\nOct 15 (Week 7)\nScope & Team Charter due\n10%\n\n\nNov 19 (Week 12)\nPreliminary Outputs + Peer Critique due\n20%\n\n\nDec 3 (Week 14)\nDraft Deliverable + Revision due\n20%\n\n\nDec 17 (Week 16)\nField trip: Final Deliverable + Presentation due (in-person)\n20%"
   },
   {
     "objectID": "project.html#deliverable-format",
