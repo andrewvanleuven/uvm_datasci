@@ -88,7 +88,7 @@
     "href": "schedule.html#unit-2-community-partnership",
     "title": "Course Schedule",
     "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is an off-campus field trip; no formal instruction. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nField trip: Montpelier, NBRC kickoff meeting (no in-class instruction)\n—\n—\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nNBRC comes to us: Week 6 is a normal in-class day with NBRC visiting for the project kickoff meeting (no mid-semester field trip). Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nNBRC visits class: partner kickoff meeting (lecture topic TBD)\nWeek 6\nTBD\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed\nWeek 7\nTBD"
   },
   {
     "objectID": "schedule.html#unit-3-spatial-analysis",
@@ -116,7 +116,7 @@
     "href": "schedule.html#unit-5-project",
     "title": "Course Schedule",
     "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nFinal presentations (in-person)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — preliminary outputs due\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier — final presentations (in-person)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
   },
   {
     "objectID": "policies.html",
@@ -214,7 +214,7 @@
     "href": "index.html#course-units",
     "title": "Applied Data Science & Visualization",
     "section": "Course Units",
-    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: field trip + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
+    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: NBRC campus visit + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
   },
   {
     "objectID": "index.html#community-partner",
@@ -228,7 +228,7 @@
     "href": "project.html",
     "title": "Community Partner Project",
     "section": "",
-    "text": "WarningTeam Assignments Pending\n\n\n\nDomain areas and team assignments will be finalized during the Week 6 field trip and kickoff meeting with NBRC. The structure below is provisional."
+    "text": "WarningTeam Assignments Pending\n\n\n\nDomain areas and team assignments will be finalized during the Week 6 kickoff meeting with NBRC (held in class, not a field trip). The structure below is provisional."
   },
   {
     "objectID": "project.html#overview",
@@ -256,20 +256,6 @@
     "href": "project.html#key-dates",
     "title": "Community Partner Project",
     "section": "Key Dates",
-    "text": "Key Dates\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nField trip to Montpelier: NBRC kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nFinal presentations in Montpelier (in-person)"
-  },
-  {
-    "objectID": "project.html#data-sources",
-    "href": "project.html#data-sources",
-    "title": "Community Partner Project",
-    "section": "Data Sources",
-    "text": "Data Sources\n[Placeholder — data sources to be specified as project scope is confirmed.]\nTeams will draw primarily on publicly available data:\n\nAmerican Community Survey (ACS)\nBureau of Labor Statistics (BLS)\nUSDA Economic Research Service\nCensus TIGER shapefiles\nPossibly some NBRC-provided grantee/project data (TBD)"
-  },
-  {
-    "objectID": "project.html#deliverable-format",
-    "href": "project.html#deliverable-format",
-    "title": "Community Partner Project",
-    "section": "Deliverable Format",
-    "text": "Deliverable Format\n[Placeholder — deliverable specifications to be finalized.]"
+    "text": "Key Dates\n\n\n\n\n\n\n\nDate\nMilestone\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n\n\nOct 15 (Week 7)\nProject teams and scope confirmed\n\n\nNov 19 (Week 12)\nPreliminary outputs due; peer critique in class\n\n\nDec 3 (Week 14)\nDraft deliverables due; instructor feedback\n\n\nDec 17 (Week 16)\nField trip to Montpelier: final presentations (in-person)"
   }
 ]

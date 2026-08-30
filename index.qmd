@@ -40,7 +40,7 @@ We follow [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wi
 | Unit | Weeks | Theme |
 |---|---|---|
 | 1 | 1–5 | Foundations: R, tidyverse, EDA, ggplot2 |
-| 2 | 6–7 | Community Partnership: field trip + project launch |
+| 2 | 6–7 | Community Partnership: NBRC campus visit + project launch |
 | 3 | 8–9 | Spatial Analysis: GIS, Census data, cartography |
 | 4 | 10 | Communication: Quarto reports, slides, dashboards |
 | 5 | 12, 14–16 | Project: workdays, critique, final presentations |

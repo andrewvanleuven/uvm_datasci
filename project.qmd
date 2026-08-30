@@ -5,7 +5,7 @@ subtitle: "Northern Border Regional Commission (NBRC)"
 
 ::: {.callout-warning}
 ## Team Assignments Pending
-Domain areas and team assignments will be finalized during the Week 6 field trip and kickoff meeting with NBRC. The structure below is provisional.
+Domain areas and team assignments will be finalized during the Week 6 kickoff meeting with NBRC (held in class, not a field trip). The structure below is provisional.
 :::
 
 ---
@@ -42,15 +42,15 @@ For now, teams will be organized around two domain areas (more may be added befo
 
 | Date | Milestone |
 |---|---|
-| Oct 8 (Week 6) | Field trip to Montpelier: NBRC kickoff meeting |
+| Oct 8 (Week 6) | NBRC visits class: partner kickoff meeting |
 | Oct 15 (Week 7) | Project teams and scope confirmed |
 | Nov 19 (Week 12) | Preliminary outputs due; peer critique in class |
 | Dec 3 (Week 14) | Draft deliverables due; instructor feedback |
-| Dec 17 (Week 16) | **Final presentations** in Montpelier (in-person) |
+| Dec 17 (Week 16) | **Field trip**: final presentations (in-person) |
 
 ---
 
-## Data Sources
+<!-- ## Data Sources
 
 *[Placeholder — data sources to be specified as project scope is confirmed.]*
 
@@ -60,10 +60,10 @@ Teams will draw primarily on publicly available data:
 - Bureau of Labor Statistics (BLS)
 - USDA Economic Research Service
 - Census TIGER shapefiles
-- *Possibly some NBRC-provided grantee/project data (TBD)*
+- *Possibly some NBRC-provided grantee/project data (TBD)* -->
 
----
+<!-- ---
 
 ## Deliverable Format
 
-*[Placeholder — deliverable specifications to be finalized.]*
+*[Placeholder — deliverable specifications to be finalized.]* -->

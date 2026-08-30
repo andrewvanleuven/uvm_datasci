@@ -26,12 +26,12 @@ Core skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2
 ## Unit 2 — Community Partnership {.unit-header}
 
 ::: {.callout-note appearance="minimal"}
-Week 6 is an off-campus field trip; no formal instruction. Week 7 bridges visualization into project launch.
+NBRC comes to us: Week 6 is a normal in-class day with NBRC visiting for the project kickoff meeting (no mid-semester field trip). Week 7 bridges visualization into project launch.
 :::
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 6 | Oct 8 | **Field trip**: Montpelier, NBRC kickoff meeting *(no in-class instruction)* | — | — |
+| 6 | Oct 8 | **NBRC visits class**: partner kickoff meeting *(lecture topic TBD)* | [Week 6](#) | TBD |
 | 7 | Oct 15 | Chart types and visual communication; project teams + scope confirmed | [Week 7](#) | TBD |
 
 ---
@@ -81,7 +81,7 @@ No new instruction. Instructor acts as coach and reviewer.
 | 12 | Nov 19 | Workday + peer critique — *preliminary outputs due* |
 | 14 | Dec 3 | Draft deliverables due; in-class feedback and revision |
 | 15 | Dec 10 | Final polish; presentation prep; semester wrap-up |
-| 16 | Dec 17 | **Final presentations** *(in-person)* |
+| 16 | Dec 17 | **Field trip to Montpelier** — final presentations *(in-person)* |
 
 ---
 
