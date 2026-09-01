@@ -52,7 +52,7 @@ My goal as your instructor is to be supportive and build a learning environment 
 
 **Primary textbook:** [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — free online.
 
-**Computing:** [Posit Cloud](https://posit.cloud). A workspace will be set up before the semester begins with required packages and shared datasets. Students use the Cloud Free plan; the instructor covers per-student fees.
+**Computing:** [Posit Cloud](https://posit.cloud/spaces/738679/content/12820277) — the class workspace, pre-loaded with all required packages. You'll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).
 
 *[Additional materials TBD.]*
 
@@ -77,15 +77,17 @@ You'll be evaluated through a combination of applied homework, in-class labs and
 | Participation & Attendance | 15% |
 
 ### Homework breakdown
-Five assignments, each tied to a skill unit and due the week shown:
+Five assignments, each covering what's been taught since the previous one, due the week shown:
 
 | # | Due | Topic | Weight |
 |---|---|---|---|
-| HW1 | Week 2 | dplyr / tidyverse basics | 3% |
-| HW2 | Week 4 | EDA + ggplot2 intro | 3% |
-| HW3 | Week 8 | GIS / tidycensus basics | 3% |
-| HW4 | Week 9 | Advanced GIS | 3% |
-| HW5 | Week 10 | Quarto / communication | 3% |
+| HW1 | Week 2 | Intro to R | 3% |
+| HW2 | Week 4 | dplyr / tidyverse; data import & joins | 3% |
+| HW3 | Week 8 | EDA, ggplot2, and chart type selection | 3% |
+| HW4 | Week 9 | Census data & choropleth mapping | 3% |
+| HW5 | Week 10 | Spatial joins & publication cartography | 3% |
+
+Each assignment is a Quarto document (`hw1.qmd`–`hw5.qmd`) already sitting in your Posit Cloud workspace — open the file for that week, fill it in, and render it. There's no separate submission step; I review your workspace directly.
 
 ### Project breakdown
 The 70% NBRC project grade is built from four milestones already on the [schedule](schedule.qmd), not assigned all at once at the end of the semester:

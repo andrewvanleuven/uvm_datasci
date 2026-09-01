@@ -24,7 +24,7 @@ A core component is a semester-long applied project delivered to an external com
 | **Credit Hours** | 3 |
 | **Office Hours** | By appointment |
 | **Office Location** | 209AA Morrill Hall |
-| **Computing** | [Posit Cloud](https://posit.cloud) |
+| **Computing** | [Posit Cloud](https://posit.cloud/spaces/738679/content/12820277) (course workspace) |
 | **Primary language** | R |
 
 ---

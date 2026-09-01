@@ -5,6 +5,7 @@ project:
     - "*.qmd"
     - "slides/*.qmd"
     - "!CLAUDE.md"
+    - "!cdae7990_workspace/"
 
 website:
   title: "Applied Data Science & Visualization"
