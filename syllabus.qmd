@@ -29,7 +29,7 @@ By the end of this course, you will be able to:
 
 ### Class Format
 
-We meet once a week for three hours in **Lafayette Hall L202** (Week 1, Sep 3, is a virtual session — see [Schedule](schedule.qmd) — every class after that meets in person). Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I'll build in a break (or two) to divide the three hours into distinct chunks.
+We meet once a week for three hours in **Lafayette Hall L202** (Week 1, Sep 3, is a virtual session, link will be emailed — every class after that meets in person). Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I'll build in a break (or two) to divide the three hours into distinct chunks.
 
 ### Attendance Policy
 

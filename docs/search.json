@@ -25,7 +25,7 @@
     "href": "syllabus.html#what-does-this-class-look-like",
     "title": "Syllabus",
     "section": "What Does This Class Look Like?",
-    "text": "What Does This Class Look Like?\n\nClass Format\nWe meet once a week for three hours in Lafayette Hall L202 (Week 1, Sep 3, is a virtual session — see Schedule — every class after that meets in person). Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I’ll build in a break (or two) to divide the three hours into distinct chunks.\n\n\nAttendance Policy\nYou are required to attend class. Put simply, class is better — and your project team is more functional — when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets one free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you’ll miss a class, give me a heads-up in advance rather than after the fact.\n\n\nGeneral Classroom Expectations\nMy goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice — this is a lab-heavy course, and you learn R by writing R, not by watching it get written. You’re in charge of your own learning, but you’re never doing it alone."
+    "text": "What Does This Class Look Like?\n\nClass Format\nWe meet once a week for three hours in Lafayette Hall L202 (Week 1, Sep 3, is a virtual session, link will be emailed — every class after that meets in person). Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I’ll build in a break (or two) to divide the three hours into distinct chunks.\n\n\nAttendance Policy\nYou are required to attend class. Put simply, class is better — and your project team is more functional — when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets one free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you’ll miss a class, give me a heads-up in advance rather than after the fact.\n\n\nGeneral Classroom Expectations\nMy goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice — this is a lab-heavy course, and you learn R by writing R, not by watching it get written. You’re in charge of your own learning, but you’re never doing it alone."
   },
   {
     "objectID": "syllabus.html#required-course-materials",
@@ -74,14 +74,14 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The course meets Thursdays, 4:35–7:35 pm in Lafayette Hall L202. Week 1 (Sep 3) only is a virtual session; every class after that is in person. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.\nAll five homework assignments (see Syllabus for topics) live in your Posit Cloud workspace as hw1.qmd–hw5.qmd; due dates are noted inline below."
+    "text": "The course meets Thursdays, 4:35–7:35 pm in Lafayette Hall L202. Week 1 (Sep 3) only is a virtual session (link will be emailed); every class after that is in person. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.\nAll five homework assignments (see Syllabus for topics) live in your Posit Cloud workspace as hw1.qmd–hw5.qmd; due dates are noted inline below."
   },
   {
     "objectID": "schedule.html#unit-1-foundations",
     "href": "schedule.html#unit-1-foundations",
     "title": "Course Schedule",
     "section": "Unit 1 — Foundations",
-    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R — virtual session\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse — HW1 due\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2 — HW2 due\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R — virtual session, link will be emailed\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse — HW1 due\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2 — HW2 due\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
   },
   {
     "objectID": "schedule.html#unit-2-community-partnership",
@@ -193,7 +193,7 @@
     "href": "index.html#logistics",
     "title": "Applied Data Science & Visualization",
     "section": "Logistics",
-    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nLafayette Hall L202 (Week 1, Sep 3, is virtual)\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
+    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nLafayette Hall L202 (Week 1, Sep 3, is virtual — link will be emailed)\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
   },
   {
     "objectID": "index.html#textbook",

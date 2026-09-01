@@ -2,7 +2,7 @@
 title: "Course Schedule"
 ---
 
-The course meets **Thursdays, 4:35–7:35 pm** in **Lafayette Hall L202**. Week 1 (Sep 3) only is a virtual session; every class after that is in person. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.
+The course meets **Thursdays, 4:35–7:35 pm** in **Lafayette Hall L202**. Week 1 (Sep 3) only is a virtual session (link will be emailed); every class after that is in person. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.
 
 All five homework assignments (see [Syllabus](syllabus.qmd#grading-policy) for topics) live in your [Posit Cloud workspace](https://posit.cloud/spaces/738679/content/12820277) as `hw1.qmd`–`hw5.qmd`; due dates are noted inline below.
 
@@ -17,7 +17,7 @@ Core skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 1 | Sep 3 | What is data? What is data science? Intro to R — **virtual session** | [Week 1](slides/week01.html) | R4DS Intro |
+| 1 | Sep 3 | What is data? What is data science? Intro to R — **virtual session, link will be emailed** | [Week 1](slides/week01.html) | R4DS Intro |
 | 2 | Sep 10 | dplyr basics; into the tidyverse — *HW1 due* | [Week 2](#) | R4DS Ch. 3–4 |
 | 3 | Sep 17 | Getting data: APIs, scraping, joins | [Week 3](#) | R4DS Ch. 7–8 |
 | 4 | Sep 24 | Exploratory data analysis; intro to ggplot2 — *HW2 due* | [Week 4](#) | R4DS Ch. 10–11 |
