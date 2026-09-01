@@ -9,6 +9,9 @@
 # Context / AI
 CLAUDE.md
 
+# Nested repo: student Posit Cloud workspace (separate GitHub repo, see cdae7990_workspace/)
+cdae7990_workspace/
+
 # R
 .Rhistory
 .Rapp.history
