@@ -20,6 +20,7 @@ A core component is a semester-long applied project delivered to an external com
 | **Instructor** | Andrew Van Leuven, Assistant Professor |
 | **Department** | Community Development & Applied Economics (CDAE), UVM Extension |
 | **Meets** | Thursdays, 4:35–7:35 pm |
+| **Location** | Lafayette Hall L202 (Week 1, Sep 3, is virtual) |
 | **Semester** | Fall 2026 |
 | **Credit Hours** | 3 |
 | **Office Hours** | By appointment |

@@ -3,13 +3,6 @@ title: "Syllabus"
 subtitle: "Applied Data Science & Visualization · CDAE 7990 · Fall 2026"
 ---
 
-::: {.callout-warning}
-## Under Construction
-This syllabus is a draft placeholder. Content is incomplete and subject to change. Do not rely on anything here.
-:::
-
----
-
 ## Course Description
 
 This course introduces students to the foundations of data science and visualization as tools for making sense of complex social, economic, and environmental questions. Students will learn what data are, where they come from, and how different data types shape the kinds of questions we can ask and answer. Using the R programming language as the primary tool, students will practice cleaning, transforming, and organizing data for analysis, with an emphasis on reproducible workflows and clear documentation. While the course focuses on R, students will also be introduced to alternative software commonly used for data work, such as Python, Stata, Tableau, and Excel.
@@ -36,7 +29,7 @@ By the end of this course, you will be able to:
 
 ### Class Format
 
-We meet once a week for three hours. Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I'll build in a break (or two) to divide the three hours into distinct chunks.
+We meet once a week for three hours in **Lafayette Hall L202** (Week 1, Sep 3, is a virtual session — see [Schedule](schedule.qmd) — every class after that meets in person). Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I'll build in a break (or two) to divide the three hours into distinct chunks.
 
 ### Attendance Policy
 

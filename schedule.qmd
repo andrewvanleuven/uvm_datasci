@@ -2,7 +2,7 @@
 title: "Course Schedule"
 ---
 
-The course meets **Thursdays, 4:35–7:35 pm**. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.
+The course meets **Thursdays, 4:35–7:35 pm** in **Lafayette Hall L202**. Week 1 (Sep 3) only is a virtual session; every class after that is in person. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.
 
 All five homework assignments (see [Syllabus](syllabus.qmd#grading-policy) for topics) live in your [Posit Cloud workspace](https://posit.cloud/spaces/738679/content/12820277) as `hw1.qmd`–`hw5.qmd`; due dates are noted inline below.
 
