@@ -305,7 +305,7 @@
     "href": "slides/week01.html#what-is-data-science",
     "title": "Week 1: What is Data Science?",
     "section": "What Is Data Science?",
-    "text": "What Is Data Science?\nThe R4DS “whole game”:\nimport → tidy → transform ⇄ visualize ⇄ model → communicate\n\nWe’ll touch every stage of this loop this semester\nMost of the course lives in transform/visualize, but the NBRC project forces you through the whole loop"
+    "text": "What Is Data Science?\n\n\n\n\nThe R4DS “whole game”:\nimport → tidy → transform ⇄ visualize ⇄ model → communicate\n\nWe’ll touch every stage of this loop this semester\nMost of the course lives in transform/visualize, but the NBRC project forces you through the whole loop"
   },
   {
     "objectID": "slides/week01.html#the-tools",

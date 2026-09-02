@@ -12,6 +12,7 @@ format:
     logo: ""
     transition: fade
     code-line-numbers: false
+    date-format: long
 execute:
   echo: true
   eval: false
@@ -67,6 +68,13 @@ Full breakdown: [check out the online syllabus](../syllabus.html#grading-policy)
 
 ## What Is Data Science?
 
+:::: {.columns}
+
+::: {.column width="35%"}
+[![](https://r4ds.had.co.nz/cover.png)](https://r4ds.had.co.nz/)
+:::
+
+::: {.column width="65%"}
 The R4DS "whole game":
 
 **import → tidy → transform ⇄ visualize ⇄ model → communicate**
@@ -74,6 +82,9 @@ The R4DS "whole game":
 - We'll touch every stage of this loop this semester
 - Most of the course lives in transform/visualize, but the NBRC project
   forces you through the whole loop
+:::
+
+::::
 
 ## The Tools
 
