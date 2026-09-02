@@ -102,7 +102,7 @@
     "href": "schedule.html#unit-4-communication",
     "title": "Course Schedule",
     "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. HW5 due.\nWeek 10\nNone (Quarto/Git primer delivered in class)\n\n\n11\nNov 12\nNo class (instructor at conference)"
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. HW5 due.\nWeek 10\nR4DS: Quarto\n\n\n11\nNov 12\nNo class (instructor at conference)"
   },
   {
     "objectID": "schedule.html#unit-5-project",

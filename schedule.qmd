@@ -59,7 +59,7 @@ Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includ
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *HW5 due.* | [Week 10](#) | None (Quarto/Git primer delivered in class) |
+| 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *HW5 due.* | [Week 10](#) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
 | 11 | Nov 12 | **No class** (instructor at conference) |
 
 
