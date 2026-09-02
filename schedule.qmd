@@ -17,10 +17,10 @@ Core skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 1 | Sep 3 | What is data? What is data science? Intro to R — **virtual session, link will be emailed** | [Week 1](slides/week01.html) | R4DS Intro |
-| 2 | Sep 10 | dplyr basics; into the tidyverse — *HW1 due* | [Week 2](#) | R4DS Ch. 3–4 |
+| 1 | Sep 3 | What is data? What is data science? Intro to R. **Virtual session, link will be emailed.** | [Week 1](slides/week01.html) | R4DS Intro |
+| 2 | Sep 10 | dplyr basics; into the tidyverse. *HW1 due.* | [Week 2](#) | R4DS Ch. 3–4 |
 | 3 | Sep 17 | Getting data: APIs, scraping, joins | [Week 3](#) | R4DS Ch. 7–8 |
-| 4 | Sep 24 | Exploratory data analysis; intro to ggplot2 — *HW2 due* | [Week 4](#) | R4DS Ch. 10–11 |
+| 4 | Sep 24 | Exploratory data analysis; intro to ggplot2. *HW2 due.* | [Week 4](#) | R4DS Ch. 10–11 |
 | 5 | Oct 1 | Advanced ggplot2; principles of effective visualization | [Week 5](#) | R4DS Ch. 12–13 |
 
 ---
@@ -33,21 +33,21 @@ Week 6 is a normal in-class day (no mid-semester field trip), split between a gu
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 6 | Oct 8 | **Guest lecture** (Hr. 1): Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research — **NBRC kickoff** (Hr. 2): Sarah Waring & Chris Saunders visit to launch the project — Hr. 3 flexible | [Week 6](#) | None |
-| 7 | Oct 15 | Chart types and visual communication; project teams + scope confirmed — *Scope & Team Charter due (10% of project grade)* | [Week 7](#) | None |
+| 6 | Oct 8 | **Hr. 1:** guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research. **Hr. 2:** NBRC kickoff, with Sarah Waring & Chris Saunders visiting to launch the project. Hr. 3 is flexible. | [Week 6](#) | None |
+| 7 | Oct 15 | Chart types and visual communication; project teams + scope confirmed. *Scope & Team Charter due (10% of project grade).* | [Week 7](#) | None |
 
 ---
 
 ## Unit 3 — Spatial Analysis {.unit-header}
 
 ::: {.callout-note appearance="minimal"}
-Supplemental to R4DS — see [*Spatial Data Science*](https://r-spatial.org/book/) and [*Analyzing US Census Data*](https://walker-data.com/census-r/index.html), both free online. Packages: `sf`, `tidycensus`, `tigris`, `ggspatial`
+Supplemental to R4DS. See [*Spatial Data Science*](https://r-spatial.org/book/) and [*Analyzing US Census Data*](https://walker-data.com/census-r/index.html), both free online. Packages: `sf`, `tidycensus`, `tigris`, `ggspatial`
 :::
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 8 | Oct 22 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths — *HW3 due* | [Week 8](#) | *Analyzing US Census Data* — chapters TBD |
-| 9 | Oct 29 | Advanced GIS; non-Census spatial data; publication-level cartography — *HW4 due* | [Week 9](#) | *Spatial Data Science* — chapters TBD |
+| 8 | Oct 22 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due.* | [Week 8](#) | *Analyzing US Census Data* (chapters TBD) |
+| 9 | Oct 29 | Advanced GIS; non-Census spatial data; publication-level cartography. *HW4 due.* | [Week 9](#) | *Spatial Data Science* (chapters TBD) |
 
 ---
 
@@ -59,8 +59,8 @@ Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includ
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics — *HW5 due* | [Week 10](#) | None (Quarto/Git primer delivered in class) |
-| 11 | Nov 12 | **No class** — instructor at conference |
+| 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *HW5 due.* | [Week 10](#) | None (Quarto/Git primer delivered in class) |
+| 11 | Nov 12 | **No class** (instructor at conference) |
 
 
 
@@ -74,11 +74,11 @@ No new instruction. Instructor acts as coach and reviewer.
 
 | Week | Date | Topic / Milestone |
 |---|---|---|
-| 12 | Nov 19 | Workday + peer critique — *Preliminary Outputs + Peer Critique due (20% of project grade)* |
-| 13 | Nov 26 | **No class** — Thanksgiving |
-| 14 | Dec 3 | Draft deliverables due; in-class feedback and revision — *Draft Deliverable + Revision due (20% of project grade)* |
+| 12 | Nov 19 | Workday + peer critique. *Preliminary Outputs + Peer Critique due (20% of project grade).* |
+| 13 | Nov 26 | **No class** (Thanksgiving) |
+| 14 | Dec 3 | Draft deliverables due; in-class feedback and revision. *Draft Deliverable + Revision due (20% of project grade).* |
 | 15 | Dec 10 | Final polish; presentation prep; semester wrap-up |
-| 16 | Dec 17 | **Field trip to Montpelier** — final presentations *(in-person)* — *Final Deliverable + Presentation due (20% of project grade)* |
+| 16 | Dec 17 | **Field trip to Montpelier:** final presentations *(in-person)*. *Final Deliverable + Presentation due (20% of project grade).* |
 
 ---
 

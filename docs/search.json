@@ -25,14 +25,14 @@
     "href": "syllabus.html#what-does-this-class-look-like",
     "title": "Syllabus",
     "section": "What Does This Class Look Like?",
-    "text": "What Does This Class Look Like?\n\nClass Format\nWe meet once a week for three hours in Lafayette Hall L202 (Week 1, Sep 3, is a virtual session, link will be emailed — every class after that meets in person). Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I’ll build in a break (or two) to divide the three hours into distinct chunks.\n\n\nAttendance Policy\nYou are required to attend class. Put simply, class is better — and your project team is more functional — when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets one free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you’ll miss a class, give me a heads-up in advance rather than after the fact.\n\n\nGeneral Classroom Expectations\nMy goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice — this is a lab-heavy course, and you learn R by writing R, not by watching it get written. You’re in charge of your own learning, but you’re never doing it alone."
+    "text": "What Does This Class Look Like?\n\nClass Format\nWe meet once a week for three hours. Every session is in Lafayette Hall L202 except Week 1 (Sep 3), which is virtual; that link will be emailed to you. Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work. Expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I’ll build in a break (or two) to divide the three hours into distinct chunks.\n\n\nAttendance Policy\nYou are required to attend class. Put simply, class is better—and your project team is more functional—when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets one free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you’ll miss a class, give me a heads-up in advance rather than after the fact.\n\n\nGeneral Classroom Expectations\nMy goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice. This is a lab-heavy course: you learn R by writing R, not by watching it get written. You’re in charge of your own learning, but you’re never doing it alone."
   },
   {
     "objectID": "syllabus.html#required-course-materials",
     "href": "syllabus.html#required-course-materials",
     "title": "Syllabus",
     "section": "Required Course Materials",
-    "text": "Required Course Materials\nPrimary textbook: R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — free online.\nComputing: Posit Cloud — the class workspace, pre-loaded with all required packages. You’ll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).\nSupplemental (free online, not assigned in full): Spatial Data Science and Analyzing US Census Data, both used for select readings during the Spatial Analysis unit (Weeks 8–9)."
+    "text": "Required Course Materials\nPrimary textbook: R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online.\nComputing: Posit Cloud is the class workspace, pre-loaded with all required packages. You’ll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).\nSupplemental (free online, not assigned in full): Spatial Data Science and Analyzing US Census Data, both used for select readings during the Spatial Analysis unit (Weeks 8–9)."
   },
   {
     "objectID": "syllabus.html#course-site",
@@ -46,21 +46,21 @@
     "href": "syllabus.html#grading-policy",
     "title": "Syllabus",
     "section": "Grading Policy",
-    "text": "Grading Policy\n\nYou’ll be evaluated through a combination of applied homework, in-class labs and participation, and the culminating NBRC project. Homework focuses on hands-on data wrangling and visualization tasks in R; in-class labs and participation give you chances to practice reading, critiquing, and revising visualizations alongside your peers. The project asks your team to take a real dataset from raw data to a clear, audience-appropriate deliverable for NBRC.\n\n\n\nItem\nWeight\n\n\n\n\nCommunity Partner Project\n70%\n\n\nHomework / Lab Assignments (5 total)\n15%\n\n\nParticipation & Attendance\n15%\n\n\n\n\nHomework breakdown\nFive assignments, each covering what’s been taught since the previous one, due the week shown:\n\n\n\n#\nDue\nTopic\nWeight\n\n\n\n\nHW1\nWeek 2\nIntro to R\n3%\n\n\nHW2\nWeek 4\ndplyr / tidyverse; data import & joins\n3%\n\n\nHW3\nWeek 8\nEDA, ggplot2, and chart type selection\n3%\n\n\nHW4\nWeek 9\nCensus data & choropleth mapping\n3%\n\n\nHW5\nWeek 10\nSpatial joins & publication cartography\n3%\n\n\n\nEach assignment is a Quarto document (hw1.qmd–hw5.qmd) already sitting in your Posit Cloud workspace — open the file for that week, fill it in, and render it. There’s no separate submission step; I review your workspace directly.\n\n\nProject breakdown\nThe 70% NBRC project grade is built from four milestones already on the schedule, not assigned all at once at the end of the semester:\n\n\n\nMilestone\nDue\nWeight\n\n\n\n\nScope & Team Charter\nWeek 7\n10%\n\n\nPreliminary Outputs + Peer Critique\nWeek 12\n20%\n\n\nDraft Deliverable + Revision\nWeek 14\n20%\n\n\nFinal Deliverable + Presentation\nWeek 16\n20%\n\n\n\n\n\nLetter Grade Assignment\nThere is no extra credit. Letter grades are assigned from your cumulative percentage as follows:\n\n\n\nPercentage\nLetter Grade\n\nPercentage\nLetter Grade\n\n\n\n\n93–100%\nA\n\n77–79%\nC+\n\n\n90–92%\nA−\n\n73–76%\nC\n\n\n87–89%\nB+\n\n70–72%\nC−\n\n\n83–86%\nB\n\n67–69%\nD+\n\n\n80–82%\nB−\n\n64–66%\nD\n\n\n\n\n\n0–63%\nF\n\n\n\n\n\nUse of Generative AI Tools\nStudents are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work."
+    "text": "Grading Policy\n\nYou’ll be evaluated through a combination of applied homework, in-class labs and participation, and the culminating NBRC project. Homework focuses on hands-on data wrangling and visualization tasks in R; in-class labs and participation give you chances to practice reading, critiquing, and revising visualizations alongside your peers. The project asks your team to take a real dataset from raw data to a clear, audience-appropriate deliverable for NBRC.\n\n\n\nItem\nWeight\n\n\n\n\nCommunity Partner Project\n70%\n\n\nHomework / Lab Assignments (5 total)\n15%\n\n\nParticipation & Attendance\n15%\n\n\n\n\nHomework breakdown\nFive assignments, each covering what’s been taught since the previous one, due the week shown:\n\n\n\n#\nDue\nTopic\nWeight\n\n\n\n\nHW1\nWeek 2\nIntro to R\n3%\n\n\nHW2\nWeek 4\ndplyr / tidyverse; data import & joins\n3%\n\n\nHW3\nWeek 8\nEDA, ggplot2, and chart type selection\n3%\n\n\nHW4\nWeek 9\nCensus data & choropleth mapping\n3%\n\n\nHW5\nWeek 10\nSpatial joins & publication cartography\n3%\n\n\n\nEach assignment is a Quarto document (hw1.qmd–hw5.qmd) already sitting in your Posit Cloud workspace. Open the file for that week, fill it in, and render it. There’s no separate submission step: I review your workspace directly.\n\n\nProject breakdown\nThe 70% NBRC project grade is built from four milestones already on the schedule, not assigned all at once at the end of the semester:\n\n\n\nMilestone\nDue\nWeight\n\n\n\n\nScope & Team Charter\nWeek 7\n10%\n\n\nPreliminary Outputs + Peer Critique\nWeek 12\n20%\n\n\nDraft Deliverable + Revision\nWeek 14\n20%\n\n\nFinal Deliverable + Presentation\nWeek 16\n20%\n\n\n\n\n\nLetter Grade Assignment\nThere is no extra credit. Letter grades are assigned from your cumulative percentage as follows:\n\n\n\nPercentage\nLetter Grade\n\nPercentage\nLetter Grade\n\n\n\n\n93–100%\nA\n\n77–79%\nC+\n\n\n90–92%\nA−\n\n73–76%\nC\n\n\n87–89%\nB+\n\n70–72%\nC−\n\n\n83–86%\nB\n\n67–69%\nD+\n\n\n80–82%\nB−\n\n64–66%\nD\n\n\n\n\n\n0–63%\nF\n\n\n\n\n\nUse of Generative AI Tools\nStudents are expected to use all available tools—including generative AI—to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique). Over-reliance on AI is not recommended: you will need to be able to explain and defend your own work."
   },
   {
     "objectID": "syllabus.html#communication",
     "href": "syllabus.html#communication",
     "title": "Syllabus",
     "section": "Communication",
-    "text": "Communication\nIf you need to reach me digitally, email is best. I follow a “one business day” rule for responding to student email: if you send something at 10am Monday, I have until 10am Tuesday to respond; if you send it at 6pm Friday, I have until start of business Tuesday. If more than a business day has passed, feel free to send a polite nudge.\nOffice hours are by appointment — email me and we’ll find a time. On most class days I’ll also stick around afterward for quick questions; please keep it brief if others are waiting."
+    "text": "Communication\nIf you need to reach me digitally, email is best. I follow a “one business day” rule for responding to student email: if you send something at 10am Monday, I have until 10am Tuesday to respond; if you send it at 6pm Friday, I have until start of business Tuesday. If more than a business day has passed, feel free to send a polite nudge.\nOffice hours are by appointment. Email me and we’ll find a time. On most class days I’ll also stick around afterward for quick questions; please keep it brief if others are waiting."
   },
   {
     "objectID": "syllabus.html#accommodations-university-policies",
     "href": "syllabus.html#accommodations-university-policies",
     "title": "Syllabus",
     "section": "Accommodations & University Policies",
-    "text": "Accommodations & University Policies\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS). All students are encouraged to discuss with the instructor any accommodations they plan to use in this course.\nThe full set of standard UVM policies and campus resources (academic integrity, FERPA, religious holidays, health & safety, and more) is collected on a separate page so it doesn’t clutter this syllabus — see University Policies & Resources."
+    "text": "Accommodations & University Policies\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS). All students are encouraged to discuss with the instructor any accommodations they plan to use in this course.\nThe full set of standard UVM policies and campus resources (academic integrity, FERPA, religious holidays, health & safety, and more) is collected on a separate page so it doesn’t clutter this syllabus. See University Policies & Resources."
   },
   {
     "objectID": "syllabus.html#schedule",
@@ -81,35 +81,35 @@
     "href": "schedule.html#unit-1-foundations",
     "title": "Course Schedule",
     "section": "Unit 1 — Foundations",
-    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R — virtual session, link will be emailed\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse — HW1 due\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2 — HW2 due\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R. Virtual session, link will be emailed.\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse. HW1 due.\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2. HW2 due.\nWeek 4\nR4DS Ch. 10–11\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Ch. 12–13"
   },
   {
     "objectID": "schedule.html#unit-2-community-partnership",
     "href": "schedule.html#unit-2-community-partnership",
     "title": "Course Schedule",
     "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is a normal in-class day (no mid-semester field trip), split between a guest lecture and NBRC’s on-campus project kickoff. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nGuest lecture (Hr. 1): Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research — NBRC kickoff (Hr. 2): Sarah Waring & Chris Saunders visit to launch the project — Hr. 3 flexible\nWeek 6\nNone\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed — Scope & Team Charter due (10% of project grade)\nWeek 7\nNone"
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is a normal in-class day (no mid-semester field trip), split between a guest lecture and NBRC’s on-campus project kickoff. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nHr. 1: guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research. Hr. 2: NBRC kickoff, with Sarah Waring & Chris Saunders visiting to launch the project. Hr. 3 is flexible.\nWeek 6\nNone\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed. Scope & Team Charter due (10% of project grade).\nWeek 7\nNone"
   },
   {
     "objectID": "schedule.html#unit-3-spatial-analysis",
     "href": "schedule.html#unit-3-spatial-analysis",
     "title": "Course Schedule",
     "section": "Unit 3 — Spatial Analysis",
-    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS — see Spatial Data Science and Analyzing US Census Data, both free online. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths — HW3 due\nWeek 8\nAnalyzing US Census Data — chapters TBD\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography — HW4 due\nWeek 9\nSpatial Data Science — chapters TBD"
+    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. See Spatial Data Science and Analyzing US Census Data, both free online. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths. HW3 due.\nWeek 8\nAnalyzing US Census Data (chapters TBD)\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography. HW4 due.\nWeek 9\nSpatial Data Science (chapters TBD)"
   },
   {
     "objectID": "schedule.html#unit-4-communication",
     "href": "schedule.html#unit-4-communication",
     "title": "Course Schedule",
     "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics — HW5 due\nWeek 10\nNone (Quarto/Git primer delivered in class)\n\n\n11\nNov 12\nNo class — instructor at conference"
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. HW5 due.\nWeek 10\nNone (Quarto/Git primer delivered in class)\n\n\n11\nNov 12\nNo class (instructor at conference)"
   },
   {
     "objectID": "schedule.html#unit-5-project",
     "href": "schedule.html#unit-5-project",
     "title": "Course Schedule",
     "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique — Preliminary Outputs + Peer Critique due (20% of project grade)\n\n\n13\nNov 26\nNo class — Thanksgiving\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision — Draft Deliverable + Revision due (20% of project grade)\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier — final presentations (in-person) — Final Deliverable + Presentation due (20% of project grade)\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique. Preliminary Outputs + Peer Critique due (20% of project grade).\n\n\n13\nNov 26\nNo class (Thanksgiving)\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision. Draft Deliverable + Revision due (20% of project grade).\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier: final presentations (in-person). Final Deliverable + Presentation due (20% of project grade).\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
   },
   {
     "objectID": "policies.html",
@@ -193,14 +193,14 @@
     "href": "index.html#logistics",
     "title": "Applied Data Science & Visualization",
     "section": "Logistics",
-    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nLafayette Hall L202 (Week 1, Sep 3, is virtual — link will be emailed)\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
+    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nLafayette Hall L202. Week 1 (Sep 3) only is virtual; that link will be emailed.\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
   },
   {
     "objectID": "index.html#textbook",
     "href": "index.html#textbook",
     "title": "Applied Data Science & Visualization",
     "section": "Textbook",
-    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — available free online."
+    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online."
   },
   {
     "objectID": "index.html#course-units",
@@ -263,7 +263,7 @@
     "href": "slides/week01.html#welcome",
     "title": "Week 1: What is Data Science?",
     "section": "Welcome",
-    "text": "Welcome\n\nCDAE 7990 — Applied Data Science & Visualization\nToday only: virtual, via Teams\nStarting next week: Lafayette Hall L202, in person\nQuestions anytime — unmute or drop them in chat"
+    "text": "Welcome\n\nApplied Data Science & Visualization (CDAE 7990)\nToday only: virtual, via Teams\nStarting next week: Lafayette Hall L202, in person\nAsk questions anytime, either by unmuting or dropping them in chat"
   },
   {
     "objectID": "slides/week01.html#todays-plan",
@@ -277,21 +277,21 @@
     "href": "slides/week01.html#the-course-in-three-numbers",
     "title": "Week 1: What is Data Science?",
     "section": "The Course, in Three Numbers",
-    "text": "The Course, in Three Numbers\n\n70% — the NBRC community partner project\n15% — homework (5 assignments, 3% each)\n15% — participation & attendance\n\nFull breakdown: syllabus.qmd"
+    "text": "The Course, in Three Numbers\n\nThe NBRC project is 70% of your grade\nHomework (5 assignments) is 15%\nParticipation & attendance is 15%\n\nFull breakdown: check out the online syllabus"
   },
   {
     "objectID": "slides/week01.html#attendance-participation",
     "href": "slides/week01.html#attendance-participation",
     "title": "Week 1: What is Data Science?",
     "section": "Attendance & Participation",
-    "text": "Attendance & Participation\n\nAttendance tracked starting Week 2\nOne free absence, no questions asked\nAfter that: it costs you — heads-up in advance if you know you’ll miss one\nThis is a lab-heavy course — you learn R by writing R"
+    "text": "Attendance & Participation\n\nAttendance tracked starting Week 2\nOne free absence, no questions asked\nAfter that, it costs you. Give me a heads-up in advance if you know you’ll miss one\nThis is a lab-heavy course. You learn R by writing R, not by watching it"
   },
   {
     "objectID": "slides/week01.html#ai-tools-encouraged-with-a-catch",
     "href": "slides/week01.html#ai-tools-encouraged-with-a-catch",
     "title": "Week 1: What is Data Science?",
     "section": "AI Tools: Encouraged, With a Catch",
-    "text": "AI Tools: Encouraged, With a Catch\n\nUse AI to help with coding — that’s expected, not frowned on\nBut: some evaluation is oral and visual — presentations, code walkthroughs, design critique\nYou need to be able to explain and defend your own work\nOver-reliance shows up fast in those moments"
+    "text": "AI Tools: Encouraged, With a Catch\n\nUsing AI to help with your coding is expected, not frowned on\nBut some evaluation is oral and visual, including presentations, code walkthroughs, and design critique\nYou need to be able to explain and defend your own work\nOver-reliance shows up fast in those moments"
   },
   {
     "objectID": "slides/week01.html#what-is-data",
@@ -305,21 +305,21 @@
     "href": "slides/week01.html#what-is-data-science",
     "title": "Week 1: What is Data Science?",
     "section": "What Is Data Science?",
-    "text": "What Is Data Science?\nThe R4DS “whole game”:\nimport → tidy → transform ⇄ visualize ⇄ model → communicate\n\nWe’ll touch every stage of this loop this semester\nMost of the course lives in transform/visualize — the NBRC project forces you through the whole thing"
+    "text": "What Is Data Science?\nThe R4DS “whole game”:\nimport → tidy → transform ⇄ visualize ⇄ model → communicate\n\nWe’ll touch every stage of this loop this semester\nMost of the course lives in transform/visualize, but the NBRC project forces you through the whole loop"
   },
   {
     "objectID": "slides/week01.html#the-tools",
     "href": "slides/week01.html#the-tools",
     "title": "Week 1: What is Data Science?",
     "section": "The Tools",
-    "text": "The Tools\n\nR — the language\nPosit Cloud — where we all code, no local install needed\nQuarto — how we turn code into reports, slides, and sites (this website is built with it)\n\nNo live coding today — that starts next week."
+    "text": "The Tools\n\nR is the language\nPosit Cloud is where we all code (no local install needed)\nQuarto turns code into reports, slides, and sites (this website is built with it)\n\nNo live coding today. That starts next week."
   },
   {
-    "objectID": "slides/week01.html#lets-get-you-into-posit-cloud-now",
-    "href": "slides/week01.html#lets-get-you-into-posit-cloud-now",
+    "objectID": "slides/week01.html#lets-get-into-posit-cloud-right-now",
+    "href": "slides/week01.html#lets-get-into-posit-cloud-right-now",
     "title": "Week 1: What is Data Science?",
-    "section": "Let’s Get You Into Posit Cloud — Now",
-    "text": "Let’s Get You Into Posit Cloud — Now\nIn-class to-do, right now:\n\nCheck your UVM email for the Posit Cloud invitation\nAccept it\nOpen the class workspace — you’ll get your own private copy\nSay if anything doesn’t work — better to find out together tonight"
+    "section": "Let’s Get Into Posit Cloud, Right Now",
+    "text": "Let’s Get Into Posit Cloud, Right Now\nIn-class to-do, right now:\n\nCheck your UVM email for the Posit Cloud invitation\nAccept it\nOpen the class workspace to get your own private copy\nSay something if anything doesn’t work, since it’s better to find out together tonight"
   },
   {
     "objectID": "slides/week01.html#meet-the-partner-nbrc",
@@ -340,6 +340,6 @@
     "href": "slides/week01.html#before-next-class",
     "title": "Week 1: What is Data Science?",
     "section": "Before Next Class",
-    "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (done — see above)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
+    "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (confirmed live in class above)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
   }
 ]

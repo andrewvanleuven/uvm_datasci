@@ -20,7 +20,7 @@ A core component is a semester-long applied project delivered to an external com
 | **Instructor** | Andrew Van Leuven, Assistant Professor |
 | **Department** | Community Development & Applied Economics (CDAE), UVM Extension |
 | **Meets** | Thursdays, 4:35–7:35 pm |
-| **Location** | Lafayette Hall L202 (Week 1, Sep 3, is virtual — link will be emailed) |
+| **Location** | Lafayette Hall L202. Week 1 (Sep 3) only is virtual; that link will be emailed. |
 | **Semester** | Fall 2026 |
 | **Credit Hours** | 3 |
 | **Office Hours** | By appointment |
@@ -32,7 +32,7 @@ A core component is a semester-long applied project delivered to an external com
 
 ## Textbook
 
-We follow [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — available free online.
+We follow [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online.
 
 ---
 

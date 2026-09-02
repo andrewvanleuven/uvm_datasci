@@ -29,23 +29,23 @@ By the end of this course, you will be able to:
 
 ### Class Format
 
-We meet once a week for three hours in **Lafayette Hall L202** (Week 1, Sep 3, is a virtual session, link will be emailed — every class after that meets in person). Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work — expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I'll build in a break (or two) to divide the three hours into distinct chunks.
+We meet once a week for three hours. Every session is in **Lafayette Hall L202** except Week 1 (Sep 3), which is virtual; that link will be emailed to you. Each class period is built around a central theme, and our time is split between lecture, live coding, and hands-on lab work. Expect the balance to shift toward lab time as the semester goes on and the NBRC project takes over. I'll build in a break (or two) to divide the three hours into distinct chunks.
 
 ### Attendance Policy
 
-You are required to attend class. Put simply, class is better — and your project team is more functional — when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets **one** free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you'll miss a class, give me a heads-up in advance rather than after the fact.
+You are required to attend class. Put simply, class is better—and your project team is more functional—when everyone shows up. Starting in Week 2, I will take attendance every class period. Everyone gets **one** free absence. Beyond that, absences will cost you points on your participation & attendance grade. If you know you'll miss a class, give me a heads-up in advance rather than after the fact.
 
 ### General Classroom Expectations
 
-My goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice — this is a lab-heavy course, and you learn R by writing R, not by watching it get written. You're in charge of your own learning, but you're never doing it alone.
+My goal as your instructor is to be supportive and build a learning environment where you can thrive. Your role as a student is to actively engage with the material, contribute to your project team, manage your time well, and embrace opportunities for hands-on practice. This is a lab-heavy course: you learn R by writing R, not by watching it get written. You're in charge of your own learning, but you're never doing it alone.
 
 ---
 
 ## Required Course Materials
 
-**Primary textbook:** [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — free online.
+**Primary textbook:** [*R for Data Science* (2nd ed.)](https://r4ds.hadley.nz/) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online.
 
-**Computing:** [Posit Cloud](https://posit.cloud/spaces/738679/content/12820277) — the class workspace, pre-loaded with all required packages. You'll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).
+**Computing:** [Posit Cloud](https://posit.cloud/spaces/738679/content/12820277) is the class workspace, pre-loaded with all required packages. You'll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).
 
 **Supplemental (free online, not assigned in full):** [*Spatial Data Science*](https://r-spatial.org/book/) and [*Analyzing US Census Data*](https://walker-data.com/census-r/index.html), both used for select readings during the Spatial Analysis unit (Weeks 8–9).
 
@@ -80,7 +80,7 @@ Five assignments, each covering what's been taught since the previous one, due t
 | HW4 | Week 9 | Census data & choropleth mapping | 3% |
 | HW5 | Week 10 | Spatial joins & publication cartography | 3% |
 
-Each assignment is a Quarto document (`hw1.qmd`–`hw5.qmd`) already sitting in your Posit Cloud workspace — open the file for that week, fill it in, and render it. There's no separate submission step; I review your workspace directly.
+Each assignment is a Quarto document (`hw1.qmd`–`hw5.qmd`) already sitting in your Posit Cloud workspace. Open the file for that week, fill it in, and render it. There's no separate submission step: I review your workspace directly.
 
 ### Project breakdown
 The 70% NBRC project grade is built from four milestones already on the [schedule](schedule.qmd), not assigned all at once at the end of the semester:
@@ -106,7 +106,7 @@ There is no extra credit. Letter grades are assigned from your cumulative percen
 
 ### Use of Generative AI Tools
 
-Students are expected to use all available tools — including generative AI — to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique), so over-reliance on AI is not recommended — you will need to be able to explain and defend your own work.
+Students are expected to use all available tools—including generative AI—to help them succeed in this course. Some of the evaluation in this course focuses on the soundness of programming, and AI tools may be genuinely helpful there. However, other evaluation is assessed visually and orally (in-class presentations, code walkthroughs, design critique). Over-reliance on AI is not recommended: you will need to be able to explain and defend your own work.
 
 :::
 
@@ -116,7 +116,7 @@ Students are expected to use all available tools — including generative AI —
 
 If you need to reach me digitally, email is best. I follow a "one business day" rule for responding to student email: if you send something at 10am Monday, I have until 10am Tuesday to respond; if you send it at 6pm Friday, I have until start of business Tuesday. If more than a business day has passed, feel free to send a polite nudge.
 
-Office hours are by appointment — email me and we'll find a time. On most class days I'll also stick around afterward for quick questions; please keep it brief if others are waiting.
+Office hours are by appointment. Email me and we'll find a time. On most class days I'll also stick around afterward for quick questions; please keep it brief if others are waiting.
 
 ---
 
@@ -124,7 +124,7 @@ Office hours are by appointment — email me and we'll find a time. On most clas
 
 In keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact [Student Accessibility Services (SAS)](https://www.uvm.edu/access). All students are encouraged to discuss with the instructor any accommodations they plan to use in this course.
 
-The full set of standard UVM policies and campus resources (academic integrity, FERPA, religious holidays, health & safety, and more) is collected on a separate page so it doesn't clutter this syllabus — see **[University Policies & Resources](policies.qmd)**.
+The full set of standard UVM policies and campus resources (academic integrity, FERPA, religious holidays, health & safety, and more) is collected on a separate page so it doesn't clutter this syllabus. See **[University Policies & Resources](policies.qmd)**.
 
 ---
 
