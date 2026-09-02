@@ -66,6 +66,45 @@ Full breakdown: [check out the online syllabus](../syllabus.html#grading-policy)
 - A dataset is not the same thing as a data product
 - Discussion: where's the line, and why does it matter for this course?
 
+## Data Is Plural
+
+- "Data" is plural for *datum*: a single piece of information
+- We collect and use data to answer questions, or to get a clearer picture
+  of what's actually going on
+- Almost everything we touch this semester is **rectangular**:
+  - Rows are **observations**
+  - Columns are **variables**
+
+## A Toy Example
+
+| Coffee Shop | City | Cups Sold (Daily) | Rating |
+|---|---|---|---|
+| Brew Co. | Burlington | 340 | 4.5 |
+| Bean There | Montpelier | 210 | 4.2 |
+| Roast House | St. Albans | 180 | 4.7 |
+
+- What are the **observations** here?
+- What are the **variables**?
+- What questions could this table answer? What can't it answer?
+
+## Types of Data
+
+- **Quantitative**: measured with numbers; answers "how many?" or "how often?"
+  - *Continuous*: fractions make sense (3.14 miles)
+  - *Discrete*: fractions don't make sense (3.14 students)
+- **Qualitative**: describes attributes or properties
+  - *Nominal*: categories with no order (urban / rural)
+  - *Ordinal*: categories with a ranking (never / sometimes / always)
+
+## Primary vs. Secondary Data
+
+- **Primary data**: you collected it yourself
+- **Secondary data**: someone else collected it, and you're using it
+- Rule of thumb: **if you have to ask, it's secondary data**
+- Almost everything we touch this semester, the ACS, Census, USDA ERS,
+  and any data NBRC hands us, is secondary. Knowing where it came from and
+  how it was collected matters as much as what it says
+
 ## What Is Data Science?
 
 :::: {.columns}
@@ -102,15 +141,15 @@ No live coding today. That starts next week.
 1. Check your UVM email for the Posit Cloud invitation
 2. Accept it
 3. Open the class workspace to get your own private copy
-4. Say something if anything doesn't work, since it's better to find out
+4. Please let me know if anything doesn't work, since it's better to find out
    together tonight
 
-## Meet the Partner: NBRC
+## Our Semester-Long Partner: NBRC
 
 - Northern Border Regional Commission
 - Federal-state commission serving rural ME, NH, NY, VT
 - Your semester-long project client
-- Team domains so far: **Rural Housing**, **Rural Hub Services**
+- Team domains (subject to change): **Rural Housing**, **Rural Hub Services**
 
 ## What's Coming
 
@@ -121,8 +160,8 @@ No live coding today. That starts next week.
 
 ## Before Next Class
 
-- [x] Posit Cloud workspace access confirmed *(confirmed live in class above)*
+- [x] Posit Cloud workspace access confirmed *(confirmed live in class today)*
 - [ ] Read the R4DS Intro chapter: <https://r4ds.hadley.nz/intro>
-- [ ] Skim the [syllabus](../syllabus.html) and [schedule](../schedule.html)
+- [ ] Skim the [**syllabus**](../syllabus.html) and [**schedule**](../schedule.html)
 
 See you in Lafayette Hall L202 next Thursday.

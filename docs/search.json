@@ -301,6 +301,34 @@
     "text": "What Is Data?\n\nA spreadsheet is not the same thing as a dataset\nA dataset is not the same thing as a data product\nDiscussion: where’s the line, and why does it matter for this course?"
   },
   {
+    "objectID": "slides/week01.html#data-is-plural",
+    "href": "slides/week01.html#data-is-plural",
+    "title": "Week 1: What is Data Science?",
+    "section": "Data Is Plural",
+    "text": "Data Is Plural\n\n“Data” is plural for datum: a single piece of information\nWe collect and use data to answer questions, or to get a clearer picture of what’s actually going on\nAlmost everything we touch this semester is rectangular:\n\nRows are observations\nColumns are variables"
+  },
+  {
+    "objectID": "slides/week01.html#a-toy-example",
+    "href": "slides/week01.html#a-toy-example",
+    "title": "Week 1: What is Data Science?",
+    "section": "A Toy Example",
+    "text": "A Toy Example\n\n\n\nCoffee Shop\nCity\nCups Sold (Daily)\nRating\n\n\n\n\nBrew Co.\nBurlington\n340\n4.5\n\n\nBean There\nMontpelier\n210\n4.2\n\n\nRoast House\nSt. Albans\n180\n4.7\n\n\n\n\nWhat are the observations here?\nWhat are the variables?\nWhat questions could this table answer? What can’t it answer?"
+  },
+  {
+    "objectID": "slides/week01.html#types-of-data",
+    "href": "slides/week01.html#types-of-data",
+    "title": "Week 1: What is Data Science?",
+    "section": "Types of Data",
+    "text": "Types of Data\n\nQuantitative: measured with numbers; answers “how many?” or “how often?”\n\nContinuous: fractions make sense (3.14 miles)\nDiscrete: fractions don’t make sense (3.14 students)\n\nQualitative: describes attributes or properties\n\nNominal: categories with no order (urban / rural)\nOrdinal: categories with a ranking (never / sometimes / always)"
+  },
+  {
+    "objectID": "slides/week01.html#primary-vs.-secondary-data",
+    "href": "slides/week01.html#primary-vs.-secondary-data",
+    "title": "Week 1: What is Data Science?",
+    "section": "Primary vs. Secondary Data",
+    "text": "Primary vs. Secondary Data\n\nPrimary data: you collected it yourself\nSecondary data: someone else collected it, and you’re using it\nRule of thumb: if you have to ask, it’s secondary data\nAlmost everything we touch this semester, the ACS, Census, USDA ERS, and any data NBRC hands us, is secondary. Knowing where it came from and how it was collected matters as much as what it says"
+  },
+  {
     "objectID": "slides/week01.html#what-is-data-science",
     "href": "slides/week01.html#what-is-data-science",
     "title": "Week 1: What is Data Science?",
@@ -319,14 +347,14 @@
     "href": "slides/week01.html#lets-get-into-posit-cloud-right-now",
     "title": "Week 1: What is Data Science?",
     "section": "Let’s Get Into Posit Cloud, Right Now",
-    "text": "Let’s Get Into Posit Cloud, Right Now\nIn-class to-do, right now:\n\nCheck your UVM email for the Posit Cloud invitation\nAccept it\nOpen the class workspace to get your own private copy\nSay something if anything doesn’t work, since it’s better to find out together tonight"
+    "text": "Let’s Get Into Posit Cloud, Right Now\nIn-class to-do, right now:\n\nCheck your UVM email for the Posit Cloud invitation\nAccept it\nOpen the class workspace to get your own private copy\nPlease let me know if anything doesn’t work, since it’s better to find out together tonight"
   },
   {
-    "objectID": "slides/week01.html#meet-the-partner-nbrc",
-    "href": "slides/week01.html#meet-the-partner-nbrc",
+    "objectID": "slides/week01.html#our-semester-long-partner-nbrc",
+    "href": "slides/week01.html#our-semester-long-partner-nbrc",
     "title": "Week 1: What is Data Science?",
-    "section": "Meet the Partner: NBRC",
-    "text": "Meet the Partner: NBRC\n\nNorthern Border Regional Commission\nFederal-state commission serving rural ME, NH, NY, VT\nYour semester-long project client\nTeam domains so far: Rural Housing, Rural Hub Services"
+    "section": "Our Semester-Long Partner: NBRC",
+    "text": "Our Semester-Long Partner: NBRC\n\nNorthern Border Regional Commission\nFederal-state commission serving rural ME, NH, NY, VT\nYour semester-long project client\nTeam domains (subject to change): Rural Housing, Rural Hub Services"
   },
   {
     "objectID": "slides/week01.html#whats-coming",
@@ -340,6 +368,6 @@
     "href": "slides/week01.html#before-next-class",
     "title": "Week 1: What is Data Science?",
     "section": "Before Next Class",
-    "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (confirmed live in class above)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
+    "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (confirmed live in class today)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
   }
 ]
