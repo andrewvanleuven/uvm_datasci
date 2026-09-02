@@ -47,7 +47,7 @@ My goal as your instructor is to be supportive and build a learning environment 
 
 **Computing:** [Posit Cloud](https://posit.cloud/spaces/738679/content/12820277) — the class workspace, pre-loaded with all required packages. You'll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).
 
-*[Additional materials TBD.]*
+**Supplemental (free online, not assigned in full):** [*Spatial Data Science*](https://r-spatial.org/book/) and [*Analyzing US Census Data*](https://walker-data.com/census-r/index.html), both used for select readings during the Spatial Analysis unit (Weeks 8–9).
 
 ---
 

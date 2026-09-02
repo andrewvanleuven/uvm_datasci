@@ -32,7 +32,7 @@
     "href": "syllabus.html#required-course-materials",
     "title": "Syllabus",
     "section": "Required Course Materials",
-    "text": "Required Course Materials\nPrimary textbook: R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — free online.\nComputing: Posit Cloud — the class workspace, pre-loaded with all required packages. You’ll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).\n[Additional materials TBD.]"
+    "text": "Required Course Materials\nPrimary textbook: R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund — free online.\nComputing: Posit Cloud — the class workspace, pre-loaded with all required packages. You’ll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).\nSupplemental (free online, not assigned in full): Spatial Data Science and Analyzing US Census Data, both used for select readings during the Spatial Analysis unit (Weeks 8–9)."
   },
   {
     "objectID": "syllabus.html#course-site",
@@ -88,21 +88,21 @@
     "href": "schedule.html#unit-2-community-partnership",
     "title": "Course Schedule",
     "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nNBRC comes to us: Week 6 is a normal in-class day with NBRC visiting for the project kickoff meeting (no mid-semester field trip). Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nNBRC visits class: partner kickoff meeting (lecture topic TBD)\nWeek 6\nTBD\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed — Scope & Team Charter due (10% of project grade)\nWeek 7\nTBD"
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is a normal in-class day (no mid-semester field trip), split between a guest lecture and NBRC’s on-campus project kickoff. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nGuest lecture (Hr. 1): Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research — NBRC kickoff (Hr. 2): Sarah Waring & Chris Saunders visit to launch the project — Hr. 3 flexible\nWeek 6\nNone\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed — Scope & Team Charter due (10% of project grade)\nWeek 7\nNone"
   },
   {
     "objectID": "schedule.html#unit-3-spatial-analysis",
     "href": "schedule.html#unit-3-spatial-analysis",
     "title": "Course Schedule",
     "section": "Unit 3 — Spatial Analysis",
-    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths — HW3 due\nWeek 8\nTBD\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography — HW4 due\nWeek 9\nTBD"
+    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS — see Spatial Data Science and Analyzing US Census Data, both free online. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths — HW3 due\nWeek 8\nAnalyzing US Census Data — chapters TBD\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography — HW4 due\nWeek 9\nSpatial Data Science — chapters TBD"
   },
   {
     "objectID": "schedule.html#unit-4-communication",
     "href": "schedule.html#unit-4-communication",
     "title": "Course Schedule",
     "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics — HW5 due\nWeek 10\nTBD\n\n\n11\nNov 12\nNo class — instructor at conference"
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics — HW5 due\nWeek 10\nNone (Quarto/Git primer delivered in class)\n\n\n11\nNov 12\nNo class — instructor at conference"
   },
   {
     "objectID": "schedule.html#unit-5-project",
