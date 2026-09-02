@@ -257,5 +257,89 @@
     "title": "Community Partner Project",
     "section": "Deliverable Format",
     "text": "Deliverable Format\n[Draft — instructor to revise as project scope firms up after the Week 6 kickoff.]\nEach of the four graded milestones below builds directly on the last — there’s no single “project” handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.\n\nScope & Team Charter (Week 7, 10%)\nA short planning document, not an analysis — at this point in the semester teams have core R/tidyverse skills but haven’t yet covered spatial analysis (Weeks 8–9) or Quarto (Week 10). Should include:\n\nTeam roster and a rough division of responsibilities\nThe domain area (Rural Housing or Rural Hub Services) and 2–3 concrete research questions the team plans to answer for NBRC\nA first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)\nA work plan mapped to the remaining milestones below\n\nFormat is flexible (Word doc, Quarto doc, shared Google Doc) — the point is alignment within the team and with the instructor, not production value.\n\n\nPreliminary Outputs + Peer Critique (Week 12, 20%)\nBy this point teams have covered spatial analysis and Quarto, so this milestone should look like real, if rough, output. Expect to bring:\n\nAt least one polished chart or map addressing one of your research questions, built in R (ggplot2/sf)\nA short written or verbal framing of what the visualization shows and why it matters to NBRC\nParticipation in structured peer critique — each team gives and receives feedback from at least one other team in class\n\nThis is graded on effort and communication quality, not on having “finished” analysis — the critique is meant to catch problems while there’s still time to fix them.\n\n\nDraft Deliverable + Revision (Week 14, 20%)\nA near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto (report, slide deck, or simple dashboard — team’s choice, consistent with what’s covered in Week 10).\n\n\nFinal Deliverable + Presentation (Week 16, 20%)\nThe polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback — a Quarto-rendered report, dashboard, or slide deck that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas."
+  },
+  {
+    "objectID": "slides/week01.html#welcome",
+    "href": "slides/week01.html#welcome",
+    "title": "Week 1: What is Data Science?",
+    "section": "Welcome",
+    "text": "Welcome\n\nCDAE 7990 — Applied Data Science & Visualization\nToday only: virtual, via Teams\nStarting next week: Lafayette Hall L202, in person\nQuestions anytime — unmute or drop them in chat"
+  },
+  {
+    "objectID": "slides/week01.html#todays-plan",
+    "href": "slides/week01.html#todays-plan",
+    "title": "Week 1: What is Data Science?",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nSyllabus highlights (not a line-by-line read-through)\nWhat is data? What is data science?\nThe tools we’ll use all semester\nGet everyone into Posit Cloud, together, right now\nA first look at the NBRC project"
+  },
+  {
+    "objectID": "slides/week01.html#the-course-in-three-numbers",
+    "href": "slides/week01.html#the-course-in-three-numbers",
+    "title": "Week 1: What is Data Science?",
+    "section": "The Course, in Three Numbers",
+    "text": "The Course, in Three Numbers\n\n70% — the NBRC community partner project\n15% — homework (5 assignments, 3% each)\n15% — participation & attendance\n\nFull breakdown: syllabus.qmd"
+  },
+  {
+    "objectID": "slides/week01.html#attendance-participation",
+    "href": "slides/week01.html#attendance-participation",
+    "title": "Week 1: What is Data Science?",
+    "section": "Attendance & Participation",
+    "text": "Attendance & Participation\n\nAttendance tracked starting Week 2\nOne free absence, no questions asked\nAfter that: it costs you — heads-up in advance if you know you’ll miss one\nThis is a lab-heavy course — you learn R by writing R"
+  },
+  {
+    "objectID": "slides/week01.html#ai-tools-encouraged-with-a-catch",
+    "href": "slides/week01.html#ai-tools-encouraged-with-a-catch",
+    "title": "Week 1: What is Data Science?",
+    "section": "AI Tools: Encouraged, With a Catch",
+    "text": "AI Tools: Encouraged, With a Catch\n\nUse AI to help with coding — that’s expected, not frowned on\nBut: some evaluation is oral and visual — presentations, code walkthroughs, design critique\nYou need to be able to explain and defend your own work\nOver-reliance shows up fast in those moments"
+  },
+  {
+    "objectID": "slides/week01.html#what-is-data",
+    "href": "slides/week01.html#what-is-data",
+    "title": "Week 1: What is Data Science?",
+    "section": "What Is Data?",
+    "text": "What Is Data?\n\nA spreadsheet is not the same thing as a dataset\nA dataset is not the same thing as a data product\nDiscussion: where’s the line, and why does it matter for this course?"
+  },
+  {
+    "objectID": "slides/week01.html#what-is-data-science",
+    "href": "slides/week01.html#what-is-data-science",
+    "title": "Week 1: What is Data Science?",
+    "section": "What Is Data Science?",
+    "text": "What Is Data Science?\nThe R4DS “whole game”:\nimport → tidy → transform ⇄ visualize ⇄ model → communicate\n\nWe’ll touch every stage of this loop this semester\nMost of the course lives in transform/visualize — the NBRC project forces you through the whole thing"
+  },
+  {
+    "objectID": "slides/week01.html#the-tools",
+    "href": "slides/week01.html#the-tools",
+    "title": "Week 1: What is Data Science?",
+    "section": "The Tools",
+    "text": "The Tools\n\nR — the language\nPosit Cloud — where we all code, no local install needed\nQuarto — how we turn code into reports, slides, and sites (this website is built with it)\n\nNo live coding today — that starts next week."
+  },
+  {
+    "objectID": "slides/week01.html#lets-get-you-into-posit-cloud-now",
+    "href": "slides/week01.html#lets-get-you-into-posit-cloud-now",
+    "title": "Week 1: What is Data Science?",
+    "section": "Let’s Get You Into Posit Cloud — Now",
+    "text": "Let’s Get You Into Posit Cloud — Now\nIn-class to-do, right now:\n\nCheck your UVM email for the Posit Cloud invitation\nAccept it\nOpen the class workspace — you’ll get your own private copy\nSay if anything doesn’t work — better to find out together tonight"
+  },
+  {
+    "objectID": "slides/week01.html#meet-the-partner-nbrc",
+    "href": "slides/week01.html#meet-the-partner-nbrc",
+    "title": "Week 1: What is Data Science?",
+    "section": "Meet the Partner: NBRC",
+    "text": "Meet the Partner: NBRC\n\nNorthern Border Regional Commission\nFederal-state commission serving rural ME, NH, NY, VT\nYour semester-long project client\nTeam domains so far: Rural Housing, Rural Hub Services"
+  },
+  {
+    "objectID": "slides/week01.html#whats-coming",
+    "href": "slides/week01.html#whats-coming",
+    "title": "Week 1: What is Data Science?",
+    "section": "What’s Coming",
+    "text": "What’s Coming\n\nNBRC visits campus Week 6 (Oct 8) for the project kickoff\nAlso Week 6: a guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural-labor-market research\nTeams and scope lock in Week 7"
+  },
+  {
+    "objectID": "slides/week01.html#before-next-class",
+    "href": "slides/week01.html#before-next-class",
+    "title": "Week 1: What is Data Science?",
+    "section": "Before Next Class",
+    "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (done — see above)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
   }
 ]

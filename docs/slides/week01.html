@@ -147,49 +147,116 @@ Andrew Van Leuven
 </section>
 <section class="slide level2">
 
-<!--
-SUGGESTED STRUCTURE — Week 1 (virtual session, shorter than usual)
-
-Content TBD. This day is virtual and first-day-of-class short, so keep it
-light: mostly framing/logistics, minimal live coding. Rough shape:
-
-1. Welcome / virtual housekeeping
-   - Teams logistics, recording policy (if any), how to ask questions virtually
-   - Note: this is the ONLY virtual session — Week 2 onward meets in person
-     in Lafayette Hall L202
-
-2. Syllabus walkthrough (hit the highlights, don't read it line by line)
-   - Grading breakdown: 70% NBRC project / 15% homework / 15% participation
-   - AI policy: encouraged for coding correctness, but oral/visual
-     evaluation means you still need to know your own work
-   - Attendance expectations
-
-3. What is data? What is data science?
-   - Discussion-driven, not code-heavy — good fit for virtual format
-   - Maybe: a few contrasting examples (a spreadsheet vs. a dataset vs.
-     a data product) to get at what "data science" actually adds
-   - Tease the R4DS "data science workflow" diagram (import -> tidy ->
-     transform/visualize/model -> communicate)
-
-4. Meet the tools: R, RStudio/Posit Cloud, Quarto (conceptual overview only)
-   - No live coding needed this session; save first hands-on for Week 2
-   - IN-CLASS TO-DO: have everyone accept their Posit Cloud invitation and
-     confirm they can open the class workspace, live, during this session
-     (don't leave it as take-home — do it together so problems surface now)
-
-5. Preview: the NBRC partner project
-   - Who NBRC is, why the project structure works the way it does
-   - Sets up motivation before the Week 6 kickoff meeting (NBRC visits campus
-     — not a field trip)
-
-6. Before next class
-   - Posit Cloud workspace access confirmed (done in class, see #4)
-   - R4DS Intro chapter read
-   - Any other pre-work
-
-Note: dplyr/ggplot2 content that used to live here belongs to Week 2+
-per the schedule — don't front-load it into this session.
--->
+<!-- DRAFT — first pass from the session outline, instructor to review/edit
+     before Thursday. Deliberately light: virtual, short, no live coding. -->
+</section>
+<section id="welcome" class="slide level2">
+<h2>Welcome</h2>
+<ul>
+<li>CDAE 7990 — Applied Data Science &amp; Visualization</li>
+<li>Today only: <strong>virtual</strong>, via Teams</li>
+<li>Starting next week: <strong>Lafayette Hall L202</strong>, in person</li>
+<li>Questions anytime — unmute or drop them in chat</li>
+</ul>
+</section>
+<section id="todays-plan" class="slide level2">
+<h2>Today’s Plan</h2>
+<ul>
+<li>Syllabus highlights (not a line-by-line read-through)</li>
+<li>What is data? What is data science?</li>
+<li>The tools we’ll use all semester</li>
+<li>Get everyone into Posit Cloud, together, right now</li>
+<li>A first look at the NBRC project</li>
+</ul>
+</section>
+<section id="the-course-in-three-numbers" class="slide level2">
+<h2>The Course, in Three Numbers</h2>
+<ul>
+<li><strong>70%</strong> — the NBRC community partner project</li>
+<li><strong>15%</strong> — homework (5 assignments, 3% each)</li>
+<li><strong>15%</strong> — participation &amp; attendance</li>
+</ul>
+<p>Full breakdown: <a href="../syllabus.html">syllabus.qmd</a></p>
+</section>
+<section id="attendance-participation" class="slide level2">
+<h2>Attendance &amp; Participation</h2>
+<ul>
+<li>Attendance tracked starting <strong>Week 2</strong></li>
+<li>One free absence, no questions asked</li>
+<li>After that: it costs you — heads-up in advance if you know you’ll miss one</li>
+<li>This is a lab-heavy course — you learn R by writing R</li>
+</ul>
+</section>
+<section id="ai-tools-encouraged-with-a-catch" class="slide level2">
+<h2>AI Tools: Encouraged, With a Catch</h2>
+<ul>
+<li>Use AI to help with coding — that’s expected, not frowned on</li>
+<li>But: some evaluation is <strong>oral and visual</strong> — presentations, code walkthroughs, design critique</li>
+<li>You need to be able to explain and defend your own work</li>
+<li>Over-reliance shows up fast in those moments</li>
+</ul>
+</section>
+<section id="what-is-data" class="slide level2">
+<h2>What <em>Is</em> Data?</h2>
+<ul>
+<li>A spreadsheet is not the same thing as a dataset</li>
+<li>A dataset is not the same thing as a data product</li>
+<li>Discussion: where’s the line, and why does it matter for this course?</li>
+</ul>
+</section>
+<section id="what-is-data-science" class="slide level2">
+<h2>What Is Data Science?</h2>
+<p>The R4DS “whole game”:</p>
+<p><strong>import → tidy → transform ⇄ visualize ⇄ model → communicate</strong></p>
+<ul>
+<li>We’ll touch every stage of this loop this semester</li>
+<li>Most of the course lives in transform/visualize — the NBRC project forces you through the whole thing</li>
+</ul>
+</section>
+<section id="the-tools" class="slide level2">
+<h2>The Tools</h2>
+<ul>
+<li><strong>R</strong> — the language</li>
+<li><strong>Posit Cloud</strong> — where we all code, no local install needed</li>
+<li><strong>Quarto</strong> — how we turn code into reports, slides, and sites (this website is built with it)</li>
+</ul>
+<p>No live coding today — that starts next week.</p>
+</section>
+<section id="lets-get-you-into-posit-cloud-now" class="slide level2">
+<h2>Let’s Get You Into Posit Cloud — Now</h2>
+<p><strong>In-class to-do, right now:</strong></p>
+<ol type="1">
+<li>Check your UVM email for the Posit Cloud invitation</li>
+<li>Accept it</li>
+<li>Open the class workspace — you’ll get your own private copy</li>
+<li>Say if anything doesn’t work — better to find out together tonight</li>
+</ol>
+</section>
+<section id="meet-the-partner-nbrc" class="slide level2">
+<h2>Meet the Partner: NBRC</h2>
+<ul>
+<li>Northern Border Regional Commission</li>
+<li>Federal-state commission serving rural ME, NH, NY, VT</li>
+<li>Your semester-long project client</li>
+<li>Team domains so far: <strong>Rural Housing</strong>, <strong>Rural Hub Services</strong></li>
+</ul>
+</section>
+<section id="whats-coming" class="slide level2">
+<h2>What’s Coming</h2>
+<ul>
+<li>NBRC visits campus <strong>Week 6</strong> (Oct 8) for the project kickoff</li>
+<li>Also Week 6: a guest lecture from <strong>Andy Crawley</strong> (University of Maine) on data &amp; visualization in AI/rural-labor-market research</li>
+<li>Teams and scope lock in <strong>Week 7</strong></li>
+</ul>
+</section>
+<section id="before-next-class" class="slide level2">
+<h2>Before Next Class</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="">Posit Cloud workspace access confirmed <em>(done — see above)</em></label></li>
+<li><label><input type="checkbox">Read the R4DS Intro chapter: <a href="https://r4ds.hadley.nz/intro" class="uri">https://r4ds.hadley.nz/intro</a></label></li>
+<li><label><input type="checkbox">Skim the <a href="../syllabus.html">syllabus</a> and <a href="../schedule.html">schedule</a></label></li>
+</ul>
+<p>See you in Lafayette Hall L202 next Thursday.</p>
 
 
 </section>
