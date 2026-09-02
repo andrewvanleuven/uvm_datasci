@@ -3,7 +3,7 @@ title: "University Policies & Resources"
 subtitle: "CDAE 7990 · Fall 2026"
 ---
 
-The information below is lifted straight from official UVM documents and campus resources. You've likely already seen most of it in your other course syllabi — it's the same for every UVM class. It's still worth a skim at the start of the semester. Anything in the main [Syllabus](syllabus.qmd) is an additional layer on top of these bedrock university guidelines.
+The information below is lifted straight from official UVM documents and campus resources. You've likely already seen most of it in your other course syllabi, since it's the same for every UVM class. It's still worth a skim at the start of the semester. Anything in the main [Syllabus](syllabus.qmd) is an additional layer on top of these bedrock university guidelines.
 
 ---
 

@@ -110,7 +110,7 @@ Full breakdown: [check out the online syllabus](../syllabus.html#grading-policy)
 :::: {.columns}
 
 ::: {.column width="35%"}
-[![](https://r4ds.had.co.nz/cover.png)](https://r4ds.hadley.nz/)
+[![](https://r4ds.hadley.nz/cover.jpg)](https://r4ds.hadley.nz/)
 :::
 
 ::: {.column width="65%"}
