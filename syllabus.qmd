@@ -70,15 +70,15 @@ You'll be evaluated through a combination of applied homework, in-class labs and
 | Participation & Attendance | 15% |
 
 ### Homework breakdown
-Five assignments, each covering what's been taught since the previous one, due the week shown:
+Five assignments, each covering what's been taught since the previous one. Each is due the Sunday following that week's class, by 11:59pm:
 
 | # | Due | Topic | Weight |
 |---|---|---|---|
-| HW1 | Week 2 | Intro to R | 3% |
-| HW2 | Week 4 | dplyr / tidyverse; data import & joins | 3% |
-| HW3 | Week 8 | EDA, ggplot2, and chart type selection | 3% |
-| HW4 | Week 9 | Census data & choropleth mapping | 3% |
-| HW5 | Week 10 | Spatial joins & publication cartography | 3% |
+| HW1 | Sun, Sept. 13 (after Week 2) | Intro to R | 3% |
+| HW2 | Sun, Sept. 27 (after Week 4) | dplyr / tidyverse; data import & joins | 3% |
+| HW3 | Sun, Oct. 25 (after Week 8) | EDA, ggplot2, and chart type selection | 3% |
+| HW4 | Sun, Nov. 1 (after Week 9) | Census data & choropleth mapping | 3% |
+| HW5 | Sun, Nov. 8 (after Week 10) | Spatial joins & publication cartography | 3% |
 
 Each assignment is a Quarto document (`hw1.qmd`–`hw5.qmd`) already sitting in your Posit Cloud workspace. Open the file for that week, fill it in, and render it. There's no separate submission step: I review your workspace directly.
 

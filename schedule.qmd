@@ -18,9 +18,9 @@ Core skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
 | 1 | Sep 3 | What is data? What is data science? Intro to R. **Virtual session, link will be emailed.** | [Week 1](slides/week01.html) | R4DS Intro |
-| 2 | Sep 10 | dplyr basics; into the tidyverse. *HW1 due.* | [Week 2](#) | R4DS Ch. 3–4 |
+| 2 | Sep 10 | dplyr basics; into the tidyverse. *HW1 due Sept. 13 by 11:59pm.* | [Week 2](#) | R4DS Ch. 3–4 |
 | 3 | Sep 17 | Getting data: APIs, scraping, joins | [Week 3](#) | R4DS Ch. 7–8 |
-| 4 | Sep 24 | Exploratory data analysis; intro to ggplot2. *HW2 due.* | [Week 4](#) | R4DS Ch. 10–11 |
+| 4 | Sep 24 | Exploratory data analysis; intro to ggplot2. *HW2 due Sept. 27 by 11:59pm.* | [Week 4](#) | R4DS Ch. 10–11 |
 | 5 | Oct 1 | Advanced ggplot2; principles of effective visualization | [Week 5](#) | R4DS Ch. 12–13 |
 
 ---
@@ -46,8 +46,8 @@ Supplemental to R4DS. See [*Spatial Data Science*](https://r-spatial.org/book/) 
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 8 | Oct 22 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due.* | [Week 8](#) | *Analyzing US Census Data* (chapters TBD) |
-| 9 | Oct 29 | Advanced GIS; non-Census spatial data; publication-level cartography. *HW4 due.* | [Week 9](#) | *Spatial Data Science* (chapters TBD) |
+| 8 | Oct 22 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due Oct. 25 by 11:59pm.* | [Week 8](#) | *Analyzing US Census Data* (chapters TBD) |
+| 9 | Oct 29 | Advanced GIS; non-Census spatial data; publication-level cartography. *HW4 due Nov. 1 by 11:59pm.* | [Week 9](#) | *Spatial Data Science* (chapters TBD) |
 
 ---
 
@@ -59,7 +59,7 @@ Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includ
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *HW5 due.* | [Week 10](#) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
+| 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *HW5 due Nov. 8 by 11:59pm.* | [Week 10](#) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
 | 11 | Nov 12 | **No class** (instructor at conference) |
 
 
