@@ -20,8 +20,8 @@ Core skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2
 | 1 | Sep 3 | What is data? What is data science? Intro to R. **Virtual session, link will be emailed.** | [Week 1](slides/week01.html) | R4DS Intro |
 | 2 | Sep 10 | dplyr basics; into the tidyverse. *HW1 due Sept. 13 by 11:59pm.* | [Week 2](#) | R4DS Ch. 3–4 |
 | 3 | Sep 17 | Getting data: APIs, scraping, joins | [Week 3](#) | R4DS Ch. 7–8 |
-| 4 | Sep 24 | Exploratory data analysis; intro to ggplot2. *HW2 due Sept. 27 by 11:59pm.* | [Week 4](#) | R4DS Ch. 10–11 |
-| 5 | Oct 1 | Advanced ggplot2; principles of effective visualization | [Week 5](#) | R4DS Ch. 12–13 |
+| 4 | Sep 24 | Exploratory data analysis; intro to ggplot2. *HW2 due Sept. 27 by 11:59pm.* | [Week 4](#) | R4DS Ch. 9-10 (skim 11) |
+| 5 | Oct 1 | Advanced ggplot2; principles of effective visualization | [Week 5](#) | R4DS [Hutchins & Van Leuven (2025)](https://www.aeeejournal.org/volumes/volume-7-2025/volume-7-issue-5-december-2025/teaching-and-educational-methods/data-visualization-in-applied-economics-instruction-and-outreach) |
 
 ---
 
@@ -41,13 +41,13 @@ Week 6 is a normal in-class day (no mid-semester field trip), split between a gu
 ## Unit 3 — Spatial Analysis {.unit-header}
 
 ::: {.callout-note appearance="minimal"}
-Supplemental to R4DS. See [*Spatial Data Science*](https://r-spatial.org/book/) and [*Analyzing US Census Data*](https://walker-data.com/census-r/index.html), both free online. Packages: `sf`, `tidycensus`, `tigris`, `ggspatial`
+Supplemental to R4DS. See [*Analyzing US Census Data*](https://walker-data.com/census-r/index.html) and [*Spatial Data Science*](https://r-spatial.org/book/), both free online. Packages: `sf`, `tidycensus`, `tigris`, `ggspatial`
 :::
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 8 | Oct 22 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due Oct. 25 by 11:59pm.* | [Week 8](#) | *Analyzing US Census Data* (chapters TBD) |
-| 9 | Oct 29 | Advanced GIS; non-Census spatial data; publication-level cartography. *HW4 due Nov. 1 by 11:59pm.* | [Week 9](#) | *Spatial Data Science* (chapters TBD) |
+| 8 | Oct 22 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due Oct. 25 by 11:59pm.* | [Week 8](#) | *Analyzing US Census Data* (Chapters 1 and 4) |
+| 9 | Oct 29 | Advanced GIS; non-Census spatial data; publication-level cartography. *HW4 due Nov. 1 by 11:59pm.* | [Week 9](#) | *Spatial Data Science* (skim Chapters 1-3) |
 
 ---
 
