@@ -32,7 +32,7 @@
     "href": "syllabus.html#required-course-materials",
     "title": "Syllabus",
     "section": "Required Course Materials",
-    "text": "Required Course Materials\nPrimary textbook: R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online.\nComputing: Posit Cloud is the class workspace, pre-loaded with all required packages. You’ll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).\nSupplemental (free online, not assigned in full): Spatial Data Science and Analyzing US Census Data, both used for select readings during the Spatial Analysis unit (Weeks 8–9)."
+    "text": "Required Course Materials\nPrimary textbook: R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online.\nComputing: Posit Cloud is the class workspace, pre-loaded with all required packages. You’ll receive an invitation to the space via your UVM email; once accepted, opening the workspace gives you your own persistent copy for the whole semester (compute costs are covered by the instructor).\nSupplemental (free online, not assigned in full): Analyzing US Census Data and Spatial Data Science, both used for select readings during the Spatial Analysis unit (Weeks 8–9).\nAssigned article: Hutchins and Van Leuven (2025), “Data Visualization in Applied Economics Instruction and Outreach”, read for Week 5."
   },
   {
     "objectID": "syllabus.html#course-site",
