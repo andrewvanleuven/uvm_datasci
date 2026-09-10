@@ -28,3 +28,6 @@ cdae7990_workspace/
 rsconnect/
 
 **/*.quarto_ipynb
+
+# Emailed PDF handouts (standalone Quarto project, never published)
+handouts/
