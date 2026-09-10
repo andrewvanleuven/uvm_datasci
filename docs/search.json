@@ -70,195 +70,6 @@
     "text": "Schedule\nSee the Schedule page for the full week-by-week breakdown."
   },
   {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Course Schedule",
-    "section": "",
-    "text": "The course meets Thursdays, 4:35–7:35 pm in Lafayette Hall L202. Week 1 (Sep 3) only is a virtual session (link will be emailed); every class after that is in person. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.\nAll five homework assignments (see Syllabus for topics) live in your Posit Cloud workspace as hw1.qmd–hw5.qmd; due dates are noted inline below."
-  },
-  {
-    "objectID": "schedule.html#unit-1-foundations",
-    "href": "schedule.html#unit-1-foundations",
-    "title": "Course Schedule",
-    "section": "Unit 1 — Foundations",
-    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R. Virtual session, link will be emailed.\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse. HW1 due Sept. 13 by 11:59pm.\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2. HW2 due Sept. 27 by 11:59pm.\nWeek 4\nR4DS Ch. 9-10 (skim 11)\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Hutchins & Van Leuven (2025)"
-  },
-  {
-    "objectID": "schedule.html#unit-2-community-partnership",
-    "href": "schedule.html#unit-2-community-partnership",
-    "title": "Course Schedule",
-    "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is a normal in-class day (no mid-semester field trip), split between a guest lecture and NBRC’s on-campus project kickoff. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nHr. 1: guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research. Hr. 2: NBRC kickoff, with Sarah Waring & Chris Saunders visiting to launch the project. Hr. 3 is flexible.\nWeek 6\nNone\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed. Scope & Team Charter due (10% of project grade).\nWeek 7\nNone"
-  },
-  {
-    "objectID": "schedule.html#unit-3-spatial-analysis",
-    "href": "schedule.html#unit-3-spatial-analysis",
-    "title": "Course Schedule",
-    "section": "Unit 3 — Spatial Analysis",
-    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. See Analyzing US Census Data and Spatial Data Science, both free online. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths. HW3 due Oct. 25 by 11:59pm.\nWeek 8\nAnalyzing US Census Data (Chapters 1 and 4)\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography. HW4 due Nov. 1 by 11:59pm.\nWeek 9\nSpatial Data Science (skim Chapters 1-3)"
-  },
-  {
-    "objectID": "schedule.html#unit-4-communication",
-    "href": "schedule.html#unit-4-communication",
-    "title": "Course Schedule",
-    "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. HW5 due Nov. 8 by 11:59pm.\nWeek 10\nR4DS: Quarto\n\n\n11\nNov 12\nNo class (instructor at conference)"
-  },
-  {
-    "objectID": "schedule.html#unit-5-project",
-    "href": "schedule.html#unit-5-project",
-    "title": "Course Schedule",
-    "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique. Preliminary Outputs + Peer Critique due (20% of project grade).\n\n\n13\nNov 26\nNo class (Thanksgiving)\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision. Draft Deliverable + Revision due (20% of project grade).\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier: final presentations (in-person). Final Deliverable + Presentation due (20% of project grade).\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
-  },
-  {
-    "objectID": "policies.html",
-    "href": "policies.html",
-    "title": "University Policies & Resources",
-    "section": "",
-    "text": "The information below is lifted straight from official UVM documents and campus resources. You’ve likely already seen most of it in your other course syllabi, since it’s the same for every UVM class. It’s still worth a skim at the start of the semester. Anything in the main Syllabus is an additional layer on top of these bedrock university guidelines."
-  },
-  {
-    "objectID": "policies.html#lived-name-and-pronoun-information",
-    "href": "policies.html#lived-name-and-pronoun-information",
-    "title": "University Policies & Resources",
-    "section": "Lived Name and Pronoun Information",
-    "text": "Lived Name and Pronoun Information\nThe UVM Directory includes fields for indicating your lived name and your pronouns. Lived names (preferred names, names in use) are names that an individual wants to be known by in the University community. Entering your pronouns is strongly encouraged to help create a more inclusive and respectful campus community. To update your information, log in to the UVM Directory. A preview box will let you see how this information will appear in other campus systems."
-  },
-  {
-    "objectID": "policies.html#research-and-citation-help",
-    "href": "policies.html#research-and-citation-help",
-    "title": "University Policies & Resources",
-    "section": "Research and Citation Help",
-    "text": "Research and Citation Help\nFor help selecting research topics, finding information, citing sources, and more, ask a librarian. The UVM Libraries are eager to help, by phone, email, chat, text, or individual consultation.\n\nHowe Library: library.uvm.edu/askhowe\nDana Medical Library: dana.uvm.edu/help/ask\nSilver Special Collections Library: specialcollections.uvm.edu/help/ask"
-  },
-  {
-    "objectID": "policies.html#course-evaluation",
-    "href": "policies.html#course-evaluation",
-    "title": "University Policies & Resources",
-    "section": "Course Evaluation",
-    "text": "Course Evaluation\nAll students are expected to complete an evaluation of the course at its conclusion. Evaluations are anonymous and confidential; the feedback gained, including constructive criticism, is used to improve the course."
-  },
-  {
-    "objectID": "policies.html#potential-changes-during-the-semester",
-    "href": "policies.html#potential-changes-during-the-semester",
-    "title": "University Policies & Resources",
-    "section": "Potential Changes During the Semester",
-    "text": "Potential Changes During the Semester\nThe University of Vermont reserves the right to make changes in course offerings, mode of delivery, degree requirements, charges, regulations, and procedures as educational, financial, health, safety, and welfare considerations require, or as necessary to comply with governmental, accreditation, or public health directives. See the UVM Catalogue for the general statement."
-  },
-  {
-    "objectID": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
-    "href": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
-    "title": "University Policies & Resources",
-    "section": "Intellectual Property / Prohibition on Sharing Academic Materials",
-    "text": "Intellectual Property / Prohibition on Sharing Academic Materials\nStudents are prohibited from publicly sharing or selling academic materials they did not author — for example, the class syllabus, outlines or presentations authored by the professor, practice questions, textbook excerpts, or other copyrighted class materials — and from sharing assessments such as homework or take-home exams. Violations are handled under UVM’s Intellectual Property policy and Code of Academic Integrity."
-  },
-  {
-    "objectID": "policies.html#tips-for-success",
-    "href": "policies.html#tips-for-success",
-    "title": "University Policies & Resources",
-    "section": "Tips for Success",
-    "text": "Tips for Success\nA few general resources for students, including for remote/online sessions:\n\nChecklist for success in online/remote courses\nAcademic support for online learning\n\nOther helpful resources beyond your professor: the Graduate Writing Center, Supplemental Instruction, Learning Co-op tutors."
-  },
-  {
-    "objectID": "policies.html#student-learning-accommodations",
-    "href": "policies.html#student-learning-accommodations",
-    "title": "University Policies & Resources",
-    "section": "Student Learning Accommodations",
-    "text": "Student Learning Accommodations\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS), UVM’s office of Disability Services for students. SAS works with students and faculty in an interactive process to explore reasonable and appropriate accommodations, which are communicated to faculty in an accommodation letter. All students are strongly encouraged to discuss with their instructor the accommodations they plan to use in each course.\nContact SAS: A170 Living/Learning Center · (802) 656-7753 · access@uvm.edu · www.uvm.edu/access"
-  },
-  {
-    "objectID": "policies.html#important-uvm-policies",
-    "href": "policies.html#important-uvm-policies",
-    "title": "University Policies & Resources",
-    "section": "Important UVM Policies",
-    "text": "Important UVM Policies\nAcademic Integrity — Addresses plagiarism, fabrication, collusion, and cheating.\nCode of Student Conduct — Outlines conduct expectations as well as students’ rights and responsibilities.\nFERPA Rights Disclosure — Communicates students’ rights regarding access to, and privacy of, their educational records under the Family Educational Rights and Privacy Act (FERPA) of 1974.\nFinal Exam Policy — Outlines expectations during final exams and explains the timing and process of the examination period.\nGrade Appeals — The procedure to follow if you would like to contest a grade.\nGrading — GPA calculation and general grading information.\nReligious Holidays — Students have the right to practice the religion of their choice. Each semester, students should submit in writing to their instructor(s) — as early as possible, and at least one week before a documented religious holiday — the date(s) of any conflict or absence. Faculty must permit students who miss work or exams for religious observance to make up that work.\n(Full text of these policies is maintained centrally by UVM. Search uvm.edu/policies for the current version of any policy named above.)"
-  },
-  {
-    "objectID": "policies.html#promoting-health-safety",
-    "href": "policies.html#promoting-health-safety",
-    "title": "University Policies & Resources",
-    "section": "Promoting Health & Safety",
-    "text": "Promoting Health & Safety\nThe University of Vermont’s top priority is supporting a healthy and safe community:\n\nCenter for Health and Wellbeing — uvm.edu/health\nCounseling & Psychiatry Services (CAPS) — Direct line: (802) 656-3340\nC.A.R.E. — If you’re concerned about a UVM community member or a specific event, contact the Dean of Students Office at (802) 656-3380, or report anonymously online via the C.A.R.E. Team website."
-  },
-  {
-    "objectID": "index.html#course-overview",
-    "href": "index.html#course-overview",
-    "title": "Applied Data Science & Visualization",
-    "section": "Course Overview",
-    "text": "Course Overview\nThis course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.\nA core component is a semester-long applied project delivered to an external community partner."
-  },
-  {
-    "objectID": "index.html#logistics",
-    "href": "index.html#logistics",
-    "title": "Applied Data Science & Visualization",
-    "section": "Logistics",
-    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nLafayette Hall L202. Week 1 (Sep 3) only is virtual; that link will be emailed.\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
-  },
-  {
-    "objectID": "index.html#textbook",
-    "href": "index.html#textbook",
-    "title": "Applied Data Science & Visualization",
-    "section": "Textbook",
-    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online."
-  },
-  {
-    "objectID": "index.html#course-units",
-    "href": "index.html#course-units",
-    "title": "Applied Data Science & Visualization",
-    "section": "Course Units",
-    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: NBRC campus visit + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
-  },
-  {
-    "objectID": "index.html#community-partner",
-    "href": "index.html#community-partner",
-    "title": "Applied Data Science & Visualization",
-    "section": "Community Partner",
-    "text": "Community Partner\nThis semester’s applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
-  },
-  {
-    "objectID": "project.html",
-    "href": "project.html",
-    "title": "Community Partner Project",
-    "section": "",
-    "text": "WarningTeam Assignments Pending\n\n\n\nDomain areas and team assignments will be finalized during the Week 6 kickoff meeting with NBRC (held in class, not a field trip). The structure below is provisional."
-  },
-  {
-    "objectID": "project.html#overview",
-    "href": "project.html#overview",
-    "title": "Community Partner Project",
-    "section": "Overview",
-    "text": "Overview\nThe semester-long applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nStudents work in small teams. Each team analyzes a different domain area across NBRC’s full four-state territory (rather than each team covering a single state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC."
-  },
-  {
-    "objectID": "project.html#domain-areas",
-    "href": "project.html#domain-areas",
-    "title": "Community Partner Project",
-    "section": "Domain Areas",
-    "text": "Domain Areas\nFor now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):\n\nRural Housing: issues relating to supply, demand, and affordability of housing in NBRC counties\nRural Hub Services: quantifying and visualizing the essential businesses or amenities that appear in central regional towns to serve all the smaller surrounding communities"
-  },
-  {
-    "objectID": "project.html#team-assignments",
-    "href": "project.html#team-assignments",
-    "title": "Community Partner Project",
-    "section": "Team Assignments",
-    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nRural Housing\nTBD\n\n\n2\nRural Hub Services\nTBD"
-  },
-  {
-    "objectID": "project.html#key-dates-grading",
-    "href": "project.html#key-dates-grading",
-    "title": "Community Partner Project",
-    "section": "Key Dates & Grading",
-    "text": "Key Dates & Grading\nThe project is worth 70% of your course grade, broken into four graded milestones (see the Syllabus for the full grading policy):\n\n\n\n\n\n\n\n\nDate\nMilestone\nWeight\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n—\n\n\nOct 15 (Week 7)\nScope & Team Charter due\n10%\n\n\nNov 19 (Week 12)\nPreliminary Outputs + Peer Critique due\n20%\n\n\nDec 3 (Week 14)\nDraft Deliverable + Revision due\n20%\n\n\nDec 17 (Week 16)\nField trip: Final Deliverable + Presentation due (in-person)\n20%"
-  },
-  {
-    "objectID": "project.html#deliverable-format",
-    "href": "project.html#deliverable-format",
-    "title": "Community Partner Project",
-    "section": "Deliverable Format",
-    "text": "Deliverable Format\n[Draft — instructor to revise as project scope firms up after the Week 6 kickoff.]\nEach of the four graded milestones below builds directly on the last. There’s no single “project” handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.\n\nScope & Team Charter (Week 7, 10%)\nA short planning document, not an analysis. At this point in the semester, teams have core R/tidyverse skills but haven’t yet covered spatial analysis (Weeks 8–9) or Quarto (Week 10). Should include:\n\nTeam roster and a rough division of responsibilities\nThe domain area (Rural Housing or Rural Hub Services) and 2–3 concrete research questions the team plans to answer for NBRC\nA first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)\nA work plan mapped to the remaining milestones below\n\nMust be a Quarto document (.qmd). The point at this stage is alignment within the team and with the instructor, not production value.\n\n\nPreliminary Outputs + Peer Critique (Week 12, 20%)\nBy this point teams have covered spatial analysis and Quarto, so this milestone should look like real, if rough, output. Expect to bring:\n\nAt least one polished chart or map addressing one of your research questions, built in R (ggplot2/sf)\nA short written or verbal framing of what the visualization shows and why it matters to NBRC\nParticipation in structured peer critique, giving and receiving feedback with at least one other team in class\n\nThis is graded on effort and communication quality, not on having “finished” analysis. The critique is meant to catch problems while there’s still time to fix them.\n\n\nDraft Deliverable + Revision (Week 14, 20%)\nA near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team’s choice of report, slide deck, or simple dashboard, consistent with what’s covered in Week 10.\n\n\nFinal Deliverable + Presentation (Week 16, 20%)\nThis is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It’s a Quarto-rendered report, dashboard, or slide deck that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas."
-  },
-  {
     "objectID": "slides/week01.html#welcome",
     "href": "slides/week01.html#welcome",
     "title": "Week 1: What is Data Science?",
@@ -369,5 +180,516 @@
     "title": "Week 1: What is Data Science?",
     "section": "Before Next Class",
     "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (confirmed live in class today)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Community Partner Project",
+    "section": "",
+    "text": "WarningTeam Assignments Pending\n\n\n\nDomain areas and team assignments will be finalized during the Week 6 kickoff meeting with NBRC (held in class, not a field trip). The structure below is provisional."
+  },
+  {
+    "objectID": "project.html#overview",
+    "href": "project.html#overview",
+    "title": "Community Partner Project",
+    "section": "Overview",
+    "text": "Overview\nThe semester-long applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nStudents work in small teams. Each team analyzes a different domain area across NBRC’s full four-state territory (rather than each team covering a single state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC."
+  },
+  {
+    "objectID": "project.html#domain-areas",
+    "href": "project.html#domain-areas",
+    "title": "Community Partner Project",
+    "section": "Domain Areas",
+    "text": "Domain Areas\nFor now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):\n\nRural Housing: issues relating to supply, demand, and affordability of housing in NBRC counties\nRural Hub Services: quantifying and visualizing the essential businesses or amenities that appear in central regional towns to serve all the smaller surrounding communities"
+  },
+  {
+    "objectID": "project.html#team-assignments",
+    "href": "project.html#team-assignments",
+    "title": "Community Partner Project",
+    "section": "Team Assignments",
+    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nRural Housing\nTBD\n\n\n2\nRural Hub Services\nTBD"
+  },
+  {
+    "objectID": "project.html#key-dates-grading",
+    "href": "project.html#key-dates-grading",
+    "title": "Community Partner Project",
+    "section": "Key Dates & Grading",
+    "text": "Key Dates & Grading\nThe project is worth 70% of your course grade, broken into four graded milestones (see the Syllabus for the full grading policy):\n\n\n\n\n\n\n\n\nDate\nMilestone\nWeight\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n—\n\n\nOct 15 (Week 7)\nScope & Team Charter due\n10%\n\n\nNov 19 (Week 12)\nPreliminary Outputs + Peer Critique due\n20%\n\n\nDec 3 (Week 14)\nDraft Deliverable + Revision due\n20%\n\n\nDec 17 (Week 16)\nField trip: Final Deliverable + Presentation due (in-person)\n20%"
+  },
+  {
+    "objectID": "project.html#deliverable-format",
+    "href": "project.html#deliverable-format",
+    "title": "Community Partner Project",
+    "section": "Deliverable Format",
+    "text": "Deliverable Format\n[Draft — instructor to revise as project scope firms up after the Week 6 kickoff.]\nEach of the four graded milestones below builds directly on the last. There’s no single “project” handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.\n\nScope & Team Charter (Week 7, 10%)\nA short planning document, not an analysis. At this point in the semester, teams have core R/tidyverse skills but haven’t yet covered spatial analysis (Weeks 8–9) or Quarto (Week 10). Should include:\n\nTeam roster and a rough division of responsibilities\nThe domain area (Rural Housing or Rural Hub Services) and 2–3 concrete research questions the team plans to answer for NBRC\nA first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)\nA work plan mapped to the remaining milestones below\n\nMust be a Quarto document (.qmd). The point at this stage is alignment within the team and with the instructor, not production value.\n\n\nPreliminary Outputs + Peer Critique (Week 12, 20%)\nBy this point teams have covered spatial analysis and Quarto, so this milestone should look like real, if rough, output. Expect to bring:\n\nAt least one polished chart or map addressing one of your research questions, built in R (ggplot2/sf)\nA short written or verbal framing of what the visualization shows and why it matters to NBRC\nParticipation in structured peer critique, giving and receiving feedback with at least one other team in class\n\nThis is graded on effort and communication quality, not on having “finished” analysis. The critique is meant to catch problems while there’s still time to fix them.\n\n\nDraft Deliverable + Revision (Week 14, 20%)\nA near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team’s choice of report, slide deck, or simple dashboard, consistent with what’s covered in Week 10.\n\n\nFinal Deliverable + Presentation (Week 16, 20%)\nThis is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It’s a Quarto-rendered report, dashboard, or slide deck that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas."
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Overview",
+    "text": "Course Overview\nThis course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.\nA core component is a semester-long applied project delivered to an external community partner."
+  },
+  {
+    "objectID": "index.html#logistics",
+    "href": "index.html#logistics",
+    "title": "Applied Data Science & Visualization",
+    "section": "Logistics",
+    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nLafayette Hall L202. Week 1 (Sep 3) only is virtual; that link will be emailed.\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
+  },
+  {
+    "objectID": "index.html#textbook",
+    "href": "index.html#textbook",
+    "title": "Applied Data Science & Visualization",
+    "section": "Textbook",
+    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online."
+  },
+  {
+    "objectID": "index.html#course-units",
+    "href": "index.html#course-units",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Units",
+    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: NBRC campus visit + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
+  },
+  {
+    "objectID": "index.html#community-partner",
+    "href": "index.html#community-partner",
+    "title": "Applied Data Science & Visualization",
+    "section": "Community Partner",
+    "text": "Community Partner\nThis semester’s applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
+  },
+  {
+    "objectID": "policies.html",
+    "href": "policies.html",
+    "title": "University Policies & Resources",
+    "section": "",
+    "text": "The information below is lifted straight from official UVM documents and campus resources. You’ve likely already seen most of it in your other course syllabi, since it’s the same for every UVM class. It’s still worth a skim at the start of the semester. Anything in the main Syllabus is an additional layer on top of these bedrock university guidelines."
+  },
+  {
+    "objectID": "policies.html#lived-name-and-pronoun-information",
+    "href": "policies.html#lived-name-and-pronoun-information",
+    "title": "University Policies & Resources",
+    "section": "Lived Name and Pronoun Information",
+    "text": "Lived Name and Pronoun Information\nThe UVM Directory includes fields for indicating your lived name and your pronouns. Lived names (preferred names, names in use) are names that an individual wants to be known by in the University community. Entering your pronouns is strongly encouraged to help create a more inclusive and respectful campus community. To update your information, log in to the UVM Directory. A preview box will let you see how this information will appear in other campus systems."
+  },
+  {
+    "objectID": "policies.html#research-and-citation-help",
+    "href": "policies.html#research-and-citation-help",
+    "title": "University Policies & Resources",
+    "section": "Research and Citation Help",
+    "text": "Research and Citation Help\nFor help selecting research topics, finding information, citing sources, and more, ask a librarian. The UVM Libraries are eager to help, by phone, email, chat, text, or individual consultation.\n\nHowe Library: library.uvm.edu/askhowe\nDana Medical Library: dana.uvm.edu/help/ask\nSilver Special Collections Library: specialcollections.uvm.edu/help/ask"
+  },
+  {
+    "objectID": "policies.html#course-evaluation",
+    "href": "policies.html#course-evaluation",
+    "title": "University Policies & Resources",
+    "section": "Course Evaluation",
+    "text": "Course Evaluation\nAll students are expected to complete an evaluation of the course at its conclusion. Evaluations are anonymous and confidential; the feedback gained, including constructive criticism, is used to improve the course."
+  },
+  {
+    "objectID": "policies.html#potential-changes-during-the-semester",
+    "href": "policies.html#potential-changes-during-the-semester",
+    "title": "University Policies & Resources",
+    "section": "Potential Changes During the Semester",
+    "text": "Potential Changes During the Semester\nThe University of Vermont reserves the right to make changes in course offerings, mode of delivery, degree requirements, charges, regulations, and procedures as educational, financial, health, safety, and welfare considerations require, or as necessary to comply with governmental, accreditation, or public health directives. See the UVM Catalogue for the general statement."
+  },
+  {
+    "objectID": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
+    "href": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
+    "title": "University Policies & Resources",
+    "section": "Intellectual Property / Prohibition on Sharing Academic Materials",
+    "text": "Intellectual Property / Prohibition on Sharing Academic Materials\nStudents are prohibited from publicly sharing or selling academic materials they did not author — for example, the class syllabus, outlines or presentations authored by the professor, practice questions, textbook excerpts, or other copyrighted class materials — and from sharing assessments such as homework or take-home exams. Violations are handled under UVM’s Intellectual Property policy and Code of Academic Integrity."
+  },
+  {
+    "objectID": "policies.html#tips-for-success",
+    "href": "policies.html#tips-for-success",
+    "title": "University Policies & Resources",
+    "section": "Tips for Success",
+    "text": "Tips for Success\nA few general resources for students, including for remote/online sessions:\n\nChecklist for success in online/remote courses\nAcademic support for online learning\n\nOther helpful resources beyond your professor: the Graduate Writing Center, Supplemental Instruction, Learning Co-op tutors."
+  },
+  {
+    "objectID": "policies.html#student-learning-accommodations",
+    "href": "policies.html#student-learning-accommodations",
+    "title": "University Policies & Resources",
+    "section": "Student Learning Accommodations",
+    "text": "Student Learning Accommodations\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS), UVM’s office of Disability Services for students. SAS works with students and faculty in an interactive process to explore reasonable and appropriate accommodations, which are communicated to faculty in an accommodation letter. All students are strongly encouraged to discuss with their instructor the accommodations they plan to use in each course.\nContact SAS: A170 Living/Learning Center · (802) 656-7753 · access@uvm.edu · www.uvm.edu/access"
+  },
+  {
+    "objectID": "policies.html#important-uvm-policies",
+    "href": "policies.html#important-uvm-policies",
+    "title": "University Policies & Resources",
+    "section": "Important UVM Policies",
+    "text": "Important UVM Policies\nAcademic Integrity — Addresses plagiarism, fabrication, collusion, and cheating.\nCode of Student Conduct — Outlines conduct expectations as well as students’ rights and responsibilities.\nFERPA Rights Disclosure — Communicates students’ rights regarding access to, and privacy of, their educational records under the Family Educational Rights and Privacy Act (FERPA) of 1974.\nFinal Exam Policy — Outlines expectations during final exams and explains the timing and process of the examination period.\nGrade Appeals — The procedure to follow if you would like to contest a grade.\nGrading — GPA calculation and general grading information.\nReligious Holidays — Students have the right to practice the religion of their choice. Each semester, students should submit in writing to their instructor(s) — as early as possible, and at least one week before a documented religious holiday — the date(s) of any conflict or absence. Faculty must permit students who miss work or exams for religious observance to make up that work.\n(Full text of these policies is maintained centrally by UVM. Search uvm.edu/policies for the current version of any policy named above.)"
+  },
+  {
+    "objectID": "policies.html#promoting-health-safety",
+    "href": "policies.html#promoting-health-safety",
+    "title": "University Policies & Resources",
+    "section": "Promoting Health & Safety",
+    "text": "Promoting Health & Safety\nThe University of Vermont’s top priority is supporting a healthy and safe community:\n\nCenter for Health and Wellbeing — uvm.edu/health\nCounseling & Psychiatry Services (CAPS) — Direct line: (802) 656-3340\nC.A.R.E. — If you’re concerned about a UVM community member or a specific event, contact the Dean of Students Office at (802) 656-3380, or report anonymously online via the C.A.R.E. Team website."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Course Schedule",
+    "section": "",
+    "text": "The course meets Thursdays, 4:35–7:35 pm in Lafayette Hall L202. Week 1 (Sep 3) only is a virtual session (link will be emailed); every class after that is in person. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.\nAll five homework assignments (see Syllabus for topics) live in your Posit Cloud workspace as hw1.qmd–hw5.qmd; due dates are noted inline below."
+  },
+  {
+    "objectID": "schedule.html#unit-1-foundations",
+    "href": "schedule.html#unit-1-foundations",
+    "title": "Course Schedule",
+    "section": "Unit 1 — Foundations",
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R. Virtual session, link will be emailed.\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse. HW1 due Sept. 13 by 11:59pm.\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8 (skim Ch. 5)\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2. HW2 due Sept. 27 by 11:59pm.\nWeek 4\nR4DS Ch. 9-10 (skim 11)\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Hutchins & Van Leuven (2025)"
+  },
+  {
+    "objectID": "schedule.html#unit-2-community-partnership",
+    "href": "schedule.html#unit-2-community-partnership",
+    "title": "Course Schedule",
+    "section": "Unit 2 — Community Partnership",
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is a normal in-class day (no mid-semester field trip), split between a guest lecture and NBRC’s on-campus project kickoff. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nHr. 1: guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research. Hr. 2: NBRC kickoff, with Sarah Waring & Chris Saunders visiting to launch the project. Hr. 3 is flexible.\nWeek 6\nNone\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed. Scope & Team Charter due (10% of project grade).\nWeek 7\nNone"
+  },
+  {
+    "objectID": "schedule.html#unit-3-spatial-analysis",
+    "href": "schedule.html#unit-3-spatial-analysis",
+    "title": "Course Schedule",
+    "section": "Unit 3 — Spatial Analysis",
+    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. See Analyzing US Census Data and Spatial Data Science, both free online. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths. HW3 due Oct. 25 by 11:59pm.\nWeek 8\nAnalyzing US Census Data (Chapters 1 and 4)\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography. HW4 due Nov. 1 by 11:59pm.\nWeek 9\nSpatial Data Science (skim Chapters 1-3)"
+  },
+  {
+    "objectID": "schedule.html#unit-4-communication",
+    "href": "schedule.html#unit-4-communication",
+    "title": "Course Schedule",
+    "section": "Unit 4 — Communication",
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. HW5 due Nov. 8 by 11:59pm.\nWeek 10\nR4DS: Quarto\n\n\n11\nNov 12\nNo class (instructor at conference)"
+  },
+  {
+    "objectID": "schedule.html#unit-5-project",
+    "href": "schedule.html#unit-5-project",
+    "title": "Course Schedule",
+    "section": "Unit 5 — Project",
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique. Preliminary Outputs + Peer Critique due (20% of project grade).\n\n\n13\nNov 26\nNo class (Thanksgiving)\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision. Draft Deliverable + Revision due (20% of project grade).\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier: final presentations (in-person). Final Deliverable + Presentation due (20% of project grade).\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
+  },
+  {
+    "objectID": "slides/week02.html#welcome-to-lafayette-l202",
+    "href": "slides/week02.html#welcome-to-lafayette-l202",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Welcome to Lafayette L202",
+    "text": "Welcome to Lafayette L202\n\nOur first in-person session. Let’s do a quick re-introduction (name, day job, hometown)\nToday is hands-on. Open your Posit Cloud project and keep it open all night\nTonight’s goal is to get comfortable with R and use it to manipulate some real-world data"
+  },
+  {
+    "objectID": "slides/week02.html#todays-plan",
+    "href": "slides/week02.html#todays-plan",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nHousekeeping: HW1 is due Sunday, and HW2 needs to get into your project\nR warm-up: objects, functions, packages, and where things live in RStudio\ndplyr, part 1: working with rows and columns\nBreak\ndplyr, part 2: groups and summaries\nCode style, and a preview of HW2"
+  },
+  {
+    "objectID": "slides/week02.html#hw1-due-sunday-sept.-13-by-1159pm",
+    "href": "slides/week02.html#hw1-due-sunday-sept.-13-by-1159pm",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "HW1: Due Sunday (Sept. 13) by 11:59pm",
+    "text": "HW1: Due Sunday (Sept. 13) by 11:59pm\nTwo notes on the version in your project:\n\nMake your two vectors the same length. Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error\nClick Render before you save. Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page"
+  },
+  {
+    "objectID": "slides/week02.html#get-hw2-into-your-project",
+    "href": "slides/week02.html#get-hw2-into-your-project",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Get HW2 Into Your Project",
+    "text": "Get HW2 Into Your Project\nThe hw2.qmd in your project is an old placeholder. Let’s swap in the real one together.\n\nClick the Terminal tab, next to Console (not the Console itself!)\nCopy and paste these two lines, then press Enter:\n\ngit fetch\ngit checkout origin/main -- homework/hw2.qmd homework/data README.md\n\nOpen homework/hw2.qmd. It should start with instructions for downloading BEA data, and you should see a new homework/data folder"
+  },
+  {
+    "objectID": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
+    "href": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Get HW2 Into Your Project: What to Expect",
+    "text": "Get HW2 Into Your Project: What to Expect\n\nNo output is normal. If nothing prints, it worked\nThe Git pane may list a few files as changed. Ignore it\nYour HW1 work is not touched\nPlease don’t use git pull or the Pull button. From here on, every new homework comes out with these same two lines and a different file name"
+  },
+  {
+    "objectID": "slides/week02.html#where-things-live-in-rstudio",
+    "href": "slides/week02.html#where-things-live-in-rstudio",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Where Things Live in RStudio",
+    "text": "Where Things Live in RStudio\n\n\n\n\n\n\n\nPane\nWhat it’s for\n\n\n\n\nEditor (top left)\nYour .qmd files. This is where your work lives\n\n\nConsole (bottom left)\nRuns R right now. Nothing typed here is saved\n\n\nTerminal (tab next to Console)\nTalks to the computer, not R. We only use it for git\n\n\nEnvironment (top right)\nEvery object you’ve created this session\n\n\nFiles (bottom right)\nYour project’s folders. Upload data here"
+  },
+  {
+    "objectID": "slides/week02.html#working-in-a-quarto-document",
+    "href": "slides/week02.html#working-in-a-quarto-document",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Working in a Quarto Document",
+    "text": "Working in a Quarto Document\n\nCode goes in chunks, gray boxes that start with ```{r}\nRun one line: Cmd/Ctrl + Enter\nRun a whole chunk: Cmd/Ctrl + Shift + Enter, or the green ▶ arrow\nRender runs everything from top to bottom in a fresh session, and builds the HTML file\nIf it works when you run it by hand but fails at Render, you probably created something in the Console that isn’t in the document"
+  },
+  {
+    "objectID": "slides/week02.html#objects-and-assignment",
+    "href": "slides/week02.html#objects-and-assignment",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Objects and Assignment",
+    "text": "Objects and Assignment\n\ntowns &lt;- c(\"Burlington\", \"Montpelier\", \"St. Albans\")\npop &lt;- c(44743, 8074, 6876)\n\npop\n\n[1] 44743  8074  6876\n\n\n\n&lt;- means “store this under that name”\nc() combines values into a vector\nA name like pop doesn’t show anything until you run it"
+  },
+  {
+    "objectID": "slides/week02.html#functions",
+    "href": "slides/week02.html#functions",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Functions",
+    "text": "Functions\n\nmean(pop)\n\n[1] 19897.67\n\nmax(pop)\n\n[1] 44743\n\nround(mean(pop), digits = 0)\n\n[1] 19898\n\n\n\nA function takes arguments in parentheses and returns a result\nFunctions can nest. R works from the inside out\nStuck? Type ?round in the Console to see its help page"
+  },
+  {
+    "objectID": "slides/week02.html#data-frames",
+    "href": "slides/week02.html#data-frames",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Data Frames",
+    "text": "Data Frames\n\nvt &lt;- data.frame(town = towns, population = pop)\nvt\n\n        town population\n1 Burlington      44743\n2 Montpelier       8074\n3 St. Albans       6876\n\n\n\nA data frame is a set of vectors of the same length, side by side\nRows are observations, columns are variables\nThis is the only kind of object we’ll use for most of the semester"
+  },
+  {
+    "objectID": "slides/week02.html#packages",
+    "href": "slides/week02.html#packages",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Packages",
+    "text": "Packages\n\nBase R can do a lot, but packages add new functions\nInstall once per project: install.packages(\"tidyverse\")\n\nAlready done for you in Posit Cloud\n\nLoad every session, at the top of every document:\n\n\nlibrary(tidyverse)\n\n\nIf R says it could not find function, you probably forgot to load the package"
+  },
+  {
+    "objectID": "slides/week02.html#the-tidyverse",
+    "href": "slides/week02.html#the-tidyverse",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "The Tidyverse",
+    "text": "The Tidyverse\nA family of packages that share a design philosophy, and that are built to work together.\n\n\n\nPackage\nJob\n\n\n\n\nreadr\nRead data in (read_csv())\n\n\ndplyr\nTransform it (tonight’s topic)\n\n\ntidyr\nReshape it\n\n\nstringr\nWork with text\n\n\nggplot2\nVisualize it (Weeks 4–5)"
+  },
+  {
+    "objectID": "slides/week02.html#tonights-data-midwest",
+    "href": "slides/week02.html#tonights-data-midwest",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Tonight’s Data: midwest",
+    "text": "Tonight’s Data: midwest\n\nglimpse(midwest)\n\nRows: 437\nColumns: 28\n$ PID                  &lt;int&gt; 561, 562, 563, 564, 565, 566, 567, 568, 5…\n$ county               &lt;chr&gt; \"ADAMS\", \"ALEXANDER\", \"BOND\", \"BOONE\", \"B…\n$ state                &lt;chr&gt; \"IL\", \"IL\", \"IL\", \"IL\", \"IL\", \"IL\", \"IL\",…\n$ area                 &lt;dbl&gt; 0.052, 0.014, 0.022, 0.017, 0.018, 0.050,…\n$ poptotal             &lt;int&gt; 66090, 10626, 14991, 30806, 5836, 35688, …\n$ popdensity           &lt;dbl&gt; 1270.9615, 759.0000, 681.4091, 1812.1176,…\n$ popwhite             &lt;int&gt; 63917, 7054, 14477, 29344, 5264, 35157, 5…\n$ popblack             &lt;int&gt; 1702, 3496, 429, 127, 547, 50, 1, 111, 16…\n$ popamerindian        &lt;int&gt; 98, 19, 35, 46, 14, 65, 8, 30, 8, 331, 51…\n$ popasian             &lt;int&gt; 249, 48, 16, 150, 5, 195, 15, 61, 23, 803…\n$ popother             &lt;int&gt; 124, 9, 34, 1139, 6, 221, 0, 84, 6, 1596,…\n$ percwhite            &lt;dbl&gt; 96.71206, 66.38434, 96.57128, 95.25417, 9…\n$ percblack            &lt;dbl&gt; 2.57527614, 32.90043290, 2.86171703, 0.41…\n$ percamerindan        &lt;dbl&gt; 0.14828264, 0.17880670, 0.23347342, 0.149…\n$ percasian            &lt;dbl&gt; 0.37675897, 0.45172219, 0.10673071, 0.486…\n$ percother            &lt;dbl&gt; 0.18762294, 0.08469791, 0.22680275, 3.697…\n$ popadults            &lt;int&gt; 43298, 6724, 9669, 19272, 3979, 23444, 35…\n$ perchsd              &lt;dbl&gt; 75.10740, 59.72635, 69.33499, 75.47219, 6…\n$ percollege           &lt;dbl&gt; 19.63139, 11.24331, 17.03382, 17.27895, 1…\n$ percprof             &lt;dbl&gt; 4.355859, 2.870315, 4.488572, 4.197800, 3…\n$ poppovertyknown      &lt;int&gt; 63628, 10529, 14235, 30337, 4815, 35107, …\n$ percpovertyknown     &lt;dbl&gt; 96.27478, 99.08714, 94.95697, 98.47757, 8…\n$ percbelowpoverty     &lt;dbl&gt; 13.151443, 32.244278, 12.068844, 7.209019…\n$ percchildbelowpovert &lt;dbl&gt; 18.011717, 45.826514, 14.036061, 11.17953…\n$ percadultpoverty     &lt;dbl&gt; 11.009776, 27.385647, 10.852090, 5.536013…\n$ percelderlypoverty   &lt;dbl&gt; 12.443812, 25.228976, 12.697410, 6.217047…\n$ inmetro              &lt;int&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,…\n$ category             &lt;chr&gt; \"AAR\", \"LHR\", \"AAR\", \"ALU\", \"AAR\", \"AAR\",…"
+  },
+  {
+    "objectID": "slides/week02.html#tonights-data-midwest-1",
+    "href": "slides/week02.html#tonights-data-midwest-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Tonight’s Data: midwest",
+    "text": "Tonight’s Data: midwest\n\n437 counties in IL, IN, MI, OH and WI, from the 2000 Census\nComes with the tidyverse (inside ggplot2), so there’s nothing to download\nIt’s the same shape as your HW2 data: one row per county\nUseful columns: county, state, poptotal, percollege, percbelowpoverty, and inmetro (1 = metro county, 0 = non-metro)"
+  },
+  {
+    "objectID": "slides/week02.html#break",
+    "href": "slides/week02.html#break",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Break?",
+    "text": "Break?"
+  },
+  {
+    "objectID": "slides/week02.html#how-every-dplyr-verb-works",
+    "href": "slides/week02.html#how-every-dplyr-verb-works",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "How Every dplyr Verb Works",
+    "text": "How Every dplyr Verb Works\n\nThe first argument is always a data frame\nThe other arguments say what to do with it, using column names without quotes\nThe result is always a new data frame\nThe original is left unchanged. To keep a result, assign it with &lt;-"
+  },
+  {
+    "objectID": "slides/week02.html#the-pipe",
+    "href": "slides/week02.html#the-pipe",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "The Pipe: |>",
+    "text": "The Pipe: |&gt;\nRead |&gt; as “and then.”\n\n# nested: read inside out\narrange(filter(midwest, state == \"WI\"), poptotal)\n\n# piped: read top to bottom\nmidwest |&gt;\n  filter(state == \"WI\") |&gt;\n  arrange(poptotal)\n\nTo get |&gt; instead of %&gt;% (in RStudio on your machine), go to Tools → Global Options → Code and check Use native pipe operator. This is already enabled in Posit Cloud!"
+  },
+  {
+    "objectID": "slides/week02.html#filter-keep-rows-that-match",
+    "href": "slides/week02.html#filter-keep-rows-that-match",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "filter(): Keep Rows That Match",
+    "text": "filter(): Keep Rows That Match\n\nmidwest |&gt;\n  filter(state == \"WI\", inmetro == 0) |&gt;\n  select(county, state, poptotal, inmetro)\n\n# A tibble: 52 × 4\n  county   state poptotal inmetro\n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;   &lt;int&gt;\n1 ADAMS    WI       15682       0\n2 ASHLAND  WI       16307       0\n3 BARRON   WI       40750       0\n4 BAYFIELD WI       14008       0\n5 BUFFALO  WI       13584       0\n# ℹ 47 more rows\n\n\nA comma between conditions means and."
+  },
+  {
+    "objectID": "slides/week02.html#filter-comparisons",
+    "href": "slides/week02.html#filter-comparisons",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "filter(): Comparisons",
+    "text": "filter(): Comparisons\n\n\n\nOperator\nMeaning\n\n\n\n\n==\nequals (two = signs!)\n\n\n!=\ndoes not equal\n\n\n&gt;, &gt;=, &lt;, &lt;=\ngreater/less than\n\n\n&, |\nand, or\n\n\n%in%\nmatches any value in a list\n\n\n\n\nmidwest |&gt; filter(state == \"MI\" | state == \"OH\")\nmidwest |&gt; filter(state %in% c(\"MI\", \"OH\"))   # same thing, less typing"
+  },
+  {
+    "objectID": "slides/week02.html#filter-mistakes-everyone-makes",
+    "href": "slides/week02.html#filter-mistakes-everyone-makes",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "filter(): Mistakes Everyone Makes",
+    "text": "filter(): Mistakes Everyone Makes\n\nmidwest |&gt; filter(state = \"WI\")          # one = sign\nmidwest |&gt; filter(state == WI)           # forgot the quotes\nmidwest |&gt; filter(state == \"wi\")         # capitalization matters\nmidwest |&gt; filter(state == \"WI\" | \"MI\")  # has to be state == \"MI\"\n\n\nThe first one needs a double equals sign.\n\nA single = sets something, like an argument (digits = 0) or a new column in mutate().\nA double == asks a question, “is this equal to that?”, and answers TRUE or FALSE for every row. filter() needs the question\n\nThe last one looks like it should work, but R needs a full comparison on each side of |. Use %in% instead."
+  },
+  {
+    "objectID": "slides/week02.html#arrange-sort-rows",
+    "href": "slides/week02.html#arrange-sort-rows",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "arrange(): Sort Rows",
+    "text": "arrange(): Sort Rows\n\n\nDefault: smallest first\n\nmidwest |&gt;\n  arrange(percbelowpoverty) |&gt;\n  select(county, state, percbelowpoverty)\n\n# A tibble: 437 × 3\n  county     state percbelowpoverty\n  &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;\n1 OZAUKEE    WI                2.18\n2 DU PAGE    IL                2.71\n3 WAUKESHA   WI                3.12\n4 WASHINGTON WI                3.24\n5 KENDALL    IL                3.39\n# ℹ 432 more rows\n\n\n\nWith desc(): largest first\n\nmidwest |&gt;\n  arrange(desc(percbelowpoverty)) |&gt;\n  select(county, state, percbelowpoverty)\n\n# A tibble: 437 × 3\n  county    state percbelowpoverty\n  &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;\n1 MENOMINEE WI                48.7\n2 ALEXANDER IL                32.2\n3 PULASKI   IL                30.2\n4 ATHENS    OH                28.7\n5 ADAMS     OH                28.5\n# ℹ 432 more rows"
+  },
+  {
+    "objectID": "slides/week02.html#slice-pick-rows-by-position",
+    "href": "slides/week02.html#slice-pick-rows-by-position",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "slice(): Pick Rows by Position",
+    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county state poptotal\n  &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;\n1 FULTON IL       38080\n2 ADAMS  WI       15682\n3 PUTNAM OH       33819\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)"
+  },
+  {
+    "objectID": "slides/week02.html#distinct-and-count",
+    "href": "slides/week02.html#distinct-and-count",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "distinct() and count()",
+    "text": "distinct() and count()\n\n\ndistinct(): just the unique values\n\nmidwest |&gt; distinct(state)\n\n# A tibble: 5 × 1\n  state\n  &lt;chr&gt;\n1 IL   \n2 IN   \n3 MI   \n4 OH   \n5 WI   \n\n\n\ncount(): unique values and how many rows have each\n\nmidwest |&gt; count(state)\n\n# A tibble: 5 × 2\n  state     n\n  &lt;chr&gt; &lt;int&gt;\n1 IL      102\n2 IN       92\n3 MI       83\n4 OH       88\n5 WI       72\n\n\n\nAdd sort = TRUE to count() to put the biggest first."
+  },
+  {
+    "objectID": "slides/week02.html#select-keep-some-columns",
+    "href": "slides/week02.html#select-keep-some-columns",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "select(): Keep Some Columns",
+    "text": "select(): Keep Some Columns\n\nmidwest |&gt;\n  select(county, state, starts_with(\"perc\"))\n\n# A tibble: 437 × 15\n  county    state percwhite percblack percamerindan percasian percother\n  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 ADAMS     IL         96.7     2.58          0.148    0.377     0.188 \n2 ALEXANDER IL         66.4    32.9           0.179    0.452     0.0847\n3 BOND      IL         96.6     2.86          0.233    0.107     0.227 \n4 BOONE     IL         95.3     0.412         0.149    0.487     3.70  \n5 BROWN     IL         90.2     9.37          0.240    0.0857    0.103 \n# ℹ 432 more rows\n# ℹ 8 more variables: perchsd &lt;dbl&gt;, percollege &lt;dbl&gt;, percprof &lt;dbl&gt;,\n#   percpovertyknown &lt;dbl&gt;, percbelowpoverty &lt;dbl&gt;,\n#   percchildbelowpovert &lt;dbl&gt;, percadultpoverty &lt;dbl&gt;,\n#   percelderlypoverty &lt;dbl&gt;\n\n\n\nPick columns by name, or with helpers like starts_with(), ends_with(), and contains()\nA minus sign drops columns: select(-PID)\nYou can also use column numbers (called indexes): select(1, 2:5)"
+  },
+  {
+    "objectID": "slides/week02.html#rename-and-relocate",
+    "href": "slides/week02.html#rename-and-relocate",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "rename() and relocate()",
+    "text": "rename() and relocate()\n\nmidwest |&gt;\n  rename(metro = inmetro, pop = poptotal) |&gt;\n  relocate(metro, .after = state) |&gt;\n  select(county:pop)\n\n# A tibble: 437 × 5\n  county    state metro  area   pop\n  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;\n1 ADAMS     IL        0 0.052 66090\n2 ALEXANDER IL        0 0.014 10626\n3 BOND      IL        0 0.022 14991\n4 BOONE     IL        1 0.017 30806\n5 BROWN     IL        0 0.018  5836\n# ℹ 432 more rows\n\n\n\nrename(new_name = old_name)\nrelocate() moves columns without dropping any\nWhy the dot in .after? Most arguments to dplyr verbs are your column names, so dplyr puts a . in front of its own settings (.after, .before, .by) to keep the two from colliding. If your data had a column called after, then relocate(after) would still mean that column"
+  },
+  {
+    "objectID": "slides/week02.html#mutate-make-new-columns",
+    "href": "slides/week02.html#mutate-make-new-columns",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "mutate(): Make New Columns",
+    "text": "mutate(): Make New Columns\n\nmidwest |&gt;\n  mutate(\n    pop_thousands = poptotal / 1000,\n    metro_label = if_else(inmetro == 1, \"Metro\", \"Non-metro\")\n  ) |&gt;\n  select(county, state, pop_thousands, metro_label)\n\n# A tibble: 437 × 4\n  county    state pop_thousands metro_label\n  &lt;chr&gt;     &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;      \n1 ADAMS     IL            66.1  Non-metro  \n2 ALEXANDER IL            10.6  Non-metro  \n3 BOND      IL            15.0  Non-metro  \n4 BOONE     IL            30.8  Metro      \n5 BROWN     IL             5.84 Non-metro  \n# ℹ 432 more rows"
+  },
+  {
+    "objectID": "slides/week02.html#if_else-pick-between-two-values",
+    "href": "slides/week02.html#if_else-pick-between-two-values",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "if_else(): Pick Between Two Values",
+    "text": "if_else(): Pick Between Two Values\n\nif_else(inmetro == 1, \"Metro\", \"Non-metro\")\n\n\nif_else() takes 3 arguments, in this order:\n\na condition: a test that’s TRUE or FALSE for each row\nthe value to use where the condition is TRUE\nthe value to use where the condition is FALSE\n\nHere, R checks each county one at a time: if inmetro == 1 is TRUE, the new column gets \"Metro\"; if it’s FALSE, it gets \"Non-metro\"\nYou’ll also see base R’s ifelse() (no underscore) online. It works the same way, but if_else() is stricter and catches more mistakes"
+  },
+  {
+    "objectID": "slides/week02.html#case_when-more-than-two-outcomes",
+    "href": "slides/week02.html#case_when-more-than-two-outcomes",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "case_when(): More Than Two Outcomes",
+    "text": "case_when(): More Than Two Outcomes\n\n\n\n\n\n\n\nFor reference\n\n\nWe won’t use case_when() again in class, but it’s here for when you need it.\n\n\n\n\n\n\n\nmidwest |&gt;\n  mutate(\n    size = case_when(\n      poptotal &gt;= 100000 ~ \"Large\",\n      poptotal &gt;= 25000 ~ \"Medium\",\n      .default = \"Small\"\n    )\n  ) |&gt;\n  count(size)\n\n\n\n\n# A tibble: 3 × 2\n  size       n\n  &lt;chr&gt;  &lt;int&gt;\n1 Large     85\n2 Medium   198\n3 Small    154\n\n\n\n\nEach line is condition ~ value. Read the ~ as “then”\nR checks the lines top to bottom for each row, and the first TRUE wins. That’s why \"Medium\" doesn’t need & poptotal &lt; 100000\n.default catches everything that didn’t match (another dot argument!)"
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-15-min",
+    "href": "slides/week02.html#your-turn-15-min",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn (15 min)",
+    "text": "Your Turn (15 min)\nUsing midwest, write one pipeline for each:\n\nNon-metro counties in Illinois, sorted from highest to lowest poverty rate\nKeep only county, state, and every column that starts with pop\nAdd a column for the share of adults with a college degree who are not professionals (percollege - percprof)\n\nWork with a neighbor. If you get an error, read the whole message aloud to your partner first. It often tells you exactly what’s wrong."
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-one-way-to-do-it",
+    "href": "slides/week02.html#your-turn-one-way-to-do-it",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It\n\n# 1\nmidwest |&gt;\n  filter(state == \"IL\", inmetro == 0) |&gt;\n  arrange(desc(percbelowpoverty))\n\n# 2\nmidwest |&gt;\n  select(county, state, starts_with(\"pop\"))\n\n# 3\nmidwest |&gt;\n  mutate(college_nonprof = percollege - percprof)"
+  },
+  {
+    "objectID": "slides/week02.html#break-1",
+    "href": "slides/week02.html#break-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Break",
+    "text": "Break"
+  },
+  {
+    "objectID": "slides/week02.html#group_by-summarize",
+    "href": "slides/week02.html#group_by-summarize",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "group_by() + summarize()",
+    "text": "group_by() + summarize()\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    counties = n(),\n    total_pop = sum(poptotal),\n    avg_poverty = mean(percbelowpoverty)\n  )\n\n# A tibble: 5 × 4\n  state counties total_pop avg_poverty\n  &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;       &lt;dbl&gt;\n1 IL         102  11430602        13.1\n2 IN          92   5544159        10.3\n3 MI          83   9295297        14.2\n4 OH          88  10847115        13.0\n5 WI          72   4891769        11.9\n\n\n\ngroup_by() doesn’t change what you see. It changes what happens next\nsummarize() collapses each group down to one row\ncount() did this, but summarize() gives a lot more options!"
+  },
+  {
+    "objectID": "slides/week02.html#grouping-by-two-things",
+    "href": "slides/week02.html#grouping-by-two-things",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Grouping by Two Things",
+    "text": "Grouping by Two Things\n\nmidwest |&gt;\n  group_by(state, inmetro) |&gt;\n  summarize(avg_poverty = mean(percbelowpoverty), .groups = \"drop\")\n\n# A tibble: 10 × 3\n  state inmetro avg_poverty\n  &lt;chr&gt;   &lt;int&gt;       &lt;dbl&gt;\n1 IL          0       14.4 \n2 IL          1        9.56\n3 IN          0       10.8 \n4 IN          1        9.59\n5 MI          0       15.5 \n# ℹ 5 more rows\n\n\nA question we might have: is non-metro poverty higher than metro poverty in every state?"
+  },
+  {
+    "objectID": "slides/week02.html#watch-out-averaging-averages-or-percentages",
+    "href": "slides/week02.html#watch-out-averaging-averages-or-percentages",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Watch Out: Averaging Averages (or Percentages)",
+    "text": "Watch Out: Averaging Averages (or Percentages)\nmean(percbelowpoverty) treats a county of 1,700 people the same as Cook County (5 million). To get the real state-wide rate, add up the people, then divide:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    poverty_rate = sum(poptotal * percbelowpoverty / 100) / sum(poptotal) * 100\n  )\n\n# A tibble: 5 × 2\n  state poverty_rate\n  &lt;chr&gt;        &lt;dbl&gt;\n1 IL            11.9\n2 IN            10.7\n3 MI            13.1\n4 OH            12.5\n5 WI            10.7\n\n\nThis is where data and coding collide, and it will come up again with the NBRC data."
+  },
+  {
+    "objectID": "slides/week02.html#missing-values",
+    "href": "slides/week02.html#missing-values",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Missing Values",
+    "text": "Missing Values\n\nReal data has gaps. In R, a missing value is NA\nAny math with an NA in it returns NA, unless you tell R to skip them\n\n\nmean(c(10, 20, NA))\n\n[1] NA\n\nmean(c(10, 20, NA), na.rm = TRUE)\n\n[1] 15\n\n\n\nmidwest has no missing values, but your BEA data might. The HW2 ‘starter code’ handles most of it"
+  },
+  {
+    "objectID": "slides/week02.html#dropping-missing-values-is.na",
+    "href": "slides/week02.html#dropping-missing-values-is.na",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Dropping Missing Values: is.na()",
+    "text": "Dropping Missing Values: is.na()\n\nTo drop rows with a missing value, use is.na(). The ! means “not”\n\n\ntown_income &lt;- tibble(\n  town = c(\"Burlington\", \"Montpelier\", \"St. Albans\"),\n  income = c(52000, NA, 61000)\n)\n\ntown_income |&gt; filter(!is.na(income))\n\n# A tibble: 2 × 2\n  town       income\n  &lt;chr&gt;       &lt;dbl&gt;\n1 Burlington  52000\n2 St. Albans  61000\n\n\n\nfilter(income == NA) doesn’t work. Nothing is ever “equal to” a missing value, so always use is.na()"
+  },
+  {
+    "objectID": "slides/week02.html#slice_max-and-slice_min",
+    "href": "slides/week02.html#slice_max-and-slice_min",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "slice_max() and slice_min()",
+    "text": "slice_max() and slice_min()\n\n\nThe biggest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_max(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 COOK      IL     5105067\n2 MARION    IN      797159\n3 WAYNE     MI     2111687\n4 CUYAHOGA  OH     1412140\n5 MILWAUKEE WI      959275\n\n\n\nThe smallest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_min(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 POPE      IL        4373\n2 OHIO      IN        5315\n3 KEWEENAW  MI        1701\n4 VINTON    OH       11098\n5 MENOMINEE WI        3890\n\n\n\n\n# Groups: state [5] means the result is still grouped. Anything you do next happens state by state until you add ungroup()"
+  },
+  {
+    "objectID": "slides/week02.html#saving-what-you-make",
+    "href": "slides/week02.html#saving-what-you-make",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Saving What You Make",
+    "text": "Saving What You Make\n\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0)\n\nnrow(midwest)\n\n[1] 437\n\nnrow(rural_wi)\n\n[1] 52\n\n\n\nWithout &lt;-, the result prints and then disappears\nGive results new names rather than overwriting the original. If you write midwest &lt;- midwest |&gt; filter(...), the rest of the data is gone until you re-run from the top"
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-15-min-1",
+    "href": "slides/week02.html#your-turn-15-min-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn (15 min)",
+    "text": "Your Turn (15 min)\n\nHow many non-metro counties does each state have? (Hint: count() can take two columns)\nFor each state, find the non-metro county with the highest share of college graduates\nThis one’s challenging: for each state, what share of people (not counties) live in a metro county?"
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-one-way-to-do-it-1",
+    "href": "slides/week02.html#your-turn-one-way-to-do-it-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It\n\n# 1\nmidwest |&gt; count(state, inmetro)\n\n# 2\nmidwest |&gt;\n  filter(inmetro == 0) |&gt;\n  group_by(state) |&gt;\n  slice_max(percollege, n = 1)\n\n# 3\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(metro_share = sum(poptotal[inmetro == 1]) / sum(poptotal))"
+  },
+  {
+    "objectID": "slides/week02.html#why-style-matters",
+    "href": "slides/week02.html#why-style-matters",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Why Style Matters",
+    "text": "Why Style Matters\n\nYou will read your code more often than you write it, and so will your NBRC teammates\nR4DS Ch. 4 is the full guide. Here are the rules that matter most"
+  },
+  {
+    "objectID": "slides/week02.html#a-few-rules-more-like-guidelines",
+    "href": "slides/week02.html#a-few-rules-more-like-guidelines",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "A Few Rules (More Like Guidelines)",
+    "text": "A Few Rules (More Like Guidelines)\n\n# hard to read\ndf2&lt;-midwest|&gt;filter(state==\"WI\",inmetro==0)|&gt;mutate(PopK=poptotal/1000)\n\n# easier\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0) |&gt;\n  mutate(pop_k = poptotal / 1000)\n\n\nNames in snake_case, and names that describe the contents\nSpaces around &lt;-, ==, +, and after commas\nOne verb per line, with |&gt; at the end of each line\nComments explain why, not what"
+  },
+  {
+    "objectID": "slides/week02.html#reading-error-messages",
+    "href": "slides/week02.html#reading-error-messages",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Reading Error Messages",
+    "text": "Reading Error Messages\n\n\n\n\n\n\n\nYou see\nIt usually means\n\n\n\n\ncould not find function \"glimpse\"\nYou didn’t run library(tidyverse)\n\n\nobject 'midwst' not found\nA typo, or you never ran the chunk that created it\n\n\nunexpected symbol\nA missing comma, parenthesis, or |&gt;\n\n\nWe detected a named input\nYou used = where you meant ==\n\n\n\nRead the whole message. The answer is usually in there."
+  },
+  {
+    "objectID": "slides/week02.html#hw2-wrangling-data-due-sept.-27",
+    "href": "slides/week02.html#hw2-wrangling-data-due-sept.-27",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "HW2: Wrangling Data (Due Sept. 27)",
+    "text": "HW2: Wrangling Data (Due Sept. 27)\n\nDownload real county data from the Bureau of Economic Analysis (BEA)\nUse at least three dplyr verbs from tonight\nDownload a second BEA table and join the two (joins are next week)\nFull instructions are in your hw2.qmd"
+  },
+  {
+    "objectID": "slides/week02.html#lets-do-step-1-together",
+    "href": "slides/week02.html#lets-do-step-1-together",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Let’s Do Step 1 Together",
+    "text": "Let’s Do Step 1 Together\n\nBEA’s website takes a few clicks to navigate, so we’ll get everyone’s hw2a.csv downloaded and uploaded into homework/data before you leave\nAfter that, everything else in the assignment uses tonight’s tools"
+  },
+  {
+    "objectID": "slides/week02.html#before-next-class",
+    "href": "slides/week02.html#before-next-class",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Before Next Class",
+    "text": "Before Next Class\n\nHW1 due Sunday, Sept. 13 by 11:59pm. Render before you save!\nDownload your first BEA file for HW2, if we didn’t finish tonight\nRead R4DS Ch. 7 (Data import) and Ch. 8 (Getting help)\n\nNext week: getting data from files, APIs, and the web, plus joins."
   }
 ]

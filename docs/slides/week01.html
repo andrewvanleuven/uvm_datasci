@@ -34,7 +34,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-999e4504b4785c4c7bac1af434b1db07.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7523458df77c68673fa44e0f45a7e43b.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -553,6 +553,27 @@ Andrew Van Leuven
           RevealZoom
         ]
       });
+    </script>
+    <script>
+    // Shrink slide titles that wrap onto a second line (see .title-long in slides.scss).
+    (function () {
+      function fitTitles(slide) {
+        if (!slide) return;
+        slide.querySelectorAll("h2").forEach(function (h) {
+          h.classList.remove("title-long");
+          var style = getComputedStyle(h);
+          var lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2;
+          if (h.scrollHeight > lineHeight * 1.5) h.classList.add("title-long");
+        });
+      }
+      function run() {
+        Reveal.on("slidechanged", function (e) { fitTitles(e.currentSlide); });
+        if (Reveal.isReady()) fitTitles(Reveal.getCurrentSlide());
+        else Reveal.on("ready", function (e) { fitTitles(e.currentSlide); });
+      }
+      if (window.Reveal) run();
+      else window.addEventListener("load", run);
+    })();
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {

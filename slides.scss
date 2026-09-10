@@ -23,3 +23,12 @@ $body-bg: #ffffff;
   font-family: 'IBM Plex Mono', monospace;
   color: #007155;
 }
+
+// Added by slides/_fit-titles.html when a title wraps onto a second line.
+// .smaller slides shrink body text to 0.7em, so divide to keep titles consistent.
+.reveal .slides section h2.title-long {
+  font-size: 1.2em;
+}
+.reveal .slides section.smaller h2.title-long {
+  font-size: calc(1.2em / 0.7);
+}

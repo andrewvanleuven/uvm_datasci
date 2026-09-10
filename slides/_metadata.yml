@@ -1,0 +1,4 @@
+# Applies to every deck in slides/.
+format:
+  revealjs:
+    include-after-body: _fit-titles.html
