@@ -666,6 +666,7 @@ Read the **whole** message. The answer is usually in there.
 - [ ] **HW1** due Sunday, Sept. 13 by 11:59pm. Render before you save!
 - [ ] Download your first BEA file for HW2, if we didn't finish tonight
 - [ ] Read R4DS [Ch. 7 (Data import)](https://r4ds.hadley.nz/data-import)
-      and [Ch. 8 (Getting help)](https://r4ds.hadley.nz/workflow-help)
+      and [Ch. 8 (Getting help)](https://r4ds.hadley.nz/workflow-help), and
+      skim [Ch. 5 (Data tidying)](https://r4ds.hadley.nz/data-tidy)
 
 Next week: getting data from files, APIs, and the web, plus joins.

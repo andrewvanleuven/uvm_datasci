@@ -12,7 +12,7 @@ All five homework assignments (see [Syllabus](syllabus.qmd#grading-policy) for t
 
 ::: {.callout-note appearance="minimal"}
 Core skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2
-*R for Data Science*: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication
+*R for Data Science*: Intro, Whole Game, Data Transformation, Data Tidying, Data Import, EDA, Layers, Communication
 :::
 
 | Week | Date | Topic | Slides | Reading |

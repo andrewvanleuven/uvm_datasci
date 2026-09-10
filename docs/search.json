@@ -340,7 +340,7 @@
     "href": "schedule.html#unit-1-foundations",
     "title": "Course Schedule",
     "section": "Unit 1 — Foundations",
-    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R. Virtual session, link will be emailed.\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse. HW1 due Sept. 13 by 11:59pm.\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8 (skim Ch. 5)\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2. HW2 due Sept. 27 by 11:59pm.\nWeek 4\nR4DS Ch. 9-10 (skim 11)\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Hutchins & Van Leuven (2025)"
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Tidying, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R. Virtual session, link will be emailed.\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse. HW1 due Sept. 13 by 11:59pm.\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8 (skim Ch. 5)\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2. HW2 due Sept. 27 by 11:59pm.\nWeek 4\nR4DS Ch. 9-10 (skim 11)\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Hutchins & Van Leuven (2025)"
   },
   {
     "objectID": "schedule.html#unit-2-community-partnership",
@@ -522,7 +522,7 @@
     "href": "slides/week02.html#slice-pick-rows-by-position",
     "title": "Week 2: Into the Tidyverse",
     "section": "slice(): Pick Rows by Position",
-    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county state poptotal\n  &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;\n1 FULTON IL       38080\n2 ADAMS  WI       15682\n3 PUTNAM OH       33819\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)"
+    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county      state poptotal\n  &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;\n1 SPENCER     IN       19490\n2 CRAWFORD    MI       12260\n3 MONTMORENCY MI        8936\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)"
   },
   {
     "objectID": "slides/week02.html#distinct-and-count",
@@ -690,6 +690,6 @@
     "href": "slides/week02.html#before-next-class",
     "title": "Week 2: Into the Tidyverse",
     "section": "Before Next Class",
-    "text": "Before Next Class\n\nHW1 due Sunday, Sept. 13 by 11:59pm. Render before you save!\nDownload your first BEA file for HW2, if we didn’t finish tonight\nRead R4DS Ch. 7 (Data import) and Ch. 8 (Getting help)\n\nNext week: getting data from files, APIs, and the web, plus joins."
+    "text": "Before Next Class\n\nHW1 due Sunday, Sept. 13 by 11:59pm. Render before you save!\nDownload your first BEA file for HW2, if we didn’t finish tonight\nRead R4DS Ch. 7 (Data import) and Ch. 8 (Getting help), and skim Ch. 5 (Data tidying)\n\nNext week: getting data from files, APIs, and the web, plus joins."
   }
 ]
