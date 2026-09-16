@@ -1,0 +1,312 @@
+---
+title: "Week 3: Getting Data"
+subtitle: "CDAE 7990 · Applied Data Science & Visualization"
+author: "Andrew Van Leuven"
+date: "September 17, 2026"
+format:
+  revealjs:
+    theme: [default, ../slides.scss]
+    slide-number: true
+    show-slide-number: speaker
+    footer: "CDAE 7990 · Week 3"
+    logo: ""
+    transition: fade
+    code-line-numbers: false
+    scrollable: true
+    date-format: long
+execute:
+  echo: true
+  eval: true
+---
+
+
+```{r}
+#| include: false
+library(tidyverse)
+options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
+```
+
+## Welcome to Morrill Hall 005
+
+- Our new room for the rest of the semester: a basement computer lab, so
+  there's a machine at every seat
+- Tonight is a tour of where data comes from, beyond the file you already
+  have sitting in your project
+- We'll land on exactly what HW2's join step needs
+
+## Today's Plan
+
+- **Housekeeping**: nothing new is due this week
+- **Reading files, revisited**: `skip`, `na`, and messy real-world exports
+- **A quick tour of `tidyr`**: wide data vs. long data
+- **APIs**: asking a website for data instead of clicking through pages
+- **Web scraping**: a last resort, and why
+- *Break*
+- **Joins**: combining two data frames, live, using HW2's own data
+
+# Housekeeping {background-color="#007155"}
+
+## Nothing New Due This Week
+
+- HW2 (due Sept. 27) is still your only open assignment
+- Tonight's material, especially joins, is exactly what HW2's step 5 needs
+- We'll do that join together before you leave, using your own files
+
+# Getting Data {background-color="#007155"}
+
+## Where Data Comes From
+
+- A file someone hands you, or you download: CSV, Excel, and the like
+- A live API you query with code
+- A web page you scrape, when nothing else is available
+- R4DS Ch. 7-8 covers the first in depth. APIs and scraping aren't in R4DS
+  at all, that material is further along in the book than we've gotten
+
+## Reading Files, Revisited {.smaller}
+
+```{r}
+#| eval: false
+read_csv(
+  "data/hw2a.csv",
+  skip = 3,
+  na = c("", "NA", "(NA)")
+)
+```
+
+- You've used `read_csv()` since HW2's starter code
+- `skip` jumps past header rows a file doesn't need, common in government
+  exports
+- `na` tells readr which strings actually mean "missing." BEA uses `(NA)`,
+  not R's default `NA`
+- readr prints a column specification when it loads. Always glance at it. A
+  date or number read in as text usually means a stray character snuck into
+  that column
+
+## Wide vs. Long Data {.smaller}
+
+```{r}
+bea_wide <- tibble(
+  county_name = c("Addison, VT", "Chittenden, VT", "Rutland, VT"),
+  pop_2020 = c(37363, 168323, 60572),
+  pop_2021 = c(37162, 169660, 60381),
+  pop_2022 = c(36777, 170533, 59949)
+)
+
+bea_wide
+```
+
+- One row per county, but each year gets its own column
+- This is what you get if you ever download **multiple years** from BEA at
+  once, instead of the single year HW2 asked for
+
+## `pivot_longer()`: Wide to Long {.smaller}
+
+```{r}
+bea_long <- bea_wide |>
+  pivot_longer(
+    cols = starts_with("pop_"),
+    names_to = "year",
+    names_prefix = "pop_",
+    values_to = "population"
+  )
+
+bea_long
+```
+
+- One row per county *and* year, instead of one row per county
+- Almost everything in dplyr and ggplot2 wants data in this shape
+- `names_prefix` strips `"pop_"` so the year column just holds the number
+
+## `pivot_wider()`: The Reverse {.smaller}
+
+```{r}
+bea_long |>
+  pivot_wider(names_from = year, values_from = population)
+```
+
+- Takes values from one column and spreads them into new columns, one per
+  unique value
+- Good for a summary table you want to read by eye, less useful once you
+  need to filter or group by year again
+
+# Getting Data from an API {background-color="#007155"}
+
+## What's an API?
+
+- A structured way to ask a website for data and get back something other
+  than a webpage, usually JSON
+- You build a URL with your request baked in, and the server sends back
+  data instead of a rendered page
+- Census, BLS, and BEA all publish APIs. Some want a free registration key,
+  a few don't
+
+## A Live Example: the Census API {.smaller}
+
+```{r}
+#| eval: false
+library(jsonlite)
+
+url <- "https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N&for=state:*"
+census_raw <- fromJSON(url)
+
+head(census_raw)
+```
+
+- `P1_001N` is the Census's code for total population
+- No key needed for a request this small, larger ones want one, it's free
+- What comes back is a plain character matrix, not a tidy tibble yet
+
+## Turning JSON into a Tidy Data Frame {.smaller}
+
+```{r}
+#| eval: false
+census_pop <- census_raw |>
+  as_tibble(.name_repair = "minimal") |>
+  set_names(census_raw[1, ]) |>
+  slice(-1) |>
+  mutate(P1_001N = as.numeric(P1_001N))
+```
+
+- The first row of the matrix holds the column names, not data. `set_names()`
+  promotes it, `slice(-1)` drops it
+- This cleanup is the same shape every time: fetch, then reshape
+- Week 8's `tidycensus` package does this exact cleanup for you in one
+  function call. Tonight you're seeing what it's hiding
+
+## Web Scraping: A Quick Look {.smaller}
+
+```{r}
+#| eval: false
+library(rvest)
+
+page <- read_html("https://en.wikipedia.org/wiki/List_of_counties_in_Vermont")
+counties <- page |>
+  html_element("table.wikitable") |>
+  html_table()
+```
+
+- Some data only exists inside a web page, with no file or API behind it
+- `rvest` reads a page's HTML and pulls out a specific table or element
+- Fragile: if the page's layout changes, your code breaks with no warning
+- Use it last, after checking for a file or an API. If it's an NBRC page,
+  ask first rather than scraping on their behalf
+
+## Break? {background-color="#007155"}
+
+# Joins: Combining Two Data Frames {background-color="#007155"}
+
+## Why Joins
+
+- HW2 step 5 asks you to combine `df` and `df2` using a shared column,
+  `county_fips`
+- A join lines up rows from two tables using one or more shared columns,
+  called **keys**
+- Nothing here is BEA-specific. Joins work the same way on any two data
+  frames that share a key
+
+## A Small Example {.smaller}
+
+```{r}
+pop <- tibble(
+  county_fips = c("50001", "50003", "50007"),
+  county_name = c("Addison", "Bennington", "Chittenden"),
+  population = c(37363, 34478, 168323)
+)
+
+income <- tibble(
+  county_fips = c("50001", "50003", "50011"),
+  income = c(58000, 52000, 71000)
+)
+```
+
+- Both tables share `county_fips`, the key
+- The counties don't fully overlap: 50007 is only in `pop`, 50011 only in
+  `income`
+
+## `left_join()`: Keep Everything on the Left {.smaller}
+
+```{r}
+pop |> left_join(income, by = "county_fips")
+```
+
+- Every row of `pop` survives, matched or not
+- Chittenden (50007) has no match in `income`, so it gets `NA`
+- 50011's income is dropped. It wasn't in `pop` to begin with
+
+## Other Join Types, Briefly
+
+| Join | Keeps |
+|---|---|
+| `left_join()` | Everything on the left, matched where possible |
+| `inner_join()` | Only rows that match in both |
+| `full_join()` | Everything from both, matched where possible |
+
+`left_join()` is the one you'll reach for almost every time: you have a main
+table and you're adding to it.
+
+## Watch Out: Duplicate Column Names {.smaller}
+
+- If both tables have a column with the same name that isn't the key (both
+  have `county_name`, say), the join keeps both and adds `.x` and `.y`
+  suffixes
+- HW2 warns you about exactly this. Two fixes:
+  - `select()` away the extra column from one side before joining
+  - Join on every shared column: `by = c("county_fips", "county_name", "state")`
+
+## Doing HW2 Step 5, Live {.smaller}
+
+```{r}
+#| eval: false
+df |>
+  select(county_fips, population_2024) |>
+  left_join(df2, by = "county_fips")
+```
+
+- Trimming `df` down to just the key and the one column you need sidesteps
+  the `.x`/`.y` problem entirely
+- Swap in your own file and column names. Everyone's `df2` will look
+  different
+- Once this runs, HW2 step 6 just asks you to describe what the join added
+
+## Your Turn (15 min) {.smaller}
+
+Using `pop` and `income` from tonight, or your own HW2 `df`/`df2`:
+
+1. Try `inner_join()` instead of `left_join()` on `pop` and `income`. How
+   many rows come back, and why?
+2. Pivot `bea_wide` to long format, then find the county with the biggest
+   year-over-year change
+3. Run your actual HW2 join. If you get a `.x`/`.y`, fix it one of the two
+   ways from tonight's slide
+
+Work with a neighbor. Reading the whole error message aloud still works.
+
+## Your Turn: One Way to Do It {.smaller}
+
+```{r}
+#| eval: false
+# 1
+pop |> inner_join(income, by = "county_fips")
+# Only 2 rows: just the counties present in both tables
+
+# 2
+bea_long |>
+  group_by(county_name) |>
+  mutate(change = population - lag(population)) |>
+  filter(!is.na(change))
+
+# 3
+df |>
+  select(county_fips, population_2024) |>
+  left_join(df2, by = "county_fips")
+```
+
+## Before Next Class
+
+- [ ] Nothing new due this week, but get HW2 (due Sept. 27) working if
+      tonight's join didn't click. Office hours or email, any time
+- [ ] Read R4DS [Ch. 9 (Layers)](https://r4ds.hadley.nz/layers) and
+      [Ch. 10 (Exploratory data analysis)](https://r4ds.hadley.nz/eda), and
+      skim [Ch. 11 (Communication)](https://r4ds.hadley.nz/communication)
+
+Next week: exploratory data analysis and your first `ggplot2` charts.

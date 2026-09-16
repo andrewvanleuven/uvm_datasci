@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../img/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Andrew Van Leuven">
+  <meta name="dcterms.date" content="2026-09-17">
+  <title>Applied Data Science &amp; Visualization – Week 3: Getting Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7523458df77c68673fa44e0f45a7e43b.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Week 3: Getting Data</h1>
+  <p class="subtitle">CDAE 7990 · Applied Data Science &amp; Visualization</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andrew Van Leuven 
+</div>
+</div>
+</div>
+
+  <p class="date">September 17, 2026</p>
+</section>
+<section id="welcome-to-morrill-hall-005" class="slide level2">
+<h2>Welcome to Morrill Hall 005</h2>
+<ul>
+<li>Our new room for the rest of the semester: a basement computer lab, so there’s a machine at every seat</li>
+<li>Tonight is a tour of where data comes from, beyond the file you already have sitting in your project</li>
+<li>We’ll land on exactly what HW2’s join step needs</li>
+</ul>
+</section>
+<section id="todays-plan" class="slide level2">
+<h2>Today’s Plan</h2>
+<ul>
+<li><strong>Housekeeping</strong>: nothing new is due this week</li>
+<li><strong>Reading files, revisited</strong>: <code>skip</code>, <code>na</code>, and messy real-world exports</li>
+<li><strong>A quick tour of <code>tidyr</code></strong>: wide data vs.&nbsp;long data</li>
+<li><strong>APIs</strong>: asking a website for data instead of clicking through pages</li>
+<li><strong>Web scraping</strong>: a last resort, and why</li>
+<li><em>Break</em></li>
+<li><strong>Joins</strong>: combining two data frames, live, using HW2’s own data</li>
+</ul>
+</section>
+<section>
+<section id="housekeeping" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Housekeeping</h1>
+
+</section>
+<section id="nothing-new-due-this-week" class="slide level2">
+<h2>Nothing New Due This Week</h2>
+<ul>
+<li>HW2 (due Sept.&nbsp;27) is still your only open assignment</li>
+<li>Tonight’s material, especially joins, is exactly what HW2’s step 5 needs</li>
+<li>We’ll do that join together before you leave, using your own files</li>
+</ul>
+</section></section>
+<section>
+<section id="getting-data" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Getting Data</h1>
+
+</section>
+<section id="where-data-comes-from" class="slide level2">
+<h2>Where Data Comes From</h2>
+<ul>
+<li>A file someone hands you, or you download: CSV, Excel, and the like</li>
+<li>A live API you query with code</li>
+<li>A web page you scrape, when nothing else is available</li>
+<li>R4DS Ch. 7-8 covers the first in depth. APIs and scraping aren’t in R4DS at all, that material is further along in the book than we’ve gotten</li>
+</ul>
+</section>
+<section id="reading-files-revisited" class="slide level2 smaller">
+<h2>Reading Files, Revisited</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/hw2a.csv"</span>,</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">skip =</span> <span class="dv">3</span>,</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"(NA)"</span>)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>You’ve used <code>read_csv()</code> since HW2’s starter code</li>
+<li><code>skip</code> jumps past header rows a file doesn’t need, common in government exports</li>
+<li><code>na</code> tells readr which strings actually mean “missing.” BEA uses <code>(NA)</code>, not R’s default <code>NA</code></li>
+<li>readr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column</li>
+</ul>
+</section>
+<section id="wide-vs.-long-data" class="slide level2 smaller">
+<h2>Wide vs.&nbsp;Long Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>bea_wide <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">county_name =</span> <span class="fu">c</span>(<span class="st">"Addison, VT"</span>, <span class="st">"Chittenden, VT"</span>, <span class="st">"Rutland, VT"</span>),</span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2020 =</span> <span class="fu">c</span>(<span class="dv">37363</span>, <span class="dv">168323</span>, <span class="dv">60572</span>),</span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2021 =</span> <span class="fu">c</span>(<span class="dv">37162</span>, <span class="dv">169660</span>, <span class="dv">60381</span>),</span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2022 =</span> <span class="fu">c</span>(<span class="dv">36777</span>, <span class="dv">170533</span>, <span class="dv">59949</span>)</span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a>bea_wide</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  county_name    pop_2020 pop_2021 pop_2022
+  &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 Addison, VT       37363    37162    36777
+2 Chittenden, VT   168323   169660   170533
+3 Rutland, VT       60572    60381    59949</code></pre>
+</div>
+</div>
+<ul>
+<li>One row per county, but each year gets its own column</li>
+<li>This is what you get if you ever download <strong>multiple years</strong> from BEA at once, instead of the single year HW2 asked for</li>
+</ul>
+</section>
+<section id="pivot_longer-wide-to-long" class="slide level2 smaller">
+<h2><code>pivot_longer()</code>: Wide to Long</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="ot">&lt;-</span> bea_wide <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"pop_"</span>),</span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"pop_"</span>,</span>
+<span id="cb4-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"population"</span></span>
+<span id="cb4-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a aria-hidden="true" tabindex="-1"></a>bea_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  county_name    year  population
+  &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;
+1 Addison, VT    2020       37363
+2 Addison, VT    2021       37162
+3 Addison, VT    2022       36777
+4 Chittenden, VT 2020      168323
+5 Chittenden, VT 2021      169660
+# ℹ 4 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>One row per county <em>and</em> year, instead of one row per county</li>
+<li>Almost everything in dplyr and ggplot2 wants data in this shape</li>
+<li><code>names_prefix</code> strips <code>"pop_"</code> so the year column just holds the number</li>
+</ul>
+</section>
+<section id="pivot_wider-the-reverse" class="slide level2 smaller">
+<h2><code>pivot_wider()</code>: The Reverse</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> population)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  county_name    `2020` `2021` `2022`
+  &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Addison, VT     37363  37162  36777
+2 Chittenden, VT 168323 169660 170533
+3 Rutland, VT     60572  60381  59949</code></pre>
+</div>
+</div>
+<ul>
+<li>Takes values from one column and spreads them into new columns, one per unique value</li>
+<li>Good for a summary table you want to read by eye, less useful once you need to filter or group by year again</li>
+</ul>
+</section></section>
+<section>
+<section id="getting-data-from-an-api" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Getting Data from an API</h1>
+
+</section>
+<section id="whats-an-api" class="slide level2">
+<h2>What’s an API?</h2>
+<ul>
+<li>A structured way to ask a website for data and get back something other than a webpage, usually JSON</li>
+<li>You build a URL with your request baked in, and the server sends back data instead of a rendered page</li>
+<li>Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t</li>
+</ul>
+</section>
+<section id="a-live-example-the-census-api" class="slide level2 smaller">
+<h2>A Live Example: the Census API</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N&amp;for=state:*"</span></span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>census_raw <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url)</span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(census_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>P1_001N</code> is the Census’s code for total population</li>
+<li>No key needed for a request this small, larger ones want one, it’s free</li>
+<li>What comes back is a plain character matrix, not a tidy tibble yet</li>
+</ul>
+</section>
+<section id="turning-json-into-a-tidy-data-frame" class="slide level2 smaller">
+<h2>Turning JSON into a Tidy Data Frame</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>census_pop <span class="ot">&lt;-</span> census_raw <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">.name_repair =</span> <span class="st">"minimal"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(census_raw[<span class="dv">1</span>, ]) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">P1_001N =</span> <span class="fu">as.numeric</span>(P1_001N))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>The first row of the matrix holds the column names, not data. <code>set_names()</code> promotes it, <code>slice(-1)</code> drops it</li>
+<li>This cleanup is the same shape every time: fetch, then reshape</li>
+<li>Week 8’s <code>tidycensus</code> package does this exact cleanup for you in one function call. Tonight you’re seeing what it’s hiding</li>
+</ul>
+</section>
+<section id="web-scraping-a-quick-look" class="slide level2 smaller">
+<h2>Web Scraping: A Quick Look</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://en.wikipedia.org/wiki/List_of_counties_in_Vermont"</span>)</span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">"table.wikitable"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Some data only exists inside a web page, with no file or API behind it</li>
+<li><code>rvest</code> reads a page’s HTML and pulls out a specific table or element</li>
+<li>Fragile: if the page’s layout changes, your code breaks with no warning</li>
+<li>Use it last, after checking for a file or an API. If it’s an NBRC page, ask first rather than scraping on their behalf</li>
+</ul>
+</section>
+<section id="break" class="slide level2" data-background-color="#007155">
+<h2>Break?</h2>
+</section></section>
+<section>
+<section id="joins-combining-two-data-frames" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Joins: Combining Two Data Frames</h1>
+
+</section>
+<section id="why-joins" class="slide level2">
+<h2>Why Joins</h2>
+<ul>
+<li>HW2 step 5 asks you to combine <code>df</code> and <code>df2</code> using a shared column, <code>county_fips</code></li>
+<li>A join lines up rows from two tables using one or more shared columns, called <strong>keys</strong></li>
+<li>Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key</li>
+</ul>
+</section>
+<section id="a-small-example" class="slide level2 smaller">
+<h2>A Small Example</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">county_fips =</span> <span class="fu">c</span>(<span class="st">"50001"</span>, <span class="st">"50003"</span>, <span class="st">"50007"</span>),</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">county_name =</span> <span class="fu">c</span>(<span class="st">"Addison"</span>, <span class="st">"Bennington"</span>, <span class="st">"Chittenden"</span>),</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">c</span>(<span class="dv">37363</span>, <span class="dv">34478</span>, <span class="dv">168323</span>)</span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a>income <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">county_fips =</span> <span class="fu">c</span>(<span class="st">"50001"</span>, <span class="st">"50003"</span>, <span class="st">"50011"</span>),</span>
+<span id="cb11-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">income =</span> <span class="fu">c</span>(<span class="dv">58000</span>, <span class="dv">52000</span>, <span class="dv">71000</span>)</span>
+<span id="cb11-10"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Both tables share <code>county_fips</code>, the key</li>
+<li>The counties don’t fully overlap: 50007 is only in <code>pop</code>, 50011 only in <code>income</code></li>
+</ul>
+</section>
+<section id="left_join-keep-everything-on-the-left" class="slide level2 smaller">
+<h2><code>left_join()</code>: Keep Everything on the Left</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span> <span class="fu">left_join</span>(income, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  county_fips county_name population income
+  &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;  &lt;dbl&gt;
+1 50001       Addison          37363  58000
+2 50003       Bennington       34478  52000
+3 50007       Chittenden      168323     NA</code></pre>
+</div>
+</div>
+<ul>
+<li>Every row of <code>pop</code> survives, matched or not</li>
+<li>Chittenden (50007) has no match in <code>income</code>, so it gets <code>NA</code></li>
+<li>50011’s income is dropped. It wasn’t in <code>pop</code> to begin with</li>
+</ul>
+</section>
+<section id="other-join-types-briefly" class="slide level2">
+<h2>Other Join Types, Briefly</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Join</th>
+<th>Keeps</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>left_join()</code></td>
+<td>Everything on the left, matched where possible</td>
+</tr>
+<tr class="even">
+<td><code>inner_join()</code></td>
+<td>Only rows that match in both</td>
+</tr>
+<tr class="odd">
+<td><code>full_join()</code></td>
+<td>Everything from both, matched where possible</td>
+</tr>
+</tbody>
+</table>
+<p><code>left_join()</code> is the one you’ll reach for almost every time: you have a main table and you’re adding to it.</p>
+</section>
+<section id="watch-out-duplicate-column-names" class="slide level2 smaller">
+<h2>Watch Out: Duplicate Column Names</h2>
+<ul>
+<li>If both tables have a column with the same name that isn’t the key (both have <code>county_name</code>, say), the join keeps both and adds <code>.x</code> and <code>.y</code> suffixes</li>
+<li>HW2 warns you about exactly this. Two fixes:
+<ul>
+<li><code>select()</code> away the extra column from one side before joining</li>
+<li>Join on every shared column: <code>by = c("county_fips", "county_name", "state")</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="doing-hw2-step-5-live" class="slide level2 smaller">
+<h2>Doing HW2 Step 5, Live</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county_fips, population_2024) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df2, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Trimming <code>df</code> down to just the key and the one column you need sidesteps the <code>.x</code>/<code>.y</code> problem entirely</li>
+<li>Swap in your own file and column names. Everyone’s <code>df2</code> will look different</li>
+<li>Once this runs, HW2 step 6 just asks you to describe what the join added</li>
+</ul>
+</section>
+<section id="your-turn-15-min" class="slide level2 smaller scrollable">
+<h2>Your Turn (15 min)</h2>
+<p>Using <code>pop</code> and <code>income</code> from tonight, or your own HW2 <code>df</code>/<code>df2</code>:</p>
+<ol type="1">
+<li>Try <code>inner_join()</code> instead of <code>left_join()</code> on <code>pop</code> and <code>income</code>. How many rows come back, and why?</li>
+<li>Pivot <code>bea_wide</code> to long format, then find the county with the biggest year-over-year change</li>
+<li>Run your actual HW2 join. If you get a <code>.x</code>/<code>.y</code>, fix it one of the two ways from tonight’s slide</li>
+</ol>
+<p>Work with a neighbor. Reading the whole error message aloud still works.</p>
+</section>
+<section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
+<h2>Your Turn: One Way to Do It</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(income, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Only 2 rows: just the counties present in both tables</span></span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county_name) <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">change =</span> population <span class="sc">-</span> <span class="fu">lag</span>(population)) <span class="sc">|&gt;</span></span>
+<span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(change))</span>
+<span id="cb15-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
+<span id="cb15-12"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb15-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county_fips, population_2024) <span class="sc">|&gt;</span></span>
+<span id="cb15-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df2, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="before-next-class" class="slide level2">
+<h2>Before Next Class</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Nothing new due this week, but get HW2 (due Sept.&nbsp;27) working if tonight’s join didn’t click. Office hours or email, any time</label></li>
+<li><label><input type="checkbox">Read R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9 (Layers)</a> and <a href="https://r4ds.hadley.nz/eda">Ch. 10 (Exploratory data analysis)</a>, and skim <a href="https://r4ds.hadley.nz/communication">Ch. 11 (Communication)</a></label></li>
+</ul>
+<p>Next week: exploratory data analysis and your first <code>ggplot2</code> charts.</p>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>CDAE 7990 · Week 3</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'speaker',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Shrink slide titles that wrap onto a second line (see .title-long in slides.scss).
+    (function () {
+      function fitTitles(slide) {
+        if (!slide) return;
+        slide.querySelectorAll("h2").forEach(function (h) {
+          h.classList.remove("title-long");
+          var style = getComputedStyle(h);
+          var lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2;
+          if (h.scrollHeight > lineHeight * 1.5) h.classList.add("title-long");
+        });
+      }
+      function run() {
+        Reveal.on("slidechanged", function (e) { fitTitles(e.currentSlide); });
+        if (Reveal.isReady()) fitTitles(Reveal.getCurrentSlide());
+        else Reveal.on("ready", function (e) { fitTitles(e.currentSlide); });
+      }
+      if (window.Reveal) run();
+      else window.addEventListener("load", run);
+    })();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/andrewvanleuven\.github\.io\/uvm_datasci");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
