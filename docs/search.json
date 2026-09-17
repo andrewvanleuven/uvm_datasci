@@ -718,14 +718,14 @@
     "href": "slides/week03.html#where-data-comes-from",
     "title": "Week 3: Getting Data",
     "section": "Where Data Comes From",
-    "text": "Where Data Comes From\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping aren’t in R4DS at all, that material is further along in the book than we’ve gotten"
+    "text": "Where Data Comes From\n\n\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API (application programming interface) you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS Ch. 24, much further along in the book than we’ve gotten\nReading files is readr’s job, the tidyverse package behind read_csv()"
   },
   {
     "objectID": "slides/week03.html#reading-files-revisited",
     "href": "slides/week03.html#reading-files-revisited",
     "title": "Week 3: Getting Data",
     "section": "Reading Files, Revisited",
-    "text": "Reading Files, Revisited\n\nread_csv(\n  \"data/hw2a.csv\",\n  skip = 3,\n  na = c(\"\", \"NA\", \"(NA)\")\n)\n\n\nYou’ve used read_csv() since HW2’s starter code\nskip jumps past header rows a file doesn’t need, common in government exports\nna tells readr which strings actually mean “missing.” BEA uses (NA), not R’s default NA\nreadr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column"
+    "text": "Reading Files, Revisited\n\nread_csv(\n  \"data/hw2a.csv\",\n  skip = 3,\n  na = c(\"\", \"NA\", \"(NA)\", \"N/A\")\n)\n\n\nread_csv() is in HW2’s starter code\nskip jumps past header rows a file doesn’t need, common in government exports\nna tells readr which strings actually mean “missing.” This varies widely.\nreadr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column"
   },
   {
     "objectID": "slides/week03.html#wide-vs.-long-data",
@@ -845,5 +845,19 @@
     "title": "Week 3: Getting Data",
     "section": "Before Next Class",
     "text": "Before Next Class\n\nNothing new due this week, but get HW2 (due Sept. 27) working if tonight’s join didn’t click. Office hours or email, any time\nRead R4DS Ch. 9 (Layers) and Ch. 10 (Exploratory data analysis), and skim Ch. 11 (Communication)\n\nNext week: exploratory data analysis and your first ggplot2 charts."
+  },
+  {
+    "objectID": "slides/week03.html#a-live-example-the-bls-api",
+    "href": "slides/week03.html#a-live-example-the-bls-api",
+    "title": "Week 3: Getting Data",
+    "section": "A Live Example: the BLS API",
+    "text": "A Live Example: the BLS API\n\nlibrary(jsonlite)\n\nurl &lt;- \"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000\"\nbls_raw &lt;- fromJSON(url)\n\nbls_raw$Results$series$data[[1]] |&gt; head()\n\n\nLNS14000000 is the BLS series ID for the national unemployment rate\nNo key needed for a request this small, heavier use wants a free one\nfromJSON() already turned the nested JSON into data frames. We just have to dig through the list to find the one we want"
+  },
+  {
+    "objectID": "slides/week03.html#turning-it-into-a-tidy-data-frame",
+    "href": "slides/week03.html#turning-it-into-a-tidy-data-frame",
+    "title": "Week 3: Getting Data",
+    "section": "Turning It Into a Tidy Data Frame",
+    "text": "Turning It Into a Tidy Data Frame\n\nunemployment &lt;- bls_raw$Results$series$data[[1]] |&gt;\n  as_tibble() |&gt;\n  select(year, period, value) |&gt;\n  mutate(value = as.numeric(value))\n\nunemployment\n\n\n$ and [[ ]] dig through the nested list until you hit the data frame you actually want\nWatch value after the conversion: one row comes back NA, from the month of the 2025 government shutdown. Real missing data, not a mistake\nWeek 8’s tidycensus wraps this same fetch-then-dig pattern, but for Census data specifically"
   }
 ]

@@ -246,46 +246,21 @@ Andrew Van Leuven
 </ul>
 </section></section>
 <section>
-<section id="getting-data" class="title-slide slide level1 center" data-background-color="#007155">
-<h1>Getting Data</h1>
+<section id="a-quick-return-to-the-tidyverse" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>A Quick Return to the Tidyverse</h1>
 
-</section>
-<section id="where-data-comes-from" class="slide level2">
-<h2>Where Data Comes From</h2>
-<ul>
-<li>A file someone hands you, or you download: CSV, Excel, and the like</li>
-<li>A live API you query with code</li>
-<li>A web page you scrape, when nothing else is available</li>
-<li>R4DS Ch. 7-8 covers the first in depth. APIs and scraping aren’t in R4DS at all, that material is further along in the book than we’ve gotten</li>
-</ul>
-</section>
-<section id="reading-files-revisited" class="slide level2 smaller">
-<h2>Reading Files, Revisited</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/hw2a.csv"</span>,</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">skip =</span> <span class="dv">3</span>,</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"(NA)"</span>)</span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<ul>
-<li>You’ve used <code>read_csv()</code> since HW2’s starter code</li>
-<li><code>skip</code> jumps past header rows a file doesn’t need, common in government exports</li>
-<li><code>na</code> tells readr which strings actually mean “missing.” BEA uses <code>(NA)</code>, not R’s default <code>NA</code></li>
-<li>readr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column</li>
-</ul>
 </section>
 <section id="wide-vs.-long-data" class="slide level2 smaller">
 <h2>Wide vs.&nbsp;Long Data</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>bea_wide <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">county_name =</span> <span class="fu">c</span>(<span class="st">"Addison, VT"</span>, <span class="st">"Chittenden, VT"</span>, <span class="st">"Rutland, VT"</span>),</span>
-<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2020 =</span> <span class="fu">c</span>(<span class="dv">37363</span>, <span class="dv">168323</span>, <span class="dv">60572</span>),</span>
-<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2021 =</span> <span class="fu">c</span>(<span class="dv">37162</span>, <span class="dv">169660</span>, <span class="dv">60381</span>),</span>
-<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2022 =</span> <span class="fu">c</span>(<span class="dv">36777</span>, <span class="dv">170533</span>, <span class="dv">59949</span>)</span>
-<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a>bea_wide</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>bea_wide <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">county_name =</span> <span class="fu">c</span>(<span class="st">"Addison, VT"</span>, <span class="st">"Chittenden, VT"</span>, <span class="st">"Rutland, VT"</span>),</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2020 =</span> <span class="fu">c</span>(<span class="dv">37363</span>, <span class="dv">168323</span>, <span class="dv">60572</span>),</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2021 =</span> <span class="fu">c</span>(<span class="dv">37162</span>, <span class="dv">169660</span>, <span class="dv">60381</span>),</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pop_2022 =</span> <span class="fu">c</span>(<span class="dv">36777</span>, <span class="dv">170533</span>, <span class="dv">59949</span>)</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>bea_wide</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   county_name    pop_2020 pop_2021 pop_2022
@@ -303,15 +278,15 @@ Andrew Van Leuven
 <section id="pivot_longer-wide-to-long" class="slide level2 smaller">
 <h2><code>pivot_longer()</code>: Wide to Long</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="ot">&lt;-</span> bea_wide <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"pop_"</span>),</span>
-<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
-<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"pop_"</span>,</span>
-<span id="cb4-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"population"</span></span>
-<span id="cb4-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a aria-hidden="true" tabindex="-1"></a>bea_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="ot">&lt;-</span> bea_wide <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"pop_"</span>),</span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"pop_"</span>,</span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"population"</span></span>
+<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a aria-hidden="true" tabindex="-1"></a>bea_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 3
   county_name    year  population
@@ -333,8 +308,8 @@ Andrew Van Leuven
 <section id="pivot_wider-the-reverse" class="slide level2 smaller">
 <h2><code>pivot_wider()</code>: The Reverse</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> population)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> population)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   county_name    `2020` `2021` `2022`
@@ -350,6 +325,42 @@ Andrew Van Leuven
 </ul>
 </section></section>
 <section>
+<section id="getting-data" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Getting Data</h1>
+
+</section>
+<section id="where-data-comes-from" class="slide level2 smaller">
+<h2>Where Data Comes From</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<ul>
+<li>A file someone hands you, or you download: CSV, Excel, and the like</li>
+<li>A live API (application programming interface) you query with code</li>
+<li>A web page you scrape, when nothing else is available</li>
+<li>R4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS <a href="https://r4ds.hadley.nz/webscraping.html">Ch. 24</a>, much further along in the book than we’ve gotten</li>
+<li>Reading files is <code>readr</code>’s job, the tidyverse package behind <code>read_csv()</code></li>
+</ul>
+</div><div class="column" style="width:30%;">
+<p><img data-src="https://readr.tidyverse.org/logo.png"></p>
+</div></div>
+</section>
+<section id="reading-files-revisited" class="slide level2 smaller">
+<h2>Reading Files, Revisited</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/hw2a.csv"</span>,</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">skip =</span> <span class="dv">3</span>,</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"(NA)"</span>, <span class="st">"N/A"</span>)</span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>read_csv()</code> is in HW2’s starter code</li>
+<li><code>skip</code> jumps past header rows a file doesn’t need, common in government exports</li>
+<li><code>na</code> tells readr which strings actually mean “missing.” This varies widely.</li>
+<li><code>readr</code> prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column</li>
+</ul>
+</section></section>
+<section>
 <section id="getting-data-from-an-api" class="title-slide slide level1 center" data-background-color="#007155">
 <h1>Getting Data from an API</h1>
 
@@ -362,35 +373,36 @@ Andrew Van Leuven
 <li>Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t</li>
 </ul>
 </section>
-<section id="a-live-example-the-census-api" class="slide level2 smaller">
-<h2>A Live Example: the Census API</h2>
+<section id="a-live-example-the-bls-api" class="slide level2 smaller">
+<h2>A Live Example: the BLS API</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N&amp;for=state:*"</span></span>
-<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>census_raw <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url)</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000"</span></span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>bls_raw <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url)</span>
 <span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(census_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>bls_raw<span class="sc">$</span>Results<span class="sc">$</span>series<span class="sc">$</span>data[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li><code>P1_001N</code> is the Census’s code for total population</li>
-<li>No key needed for a request this small, larger ones want one, it’s free</li>
-<li>What comes back is a plain character matrix, not a tidy tibble yet</li>
+<li><code>LNS14000000</code> is the BLS series ID for the national unemployment rate</li>
+<li>No key needed for a request this small, heavier use wants a free one</li>
+<li><code>fromJSON()</code> already turned the nested JSON into data frames. We just have to dig through the list to find the one we want</li>
 </ul>
 </section>
-<section id="turning-json-into-a-tidy-data-frame" class="slide level2 smaller">
-<h2>Turning JSON into a Tidy Data Frame</h2>
+<section id="turning-it-into-a-tidy-data-frame" class="slide level2 smaller">
+<h2>Turning It Into a Tidy Data Frame</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>census_pop <span class="ot">&lt;-</span> census_raw <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">.name_repair =</span> <span class="st">"minimal"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(census_raw[<span class="dv">1</span>, ]) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">P1_001N =</span> <span class="fu">as.numeric</span>(P1_001N))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>unemployment <span class="ot">&lt;-</span> bls_raw<span class="sc">$</span>Results<span class="sc">$</span>series<span class="sc">$</span>data[[<span class="dv">1</span>]] <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, period, value) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">as.numeric</span>(value))</span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>unemployment</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li>The first row of the matrix holds the column names, not data. <code>set_names()</code> promotes it, <code>slice(-1)</code> drops it</li>
-<li>This cleanup is the same shape every time: fetch, then reshape</li>
-<li>Week 8’s <code>tidycensus</code> package does this exact cleanup for you in one function call. Tonight you’re seeing what it’s hiding</li>
+<li><code>$</code> and <code>[[ ]]</code> dig through the nested list until you hit the data frame you actually want</li>
+<li>Watch <code>value</code> after the conversion: one row comes back <code>NA</code>, from the month of the 2025 government shutdown. Real missing data, not a mistake</li>
+<li>Week 8’s <code>tidycensus</code> wraps this same fetch-then-dig pattern, but for Census data specifically</li>
 </ul>
 </section>
 <section id="web-scraping-a-quick-look" class="slide level2 smaller">

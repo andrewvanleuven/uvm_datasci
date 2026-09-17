@@ -52,35 +52,7 @@ options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 - HW2 (due Sept. 27) is your only open assignment (tonight's demo on joins will help with HW2's step 5)
 - We'll do a similar join together before you leave, preparing you to do the real thing in your homework. 
 
-# Getting Data {background-color="#007155"}
-
-## Where Data Comes From
-
-- A file someone hands you, or you download: CSV, Excel, and the like
-- A live API you query with code
-- A web page you scrape, when nothing else is available
-- R4DS Ch. 7-8 covers the first in depth. APIs and scraping aren't in R4DS
-  at all, that material is further along in the book than we've gotten
-
-## Reading Files, Revisited {.smaller}
-
-```{r}
-#| eval: false
-read_csv(
-  "data/hw2a.csv",
-  skip = 3,
-  na = c("", "NA", "(NA)")
-)
-```
-
-- You've used `read_csv()` since HW2's starter code
-- `skip` jumps past header rows a file doesn't need, common in government
-  exports
-- `na` tells readr which strings actually mean "missing." BEA uses `(NA)`,
-  not R's default `NA`
-- readr prints a column specification when it loads. Always glance at it. A
-  date or number read in as text usually means a stray character snuck into
-  that column
+# A Quick Return to the Tidyverse {background-color="#007155"}
 
 ## Wide vs. Long Data {.smaller}
 
@@ -129,6 +101,49 @@ bea_long |>
 - Good for a summary table you want to read by eye, less useful once you
   need to filter or group by year again
 
+
+# Getting Data {background-color="#007155"}
+
+## Where Data Comes From {.smaller}
+
+:::: {.columns}
+
+::: {.column width="70%"}
+- A file someone hands you, or you download: CSV, Excel, and the like
+- A live API (application programming interface) you query with code
+- A web page you scrape, when nothing else is available
+- R4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS
+  [Ch. 24](https://r4ds.hadley.nz/webscraping.html), much further along in
+  the book than we've gotten
+- Reading files is `readr`'s job, the tidyverse package behind `read_csv()`
+:::
+
+::: {.column width="30%"}
+![](https://readr.tidyverse.org/logo.png)
+:::
+
+::::
+
+## Reading Files, Revisited {.smaller}
+
+```{r}
+#| eval: false
+read_csv(
+  "data/hw2a.csv",
+  skip = 3,
+  na = c("", "NA", "(NA)", "N/A")
+)
+```
+
+- `read_csv()` is in HW2's starter code
+- `skip` jumps past header rows a file doesn't need, common in government
+  exports
+- `na` tells readr which strings actually mean "missing." This varies widely.
+- `readr` prints a column specification when it loads. Always glance at it. A
+  date or number read in as text usually means a stray character snuck into
+  that column
+
+
 # Getting Data from an API {background-color="#007155"}
 
 ## What's an API?
@@ -140,38 +155,41 @@ bea_long |>
 - Census, BLS, and BEA all publish APIs. Some want a free registration key,
   a few don't
 
-## A Live Example: the Census API {.smaller}
+## A Live Example: the BLS API {.smaller}
 
 ```{r}
 #| eval: false
 library(jsonlite)
 
-url <- "https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N&for=state:*"
-census_raw <- fromJSON(url)
+url <- "https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000"
+bls_raw <- fromJSON(url)
 
-head(census_raw)
+bls_raw$Results$series$data[[1]] |> head()
 ```
 
-- `P1_001N` is the Census's code for total population
-- No key needed for a request this small, larger ones want one, it's free
-- What comes back is a plain character matrix, not a tidy tibble yet
+- `LNS14000000` is the BLS series ID for the national unemployment rate
+- No key needed for a request this small, heavier use wants a free one
+- `fromJSON()` already turned the nested JSON into data frames. We just have
+  to dig through the list to find the one we want
 
-## Turning JSON into a Tidy Data Frame {.smaller}
+## Turning It Into a Tidy Data Frame {.smaller}
 
 ```{r}
 #| eval: false
-census_pop <- census_raw |>
-  as_tibble(.name_repair = "minimal") |>
-  set_names(census_raw[1, ]) |>
-  slice(-1) |>
-  mutate(P1_001N = as.numeric(P1_001N))
+unemployment <- bls_raw$Results$series$data[[1]] |>
+  as_tibble() |>
+  select(year, period, value) |>
+  mutate(value = as.numeric(value))
+
+unemployment
 ```
 
-- The first row of the matrix holds the column names, not data. `set_names()`
-  promotes it, `slice(-1)` drops it
-- This cleanup is the same shape every time: fetch, then reshape
-- Week 8's `tidycensus` package does this exact cleanup for you in one
-  function call. Tonight you're seeing what it's hiding
+- `$` and `[[ ]]` dig through the nested list until you hit the data frame
+  you actually want
+- Watch `value` after the conversion: one row comes back `NA`, from the
+  month of the 2025 government shutdown. Real missing data, not a mistake
+- Week 8's `tidycensus` wraps this same fetch-then-dig pattern, but for
+  Census data specifically
 
 ## Web Scraping: A Quick Look {.smaller}
 
