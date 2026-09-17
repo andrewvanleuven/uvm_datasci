@@ -30,11 +30,11 @@ options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 
 - Our new room for the rest of the semester: a basement computer lab, so
   there's a machine at every seat
-- Tonight is a tour of where data comes from, beyond the file you already
+- Tonight is a tour of where data comes from, beyond the file(s) you already
   have sitting in your project
-- We'll land on exactly what HW2's join step needs
+- We'll cover exactly what HW2's join step needs
 
-## Today's Plan
+## Today's Plan {.smaller}
 
 - **Housekeeping**: nothing new is due this week
 - **Reading files, revisited**: `skip`, `na`, and messy real-world exports
@@ -48,9 +48,9 @@ options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 
 ## Nothing New Due This Week
 
-- HW2 (due Sept. 27) is still your only open assignment
-- Tonight's material, especially joins, is exactly what HW2's step 5 needs
-- We'll do that join together before you leave, using your own files
+- HW1 was due Sunday. I will grade soon. 
+- HW2 (due Sept. 27) is your only open assignment (tonight's demo on joins will help with HW2's step 5)
+- We'll do a similar join together before you leave, preparing you to do the real thing in your homework. 
 
 # Getting Data {background-color="#007155"}
 

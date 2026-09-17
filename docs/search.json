@@ -697,7 +697,7 @@
     "href": "slides/week03.html#welcome-to-morrill-hall-005",
     "title": "Week 3: Getting Data",
     "section": "Welcome to Morrill Hall 005",
-    "text": "Welcome to Morrill Hall 005\n\nOur new room for the rest of the semester: a basement computer lab, so there’s a machine at every seat\nTonight is a tour of where data comes from, beyond the file you already have sitting in your project\nWe’ll land on exactly what HW2’s join step needs"
+    "text": "Welcome to Morrill Hall 005\n\nOur new room for the rest of the semester: a basement computer lab, so there’s a machine at every seat\nTonight is a tour of where data comes from, beyond the file(s) you already have sitting in your project\nWe’ll cover exactly what HW2’s join step needs"
   },
   {
     "objectID": "slides/week03.html#todays-plan",
@@ -711,7 +711,7 @@
     "href": "slides/week03.html#nothing-new-due-this-week",
     "title": "Week 3: Getting Data",
     "section": "Nothing New Due This Week",
-    "text": "Nothing New Due This Week\n\nHW2 (due Sept. 27) is still your only open assignment\nTonight’s material, especially joins, is exactly what HW2’s step 5 needs\nWe’ll do that join together before you leave, using your own files"
+    "text": "Nothing New Due This Week\n\nHW1 was due Sunday. I will grade soon.\nHW2 (due Sept. 27) is your only open assignment (tonight’s demo on joins will help with HW2’s step 5)\nWe’ll do a similar join together before you leave, preparing you to do the real thing in your homework."
   },
   {
     "objectID": "slides/week03.html#where-data-comes-from",
