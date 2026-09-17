@@ -37,8 +37,8 @@ options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 ## Today's Plan {.smaller}
 
 - **Housekeeping**: nothing new is due this week
-- **Reading files, revisited**: `skip`, `na`, and messy real-world exports
 - **A quick tour of `tidyr`**: wide data vs. long data
+- **Reading files, revisited**: `skip`, `na`, and messy real-world exports
 - **APIs**: asking a website for data instead of clicking through pages
 - **Web scraping**: a last resort, and why
 - *Break*
@@ -152,7 +152,10 @@ read_csv(
 - You build a URL with your request baked in, and the server sends back
   data instead of a rendered page
 - Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don't
-- There is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes. 
+
+## Not Every API Is Free {.smaller}
+
+- There is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.
 - **The catch**: you have to pay! (a fraction of a penny for each, but it adds up)
 - If a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time.
 
@@ -226,7 +229,8 @@ counties <- page |>
   called **keys** (we will often refer to this as a "unique identifier")
 - Nothing here is BEA-specific. Joins work the same way on any two data
   frames that share a key
-![](https://r4ds.hadley.nz/diagrams/join/venn.png)
+
+![](https://r4ds.hadley.nz/diagrams/join/venn.png){width="70%" fig-align="center"}
 
 ## A Small Example {.smaller}
 
@@ -354,7 +358,7 @@ flights |>
 - [ ] Nothing new due this week, but get HW2 (due Sept. 27) working if
       tonight's join didn't click. Office hours or email, any time
 - [ ] Read R4DS [Ch. 9 (Layers)](https://r4ds.hadley.nz/layers) and
-      [Ch. 10 (Exploratory data analysis)](https://r4ds.hadley.nz/eda), and
+      [Ch. 10 (Exploratory data analysis)](https://r4ds.hadley.nz/EDA.html), and
       skim [Ch. 11 (Communication)](https://r4ds.hadley.nz/communication)
 
 Next week: exploratory data analysis and your first `ggplot2` charts.

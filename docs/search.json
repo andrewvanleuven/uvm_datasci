@@ -704,7 +704,7 @@
     "href": "slides/week03.html#todays-plan",
     "title": "Week 3: Getting Data",
     "section": "Today’s Plan",
-    "text": "Today’s Plan\n\nHousekeeping: nothing new is due this week\nReading files, revisited: skip, na, and messy real-world exports\nA quick tour of tidyr: wide data vs. long data\nAPIs: asking a website for data instead of clicking through pages\nWeb scraping: a last resort, and why\nBreak\nJoins: combining two data frames, with toy data and a real airline dataset"
+    "text": "Today’s Plan\n\nHousekeeping: nothing new is due this week\nA quick tour of tidyr: wide data vs. long data\nReading files, revisited: skip, na, and messy real-world exports\nAPIs: asking a website for data instead of clicking through pages\nWeb scraping: a last resort, and why\nBreak\nJoins: combining two data frames, with toy data and a real airline dataset"
   },
   {
     "objectID": "slides/week03.html#nothing-new-due-this-week",
@@ -753,7 +753,7 @@
     "href": "slides/week03.html#whats-an-api",
     "title": "Week 3: Getting Data",
     "section": "What’s an API?",
-    "text": "What’s an API?\n\nApplication programming interface: structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t\nThere is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.\nThe catch: you have to pay! (a fraction of a penny for each, but it adds up)\nIf a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time."
+    "text": "What’s an API?\n\nApplication programming interface: structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t"
   },
   {
     "objectID": "slides/week03.html#a-live-example-the-census-api",
@@ -880,5 +880,12 @@
     "title": "Week 3: Getting Data",
     "section": "Joining Them",
     "text": "Joining Them\n\nflights |&gt;\n  select(year, month, day, carrier, flight, dest) |&gt;\n  left_join(airlines, by = \"carrier\")\n\n# A tibble: 336,776 × 7\n   year month   day carrier flight dest  name                  \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                 \n1  2013     1     1 UA        1545 IAH   United Air Lines Inc. \n2  2013     1     1 UA        1714 IAH   United Air Lines Inc. \n3  2013     1     1 AA        1141 MIA   American Airlines Inc.\n4  2013     1     1 B6         725 BQN   JetBlue Airways       \n5  2013     1     1 DL         461 ATL   Delta Air Lines Inc.  \n# ℹ 336,771 more rows\n\n\n\nSame left_join(), same idea as pop and income, just bigger, real data\nEvery flight keeps its row. It just gains the airline’s full name"
+  },
+  {
+    "objectID": "slides/week03.html#not-every-api-is-free",
+    "href": "slides/week03.html#not-every-api-is-free",
+    "title": "Week 3: Getting Data",
+    "section": "Not Every API Is Free",
+    "text": "Not Every API Is Free\n\nThere is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.\nThe catch: you have to pay! (a fraction of a penny for each, but it adds up)\nIf a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time."
   }
 ]

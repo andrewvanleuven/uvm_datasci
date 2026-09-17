@@ -224,8 +224,8 @@ Andrew Van Leuven
 <h2>Today’s Plan</h2>
 <ul>
 <li><strong>Housekeeping</strong>: nothing new is due this week</li>
-<li><strong>Reading files, revisited</strong>: <code>skip</code>, <code>na</code>, and messy real-world exports</li>
 <li><strong>A quick tour of <code>tidyr</code></strong>: wide data vs.&nbsp;long data</li>
+<li><strong>Reading files, revisited</strong>: <code>skip</code>, <code>na</code>, and messy real-world exports</li>
 <li><strong>APIs</strong>: asking a website for data instead of clicking through pages</li>
 <li><strong>Web scraping</strong>: a last resort, and why</li>
 <li><em>Break</em></li>
@@ -371,6 +371,11 @@ Andrew Van Leuven
 <li><strong>Application programming interface</strong>: structured way to ask a website for data and get back something other than a webpage, usually JSON</li>
 <li>You build a URL with your request baked in, and the server sends back data instead of a rendered page</li>
 <li>Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t</li>
+</ul>
+</section>
+<section id="not-every-api-is-free" class="slide level2 smaller">
+<h2>Not Every API Is Free</h2>
+<ul>
 <li>There is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.</li>
 <li><strong>The catch</strong>: you have to pay! (a fraction of a penny for each, but it adds up)</li>
 <li>If a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time.</li>
@@ -440,9 +445,10 @@ Andrew Van Leuven
 <ul>
 <li>HW2 step 5 asks you to combine <code>df</code> and <code>df2</code> using a shared column, <code>county_fips</code></li>
 <li>A join lines up rows from two tables using one or more shared columns, called <strong>keys</strong> (we will often refer to this as a “unique identifier”)</li>
-<li>Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key <img data-src="https://r4ds.hadley.nz/diagrams/join/venn.png"></li>
+<li>Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key</li>
 </ul>
-</section>
+
+<img data-src="https://r4ds.hadley.nz/diagrams/join/venn.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
 <section id="a-small-example" class="slide level2 smaller">
 <h2>A Small Example</h2>
 <div class="cell">
@@ -620,7 +626,7 @@ Andrew Van Leuven
 <h2>Before Next Class</h2>
 <ul class="task-list">
 <li><label><input type="checkbox">Nothing new due this week, but get HW2 (due Sept.&nbsp;27) working if tonight’s join didn’t click. Office hours or email, any time</label></li>
-<li><label><input type="checkbox">Read R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9 (Layers)</a> and <a href="https://r4ds.hadley.nz/eda">Ch. 10 (Exploratory data analysis)</a>, and skim <a href="https://r4ds.hadley.nz/communication">Ch. 11 (Communication)</a></label></li>
+<li><label><input type="checkbox">Read R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9 (Layers)</a> and <a href="https://r4ds.hadley.nz/EDA.html">Ch. 10 (Exploratory data analysis)</a>, and skim <a href="https://r4ds.hadley.nz/communication">Ch. 11 (Communication)</a></label></li>
 </ul>
 <p>Next week: exploratory data analysis and your first <code>ggplot2</code> charts.</p>
 
