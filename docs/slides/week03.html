@@ -229,7 +229,7 @@ Andrew Van Leuven
 <li><strong>APIs</strong>: asking a website for data instead of clicking through pages</li>
 <li><strong>Web scraping</strong>: a last resort, and why</li>
 <li><em>Break</em></li>
-<li><strong>Joins</strong>: combining two data frames, live, using HW2’s own data</li>
+<li><strong>Joins</strong>: combining two data frames, with toy data and a real airline dataset</li>
 </ul>
 </section>
 <section>
@@ -338,7 +338,7 @@ Andrew Van Leuven
 <li>A live API (application programming interface) you query with code</li>
 <li>A web page you scrape, when nothing else is available</li>
 <li>R4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS <a href="https://r4ds.hadley.nz/webscraping.html">Ch. 24</a>, much further along in the book than we’ve gotten</li>
-<li>Reading files is <code>readr</code>’s job, the tidyverse package behind <code>read_csv()</code></li>
+<li>Reading files is <code>readr</code>’s job, the tidyverse package behind <code>read_csv()</code> and other similar functions</li>
 </ul>
 </div><div class="column" style="width:30%;">
 <p><img data-src="https://readr.tidyverse.org/logo.png"></p>
@@ -365,12 +365,15 @@ Andrew Van Leuven
 <h1>Getting Data from an API</h1>
 
 </section>
-<section id="whats-an-api" class="slide level2">
+<section id="whats-an-api" class="slide level2 smaller">
 <h2>What’s an API?</h2>
 <ul>
-<li>A structured way to ask a website for data and get back something other than a webpage, usually JSON</li>
+<li><strong>Application programming interface</strong>: structured way to ask a website for data and get back something other than a webpage, usually JSON</li>
 <li>You build a URL with your request baked in, and the server sends back data instead of a rendered page</li>
 <li>Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t</li>
+<li>There is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.</li>
+<li><strong>The catch</strong>: you have to pay! (a fraction of a penny for each, but it adds up)</li>
+<li>If a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time.</li>
 </ul>
 </section>
 <section id="a-live-example-the-bls-api" class="slide level2 smaller">
@@ -380,13 +383,15 @@ Andrew Van Leuven
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000"</span></span>
 <span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>bls_raw <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(url)</span>
-<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>bls_raw<span class="sc">$</span>Results<span class="sc">$</span>series<span class="sc">$</span>data[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>bls_raw</span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>bls_raw<span class="sc">$</span>Results<span class="sc">$</span>series<span class="sc">$</span>data[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><code>LNS14000000</code> is the BLS series ID for the national unemployment rate</li>
 <li>No key needed for a request this small, heavier use wants a free one</li>
 <li><code>fromJSON()</code> already turned the nested JSON into data frames. We just have to dig through the list to find the one we want</li>
+<li>Read <code>bls_raw$Results$series$data[[1]]</code> left to right: start at <code>bls_raw</code>, step into <code>$Results</code>, then <code>$series</code>, then grab the first item out of the <code>data</code> list with <code>[[1]]</code></li>
 </ul>
 </section>
 <section id="turning-it-into-a-tidy-data-frame" class="slide level2 smaller">
@@ -402,7 +407,7 @@ Andrew Van Leuven
 <ul>
 <li><code>$</code> and <code>[[ ]]</code> dig through the nested list until you hit the data frame you actually want</li>
 <li>Watch <code>value</code> after the conversion: one row comes back <code>NA</code>, from the month of the 2025 government shutdown. Real missing data, not a mistake</li>
-<li>Week 8’s <code>tidycensus</code> wraps this same fetch-then-dig pattern, but for Census data specifically</li>
+<li>Week 8’s <code>tidycensus</code> wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend.</li>
 </ul>
 </section>
 <section id="web-scraping-a-quick-look" class="slide level2 smaller">
@@ -418,8 +423,8 @@ Andrew Van Leuven
 <ul>
 <li>Some data only exists inside a web page, with no file or API behind it</li>
 <li><code>rvest</code> reads a page’s HTML and pulls out a specific table or element</li>
-<li>Fragile: if the page’s layout changes, your code breaks with no warning</li>
-<li>Use it last, after checking for a file or an API. If it’s an NBRC page, ask first rather than scraping on their behalf</li>
+<li><strong>The process is fragile</strong>: if the page’s layout changes, your code breaks with no warning</li>
+<li>Use it last, after checking for a file or an API. Read the site’s terms of service and <code>robots.txt</code> first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked</li>
 </ul>
 </section>
 <section id="break" class="slide level2" data-background-color="#007155">
@@ -430,12 +435,12 @@ Andrew Van Leuven
 <h1>Joins: Combining Two Data Frames</h1>
 
 </section>
-<section id="why-joins" class="slide level2">
+<section id="why-joins" class="slide level2 smaller">
 <h2>Why Joins</h2>
 <ul>
 <li>HW2 step 5 asks you to combine <code>df</code> and <code>df2</code> using a shared column, <code>county_fips</code></li>
-<li>A join lines up rows from two tables using one or more shared columns, called <strong>keys</strong></li>
-<li>Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key</li>
+<li>A join lines up rows from two tables using one or more shared columns, called <strong>keys</strong> (we will often refer to this as a “unique identifier”)</li>
+<li>Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key <img data-src="https://r4ds.hadley.nz/diagrams/join/venn.png"></li>
 </ul>
 </section>
 <section id="a-small-example" class="slide level2 smaller">
@@ -506,53 +511,109 @@ Andrew Van Leuven
 <h2>Watch Out: Duplicate Column Names</h2>
 <ul>
 <li>If both tables have a column with the same name that isn’t the key (both have <code>county_name</code>, say), the join keeps both and adds <code>.x</code> and <code>.y</code> suffixes</li>
-<li>HW2 warns you about exactly this. Two fixes:
+<li>Two fixes:
 <ul>
 <li><code>select()</code> away the extra column from one side before joining</li>
 <li>Join on every shared column: <code>by = c("county_fips", "county_name", "state")</code></li>
 </ul></li>
 </ul>
 </section>
-<section id="doing-hw2-step-5-live" class="slide level2 smaller">
-<h2>Doing HW2 Step 5, Live</h2>
+<section id="a-bigger-example-nycflights13" class="slide level2 smaller">
+<h2>A Bigger Example: <code>nycflights13</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county_fips, population_2024) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df2, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"nycflights13"</span>)  <span class="co"># once, if you don't already have it</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">select</span>(year, month, day, carrier, flight, dest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 6
+   year month   day carrier flight dest 
+  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;
+1  2013     1     1 UA        1545 IAH  
+2  2013     1     1 UA        1714 IAH  
+3  2013     1     1 AA        1141 MIA  
+4  2013     1     1 B6         725 BQN  
+5  2013     1     1 DL         461 ATL  
+# ℹ 336,771 more rows</code></pre>
+</div>
 </div>
 <ul>
-<li>Trimming <code>df</code> down to just the key and the one column you need sidesteps the <code>.x</code>/<code>.y</code> problem entirely</li>
-<li>Swap in your own file and column names. Everyone’s <code>df2</code> will look different</li>
-<li>Once this runs, HW2 step 6 just asks you to describe what the join added</li>
+<li>The same package R4DS’s <a href="https://r4ds.hadley.nz/joins.html">joins chapter</a> uses: every flight that left a NYC airport in 2013</li>
+<li><code>carrier</code> is a two-letter code, not an airline name, exactly the kind of gap a join fills</li>
+</ul>
+</section>
+<section id="the-lookup-table-airlines" class="slide level2 smaller">
+<h2>The Lookup Table: <code>airlines</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>airlines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+  carrier name                  
+  &lt;chr&gt;   &lt;chr&gt;                 
+1 9E      Endeavor Air Inc.     
+2 AA      American Airlines Inc.
+3 AS      Alaska Airlines Inc.  
+4 B6      JetBlue Airways       
+5 DL      Delta Air Lines Inc.  
+# ℹ 11 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>One row per code, the exact shape you want on the right side of a <code>left_join()</code></li>
+<li>Same key idea as <code>pop</code> and <code>income</code>: both tables share a column, <code>carrier</code></li>
+</ul>
+</section>
+<section id="joining-them" class="slide level2 smaller">
+<h2>Joining Them</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, month, day, carrier, flight, dest) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airlines, <span class="at">by =</span> <span class="st">"carrier"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 7
+   year month   day carrier flight dest  name                  
+  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                 
+1  2013     1     1 UA        1545 IAH   United Air Lines Inc. 
+2  2013     1     1 UA        1714 IAH   United Air Lines Inc. 
+3  2013     1     1 AA        1141 MIA   American Airlines Inc.
+4  2013     1     1 B6         725 BQN   JetBlue Airways       
+5  2013     1     1 DL         461 ATL   Delta Air Lines Inc.  
+# ℹ 336,771 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>Same <code>left_join()</code>, same idea as <code>pop</code> and <code>income</code>, just bigger, real data</li>
+<li>Every flight keeps its row. It just gains the airline’s full name</li>
 </ul>
 </section>
 <section id="your-turn-15-min" class="slide level2 smaller scrollable">
 <h2>Your Turn (15 min)</h2>
-<p>Using <code>pop</code> and <code>income</code> from tonight, or your own HW2 <code>df</code>/<code>df2</code>:</p>
 <ol type="1">
-<li>Try <code>inner_join()</code> instead of <code>left_join()</code> on <code>pop</code> and <code>income</code>. How many rows come back, and why?</li>
+<li>Using <code>pop</code> and <code>income</code> from tonight, try <code>inner_join()</code> instead of <code>left_join()</code>. How many rows come back, and why?</li>
 <li>Pivot <code>bea_wide</code> to long format, then find the county with the biggest year-over-year change</li>
-<li>Run your actual HW2 join. If you get a <code>.x</code>/<code>.y</code>, fix it one of the two ways from tonight’s slide</li>
+<li>Join <code>flights</code> to <code>airlines</code>, then use <code>count()</code> and <code>arrange()</code> to find which carrier had the most flights out of New York in 2013</li>
 </ol>
 <p>Work with a neighbor. Reading the whole error message aloud still works.</p>
 </section>
 <section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
 <h2>Your Turn: One Way to Do It</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
-<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(income, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span>
-<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Only 2 rows: just the counties present in both tables</span></span>
-<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
-<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="sc">|&gt;</span></span>
-<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county_name) <span class="sc">|&gt;</span></span>
-<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">change =</span> population <span class="sc">-</span> <span class="fu">lag</span>(population)) <span class="sc">|&gt;</span></span>
-<span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(change))</span>
-<span id="cb15-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
-<span id="cb15-12"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb15-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county_fips, population_2024) <span class="sc">|&gt;</span></span>
-<span id="cb15-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df2, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(income, <span class="at">by =</span> <span class="st">"county_fips"</span>)</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Only 2 rows: just the counties present in both tables</span></span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>bea_long <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county_name) <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">change =</span> population <span class="sc">-</span> <span class="fu">lag</span>(population)) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(change))</span>
+<span id="cb21-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
+<span id="cb21-12"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span></span>
+<span id="cb21-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airlines, <span class="at">by =</span> <span class="st">"carrier"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(name, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="before-next-class" class="slide level2">

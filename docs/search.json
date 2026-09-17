@@ -704,7 +704,7 @@
     "href": "slides/week03.html#todays-plan",
     "title": "Week 3: Getting Data",
     "section": "Today’s Plan",
-    "text": "Today’s Plan\n\nHousekeeping: nothing new is due this week\nReading files, revisited: skip, na, and messy real-world exports\nA quick tour of tidyr: wide data vs. long data\nAPIs: asking a website for data instead of clicking through pages\nWeb scraping: a last resort, and why\nBreak\nJoins: combining two data frames, live, using HW2’s own data"
+    "text": "Today’s Plan\n\nHousekeeping: nothing new is due this week\nReading files, revisited: skip, na, and messy real-world exports\nA quick tour of tidyr: wide data vs. long data\nAPIs: asking a website for data instead of clicking through pages\nWeb scraping: a last resort, and why\nBreak\nJoins: combining two data frames, with toy data and a real airline dataset"
   },
   {
     "objectID": "slides/week03.html#nothing-new-due-this-week",
@@ -718,7 +718,7 @@
     "href": "slides/week03.html#where-data-comes-from",
     "title": "Week 3: Getting Data",
     "section": "Where Data Comes From",
-    "text": "Where Data Comes From\n\n\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API (application programming interface) you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS Ch. 24, much further along in the book than we’ve gotten\nReading files is readr’s job, the tidyverse package behind read_csv()"
+    "text": "Where Data Comes From\n\n\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API (application programming interface) you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS Ch. 24, much further along in the book than we’ve gotten\nReading files is readr’s job, the tidyverse package behind read_csv() and other similar functions"
   },
   {
     "objectID": "slides/week03.html#reading-files-revisited",
@@ -753,7 +753,7 @@
     "href": "slides/week03.html#whats-an-api",
     "title": "Week 3: Getting Data",
     "section": "What’s an API?",
-    "text": "What’s an API?\n\nA structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t"
+    "text": "What’s an API?\n\nApplication programming interface: structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t\nThere is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.\nThe catch: you have to pay! (a fraction of a penny for each, but it adds up)\nIf a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time."
   },
   {
     "objectID": "slides/week03.html#a-live-example-the-census-api",
@@ -774,7 +774,7 @@
     "href": "slides/week03.html#web-scraping-a-quick-look",
     "title": "Week 3: Getting Data",
     "section": "Web Scraping: A Quick Look",
-    "text": "Web Scraping: A Quick Look\n\nlibrary(rvest)\n\npage &lt;- read_html(\"https://en.wikipedia.org/wiki/List_of_counties_in_Vermont\")\ncounties &lt;- page |&gt;\n  html_element(\"table.wikitable\") |&gt;\n  html_table()\n\n\nSome data only exists inside a web page, with no file or API behind it\nrvest reads a page’s HTML and pulls out a specific table or element\nFragile: if the page’s layout changes, your code breaks with no warning\nUse it last, after checking for a file or an API. If it’s an NBRC page, ask first rather than scraping on their behalf"
+    "text": "Web Scraping: A Quick Look\n\nlibrary(rvest)\n\npage &lt;- read_html(\"https://en.wikipedia.org/wiki/List_of_counties_in_Vermont\")\ncounties &lt;- page |&gt;\n  html_element(\"table.wikitable\") |&gt;\n  html_table()\n\n\nSome data only exists inside a web page, with no file or API behind it\nrvest reads a page’s HTML and pulls out a specific table or element\nThe process is fragile: if the page’s layout changes, your code breaks with no warning\nUse it last, after checking for a file or an API. Read the site’s terms of service and robots.txt first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked"
   },
   {
     "objectID": "slides/week03.html#break",
@@ -788,7 +788,7 @@
     "href": "slides/week03.html#why-joins",
     "title": "Week 3: Getting Data",
     "section": "Why Joins",
-    "text": "Why Joins\n\nHW2 step 5 asks you to combine df and df2 using a shared column, county_fips\nA join lines up rows from two tables using one or more shared columns, called keys\nNothing here is BEA-specific. Joins work the same way on any two data frames that share a key"
+    "text": "Why Joins\n\nHW2 step 5 asks you to combine df and df2 using a shared column, county_fips\nA join lines up rows from two tables using one or more shared columns, called keys (we will often refer to this as a “unique identifier”)\nNothing here is BEA-specific. Joins work the same way on any two data frames that share a key"
   },
   {
     "objectID": "slides/week03.html#a-small-example",
@@ -816,7 +816,7 @@
     "href": "slides/week03.html#watch-out-duplicate-column-names",
     "title": "Week 3: Getting Data",
     "section": "Watch Out: Duplicate Column Names",
-    "text": "Watch Out: Duplicate Column Names\n\nIf both tables have a column with the same name that isn’t the key (both have county_name, say), the join keeps both and adds .x and .y suffixes\nHW2 warns you about exactly this. Two fixes:\n\nselect() away the extra column from one side before joining\nJoin on every shared column: by = c(\"county_fips\", \"county_name\", \"state\")"
+    "text": "Watch Out: Duplicate Column Names\n\nIf both tables have a column with the same name that isn’t the key (both have county_name, say), the join keeps both and adds .x and .y suffixes\nTwo fixes:\n\nselect() away the extra column from one side before joining\nJoin on every shared column: by = c(\"county_fips\", \"county_name\", \"state\")"
   },
   {
     "objectID": "slides/week03.html#doing-hw2-step-5-live",
@@ -830,14 +830,14 @@
     "href": "slides/week03.html#your-turn-15-min",
     "title": "Week 3: Getting Data",
     "section": "Your Turn (15 min)",
-    "text": "Your Turn (15 min)\nUsing pop and income from tonight, or your own HW2 df/df2:\n\nTry inner_join() instead of left_join() on pop and income. How many rows come back, and why?\nPivot bea_wide to long format, then find the county with the biggest year-over-year change\nRun your actual HW2 join. If you get a .x/.y, fix it one of the two ways from tonight’s slide\n\nWork with a neighbor. Reading the whole error message aloud still works."
+    "text": "Your Turn (15 min)\n\nUsing pop and income from tonight, try inner_join() instead of left_join(). How many rows come back, and why?\nPivot bea_wide to long format, then find the county with the biggest year-over-year change\nJoin flights to airlines, then use count() and arrange() to find which carrier had the most flights out of New York in 2013\n\nWork with a neighbor. Reading the whole error message aloud still works."
   },
   {
     "objectID": "slides/week03.html#your-turn-one-way-to-do-it",
     "href": "slides/week03.html#your-turn-one-way-to-do-it",
     "title": "Week 3: Getting Data",
     "section": "Your Turn: One Way to Do It",
-    "text": "Your Turn: One Way to Do It\n\n# 1\npop |&gt; inner_join(income, by = \"county_fips\")\n# Only 2 rows: just the counties present in both tables\n\n# 2\nbea_long |&gt;\n  group_by(county_name) |&gt;\n  mutate(change = population - lag(population)) |&gt;\n  filter(!is.na(change))\n\n# 3\ndf |&gt;\n  select(county_fips, population_2024) |&gt;\n  left_join(df2, by = \"county_fips\")"
+    "text": "Your Turn: One Way to Do It\n\n# 1\npop |&gt; inner_join(income, by = \"county_fips\")\n# Only 2 rows: just the counties present in both tables\n\n# 2\nbea_long |&gt;\n  group_by(county_name) |&gt;\n  mutate(change = population - lag(population)) |&gt;\n  filter(!is.na(change))\n\n# 3\nflights |&gt;\n  left_join(airlines, by = \"carrier\") |&gt;\n  count(name, sort = TRUE)"
   },
   {
     "objectID": "slides/week03.html#before-next-class",
@@ -851,13 +851,34 @@
     "href": "slides/week03.html#a-live-example-the-bls-api",
     "title": "Week 3: Getting Data",
     "section": "A Live Example: the BLS API",
-    "text": "A Live Example: the BLS API\n\nlibrary(jsonlite)\n\nurl &lt;- \"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000\"\nbls_raw &lt;- fromJSON(url)\n\nbls_raw$Results$series$data[[1]] |&gt; head()\n\n\nLNS14000000 is the BLS series ID for the national unemployment rate\nNo key needed for a request this small, heavier use wants a free one\nfromJSON() already turned the nested JSON into data frames. We just have to dig through the list to find the one we want"
+    "text": "A Live Example: the BLS API\n\nlibrary(jsonlite)\n\nurl &lt;- \"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000\"\nbls_raw &lt;- fromJSON(url)\nbls_raw\n\nbls_raw$Results$series$data[[1]] |&gt; head()\n\n\nLNS14000000 is the BLS series ID for the national unemployment rate\nNo key needed for a request this small, heavier use wants a free one\nfromJSON() already turned the nested JSON into data frames. We just have to dig through the list to find the one we want\nRead bls_raw$Results$series$data[[1]] left to right: start at bls_raw, step into $Results, then $series, then grab the first item out of the data list with [[1]]"
   },
   {
     "objectID": "slides/week03.html#turning-it-into-a-tidy-data-frame",
     "href": "slides/week03.html#turning-it-into-a-tidy-data-frame",
     "title": "Week 3: Getting Data",
     "section": "Turning It Into a Tidy Data Frame",
-    "text": "Turning It Into a Tidy Data Frame\n\nunemployment &lt;- bls_raw$Results$series$data[[1]] |&gt;\n  as_tibble() |&gt;\n  select(year, period, value) |&gt;\n  mutate(value = as.numeric(value))\n\nunemployment\n\n\n$ and [[ ]] dig through the nested list until you hit the data frame you actually want\nWatch value after the conversion: one row comes back NA, from the month of the 2025 government shutdown. Real missing data, not a mistake\nWeek 8’s tidycensus wraps this same fetch-then-dig pattern, but for Census data specifically"
+    "text": "Turning It Into a Tidy Data Frame\n\nunemployment &lt;- bls_raw$Results$series$data[[1]] |&gt;\n  as_tibble() |&gt;\n  select(year, period, value) |&gt;\n  mutate(value = as.numeric(value))\n\nunemployment\n\n\n$ and [[ ]] dig through the nested list until you hit the data frame you actually want\nWatch value after the conversion: one row comes back NA, from the month of the 2025 government shutdown. Real missing data, not a mistake\nWeek 8’s tidycensus wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend."
+  },
+  {
+    "objectID": "slides/week03.html#a-bigger-example-nycflights13",
+    "href": "slides/week03.html#a-bigger-example-nycflights13",
+    "title": "Week 3: Getting Data",
+    "section": "A Bigger Example: nycflights13",
+    "text": "A Bigger Example: nycflights13\n\ninstall.packages(\"nycflights13\")  # once, if you don't already have it\n\n\nlibrary(nycflights13)\n\nflights |&gt; select(year, month, day, carrier, flight, dest)\n\n# A tibble: 336,776 × 6\n   year month   day carrier flight dest \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;\n1  2013     1     1 UA        1545 IAH  \n2  2013     1     1 UA        1714 IAH  \n3  2013     1     1 AA        1141 MIA  \n4  2013     1     1 B6         725 BQN  \n5  2013     1     1 DL         461 ATL  \n# ℹ 336,771 more rows\n\n\n\nThe same package R4DS’s joins chapter uses: every flight that left a NYC airport in 2013\ncarrier is a two-letter code, not an airline name, exactly the kind of gap a join fills"
+  },
+  {
+    "objectID": "slides/week03.html#the-lookup-table-airlines",
+    "href": "slides/week03.html#the-lookup-table-airlines",
+    "title": "Week 3: Getting Data",
+    "section": "The Lookup Table: airlines",
+    "text": "The Lookup Table: airlines\n\nairlines\n\n# A tibble: 16 × 2\n  carrier name                  \n  &lt;chr&gt;   &lt;chr&gt;                 \n1 9E      Endeavor Air Inc.     \n2 AA      American Airlines Inc.\n3 AS      Alaska Airlines Inc.  \n4 B6      JetBlue Airways       \n5 DL      Delta Air Lines Inc.  \n# ℹ 11 more rows\n\n\n\nOne row per code, the exact shape you want on the right side of a left_join()\nSame key idea as pop and income: both tables share a column, carrier"
+  },
+  {
+    "objectID": "slides/week03.html#joining-them",
+    "href": "slides/week03.html#joining-them",
+    "title": "Week 3: Getting Data",
+    "section": "Joining Them",
+    "text": "Joining Them\n\nflights |&gt;\n  select(year, month, day, carrier, flight, dest) |&gt;\n  left_join(airlines, by = \"carrier\")\n\n# A tibble: 336,776 × 7\n   year month   day carrier flight dest  name                  \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                 \n1  2013     1     1 UA        1545 IAH   United Air Lines Inc. \n2  2013     1     1 UA        1714 IAH   United Air Lines Inc. \n3  2013     1     1 AA        1141 MIA   American Airlines Inc.\n4  2013     1     1 B6         725 BQN   JetBlue Airways       \n5  2013     1     1 DL         461 ATL   Delta Air Lines Inc.  \n# ℹ 336,771 more rows\n\n\n\nSame left_join(), same idea as pop and income, just bigger, real data\nEvery flight keeps its row. It just gains the airline’s full name"
   }
 ]
