@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://andrewvanleuven.github.io/uvm_datasci/syllabus.html</loc>
-    <lastmod>2026-09-15T17:01:10.829Z</lastmod>
-  </url>
-  <url>
-    <loc>https://andrewvanleuven.github.io/uvm_datasci/slides/week02.html</loc>
-    <lastmod>2026-09-10T14:37:20.028Z</lastmod>
-  </url>
-  <url>
-    <loc>https://andrewvanleuven.github.io/uvm_datasci/schedule.html</loc>
-    <lastmod>2026-09-16T15:07:12.294Z</lastmod>
-  </url>
-  <url>
-    <loc>https://andrewvanleuven.github.io/uvm_datasci/policies.html</loc>
-    <lastmod>2026-09-02T03:42:30.842Z</lastmod>
-  </url>
-  <url>
-    <loc>https://andrewvanleuven.github.io/uvm_datasci/index.html</loc>
-    <lastmod>2026-09-15T17:00:17.410Z</lastmod>
-  </url>
-  <url>
-    <loc>https://andrewvanleuven.github.io/uvm_datasci/project.html</loc>
-    <lastmod>2026-09-02T03:42:29.828Z</lastmod>
-  </url>
-  <url>
-    <loc>https://andrewvanleuven.github.io/uvm_datasci/slides/week01.html</loc>
-    <lastmod>2026-09-02T03:38:37.422Z</lastmod>
+    <lastmod>2026-09-15T17:01:10.000Z</lastmod>
   </url>
   <url>
     <loc>https://andrewvanleuven.github.io/uvm_datasci/slides/week03.html</loc>
-    <lastmod>2026-09-17T14:27:40.783Z</lastmod>
+    <lastmod>2026-09-17T14:27:40.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andrewvanleuven.github.io/uvm_datasci/slides/week01.html</loc>
+    <lastmod>2026-09-02T03:38:37.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andrewvanleuven.github.io/uvm_datasci/project.html</loc>
+    <lastmod>2026-09-02T03:42:29.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andrewvanleuven.github.io/uvm_datasci/index.html</loc>
+    <lastmod>2026-09-15T17:00:17.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andrewvanleuven.github.io/uvm_datasci/policies.html</loc>
+    <lastmod>2026-09-02T03:42:30.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andrewvanleuven.github.io/uvm_datasci/schedule.html</loc>
+    <lastmod>2026-09-24T16:06:54.121Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andrewvanleuven.github.io/uvm_datasci/slides/week02.html</loc>
+    <lastmod>2026-09-10T14:37:20.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andrewvanleuven.github.io/uvm_datasci/slides/week04.html</loc>
+    <lastmod>2026-09-24T16:06:54.115Z</lastmod>
   </url>
 </urlset>

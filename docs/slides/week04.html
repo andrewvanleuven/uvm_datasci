@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../img/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Andrew Van Leuven">
+  <meta name="dcterms.date" content="2026-09-24">
+  <title>Applied Data Science &amp; Visualization – Week 4: Exploratory Data Analysis &amp; ggplot2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7523458df77c68673fa44e0f45a7e43b.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Week 4: Exploratory Data Analysis &amp; ggplot2</h1>
+  <p class="subtitle">CDAE 7990 · Applied Data Science &amp; Visualization</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andrew Van Leuven
+</div>
+</div>
+</div>
+
+  <p class="date">September 24, 2026</p>
+</section>
+<section id="welcome-back" class="slide level2">
+<h2>Welcome Back</h2>
+<ul>
+<li>Three weeks of getting data into R and reshaping it. Tonight we finally <em>look</em> at it</li>
+<li>Keep your Posit Cloud project open. Every chart tonight is one you can run yourself</li>
+<li>Tonight’s goal: go from a data frame you’ve never seen to a handful of charts that tell you what’s in it</li>
+</ul>
+</section>
+<section id="todays-plan" class="slide level2 smaller">
+<h2>Today’s Plan</h2>
+<ul>
+<li><strong>Housekeeping</strong>: HW2 is due Sunday</li>
+<li><strong>Why we plot</strong>: summary statistics can hide a lot</li>
+<li><strong>The grammar of graphics</strong>: data, aesthetics, and geoms</li>
+<li><strong>Building a plot, layer by layer</strong>: aesthetics, facets, labels</li>
+<li><em>Break</em></li>
+<li><strong>Exploratory data analysis</strong>: variation, covariation, and unusual values</li>
+<li><strong>Saving your work</strong> and your turn</li>
+</ul>
+</section>
+<section>
+<section id="housekeeping" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Housekeeping</h1>
+
+</section>
+<section id="hw2-is-due-sunday" class="slide level2">
+<h2>HW2 Is Due Sunday</h2>
+<ul>
+<li>HW2 is due <strong>Sunday, Sept.&nbsp;27 by 11:59pm</strong></li>
+<li>Last week’s <code>left_join()</code> demo covers step 5. If the join still isn’t working, grab me at the break or email me before the weekend</li>
+<li>Remember to <strong>Render</strong> before you’re done. If it doesn’t render, I can’t grade it</li>
+<li>HW3 (due Oct.&nbsp;25) will cover tonight and next week, so tonight’s code is worth keeping</li>
+</ul>
+</section></section>
+<section>
+<section id="why-we-plot" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Why We Plot</h1>
+
+</section>
+<section id="four-datasets-one-set-of-statistics" class="slide level2 smaller">
+<h2>Four Datasets, One Set of Statistics</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">set</th>
+<th style="text-align: right;">mean_x</th>
+<th style="text-align: right;">mean_y</th>
+<th style="text-align: right;">sd_x</th>
+<th style="text-align: right;">sd_y</th>
+<th style="text-align: right;">correlation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dataset 1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">3.32</td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">0.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dataset 2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">3.32</td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">0.82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dataset 3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">3.32</td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">0.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dataset 4</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">3.32</td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">0.82</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>This is <strong>Anscombe’s quartet</strong> (1973), built into R as <code>anscombe</code></li>
+<li>Same means, same standard deviations, same correlation. Are these the same data?</li>
+</ul>
+</section>
+<section id="not-even-close" class="slide level2 smaller">
+<h2>Not Even Close</h2>
+
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>One linear trend, one curve, one outlier dragging the line, and one single point doing all the work</li>
+<li>Summary statistics are a compression. A chart is often the fastest way to see what the compression threw away</li>
+</ul>
+</section></section>
+<section>
+<section id="the-grammar-of-graphics" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>The Grammar of Graphics</h1>
+
+</section>
+<section id="every-ggplot-has-three-parts" class="slide level2 smaller scrollable">
+<h2>Every ggplot Has Three Parts</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<ol type="1">
+<li><strong>Data</strong>: a data frame, one row per observation</li>
+<li><strong>Aesthetics</strong> (<code>aes()</code>): which columns map to which visual properties, like x position, y position, color, or size</li>
+<li><strong>Geoms</strong>: the shapes that actually get drawn, like points, bars, lines, or boxes</li>
+</ol>
+<p>Everything else (facets, scales, labels, themes) refines those three. R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9</a> calls this a <em>layered grammar</em>, because you build a plot by adding layers with <code>+</code>.</p>
+</div><div class="column" style="width:30%;">
+<p><img data-src="https://ggplot2.tidyverse.org/logo.png"></p>
+</div></div>
+</section>
+<section id="tonights-data-midwest-again" class="slide level2 smaller">
+<h2>Tonight’s Data: <code>midwest</code>, Again</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, poptotal, popdensity, percollege,</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>         percbelowpoverty, inmetro)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 437 × 7
+  county   state poptotal popdensity percollege percbelowpoverty inmetro
+  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;   &lt;int&gt;
+1 ADAMS    IL       66090      1271.       19.6            13.2        0
+2 ALEXAND… IL       10626       759        11.2            32.2        0
+3 BOND     IL       14991       681.       17.0            12.1        0
+4 BOONE    IL       30806      1812.       17.3             7.21       1
+5 BROWN    IL        5836       324.       14.5            13.5        0
+# ℹ 432 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>The same 437 Midwestern counties from Week 2, from the 2000 Census</li>
+<li>Already in ggplot2, so there’s nothing to download</li>
+<li><code>inmetro</code> is <code>1</code> for counties in a metro area and <code>0</code> otherwise</li>
+</ul>
+</section>
+<section id="step-1-just-the-data" class="slide level2 smaller">
+<h2>Step 1: Just the Data</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>A blank canvas. ggplot knows the data, but not what to draw or where</li>
+</ul>
+</section>
+<section id="step-2-add-aesthetics" class="slide level2 smaller">
+<h2>Step 2: Add Aesthetics</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>Now it knows which column goes on which axis, so it draws the axes and scales. Still no data on the plot</li>
+</ul>
+</section>
+<section id="step-3-add-a-geom" class="slide level2 smaller">
+<h2>Step 3: Add a Geom</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li><code>geom_point()</code> draws one point per row</li>
+<li>A first look: more college grads, somewhat less poverty, but lots of scatter</li>
+</ul>
+</section>
+<section id="mapping-a-third-variable-to-color" class="slide level2 smaller">
+<h2>Mapping a Third Variable to Color</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>Anything inside <code>aes()</code> is <strong>mapped</strong> to a column, and ggplot builds the legend for you</li>
+<li>Five colors is about the limit before a chart gets hard to read</li>
+</ul>
+</section>
+<section id="mapping-vs.-setting" class="slide level2 smaller">
+<h2>Mapping vs.&nbsp;Setting</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"blue"</span>))</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week04_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week04_files/figure-revealjs/unnamed-chunk-9-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Left</strong>: <code>"blue"</code> inside <code>aes()</code> is treated as data, a column where every value is the word “blue.” You get a salmon-colored legend entry</li>
+<li><strong>Right</strong>: outside <code>aes()</code>, it’s a fixed setting. Every point is blue</li>
+<li>Rule of thumb: inside <code>aes()</code> if it depends on the data, outside if it doesn’t</li>
+</ul>
+</section>
+<section id="layers-stack" class="slide level2 smaller">
+<h2>Layers Stack</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>Each <code>+ geom_*()</code> adds a layer on top of the last</li>
+<li><code>alpha</code> makes points semi-transparent, so overlapping points show up darker</li>
+<li><code>geom_smooth(method = "lm")</code> adds a linear trend with a confidence band</li>
+</ul>
+</section>
+<section id="global-vs.-local-aesthetics" class="slide level2 smaller">
+<h2>Global vs.&nbsp;Local Aesthetics</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> state), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">color =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>Aesthetics in <code>ggplot()</code> apply to every layer</li>
+<li>Aesthetics in a single geom apply only to that layer</li>
+<li>Here, color by state for the points, but one overall trend line. Move <code>color = state</code> up into <code>ggplot()</code> and you’d get five lines instead</li>
+</ul>
+</section>
+<section id="facets-small-multiples" class="slide level2 smaller">
+<h2>Facets: Small Multiples</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li><code>facet_wrap()</code> makes one panel per value of a variable, all on the same scales</li>
+<li>Often easier to read than five colors crammed into one panel</li>
+</ul>
+</section>
+<section id="labels-make-it-readable" class="slide level2 smaller">
+<h2>Labels Make It Readable</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"#007155"</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"More college grads, less poverty"</span>,</span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Midwestern counties, 2000 Census"</span>,</span>
+<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Adults with a college degree (%)"</span>,</span>
+<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Population below poverty line (%)"</span>,</span>
+<span id="cb11-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: ggplot2::midwest"</span></span>
+<span id="cb11-9"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>Column names like <code>percbelowpoverty</code> are fine for you. They are not fine for anyone else</li>
+<li>A title that states the finding does more work than one that restates the axes</li>
+</ul>
+</section>
+<section id="the-template" class="slide level2 smaller">
+<h2>The Template</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>, <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>)) <span class="sc">+</span></span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>MORE LAYERS, FACETS, LABELS<span class="sc">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Almost every chart this semester, maps included, fits this shape</li>
+<li>R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9</a> has the full list of geoms, and the <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">ggplot2 cheat sheet</a> is worth keeping open</li>
+</ul>
+</section>
+<section id="break" class="slide level2" data-background-color="#007155">
+<h2>Break?</h2>
+</section></section>
+<section>
+<section id="exploratory-data-analysis" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Exploratory Data Analysis</h1>
+
+</section>
+<section id="what-is-eda" class="slide level2 smaller scrollable">
+<h2>What Is EDA?</h2>
+<ul>
+<li><strong>Exploratory data analysis</strong> is a loop, not a formal procedure:
+<ol type="1">
+<li>Ask a question about your data</li>
+<li>Answer it with a chart, a transformation, or a summary</li>
+<li>Use what you learned to ask a better question</li>
+</ol></li>
+<li>Most of these charts are for <em>you</em>. They don’t need titles or polish</li>
+<li>R4DS <a href="https://r4ds.hadley.nz/EDA.html">Ch. 10</a> frames it around two kinds of questions: how does a variable <strong>vary</strong>, and how do variables <strong>covary</strong>?</li>
+</ul>
+</section></section>
+<section>
+<section id="variation-one-variable-at-a-time" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Variation: One Variable at a Time</h1>
+
+</section>
+<section id="continuous-variables-histograms" class="slide level2 smaller">
+<h2>Continuous Variables: Histograms</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>A histogram cuts the x-axis into bins and counts the rows in each</li>
+<li>Most counties sit between about 7% and 18% in poverty, with a tail to the right</li>
+</ul>
+</section>
+<section id="bin-width-changes-the-story" class="slide level2 smaller">
+<h2>Bin Width Changes the Story</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week04_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week04_files/figure-revealjs/unnamed-chunk-16-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Too narrow and it’s noise. Too wide and the shape disappears</li>
+<li>Try a few. There’s no single right answer, and the default (30 bins) is rarely the best one</li>
+</ul>
+</section>
+<section id="skewed-data-try-a-log-scale" class="slide level2 smaller">
+<h2>Skewed Data: Try a Log Scale</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> poptotal)) <span class="sc">+</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> poptotal)) <span class="sc">+</span></span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week04_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week04_files/figure-revealjs/unnamed-chunk-17-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Left</strong>: Cook County (Chicago, 5 million people) squashes everything else into one bar</li>
+<li><strong>Right</strong>: on a log scale, each step on the axis is ten times bigger than the last, and the distribution becomes readable</li>
+<li>County populations, incomes, and housing prices almost always need this</li>
+</ul>
+</section>
+<section id="categorical-variables-bar-charts" class="slide level2 smaller">
+<h2>Categorical Variables: Bar Charts</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li><code>geom_bar()</code> counts rows for you, the same thing <code>count(state)</code> did in Week 2</li>
+<li>Already have the counts in a column? Use <code>geom_col()</code> instead, with the counts as <code>y</code></li>
+</ul>
+</section>
+<section id="unusual-values" class="slide level2 smaller">
+<h2>Unusual Values</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(percbelowpoverty <span class="sc">&gt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, poptotal, percbelowpoverty)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  county    state poptotal percbelowpoverty
+  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;            &lt;dbl&gt;
+1 ALEXANDER IL       10626             32.2
+2 PULASKI   IL        7523             30.2
+3 MENOMINEE WI        3890             48.7</code></pre>
+</div>
+</div>
+<ul>
+<li>The long right tail from the histogram, pulled out with <code>filter()</code></li>
+<li>Outliers aren’t automatically errors. Check whether each one is real or a data problem. These are real: Menominee County, WI is almost entirely the Menominee Reservation, and Alexander and Pulaski are at Illinois’s rural southern tip</li>
+<li>Don’t delete an unusual value just because it’s unusual. If it’s a real error, replace it with <code>NA</code> and say so</li>
+</ul>
+</section></section>
+<section>
+<section id="covariation-how-variables-move-together" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Covariation: How Variables Move Together</h1>
+
+</section>
+<section id="categorical-continuous-boxplots" class="slide level2 smaller">
+<h2>Categorical + Continuous: Boxplots</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metro, <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>The box is the middle 50% of counties, the line is the median, and the dots are outliers</li>
+<li>Metro counties have a clearly higher share of college grads, and far more spread</li>
+<li>Notice the pipe: a <code>mutate()</code> first, then straight into <code>ggplot()</code></li>
+</ul>
+</section>
+<section id="reordering-categories" class="slide level2 smaller">
+<h2>Reordering Categories</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(state, percbelowpoverty, median),</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>By default ggplot puts categories in alphabetical order, which is almost never what you want</li>
+<li><code>fct_reorder()</code> sorts them by the median of another variable, so the pattern reads left to right</li>
+</ul>
+</section>
+<section id="two-categorical-variables" class="slide level2 smaller">
+<h2>Two Categorical Variables</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, metro) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> metro, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li><code>count()</code> the combinations first, then draw a tile for each one</li>
+<li>A heat map like this is really just a colored table. For a handful of categories, a plain table from <code>count()</code> can work just as well</li>
+</ul>
+</section>
+<section id="two-continuous-variables" class="slide level2 smaller">
+<h2>Two Continuous Variables</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li>The scatterplot you already know, with a log x-axis for the same reason as before</li>
+<li><code>method = "loess"</code> fits a curve instead of a straight line. Denser counties have more college grads, and the relationship steepens at the top</li>
+</ul>
+</section>
+<section id="patterns-are-questions-not-answers" class="slide level2 smaller">
+<h2>Patterns Are Questions, Not Answers</h2>
+<p>When you spot a pattern, ask:</p>
+<ul>
+<li>Could it be coincidence?</li>
+<li>How strong is it, and how would you describe it in one sentence?</li>
+<li>What other variable might explain it? (Here, metro status is doing a lot of the work)</li>
+<li>Does it hold within subgroups, like each state or metro vs.&nbsp;nonmetro?</li>
+</ul>
+<p>EDA points you toward the story. It doesn’t prove it.</p>
+</section>
+<section id="saving-a-plot" class="slide level2 smaller">
+<h2>Saving a Plot</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"poverty_college.png"</span>, p, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>A ggplot is an object like any other, so you can assign it with <code>&lt;-</code></li>
+<li><code>ggsave()</code> writes it to a file, sized in inches. Set the size on purpose so text doesn’t come out tiny</li>
+<li>Inside a Quarto document, you usually don’t need this. The chart renders right into the HTML</li>
+</ul>
+</section>
+<section id="your-turn-20-min" class="slide level2 smaller scrollable">
+<h2>Your Turn (20 min)</h2>
+<p>Using <code>midwest</code>, make each of these. Work with a neighbor.</p>
+<ol type="1">
+<li>A histogram of <code>percollege</code>. Try at least two bin widths and pick the one you think tells the story best</li>
+<li>A scatterplot of <code>percollege</code> (x) against <code>percbelowpoverty</code> (y), colored by metro status (build the <code>metro</code> column with <code>mutate()</code> first)</li>
+<li>Boxplots of <code>percollege</code> by state, sorted by median</li>
+<li>Take any one of the three and give it real labels with <code>labs()</code>, including a title that states what you see</li>
+</ol>
+</section>
+<section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
+<h2>Your Turn: One Way to Do It</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
+<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> metro)) <span class="sc">+</span></span>
+<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb24-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
+<span id="cb24-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(state, percollege, median),</span>
+<span id="cb24-13"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb24-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb24-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 4</span></span>
+<span id="cb24-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb24-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb24-19"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"In most Midwestern counties, under 1 in 5 adults has a degree"</span>,</span>
+<span id="cb24-20"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Adults with a college degree (%)"</span>, <span class="at">y =</span> <span class="st">"Number of counties"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="before-next-class" class="slide level2">
+<h2>Before Next Class</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">HW2 is due <strong>Sunday, Sept.&nbsp;27 by 11:59pm</strong>. Render it before you’re done</label></li>
+<li><label><input type="checkbox">Skim R4DS <a href="https://r4ds.hadley.nz/communication">Ch. 11 (Communication)</a> if you didn’t get to it this week</label></li>
+<li><label><input type="checkbox">Read <a href="https://www.aeeejournal.org/volumes/volume-7-2025/volume-7-issue-5-december-2025/teaching-and-educational-methods/data-visualization-in-applied-economics-instruction-and-outreach">Hutchins &amp; Van Leuven (2025)</a> on data visualization in applied economics</label></li>
+</ul>
+<p>Next week: advanced ggplot2, and what separates a chart that works from one that doesn’t.</p>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>CDAE 7990 · Week 4</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'speaker',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Shrink slide titles that wrap onto a second line (see .title-long in slides.scss).
+    (function () {
+      function fitTitles(slide) {
+        if (!slide) return;
+        slide.querySelectorAll("h2").forEach(function (h) {
+          h.classList.remove("title-long");
+          var style = getComputedStyle(h);
+          var lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2;
+          if (h.scrollHeight > lineHeight * 1.5) h.classList.add("title-long");
+        });
+      }
+      function run() {
+        Reveal.on("slidechanged", function (e) { fitTitles(e.currentSlide); });
+        if (Reveal.isReady()) fitTitles(Reveal.getCurrentSlide());
+        else Reveal.on("ready", function (e) { fitTitles(e.currentSlide); });
+      }
+      if (window.Reveal) run();
+      else window.addEventListener("load", run);
+    })();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/andrewvanleuven\.github\.io\/uvm_datasci");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

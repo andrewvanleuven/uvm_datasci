@@ -31,3 +31,6 @@ rsconnect/
 
 # Emailed PDF handouts (standalone Quarto project, never published)
 handouts/
+
+# Claude Code per-machine settings
+.claude/settings.local.json
