@@ -31,34 +31,26 @@ knitr::opts_chunk$set(fig.width = 8, fig.height = 4.5, fig.align = "center",
 
 ## Welcome Back
 
-- Three weeks of getting data into R and reshaping it. Tonight we finally
-  *look* at it
-- Keep your Posit Cloud project open. Every chart tonight is one you can
-  run yourself
-- Tonight's goal: go from a data frame you've never seen to a handful of
-  charts that tell you what's in it
+- Three weeks of getting data into R and reshaping it. Tonight we finally *look* at it.
+- Keep your Posit Cloud project + these slides open in separate tabs. Every chart tonight is one you can run yourself (clipboard button = copy entire code chunk).
+- **Tonight's goal**: go from a data frame you've never seen to a handful of charts that tell you what's in it
 
-## Today's Plan {.smaller}
+## Today's Plan 
 
 - **Housekeeping**: HW2 is due Sunday
 - **Why we plot**: summary statistics can hide a lot
 - **The grammar of graphics**: data, aesthetics, and geoms
 - **Building a plot, layer by layer**: aesthetics, facets, labels
-- *Break*
 - **Exploratory data analysis**: variation, covariation, and unusual values
-- **Saving your work** and your turn
+- **Saving your work** (and your turn)
 
 # Housekeeping {background-color="#007155"}
 
 ## HW2 Is Due Sunday
 
 - HW2 is due **Sunday, Sept. 27 by 11:59pm**
-- Last week's `left_join()` demo covers step 5. If the join still isn't
-  working, grab me at the break or email me before the weekend
-- Remember to **Render** before you're done. If it doesn't render, I can't
-  grade it
-- HW3 (due Oct. 25) will cover tonight and next week, so tonight's code is
-  worth keeping
+- Last week's `left_join()` demo covers step 5. If the join still isn't working, raise your hand at the break (or email me *before* Sunday).
+- Remember to **Render** before you're done. If it doesn't render, I can't grade it. Please just email me your .html files. I have access to your code if need be, but the files make grading easier.
 
 # Why We Plot {background-color="#007155"}
 
@@ -84,8 +76,7 @@ anscombe_long |>
 ```
 
 - This is **Anscombe's quartet** (1973), built into R as `anscombe`
-- Same means, same standard deviations, same correlation. Are these the
-  same data?
+- Same means, same standard deviations, same correlation. Are these the same data?
 
 ## Not Even Close {.smaller}
 
@@ -99,10 +90,9 @@ ggplot(anscombe_long, aes(x = x, y = y)) +
   facet_wrap(~ set)
 ```
 
-- One linear trend, one curve, one outlier dragging the line, and one
-  single point doing all the work
-- Summary statistics are a compression. A chart is often the fastest way to
-  see what the compression threw away
+- One linear trend, one curve, one outlier dragging the line, and one single point doing all the work
+- Summary statistics are a compression. A chart is often the fastest way to see what the compression might've overlooked.
+- These four charts came from a few lines of `ggplot2` code. By the end of tonight you'll be able to write them yourself, starting with how ggplot2 thinks about a chart.
 
 # The Grammar of Graphics {background-color="#007155"}
 
@@ -111,15 +101,11 @@ ggplot(anscombe_long, aes(x = x, y = y)) +
 :::: {.columns}
 
 ::: {.column width="70%"}
-1. **Data**: a data frame, one row per observation
-2. **Aesthetics** (`aes()`): which columns map to which visual properties,
-   like x position, y position, color, or size
-3. **Geoms**: the shapes that actually get drawn, like points, bars, lines,
-   or boxes
+1. **Data**: a data frame, one row per observation (this is why we `pivot_longer`)
+2. **Aesthetics** `aes()`: which columns map to which visual properties, like x position, y position, color, or size
+3. **Geoms**: the shapes that actually get drawn, like points, bars, lines, or boxes
 
-Everything else (facets, scales, labels, themes) refines those three.
-R4DS [Ch. 9](https://r4ds.hadley.nz/layers) calls this a *layered grammar*,
-because you build a plot by adding layers with `+`.
+Everything else (facets, scales, labels, themes) refines those three. R4DS [Ch. 9](https://r4ds.hadley.nz/layers) calls this a *layered grammar*, because you build a plot by adding layers with `+`
 :::
 
 ::: {.column width="30%"}
@@ -131,19 +117,22 @@ because you build a plot by adding layers with `+`.
 ## Tonight's Data: `midwest`, Again {.smaller}
 
 ```{r}
-midwest |>
+midwest_df <- midwest |>
   select(county, state, poptotal, popdensity, percollege,
          percbelowpoverty, inmetro)
+
+midwest_df
 ```
 
 - The same 437 Midwestern counties from Week 2, from the 2000 Census
-- Already in ggplot2, so there's nothing to download
+- `<-` saves the result as a new object, `midwest_df`. Assigning prints nothing, so the second line just types the name to show it.
+- Every chart tonight starts from `midwest_df`. Look for it in your Environment pane.
 - `inmetro` is `1` for counties in a metro area and `0` otherwise
 
 ## Step 1: Just the Data {.smaller}
 
 ```{r}
-ggplot(midwest)
+ggplot(midwest_df)
 ```
 
 - A blank canvas. ggplot knows the data, but not what to draw or where
@@ -151,32 +140,33 @@ ggplot(midwest)
 ## Step 2: Add Aesthetics {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty))
+base_plot <- ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty))
+
+base_plot
 ```
 
-- Now it knows which column goes on which axis, so it draws the axes and
-  scales. Still no data on the plot
+- Now it knows which column goes on which axis, so it draws the axes and scales. Still no data on the plot.
+- A plot is an object too, so we can save it as `base_plot` and build on it
 
 ## Step 3: Add a Geom {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
+base_plot +
   geom_point()
 ```
 
-- `geom_point()` draws one point per row
-- A first look: more college grads, somewhat less poverty, but lots of
-  scatter
+- `base_plot` already holds the data and aesthetics. `+ geom_point()` adds the layer that draws one point per row.
+- `base_plot` itself hasn't changed. To keep the new version, assign it: `scatter <- base_plot + geom_point()`.
+- A first look: more college grads, somewhat less poverty, but lots of scatter
 
 ## Mapping a Third Variable to Color {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty, color = state)) +
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = state)) +
   geom_point()
 ```
 
-- Anything inside `aes()` is **mapped** to a column, and ggplot builds the
-  legend for you
+- Anything inside `aes()` is **mapped** to a column, and ggplot builds the legend for you
 - Five colors is about the limit before a chart gets hard to read
 
 ## Mapping vs. Setting {.smaller}
@@ -184,64 +174,60 @@ ggplot(midwest, aes(x = percollege, y = percbelowpoverty, color = state)) +
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 4.5
-#| out-width: "100%"
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
-  geom_point(aes(color = "blue"))
+#| fig-height: 3
+#| out-width: "80%"
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
+  geom_point(aes(color = inmetro))
 
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
   geom_point(color = "blue")
 ```
 
-- **Left**: `"blue"` inside `aes()` is treated as data, a column where every
-  value is the word "blue." You get a salmon-colored legend entry
-- **Right**: outside `aes()`, it's a fixed setting. Every point is blue
-- Rule of thumb: inside `aes()` if it depends on the data, outside if it
-  doesn't
+- **Left, mapped**: inside `aes()`, color comes from a column, with a legend
+- **Right, set**: outside `aes()`, one fixed color and no legend
+- `inmetro` is stored as a number, so ggplot gives it a 0-to-1 color gradient even though it's only ever 0 or 1
+- Rule of thumb: inside `aes()` if it depends on the data
 
-## Layers Stack {.smaller}
+## Layers Can Stack {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
   geom_point(alpha = 0.4) +
   geom_smooth(method = "lm", formula = y ~ x)
 ```
 
 - Each `+ geom_*()` adds a layer on top of the last
-- `alpha` makes points semi-transparent, so overlapping points show up
-  darker
-- `geom_smooth(method = "lm")` adds a linear trend with a confidence band
+- `alpha` makes points semi-transparent, so overlapping points show up darker
+- `geom_smooth(method = "lm")` adds a linear trend with a confidence band (`se = FALSE` hides it)
 
 ## Global vs. Local Aesthetics {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
   geom_point(aes(color = state), alpha = 0.5) +
   geom_smooth(method = "lm", formula = y ~ x, color = "black")
 ```
 
 - Aesthetics in `ggplot()` apply to every layer
 - Aesthetics in a single geom apply only to that layer
-- Here, color by state for the points, but one overall trend line. Move
-  `color = state` up into `ggplot()` and you'd get five lines instead
+- Here, color by state for the points, but one overall trend line. Move `color = state` up into `ggplot()` and you'd get five lines instead.
 
 ## Facets: Small Multiples {.smaller}
 
 ```{r}
 #| fig-height: 5
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
   geom_point(alpha = 0.5) +
   facet_wrap(~ state)
 ```
 
-- `facet_wrap()` makes one panel per value of a variable, all on the same
-  scales
+- `facet_wrap()` makes one panel per value of a variable, all on the same scales
 - Often easier to read than five colors crammed into one panel
 
 ## Labels Make It Readable {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
   geom_point(alpha = 0.5, color = "#007155") +
   labs(
     title = "More college grads, less poverty",
@@ -252,10 +238,8 @@ ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
   )
 ```
 
-- Column names like `percbelowpoverty` are fine for you. They are not fine
-  for anyone else
-- A title that states the finding does more work than one that restates the
-  axes
+- Column names like `percbelowpoverty` are fine for you. They are not fine for anyone else.
+- A title that states the finding does more work than one that restates the axes
 
 ## The Template {.smaller}
 
@@ -267,9 +251,7 @@ ggplot(data = <DATA>, aes(<MAPPINGS>)) +
 ```
 
 - Almost every chart this semester, maps included, fits this shape
-- R4DS [Ch. 9](https://r4ds.hadley.nz/layers) has the full list of geoms,
-  and the [ggplot2 cheat sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
-  is worth keeping open
+- R4DS [Ch. 9](https://r4ds.hadley.nz/layers) has the full list of geoms, and the [ggplot2 cheat sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html) is worth keeping open
 
 ## Break? {background-color="#007155"}
 
@@ -277,153 +259,155 @@ ggplot(data = <DATA>, aes(<MAPPINGS>)) +
 
 ## What Is EDA? {.smaller}
 
+> "Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise."
+>
+> — John Tukey
+
 - **Exploratory data analysis** is a loop, not a formal procedure:
   1. Ask a question about your data
   2. Answer it with a chart, a transformation, or a summary
   3. Use what you learned to ask a better question
-- Most of these charts are for *you*. They don't need titles or polish
-- R4DS [Ch. 10](https://r4ds.hadley.nz/EDA.html) frames it around two kinds
-  of questions: how does a variable **vary**, and how do variables **covary**?
+- Most of these charts are for *you*. They don't need titles or polish.
+
+## Asking Good Questions {.smaller}
+
+- As Wickham says in Ch. 10, "EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions."
+- R4DS [Ch. 10](https://r4ds.hadley.nz/EDA.html) frames it around two kinds of questions: how does a variable **vary**, and how do variables **covary**?
 
 # Variation: One Variable at a Time {background-color="#007155"}
 
 ## Continuous Variables: Histograms {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percbelowpoverty)) +
   geom_histogram(binwidth = 2)
 ```
 
 - A histogram cuts the x-axis into bins and counts the rows in each
-- Most counties sit between about 7% and 18% in poverty, with a tail to
-  the right
+- Most counties sit between about 7% and 18% in poverty, with a tail to the right
 
 ## Bin Width Changes the Story {.smaller}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 4.5
+#| fig-height: 3
 #| out-width: "100%"
-ggplot(midwest, aes(x = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percbelowpoverty)) +
   geom_histogram(binwidth = 0.5)
 
-ggplot(midwest, aes(x = percbelowpoverty)) +
+ggplot(midwest_df, aes(x = percbelowpoverty)) +
   geom_histogram(binwidth = 10)
 ```
 
-- Too narrow and it's noise. Too wide and the shape disappears
-- Try a few. There's no single right answer, and the default (30 bins)
-  is rarely the best one
+- Too narrow and it's noise. Too wide and the shape disappears.
+- Try a few. There's no single right answer, and the default (30 bins) is not always the best one.
 
 ## Skewed Data: Try a Log Scale {.smaller}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 4.5
+#| fig-height: 3
 #| out-width: "100%"
-ggplot(midwest, aes(x = poptotal)) +
+ggplot(midwest_df, aes(x = poptotal)) +
   geom_histogram(bins = 30)
 
-ggplot(midwest, aes(x = poptotal)) +
+ggplot(midwest_df, aes(x = poptotal)) +
   geom_histogram(bins = 30) +
   scale_x_log10(labels = scales::label_comma())
 ```
 
-- **Left**: Cook County (Chicago, 5 million people) squashes everything else
-  into one bar
-- **Right**: on a log scale, each step on the axis is ten times bigger than
-  the last, and the distribution becomes readable
+- **Left**: Cook County (Chicago, 5M people) squashes everything else into one bar
+- **Right**: on a log scale, each step on the axis is ten times bigger than the last, and the distribution becomes readable
 - County populations, incomes, and housing prices almost always need this
 
 ## Categorical Variables: Bar Charts {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = state)) +
+ggplot(midwest_df, aes(x = state)) +
   geom_bar()
 ```
 
-- `geom_bar()` counts rows for you, the same thing `count(state)` did in
-  Week 2
-- Already have the counts in a column? Use `geom_col()` instead, with the
-  counts as `y`
+- `geom_bar()` counts rows for you, the same thing `count(state)` did in Week 2
+- If you already have the counts in a column, you can use `geom_col()` instead, with the counts as `y`
 
 ## Unusual Values {.smaller}
 
 ```{r}
-midwest |>
+high_poverty <- midwest_df |>
   filter(percbelowpoverty > 30) |>
   select(county, state, poptotal, percbelowpoverty)
+
+high_poverty
 ```
 
 - The long right tail from the histogram, pulled out with `filter()`
-- Outliers aren't automatically errors. Check whether each one is real or a
-  data problem. These are real: Menominee County, WI is almost entirely the
-  Menominee Reservation, and Alexander and Pulaski are at Illinois's rural
-  southern tip
-- Don't delete an unusual value just because it's unusual. If it's a real
-  error, replace it with `NA` and say so
+- Outliers aren't automatically errors. Check whether each one is real or a data problem. These are real: Menominee County, WI is almost entirely the Menominee Reservation, and Alexander and Pulaski are at Illinois's rural southern tip.
+- Don't delete an unusual value just because it's unusual. If it's a real error, replace it with `NA` and say so.
 
 # Covariation: How Variables Move Together {background-color="#007155"}
+
+## Adding a Column We'll Reuse {.smaller}
+
+```{r}
+midwest_df <- midwest_df |>
+  mutate(metro = if_else(inmetro == 1, "Metro", "Nonmetro"))
+
+midwest_df |> count(metro)
+```
+
+- `inmetro`'s `1`s and `0`s make poor labels, so we add a readable `metro` column
+- Assigning back to `midwest_df` overwrites it with the new version. Every chart from here on can use `metro` without repeating the `mutate()`.
+- Overwriting an object is fine for adding a column. Be careful doing it with `filter()`, since dropped rows don't come back until you rerun the earlier code.
 
 ## Categorical + Continuous: Boxplots {.smaller}
 
 ```{r}
-midwest |>
-  mutate(metro = if_else(inmetro == 1, "Metro", "Nonmetro")) |>
-  ggplot(aes(x = metro, y = percollege)) +
+ggplot(midwest_df, aes(x = metro, y = percollege)) +
   geom_boxplot()
 ```
 
-- The box is the middle 50% of counties, the line is the median, and the
-  dots are outliers
-- Metro counties have a clearly higher share of college grads, and far more
-  spread
-- Notice the pipe: a `mutate()` first, then straight into `ggplot()`
+- The box is the middle 50% of counties, the line is the median, and the dots are outliers
+- Metro counties have a clearly higher share of college grads, and far more spread
 
 ## Reordering Categories {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = fct_reorder(state, percbelowpoverty, median),
+ggplot(midwest_df, aes(x = fct_reorder(state, percbelowpoverty, median),
                     y = percbelowpoverty)) +
   geom_boxplot() +
   labs(x = NULL)
 ```
 
-- By default ggplot puts categories in alphabetical order, which is almost
-  never what you want
-- `fct_reorder()` sorts them by the median of another variable, so the
-  pattern reads left to right
+- By default ggplot puts categories in alphabetical order, which is almost never what you want
+- `fct_reorder()` sorts them by the median of another variable, so the pattern reads left to right
 
 ## Two Categorical Variables {.smaller}
 
 ```{r}
-midwest |>
-  mutate(metro = if_else(inmetro == 1, "Metro", "Nonmetro")) |>
-  count(state, metro) |>
-  ggplot(aes(x = state, y = metro, fill = n)) +
+metro_counts <- midwest_df |>
+  count(state, metro)
+
+ggplot(metro_counts, aes(x = state, y = metro, fill = n)) +
   geom_tile() +
   geom_text(aes(label = n), color = "white", size = 6)
 ```
 
-- `count()` the combinations first, then draw a tile for each one
-- A heat map like this is really just a colored table. For a handful of
-  categories, a plain table from `count()` can work just as well
+- `count()` the combinations first and save them as `metro_counts`, then draw a tile for each row of it
+- A heat map like this is really just a colored table. For a handful of categories, a plain table from `count()` can work just as well.
 
 ## Two Continuous Variables {.smaller}
 
 ```{r}
-ggplot(midwest, aes(x = popdensity, y = percollege)) +
+ggplot(midwest_df, aes(x = popdensity, y = percollege)) +
   geom_point(alpha = 0.4) +
   scale_x_log10(labels = scales::label_comma()) +
   geom_smooth(method = "loess", formula = y ~ x)
 ```
 
-- The scatterplot you already know, with a log x-axis for the same reason as
-  before
-- `method = "loess"` fits a curve instead of a straight line. Denser counties
-  have more college grads, and the relationship steepens at the top
+- The scatterplot you already know, with a log x-axis for the same reason as before
+- `method = "loess"` fits a curve instead of a straight line. It's flat across rural counties, climbs through the middle, and levels off in the densest ones. A straight line would miss that shape.
 
 ## Patterns Are Questions, Not Answers {.smaller}
 
@@ -431,74 +415,68 @@ When you spot a pattern, ask:
 
 - Could it be coincidence?
 - How strong is it, and how would you describe it in one sentence?
-- What other variable might explain it? (Here, metro status is doing a lot
-  of the work)
+- What other variable might explain it? (Here, metro status is doing a lot of the work.)
 - Does it hold within subgroups, like each state or metro vs. nonmetro?
 
 EDA points you toward the story. It doesn't prove it.
+
+**Note**: There are often many ways to accomplish the same task. Check out [this article](https://datavizcatalogue.com/blog/box-plot-variations/) about alternatives to boxplots.
 
 ## Saving a Plot {.smaller}
 
 ```{r}
 #| eval: false
-p <- ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +
+p <- ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
   geom_point()
 
 ggsave("poverty_college.png", p, width = 8, height = 5, dpi = 300)
 ```
 
-- A ggplot is an object like any other, so you can assign it with `<-`
-- `ggsave()` writes it to a file, sized in inches. Set the size on purpose
-  so text doesn't come out tiny
-- Inside a Quarto document, you usually don't need this. The chart renders
-  right into the HTML
+- Same idea as `base_plot` earlier: save the plot as an object, then hand that object to `ggsave()`
+- `ggsave()` writes it to a file, sized in inches. Set the size on purpose so text doesn't come out tiny.
+- Inside a Quarto document, you usually don't need this. The chart renders right into the HTML.
 
 ## Your Turn (20 min) {.smaller}
 
-Using `midwest`, make each of these. Work with a neighbor.
+Using `midwest_df`, make each of these. Work with a neighbor.
 
-1. A histogram of `percollege`. Try at least two bin widths and pick the one
-   you think tells the story best
-2. A scatterplot of `percollege` (x) against `percbelowpoverty` (y), colored
-   by metro status (build the `metro` column with `mutate()` first)
+1. A histogram of `percollege`. Try at least two bin widths and pick the one you think tells the story best.
+2. A scatterplot of `percollege` (x) against `percbelowpoverty` (y), colored by metro status (if `metro` is missing, rerun the `mutate()` from earlier)
 3. Boxplots of `percollege` by state, sorted by median
-4. Take any one of the three and give it real labels with `labs()`, including
-   a title that states what you see
+4. Take any one of the three and give it real labels with `labs()`, including a title that states what you see
 
 ## Your Turn: One Way to Do It {.smaller}
 
 ```{r}
 #| eval: false
 # 1
-ggplot(midwest, aes(x = percollege)) +
+ggplot(midwest_df, aes(x = percollege)) +
   geom_histogram(binwidth = 2)
 
 # 2
-midwest |>
-  mutate(metro = if_else(inmetro == 1, "Metro", "Nonmetro")) |>
-  ggplot(aes(x = percollege, y = percbelowpoverty, color = metro)) +
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +
   geom_point(alpha = 0.5)
 
 # 3
-ggplot(midwest, aes(x = fct_reorder(state, percollege, median),
+ggplot(midwest_df, aes(x = fct_reorder(state, percollege, median),
                     y = percollege)) +
   geom_boxplot()
 
 # 4
-ggplot(midwest, aes(x = percollege)) +
+college_hist <- ggplot(midwest_df, aes(x = percollege)) +
   geom_histogram(binwidth = 2) +
   labs(title = "In most Midwestern counties, under 1 in 5 adults has a degree",
        x = "Adults with a college degree (%)", y = "Number of counties")
+
+college_hist
 ```
 
 ## Before Next Class
 
-- [ ] HW2 is due **Sunday, Sept. 27 by 11:59pm**. Render it before you're
-      done
-- [ ] Skim R4DS [Ch. 11 (Communication)](https://r4ds.hadley.nz/communication)
-      if you didn't get to it this week
-- [ ] Read [Hutchins & Van Leuven (2025)](https://www.aeeejournal.org/volumes/volume-7-2025/volume-7-issue-5-december-2025/teaching-and-educational-methods/data-visualization-in-applied-economics-instruction-and-outreach)
-      on data visualization in applied economics
+- [ ] HW2 is due **Sunday, Sept. 27 by 11:59pm**. Render it before you're done.
+- [ ] Skim R4DS [Ch. 11 (Communication)](https://r4ds.hadley.nz/communication) if you didn't get to it this week
+- [ ] Read [Hutchins & Van Leuven (2025)](https://www.aeeejournal.org/volumes/volume-7-2025/volume-7-issue-5-december-2025/teaching-and-educational-methods/data-visualization-in-applied-economics-instruction-and-outreach) on data visualization in applied economics
 
-Next week: advanced ggplot2, and what separates a chart that works from one
-that doesn't.
+Next week: advanced ggplot2, and what separates a chart that works from one that doesn't.
+
+## Thank you! {background-color="#007155"}

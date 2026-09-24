@@ -28,10 +28,8 @@ options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 
 ## Welcome to Morrill Hall 005
 
-- Our new room for the rest of the semester: a basement computer lab, so
-  there's a machine at every seat
-- Tonight is a tour of where data comes from, beyond the file(s) you already
-  have sitting in your project
+- Our new room for the rest of the semester: a basement computer lab, so there's a machine at every seat
+- Tonight is a tour of where data comes from, beyond the file(s) you already have sitting in your project
 - We'll cover exactly what HW2's join step needs
 
 ## Today's Plan {.smaller}
@@ -68,8 +66,7 @@ bea_wide
 ```
 
 - One row per county, but each year gets its own column
-- This is what you get if you ever download **multiple years** from BEA at
-  once, instead of the single year HW2 asked for
+- This is what you get if you ever download **multiple years** from BEA at once, instead of the single year HW2 asked for
 
 ## `pivot_longer()`: Wide to Long {.smaller}
 
@@ -96,10 +93,8 @@ bea_long |>
   pivot_wider(names_from = year, values_from = population)
 ```
 
-- Takes values from one column and spreads them into new columns, one per
-  unique value
-- Good for a summary table you want to read by eye, less useful once you
-  need to filter or group by year again
+- Takes values from one column and spreads them into new columns, one per unique value
+- Good for a summary table you want to read by eye, less useful once you need to filter or group by year again
 
 
 # Getting Data {background-color="#007155"}
@@ -112,9 +107,7 @@ bea_long |>
 - A file someone hands you, or you download: CSV, Excel, and the like
 - A live API (application programming interface) you query with code
 - A web page you scrape, when nothing else is available
-- R4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS
-  [Ch. 24](https://r4ds.hadley.nz/webscraping.html), much further along in
-  the book than we've gotten
+- R4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS [Ch. 24](https://r4ds.hadley.nz/webscraping.html), much further along in the book than we've gotten.
 - Reading files is `readr`'s job, the tidyverse package behind `read_csv()` and other similar functions
 :::
 
@@ -136,12 +129,9 @@ read_csv(
 ```
 
 - `read_csv()` is in HW2's starter code
-- `skip` jumps past header rows a file doesn't need, common in government
-  exports
+- `skip` jumps past header rows a file doesn't need, common in government exports
 - `na` tells readr which strings actually mean "missing." This varies widely.
-- `readr` prints a column specification when it loads. Always glance at it. A
-  date or number read in as text usually means a stray character snuck into
-  that column
+- `readr` prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column.
 
 
 # Getting Data from an API {background-color="#007155"}
@@ -149,14 +139,13 @@ read_csv(
 ## What's an API? {.smaller}
 
 - **Application programming interface**: structured way to ask a website for data and get back something other than a webpage, usually JSON
-- You build a URL with your request baked in, and the server sends back
-  data instead of a rendered page
-- Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don't
+- You build a URL with your request baked in, and the server sends back data instead of a rendered page
+- Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don't.
 
 ## Not Every API Is Free {.smaller}
 
 - There is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.
-- **The catch**: you have to pay! (a fraction of a penny for each, but it adds up)
+- **The catch**: you have to pay! (a fraction of a penny for each, but it adds up).
 - If a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time.
 
 ## A Live Example: the BLS API {.smaller}
@@ -174,10 +163,8 @@ bls_raw$Results$series$data[[1]] |> head()
 
 - `LNS14000000` is the BLS series ID for the national unemployment rate
 - No key needed for a request this small, heavier use wants a free one
-- `fromJSON()` already turned the nested JSON into data frames. We just have to dig through the list to find the one we want
-- Read `bls_raw$Results$series$data[[1]]` left to right: start at `bls_raw`,
-  step into `$Results`, then `$series`, then grab the first item out of the
-  `data` list with `[[1]]`
+- `fromJSON()` already turned the nested JSON into data frames. We just have to dig through the list to find the one we want.
+- Read `bls_raw$Results$series$data[[1]]` left to right: start at `bls_raw`, step into `$Results`, then `$series`, then grab the first item out of the `data` list with `[[1]]`
 
 ## Turning It Into a Tidy Data Frame {.smaller}
 
@@ -191,12 +178,9 @@ unemployment <- bls_raw$Results$series$data[[1]] |>
 unemployment
 ```
 
-- `$` and `[[ ]]` dig through the nested list until you hit the data frame
-  you actually want
-- Watch `value` after the conversion: one row comes back `NA`, from the
-  month of the 2025 government shutdown. Real missing data, not a mistake
-- Week 8's `tidycensus` wraps this same fetch-then-dig pattern, but for
-  Census data specifically. It will become our friend. 
+- `$` and `[[ ]]` dig through the nested list until you hit the data frame you actually want
+- Watch `value` after the conversion: one row comes back `NA`, from the month of the 2025 government shutdown. Real missing data, not a mistake.
+- Week 8's `tidycensus` wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend.
 
 ## Web Scraping: A Quick Look {.smaller}
 
@@ -213,9 +197,7 @@ counties <- page |>
 - Some data only exists inside a web page, with no file or API behind it
 - `rvest` reads a page's HTML and pulls out a specific table or element
 - **The process is fragile**: if the page's layout changes, your code breaks with no warning
-- Use it last, after checking for a file or an API. Read the site's terms of
-  service and `robots.txt` first, and never hit a server with rapid repeated
-  requests, it can look like an attack and get you blocked
+- Use it last, after checking for a file or an API. Read the site's terms of service and `robots.txt` first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked.
 
 ## Break? {background-color="#007155"}
 
@@ -223,12 +205,9 @@ counties <- page |>
 
 ## Why Joins {.smaller}
 
-- HW2 step 5 asks you to combine `df` and `df2` using a shared column,
-  `county_fips`
-- A join lines up rows from two tables using one or more shared columns,
-  called **keys** (we will often refer to this as a "unique identifier")
-- Nothing here is BEA-specific. Joins work the same way on any two data
-  frames that share a key
+- HW2 step 5 asks you to combine `df` and `df2` using a shared column, `county_fips`
+- A join lines up rows from two tables using one or more shared columns, called **keys** (we will often refer to this as a "unique identifier")
+- Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key.
 
 ![](https://r4ds.hadley.nz/diagrams/join/venn.png){width="70%" fig-align="center"}
 
@@ -248,8 +227,7 @@ income <- tibble(
 ```
 
 - Both tables share `county_fips`, the key
-- The counties don't fully overlap: 50007 is only in `pop`, 50011 only in
-  `income`
+- The counties don't fully overlap: 50007 is only in `pop`, 50011 only in `income`
 
 ## `left_join()`: Keep Everything on the Left {.smaller}
 
@@ -259,7 +237,7 @@ pop |> left_join(income, by = "county_fips")
 
 - Every row of `pop` survives, matched or not
 - Chittenden (50007) has no match in `income`, so it gets `NA`
-- 50011's income is dropped. It wasn't in `pop` to begin with
+- 50011's income is dropped. It wasn't in `pop` to begin with.
 
 ## Other Join Types, Briefly
 
@@ -269,14 +247,11 @@ pop |> left_join(income, by = "county_fips")
 | `inner_join()` | Only rows that match in both |
 | `full_join()` | Everything from both, matched where possible |
 
-`left_join()` is the one you'll reach for almost every time: you have a main
-table and you're adding to it.
+`left_join()` is the one you'll reach for almost every time: you have a main table and you're adding to it.
 
 ## Watch Out: Duplicate Column Names {.smaller}
 
-- If both tables have a column with the same name that isn't the key (both
-  have `county_name`, say), the join keeps both and adds `.x` and `.y`
-  suffixes
+- If both tables have a column with the same name that isn't the key (both have `county_name`, say), the join keeps both and adds `.x` and `.y` suffixes
 - Two fixes:
   - `select()` away the extra column from one side before joining
   - Join on every shared column: `by = c("county_fips", "county_name", "state")`
@@ -294,10 +269,8 @@ library(nycflights13)
 flights |> select(year, month, day, carrier, flight, dest)
 ```
 
-- The same package R4DS's [joins chapter](https://r4ds.hadley.nz/joins.html)
-  uses: every flight that left a NYC airport in 2013
-- `carrier` is a two-letter code, not an airline name, exactly the kind of
-  gap a join fills
+- The same package R4DS's [joins chapter](https://r4ds.hadley.nz/joins.html) uses: every flight that left a NYC airport in 2013
+- `carrier` is a two-letter code, not an airline name, exactly the kind of gap a join fills
 
 ## The Lookup Table: `airlines` {.smaller}
 
@@ -305,10 +278,8 @@ flights |> select(year, month, day, carrier, flight, dest)
 airlines
 ```
 
-- One row per code, the exact shape you want on the right side of a
-  `left_join()`
-- Same key idea as `pop` and `income`: both tables share a column,
-  `carrier`
+- One row per code, the exact shape you want on the right side of a `left_join()`
+- Same key idea as `pop` and `income`: both tables share a column, `carrier`
 
 ## Joining Them {.smaller}
 
@@ -318,18 +289,14 @@ flights |>
   left_join(airlines, by = "carrier")
 ```
 
-- Same `left_join()`, same idea as `pop` and `income`, just bigger, real
-  data
-- Every flight keeps its row. It just gains the airline's full name
+- Same `left_join()`, same idea as `pop` and `income`, just bigger, real data
+- Every flight keeps its row. It just gains the airline's full name.
 
 ## Your Turn (15 min) {.smaller}
 
-1. Using `pop` and `income` from tonight, try `inner_join()` instead of
-   `left_join()`. How many rows come back, and why?
-2. Pivot `bea_wide` to long format, then find the county with the biggest
-   year-over-year change
-3. Join `flights` to `airlines`, then use `count()` and `arrange()` to find
-   which carrier had the most flights out of New York in 2013
+1. Using `pop` and `income` from tonight, try `inner_join()` instead of `left_join()`. How many rows come back, and why?
+2. Pivot `bea_wide` to long format, then find the county with the biggest year-over-year change
+3. Join `flights` to `airlines`, then use `count()` and `arrange()` to find which carrier had the most flights out of New York in 2013
 
 Work with a neighbor. Reading the whole error message aloud still works.
 
@@ -355,10 +322,9 @@ flights |>
 
 ## Before Next Class
 
-- [ ] Nothing new due this week, but get HW2 (due Sept. 27) working if
-      tonight's join didn't click. Office hours or email, any time
-- [ ] Read R4DS [Ch. 9 (Layers)](https://r4ds.hadley.nz/layers) and
-      [Ch. 10 (Exploratory data analysis)](https://r4ds.hadley.nz/EDA.html), and
-      skim [Ch. 11 (Communication)](https://r4ds.hadley.nz/communication)
+- [ ] Nothing new due this week, but get HW2 (due Sept. 27) working if tonight's join didn't click. Office hours or email, any time.
+- [ ] Read R4DS [Ch. 9 (Layers)](https://r4ds.hadley.nz/layers) and [Ch. 10 (Exploratory data analysis)](https://r4ds.hadley.nz/EDA.html), and skim [Ch. 11 (Communication)](https://r4ds.hadley.nz/communication)
 
 Next week: exploratory data analysis and your first `ggplot2` charts.
+
+## Thank you! {background-color="#007155"}

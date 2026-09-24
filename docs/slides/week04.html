@@ -103,7 +103,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7523458df77c68673fa44e0f45a7e43b.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-b38ab0c6d74c36f57c3531bc2f76d8ce.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -218,21 +218,20 @@ Andrew Van Leuven
 <section id="welcome-back" class="slide level2">
 <h2>Welcome Back</h2>
 <ul>
-<li>Three weeks of getting data into R and reshaping it. Tonight we finally <em>look</em> at it</li>
-<li>Keep your Posit Cloud project open. Every chart tonight is one you can run yourself</li>
-<li>Tonight’s goal: go from a data frame you’ve never seen to a handful of charts that tell you what’s in it</li>
+<li>Three weeks of getting data into R and reshaping it. Tonight we finally <em>look</em> at it.</li>
+<li>Keep your Posit Cloud project + these slides open in separate tabs. Every chart tonight is one you can run yourself (clipboard button = copy entire code chunk).</li>
+<li><strong>Tonight’s goal</strong>: go from a data frame you’ve never seen to a handful of charts that tell you what’s in it</li>
 </ul>
 </section>
-<section id="todays-plan" class="slide level2 smaller">
+<section id="todays-plan" class="slide level2">
 <h2>Today’s Plan</h2>
 <ul>
 <li><strong>Housekeeping</strong>: HW2 is due Sunday</li>
 <li><strong>Why we plot</strong>: summary statistics can hide a lot</li>
 <li><strong>The grammar of graphics</strong>: data, aesthetics, and geoms</li>
 <li><strong>Building a plot, layer by layer</strong>: aesthetics, facets, labels</li>
-<li><em>Break</em></li>
 <li><strong>Exploratory data analysis</strong>: variation, covariation, and unusual values</li>
-<li><strong>Saving your work</strong> and your turn</li>
+<li><strong>Saving your work</strong> (and your turn)</li>
 </ul>
 </section>
 <section>
@@ -244,9 +243,8 @@ Andrew Van Leuven
 <h2>HW2 Is Due Sunday</h2>
 <ul>
 <li>HW2 is due <strong>Sunday, Sept.&nbsp;27 by 11:59pm</strong></li>
-<li>Last week’s <code>left_join()</code> demo covers step 5. If the join still isn’t working, grab me at the break or email me before the weekend</li>
-<li>Remember to <strong>Render</strong> before you’re done. If it doesn’t render, I can’t grade it</li>
-<li>HW3 (due Oct.&nbsp;25) will cover tonight and next week, so tonight’s code is worth keeping</li>
+<li>Last week’s <code>left_join()</code> demo covers step 5. If the join still isn’t working, raise your hand at the break (or email me <em>before</em> Sunday).</li>
+<li>Remember to <strong>Render</strong> before you’re done. If it doesn’t render, I can’t grade it. Please just email me your .html files. I have access to your code if need be, but the files make grading easier.</li>
 </ul>
 </section></section>
 <section>
@@ -316,7 +314,8 @@ Andrew Van Leuven
 
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li>One linear trend, one curve, one outlier dragging the line, and one single point doing all the work</li>
-<li>Summary statistics are a compression. A chart is often the fastest way to see what the compression threw away</li>
+<li>Summary statistics are a compression. A chart is often the fastest way to see what the compression might’ve overlooked.</li>
+<li>These four charts came from a few lines of <code>ggplot2</code> code. By the end of tonight you’ll be able to write them yourself, starting with how ggplot2 thinks about a chart.</li>
 </ul>
 </section></section>
 <section>
@@ -329,11 +328,11 @@ Andrew Van Leuven
 <div class="columns">
 <div class="column" style="width:70%;">
 <ol type="1">
-<li><strong>Data</strong>: a data frame, one row per observation</li>
-<li><strong>Aesthetics</strong> (<code>aes()</code>): which columns map to which visual properties, like x position, y position, color, or size</li>
+<li><strong>Data</strong>: a data frame, one row per observation (this is why we <code>pivot_longer</code>)</li>
+<li><strong>Aesthetics</strong> <code>aes()</code>: which columns map to which visual properties, like x position, y position, color, or size</li>
 <li><strong>Geoms</strong>: the shapes that actually get drawn, like points, bars, lines, or boxes</li>
 </ol>
-<p>Everything else (facets, scales, labels, themes) refines those three. R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9</a> calls this a <em>layered grammar</em>, because you build a plot by adding layers with <code>+</code>.</p>
+<p>Everything else (facets, scales, labels, themes) refines those three. R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9</a> calls this a <em>layered grammar</em>, because you build a plot by adding layers with <code>+</code></p>
 </div><div class="column" style="width:30%;">
 <p><img data-src="https://ggplot2.tidyverse.org/logo.png"></p>
 </div></div>
@@ -341,9 +340,11 @@ Andrew Van Leuven
 <section id="tonights-data-midwest-again" class="slide level2 smaller">
 <h2>Tonight’s Data: <code>midwest</code>, Again</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>midwest_df <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, poptotal, popdensity, percollege,</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>         percbelowpoverty, inmetro)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>         percbelowpoverty, inmetro)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>midwest_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 437 × 7
   county   state poptotal popdensity percollege percbelowpoverty inmetro
@@ -358,14 +359,15 @@ Andrew Van Leuven
 </div>
 <ul>
 <li>The same 437 Midwestern counties from Week 2, from the 2000 Census</li>
-<li>Already in ggplot2, so there’s nothing to download</li>
+<li><code>&lt;-</code> saves the result as a new object, <code>midwest_df</code>. Assigning prints nothing, so the second line just types the name to show it.</li>
+<li>Every chart tonight starts from <code>midwest_df</code>. Look for it in your Environment pane.</li>
 <li><code>inmetro</code> is <code>1</code> for counties in a metro area and <code>0</code> otherwise</li>
 </ul>
 </section>
 <section id="step-1-just-the-data" class="slide level2 smaller">
 <h2>Step 1: Just the Data</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
@@ -375,29 +377,33 @@ Andrew Van Leuven
 <section id="step-2-add-aesthetics" class="slide level2 smaller">
 <h2>Step 2: Add Aesthetics</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>base_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty))</span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>base_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
-<li>Now it knows which column goes on which axis, so it draws the axes and scales. Still no data on the plot</li>
+<li>Now it knows which column goes on which axis, so it draws the axes and scales. Still no data on the plot.</li>
+<li>A plot is an object too, so we can save it as <code>base_plot</code> and build on it</li>
 </ul>
 </section>
 <section id="step-3-add-a-geom" class="slide level2 smaller">
 <h2>Step 3: Add a Geom</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
-<li><code>geom_point()</code> draws one point per row</li>
+<li><code>base_plot</code> already holds the data and aesthetics. <code>+ geom_point()</code> adds the layer that draws one point per row.</li>
+<li><code>base_plot</code> itself hasn’t changed. To keep the new version, assign it: <code>scatter &lt;- base_plot + geom_point()</code>.</li>
 <li>A first look: more college grads, somewhat less poverty, but lots of scatter</li>
 </ul>
 </section>
 <section id="mapping-a-third-variable-to-color" class="slide level2 smaller">
 <h2>Mapping a Third Variable to Color</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> state)) <span class="sc">+</span></span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
@@ -408,9 +414,9 @@ Andrew Van Leuven
 </section>
 <section id="mapping-vs.-setting" class="slide level2 smaller">
 <h2>Mapping vs.&nbsp;Setting</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"blue"</span>))</span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> inmetro))</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -431,15 +437,16 @@ Andrew Van Leuven
 </div>
 </div>
 <ul>
-<li><strong>Left</strong>: <code>"blue"</code> inside <code>aes()</code> is treated as data, a column where every value is the word “blue.” You get a salmon-colored legend entry</li>
-<li><strong>Right</strong>: outside <code>aes()</code>, it’s a fixed setting. Every point is blue</li>
-<li>Rule of thumb: inside <code>aes()</code> if it depends on the data, outside if it doesn’t</li>
+<li><strong>Left, mapped</strong>: inside <code>aes()</code>, color comes from a column, with a legend</li>
+<li><strong>Right, set</strong>: outside <code>aes()</code>, one fixed color and no legend</li>
+<li><code>inmetro</code> is stored as a number, so ggplot gives it a 0-to-1 color gradient even though it’s only ever 0 or 1</li>
+<li>Rule of thumb: inside <code>aes()</code> if it depends on the data</li>
 </ul>
 </section>
-<section id="layers-stack" class="slide level2 smaller">
-<h2>Layers Stack</h2>
+<section id="layers-can-stack" class="slide level2 smaller">
+<h2>Layers Can Stack</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
@@ -447,13 +454,13 @@ Andrew Van Leuven
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li>Each <code>+ geom_*()</code> adds a layer on top of the last</li>
 <li><code>alpha</code> makes points semi-transparent, so overlapping points show up darker</li>
-<li><code>geom_smooth(method = "lm")</code> adds a linear trend with a confidence band</li>
+<li><code>geom_smooth(method = "lm")</code> adds a linear trend with a confidence band (<code>se = FALSE</code> hides it)</li>
 </ul>
 </section>
 <section id="global-vs.-local-aesthetics" class="slide level2 smaller">
 <h2>Global vs.&nbsp;Local Aesthetics</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> state), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">color =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
@@ -461,13 +468,13 @@ Andrew Van Leuven
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li>Aesthetics in <code>ggplot()</code> apply to every layer</li>
 <li>Aesthetics in a single geom apply only to that layer</li>
-<li>Here, color by state for the points, but one overall trend line. Move <code>color = state</code> up into <code>ggplot()</code> and you’d get five lines instead</li>
+<li>Here, color by state for the points, but one overall trend line. Move <code>color = state</code> up into <code>ggplot()</code> and you’d get five lines instead.</li>
 </ul>
 </section>
 <section id="facets-small-multiples" class="slide level2 smaller">
 <h2>Facets: Small Multiples</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
@@ -480,7 +487,7 @@ Andrew Van Leuven
 <section id="labels-make-it-readable" class="slide level2 smaller">
 <h2>Labels Make It Readable</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"#007155"</span>) <span class="sc">+</span></span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"More college grads, less poverty"</span>,</span>
@@ -492,7 +499,7 @@ Andrew Van Leuven
 
 </div>
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
-<li>Column names like <code>percbelowpoverty</code> are fine for you. They are not fine for anyone else</li>
+<li>Column names like <code>percbelowpoverty</code> are fine for you. They are not fine for anyone else.</li>
 <li>A title that states the finding does more work than one that restates the axes</li>
 </ul>
 </section>
@@ -518,6 +525,10 @@ Andrew Van Leuven
 </section>
 <section id="what-is-eda" class="slide level2 smaller scrollable">
 <h2>What Is EDA?</h2>
+<blockquote>
+<p>“Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.”</p>
+<p>— John Tukey</p>
+</blockquote>
 <ul>
 <li><strong>Exploratory data analysis</strong> is a loop, not a formal procedure:
 <ol type="1">
@@ -525,7 +536,13 @@ Andrew Van Leuven
 <li>Answer it with a chart, a transformation, or a summary</li>
 <li>Use what you learned to ask a better question</li>
 </ol></li>
-<li>Most of these charts are for <em>you</em>. They don’t need titles or polish</li>
+<li>Most of these charts are for <em>you</em>. They don’t need titles or polish.</li>
+</ul>
+</section>
+<section id="asking-good-questions" class="slide level2 smaller">
+<h2>Asking Good Questions</h2>
+<ul>
+<li>As Wickham says in Ch. 10, “EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.”</li>
 <li>R4DS <a href="https://r4ds.hadley.nz/EDA.html">Ch. 10</a> frames it around two kinds of questions: how does a variable <strong>vary</strong>, and how do variables <strong>covary</strong>?</li>
 </ul>
 </section></section>
@@ -537,7 +554,7 @@ Andrew Van Leuven
 <section id="continuous-variables-histograms" class="slide level2 smaller">
 <h2>Continuous Variables: Histograms</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
@@ -548,9 +565,9 @@ Andrew Van Leuven
 </section>
 <section id="bin-width-changes-the-story" class="slide level2 smaller">
 <h2>Bin Width Changes the Story</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span>
-<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -571,15 +588,15 @@ Andrew Van Leuven
 </div>
 </div>
 <ul>
-<li>Too narrow and it’s noise. Too wide and the shape disappears</li>
-<li>Try a few. There’s no single right answer, and the default (30 bins) is rarely the best one</li>
+<li>Too narrow and it’s noise. Too wide and the shape disappears.</li>
+<li>Try a few. There’s no single right answer, and the default (30 bins) is not always the best one.</li>
 </ul>
 </section>
 <section id="skewed-data-try-a-log-scale" class="slide level2 smaller">
 <h2>Skewed Data: Try a Log Scale</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> poptotal)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> poptotal)) <span class="sc">+</span></span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span>
-<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> poptotal)) <span class="sc">+</span></span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> poptotal)) <span class="sc">+</span></span>
 <span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
 <span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
@@ -601,7 +618,7 @@ Andrew Van Leuven
 </div>
 </div>
 <ul>
-<li><strong>Left</strong>: Cook County (Chicago, 5 million people) squashes everything else into one bar</li>
+<li><strong>Left</strong>: Cook County (Chicago, 5M people) squashes everything else into one bar</li>
 <li><strong>Right</strong>: on a log scale, each step on the axis is ten times bigger than the last, and the distribution becomes readable</li>
 <li>County populations, incomes, and housing prices almost always need this</li>
 </ul>
@@ -609,21 +626,23 @@ Andrew Van Leuven
 <section id="categorical-variables-bar-charts" class="slide level2 smaller">
 <h2>Categorical Variables: Bar Charts</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="week04_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li><code>geom_bar()</code> counts rows for you, the same thing <code>count(state)</code> did in Week 2</li>
-<li>Already have the counts in a column? Use <code>geom_col()</code> instead, with the counts as <code>y</code></li>
+<li>If you already have the counts in a column, you can use <code>geom_col()</code> instead, with the counts as <code>y</code></li>
 </ul>
 </section>
 <section id="unusual-values" class="slide level2 smaller">
 <h2>Unusual Values</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>high_poverty <span class="ot">&lt;-</span> midwest_df <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(percbelowpoverty <span class="sc">&gt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, poptotal, percbelowpoverty)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, poptotal, percbelowpoverty)</span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>high_poverty</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   county    state poptotal percbelowpoverty
@@ -635,8 +654,8 @@ Andrew Van Leuven
 </div>
 <ul>
 <li>The long right tail from the histogram, pulled out with <code>filter()</code></li>
-<li>Outliers aren’t automatically errors. Check whether each one is real or a data problem. These are real: Menominee County, WI is almost entirely the Menominee Reservation, and Alexander and Pulaski are at Illinois’s rural southern tip</li>
-<li>Don’t delete an unusual value just because it’s unusual. If it’s a real error, replace it with <code>NA</code> and say so</li>
+<li>Outliers aren’t automatically errors. Check whether each one is real or a data problem. These are real: Menominee County, WI is almost entirely the Menominee Reservation, and Alexander and Pulaski are at Illinois’s rural southern tip.</li>
+<li>Don’t delete an unusual value just because it’s unusual. If it’s a real error, replace it with <code>NA</code> and say so.</li>
 </ul>
 </section></section>
 <section>
@@ -644,31 +663,49 @@ Andrew Van Leuven
 <h1>Covariation: How Variables Move Together</h1>
 
 </section>
+<section id="adding-a-column-well-reuse" class="slide level2 smaller">
+<h2>Adding a Column We’ll Reuse</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>midwest_df <span class="ot">&lt;-</span> midwest_df <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>))</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>midwest_df <span class="sc">|&gt;</span> <span class="fu">count</span>(metro)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  metro        n
+  &lt;chr&gt;    &lt;int&gt;
+1 Metro      150
+2 Nonmetro   287</code></pre>
+</div>
+</div>
+<ul>
+<li><code>inmetro</code>’s <code>1</code>s and <code>0</code>s make poor labels, so we add a readable <code>metro</code> column</li>
+<li>Assigning back to <code>midwest_df</code> overwrites it with the new version. Every chart from here on can use <code>metro</code> without repeating the <code>mutate()</code>.</li>
+<li>Overwriting an object is fine for adding a column. Be careful doing it with <code>filter()</code>, since dropped rows don’t come back until you rerun the earlier code.</li>
+</ul>
+</section>
 <section id="categorical-continuous-boxplots" class="slide level2 smaller">
 <h2>Categorical + Continuous: Boxplots</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metro, <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
-<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> metro, <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="week04_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li>The box is the middle 50% of counties, the line is the median, and the dots are outliers</li>
 <li>Metro counties have a clearly higher share of college grads, and far more spread</li>
-<li>Notice the pipe: a <code>mutate()</code> first, then straight into <code>ggplot()</code></li>
 </ul>
 </section>
 <section id="reordering-categories" class="slide level2 smaller">
 <h2>Reordering Categories</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(state, percbelowpoverty, median),</span>
-<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
-<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(state, percbelowpoverty, median),</span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="week04_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li>By default ggplot puts categories in alphabetical order, which is almost never what you want</li>
 <li><code>fct_reorder()</code> sorts them by the median of another variable, so the pattern reads left to right</li>
 </ul>
@@ -676,31 +713,31 @@ Andrew Van Leuven
 <section id="two-categorical-variables" class="slide level2 smaller">
 <h2>Two Categorical Variables</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, metro) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> metro, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
-<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
-<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>metro_counts <span class="ot">&lt;-</span> midwest_df <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, metro)</span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(metro_counts, <span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> metro, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="week04_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
-<li><code>count()</code> the combinations first, then draw a tile for each one</li>
-<li>A heat map like this is really just a colored table. For a handful of categories, a plain table from <code>count()</code> can work just as well</li>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<li><code>count()</code> the combinations first and save them as <code>metro_counts</code>, then draw a tile for each row of it</li>
+<li>A heat map like this is really just a colored table. For a handful of categories, a plain table from <code>count()</code> can work just as well.</li>
 </ul>
 </section>
 <section id="two-continuous-variables" class="slide level2 smaller">
 <h2>Two Continuous Variables</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
-<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
-<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="week04_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
+<img data-src="week04_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li>The scatterplot you already know, with a log x-axis for the same reason as before</li>
-<li><code>method = "loess"</code> fits a curve instead of a straight line. Denser counties have more college grads, and the relationship steepens at the top</li>
+<li><code>method = "loess"</code> fits a curve instead of a straight line. It’s flat across rural counties, climbs through the middle, and levels off in the densest ones. A straight line would miss that shape.</li>
 </ul>
 </section>
 <section id="patterns-are-questions-not-answers" class="slide level2 smaller">
@@ -709,31 +746,32 @@ Andrew Van Leuven
 <ul>
 <li>Could it be coincidence?</li>
 <li>How strong is it, and how would you describe it in one sentence?</li>
-<li>What other variable might explain it? (Here, metro status is doing a lot of the work)</li>
+<li>What other variable might explain it? (Here, metro status is doing a lot of the work.)</li>
 <li>Does it hold within subgroups, like each state or metro vs.&nbsp;nonmetro?</li>
 </ul>
 <p>EDA points you toward the story. It doesn’t prove it.</p>
+<p><strong>Note</strong>: There are often many ways to accomplish the same task. Check out <a href="https://datavizcatalogue.com/blog/box-plot-variations/">this article</a> about alternatives to boxplots.</p>
 </section>
 <section id="saving-a-plot" class="slide level2 smaller">
 <h2>Saving a Plot</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
-<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"poverty_college.png"</span>, p, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"poverty_college.png"</span>, p, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li>A ggplot is an object like any other, so you can assign it with <code>&lt;-</code></li>
-<li><code>ggsave()</code> writes it to a file, sized in inches. Set the size on purpose so text doesn’t come out tiny</li>
-<li>Inside a Quarto document, you usually don’t need this. The chart renders right into the HTML</li>
+<li>Same idea as <code>base_plot</code> earlier: save the plot as an object, then hand that object to <code>ggsave()</code></li>
+<li><code>ggsave()</code> writes it to a file, sized in inches. Set the size on purpose so text doesn’t come out tiny.</li>
+<li>Inside a Quarto document, you usually don’t need this. The chart renders right into the HTML.</li>
 </ul>
 </section>
 <section id="your-turn-20-min" class="slide level2 smaller scrollable">
 <h2>Your Turn (20 min)</h2>
-<p>Using <code>midwest</code>, make each of these. Work with a neighbor.</p>
+<p>Using <code>midwest_df</code>, make each of these. Work with a neighbor.</p>
 <ol type="1">
-<li>A histogram of <code>percollege</code>. Try at least two bin widths and pick the one you think tells the story best</li>
-<li>A scatterplot of <code>percollege</code> (x) against <code>percbelowpoverty</code> (y), colored by metro status (build the <code>metro</code> column with <code>mutate()</code> first)</li>
+<li>A histogram of <code>percollege</code>. Try at least two bin widths and pick the one you think tells the story best.</li>
+<li>A scatterplot of <code>percollege</code> (x) against <code>percbelowpoverty</code> (y), colored by metro status (if <code>metro</code> is missing, rerun the <code>mutate()</code> from earlier)</li>
 <li>Boxplots of <code>percollege</code> by state, sorted by median</li>
 <li>Take any one of the three and give it real labels with <code>labs()</code>, including a title that states what you see</li>
 </ol>
@@ -741,36 +779,39 @@ Andrew Van Leuven
 <section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
 <h2>Your Turn: One Way to Do It</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
-<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege)) <span class="sc">+</span></span>
-<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)</span>
-<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
-<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">|&gt;</span></span>
-<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> metro)) <span class="sc">+</span></span>
-<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb24-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
-<span id="cb24-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(state, percollege, median),</span>
-<span id="cb24-13"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
-<span id="cb24-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb24-15"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-16"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 4</span></span>
-<span id="cb24-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege)) <span class="sc">+</span></span>
-<span id="cb24-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb24-19"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"In most Midwestern counties, under 1 in 5 adults has a degree"</span>,</span>
-<span id="cb24-20"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Adults with a college degree (%)"</span>, <span class="at">y =</span> <span class="st">"Number of counties"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)</span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
+<span id="cb26-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> metro)) <span class="sc">+</span></span>
+<span id="cb26-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb26-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
+<span id="cb26-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(state, percollege, median),</span>
+<span id="cb26-11"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb26-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb26-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 4</span></span>
+<span id="cb26-15"><a aria-hidden="true" tabindex="-1"></a>college_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege)) <span class="sc">+</span></span>
+<span id="cb26-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb26-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"In most Midwestern counties, under 1 in 5 adults has a degree"</span>,</span>
+<span id="cb26-18"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Adults with a college degree (%)"</span>, <span class="at">y =</span> <span class="st">"Number of counties"</span>)</span>
+<span id="cb26-19"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a aria-hidden="true" tabindex="-1"></a>college_hist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="before-next-class" class="slide level2">
 <h2>Before Next Class</h2>
 <ul class="task-list">
-<li><label><input type="checkbox">HW2 is due <strong>Sunday, Sept.&nbsp;27 by 11:59pm</strong>. Render it before you’re done</label></li>
+<li><label><input type="checkbox">HW2 is due <strong>Sunday, Sept.&nbsp;27 by 11:59pm</strong>. Render it before you’re done.</label></li>
 <li><label><input type="checkbox">Skim R4DS <a href="https://r4ds.hadley.nz/communication">Ch. 11 (Communication)</a> if you didn’t get to it this week</label></li>
 <li><label><input type="checkbox">Read <a href="https://www.aeeejournal.org/volumes/volume-7-2025/volume-7-issue-5-december-2025/teaching-and-educational-methods/data-visualization-in-applied-economics-instruction-and-outreach">Hutchins &amp; Van Leuven (2025)</a> on data visualization in applied economics</label></li>
 </ul>
 <p>Next week: advanced ggplot2, and what separates a chart that works from one that doesn’t.</p>
+</section>
+<section id="thank-you" class="slide level2" data-background-color="#007155">
+<h2>Thank you!</h2>
 
 
 </section></section>

@@ -103,7 +103,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7523458df77c68673fa44e0f45a7e43b.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-b38ab0c6d74c36f57c3531bc2f76d8ce.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -218,8 +218,8 @@ Andrew Van Leuven
 <section id="welcome-to-lafayette-l202" class="slide level2">
 <h2>Welcome to Lafayette L202</h2>
 <ul>
-<li>Our first in-person session. Let’s do a quick re-introduction (name, day job, hometown)</li>
-<li>Today is hands-on. Open your Posit Cloud project and keep it open all night</li>
+<li>Our first in-person session. Let’s do a quick re-introduction (name, day job, hometown).</li>
+<li>Today is hands-on. Open your Posit Cloud project and keep it open all night.</li>
 <li>Tonight’s goal is to get comfortable with R and use it to manipulate some real-world data</li>
 </ul>
 </section>
@@ -243,8 +243,8 @@ Andrew Van Leuven
 <h2>HW1: Due Sunday (Sept.&nbsp;13) by 11:59pm</h2>
 <p>Two notes on the version in your project:</p>
 <ul>
-<li><strong>Make your two vectors the same length.</strong> Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error</li>
-<li><strong>Click Render before you save.</strong> Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page</li>
+<li><strong>Make your two vectors the same length.</strong> Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error.</li>
+<li><strong>Click Render before you save.</strong> Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page.</li>
 </ul>
 </section>
 <section id="get-hw2-into-your-project" class="slide level2 scrollable">
@@ -257,16 +257,16 @@ Andrew Van Leuven
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout origin/main <span class="at">--</span> homework/hw2.qmd homework/data README.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="1">
-<li>Open <code>homework/hw2.qmd</code>. It should start with instructions for downloading BEA data, and you should see a new <code>homework/data</code> folder</li>
+<li>Open <code>homework/hw2.qmd</code>. It should start with instructions for downloading BEA data, and you should see a new <code>homework/data</code> folder.</li>
 </ol>
 </section>
 <section id="get-hw2-into-your-project-what-to-expect" class="slide level2">
 <h2>Get HW2 Into Your Project: What to Expect</h2>
 <ul>
-<li><strong>No output is normal.</strong> If nothing prints, it worked</li>
-<li>The Git pane may list a few files as changed. Ignore it</li>
+<li><strong>No output is normal.</strong> If nothing prints, it worked.</li>
+<li>The Git pane may list a few files as changed. Ignore it.</li>
 <li><strong>Your HW1 work is not touched</strong></li>
-<li>Please <strong>don’t</strong> use <code>git pull</code> or the Pull button. From here on, every new homework comes out with these same two lines and a different file name</li>
+<li>Please <strong>don’t</strong> use <code>git pull</code> or the Pull button. From here on, every new homework comes out with these same two lines and a different file name.</li>
 </ul>
 </section></section>
 <section>
@@ -356,8 +356,8 @@ Andrew Van Leuven
 </div>
 <ul>
 <li>A function takes <strong>arguments</strong> in parentheses and returns a result</li>
-<li>Functions can nest. R works from the inside out</li>
-<li>Stuck? Type <code>?round</code> in the Console to see its help page</li>
+<li>Functions can nest. R works from the inside out.</li>
+<li>Stuck? Type <code>?round</code> in the Console to see its help page.</li>
 </ul>
 </section>
 <section id="data-frames" class="slide level2">
@@ -490,7 +490,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <li>The first argument is always a data frame</li>
 <li>The other arguments say what to do with it, using column names <strong>without quotes</strong></li>
 <li>The result is always a <strong>new</strong> data frame</li>
-<li>The original is left unchanged. To keep a result, assign it with <code>&lt;-</code></li>
+<li>The original is left unchanged. To keep a result, assign it with <code>&lt;-</code>.</li>
 </ul>
 </section>
 <section id="the-pipe" class="slide level2 smaller">
@@ -576,7 +576,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <li>The first one needs a double equals sign.
 <ul>
 <li>A single <code>=</code> <em>sets</em> something, like an argument (<code>digits = 0</code>) or a new column in <code>mutate()</code>.</li>
-<li>A double <code>==</code> <em>asks</em> a question, “is this equal to that?”, and answers <code>TRUE</code> or <code>FALSE</code> for every row. <code>filter()</code> needs the question</li>
+<li>A double <code>==</code> <em>asks</em> a question, “is this equal to that?”, and answers <code>TRUE</code> or <code>FALSE</code> for every row. <code>filter()</code> needs the question.</li>
 </ul></li>
 <li>The last one looks like it should work, but R needs a full comparison on each side of <code>|</code>. Use <code>%in%</code> instead.</li>
 </ul>
@@ -648,18 +648,18 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, poptotal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
-  county    state poptotal
-  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;
-1 BENTON    IN        9441
-2 HENDRICKS IN       75717
-3 ISABELLA  MI       54624</code></pre>
+  county      state poptotal
+  &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;
+1 MASON       MI       25537
+2 FOND DU LAC WI       90083
+3 MORGAN      IN       55920</code></pre>
 </div>
 </div>
 </div></div>
 <ul>
 <li><code>slice_head(n = 5)</code> and <code>slice_tail(n = 5)</code>: the first or last 5 rows</li>
 <li><code>slice_sample()</code> gives different rows every time you run it</li>
-<li>Position depends on order, so <code>arrange()</code> then <code>slice_head()</code> gives you a “top 5.” <code>slice_max()</code> and <code>slice_min()</code> do that in one step (more on those after the break)</li>
+<li>Position depends on order, so <code>arrange()</code> then <code>slice_head()</code> gives you a “top 5.” <code>slice_max()</code> and <code>slice_min()</code> do that in one step (more on those after the break).</li>
 </ul>
 </section>
 <section id="distinct-and-count" class="slide level2 smaller">
@@ -747,7 +747,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <ul>
 <li><code>rename(new_name = old_name)</code></li>
 <li><code>relocate()</code> moves columns without dropping any</li>
-<li>Why the dot in <code>.after</code>? Most arguments to dplyr verbs are <strong>your column names</strong>, so dplyr puts a <code>.</code> in front of its own settings (<code>.after</code>, <code>.before</code>, <code>.by</code>) to keep the two from colliding. If your data had a column called <code>after</code>, then <code>relocate(after)</code> would still mean that column</li>
+<li>Why the dot in <code>.after</code>? Most arguments to dplyr verbs are <strong>your column names</strong>, so dplyr puts a <code>.</code> in front of its own settings (<code>.after</code>, <code>.before</code>, <code>.by</code>) to keep the two from colliding. If your data had a column called <code>after</code>, then <code>relocate(after)</code> would still mean that column.</li>
 </ul>
 </section>
 <section id="mutate-make-new-columns" class="slide level2 smaller">
@@ -785,7 +785,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <li>the value to use where the condition is <code>FALSE</code></li>
 </ul></li>
 <li>Here, R checks each county one at a time: if <code>inmetro == 1</code> is <code>TRUE</code>, the new column gets <code>"Metro"</code>; if it’s <code>FALSE</code>, it gets <code>"Non-metro"</code></li>
-<li>You’ll also see base R’s <code>ifelse()</code> (no underscore) online. It works the same way, but <code>if_else()</code> is stricter and catches more mistakes</li>
+<li>You’ll also see base R’s <code>ifelse()</code> (no underscore) online. It works the same way, but <code>if_else()</code> is stricter and catches more mistakes.</li>
 </ul>
 </section>
 <section id="case_when-more-than-two-outcomes" class="slide level2 smaller">
@@ -831,8 +831,8 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 </div>
 </div></div>
 <ul>
-<li>Each line is <code>condition ~ value</code>. Read the <code>~</code> as “then”</li>
-<li>R checks the lines <strong>top to bottom</strong> for each row, and the first <code>TRUE</code> wins. That’s why <code>"Medium"</code> doesn’t need <code>&amp; poptotal &lt; 100000</code></li>
+<li>Each line is <code>condition ~ value</code>. Read the <code>~</code> as “then”.</li>
+<li>R checks the lines <strong>top to bottom</strong> for each row, and the first <code>TRUE</code> wins. That’s why <code>"Medium"</code> doesn’t need <code>&amp; poptotal &lt; 100000</code>.</li>
 <li><code>.default</code> catches everything that didn’t match (another dot argument!)</li>
 </ul>
 </section>
@@ -893,7 +893,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 </div>
 </div>
 <ul>
-<li><code>group_by()</code> doesn’t change what you see. It changes what happens <em>next</em></li>
+<li><code>group_by()</code> doesn’t change what you see. It changes what happens <em>next</em>.</li>
 <li><code>summarize()</code> collapses each group down to <strong>one row</strong></li>
 <li><code>count()</code> did this, but <code>summarize()</code> gives a lot more options!</li>
 </ul>
@@ -943,7 +943,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <section id="missing-values" class="slide level2 smaller">
 <h2>Missing Values</h2>
 <ul>
-<li>Real data has gaps. In R, a missing value is <code>NA</code></li>
+<li>Real data has gaps. In R, a missing value is <code>NA</code>.</li>
 <li>Any math with an <code>NA</code> in it returns <code>NA</code>, unless you tell R to skip them</li>
 </ul>
 <div class="cell">
@@ -957,13 +957,13 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 </div>
 </div>
 <ul>
-<li><code>midwest</code> has no missing values, but your BEA data might. The HW2 ‘starter code’ handles most of it</li>
+<li><code>midwest</code> has no missing values, but your BEA data might. The HW2 ‘starter code’ handles most of it.</li>
 </ul>
 </section>
 <section id="dropping-missing-values-is.na" class="slide level2 smaller">
 <h2>Dropping Missing Values: <code>is.na()</code></h2>
 <ul>
-<li>To drop rows with a missing value, use <code>is.na()</code>. The <code>!</code> means “not”</li>
+<li>To drop rows with a missing value, use <code>is.na()</code>. The <code>!</code> means “not”.</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a aria-hidden="true" tabindex="-1"></a>town_income <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -981,7 +981,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 </div>
 </div>
 <ul>
-<li><code>filter(income == NA)</code> <strong>doesn’t work</strong>. Nothing is ever “equal to” a missing value, so always use <code>is.na()</code></li>
+<li><code>filter(income == NA)</code> <strong>doesn’t work</strong>. Nothing is ever “equal to” a missing value, so always use <code>is.na()</code>.</li>
 </ul>
 </section>
 <section id="slice_max-and-slice_min" class="slide level2 smaller">
@@ -1027,9 +1027,8 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 </div>
 </div></div>
 <ul>
-<li><code># Groups: state [5]</code> means the result is <strong>still grouped</strong>. Anything you do next happens state by state until you add <code>ungroup()</code> <!-- - Shortcut: many verbs can group for just one step, with nothing left over:
-`summarize(avg_poverty = mean(percbelowpoverty), .by = state)`. The
-`slice_` verbs spell it `by`, with no dot --></li>
+<li><code># Groups: state [5]</code> means the result is <strong>still grouped</strong>. Anything you do next happens state by state until you add <code>ungroup()</code>. <!-- - Shortcut: many verbs can group for just one step, with nothing left over:
+`summarize(avg_poverty = mean(percbelowpoverty), .by = state)`. The `slice_` verbs spell it `by`, with no dot --></li>
 </ul>
 </section>
 <section id="saving-what-you-make" class="slide level2">
@@ -1049,13 +1048,13 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 </div>
 <ul>
 <li>Without <code>&lt;-</code>, the result prints and then disappears</li>
-<li><strong>Give results new names</strong> rather than overwriting the original. If you write <code>midwest &lt;- midwest |&gt; filter(...)</code>, the rest of the data is gone until you re-run from the top</li>
+<li><strong>Give results new names</strong> rather than overwriting the original. If you write <code>midwest &lt;- midwest |&gt; filter(...)</code>, the rest of the data is gone until you re-run from the top.</li>
 </ul>
 </section>
 <section id="your-turn-15-min-1" class="slide level2 scrollable">
 <h2>Your Turn (15 min)</h2>
 <ol type="1">
-<li>How many non-metro counties does each state have? (Hint: <code>count()</code> can take two columns)</li>
+<li>How many non-metro counties does each state have? (Hint: <code>count()</code> can take two columns.)</li>
 <li>For each state, find the non-metro county with the highest share of college graduates</li>
 <li><strong>This one’s challenging:</strong> for each state, what share of <em>people</em> (not counties) live in a metro county?</li>
 </ol>
@@ -1087,7 +1086,7 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <h2>Why Style Matters</h2>
 <ul>
 <li>You will read your code more often than you write it, and so will your NBRC teammates</li>
-<li>R4DS Ch. 4 is the full guide. Here are the rules that matter most</li>
+<li>R4DS Ch. 4 is the full guide. Here are the rules that matter most.</li>
 </ul>
 </section>
 <section id="a-few-rules-more-like-guidelines" class="slide level2 smaller">
@@ -1171,6 +1170,9 @@ $ category             &lt;chr&gt; "AAR", "LHR", "AAR", "ALU", "AAR", "AAR",…<
 <li><label><input type="checkbox">Read R4DS <a href="https://r4ds.hadley.nz/data-import">Ch. 7 (Data import)</a> and <a href="https://r4ds.hadley.nz/workflow-help">Ch. 8 (Getting help)</a>, and skim <a href="https://r4ds.hadley.nz/data-tidy">Ch. 5 (Data tidying)</a></label></li>
 </ul>
 <p>Next week: getting data from files, APIs, and the web, plus joins.</p>
+</section>
+<section id="thank-you" class="slide level2" data-background-color="#007155">
+<h2>Thank you!</h2>
 
 
 </section></section>

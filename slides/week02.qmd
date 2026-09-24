@@ -28,8 +28,8 @@ options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 
 ## Welcome to Lafayette L202
 
-- Our first in-person session. Let's do a quick re-introduction (name, day job, hometown)
-- Today is hands-on. Open your Posit Cloud project and keep it open all night
+- Our first in-person session. Let's do a quick re-introduction (name, day job, hometown).
+- Today is hands-on. Open your Posit Cloud project and keep it open all night.
 - Tonight's goal is to get comfortable with R and use it to manipulate some real-world data
 
 ## Today's Plan
@@ -47,15 +47,12 @@ options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 
 Two notes on the version in your project:
 
-- **Make your two vectors the same length.** Step 4 combines them into a
-  data frame. If one has 5 items and the other has 6, R will throw an error
-- **Click Render before you save.** Confirm it knits to HTML with no
-  errors. I grade by opening your copy, so an error means I see an empty page
+- **Make your two vectors the same length.** Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error.
+- **Click Render before you save.** Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page.
 
 ## Get HW2 Into Your Project
 
-The `hw2.qmd` in your project is an old placeholder. Let's swap in the real
-one together.
+The `hw2.qmd` in your project is an old placeholder. Let's swap in the real one together.
 
 1. Click the **Terminal** tab, next to Console (not the Console itself!)
 2. Copy and paste these two lines, then press Enter:
@@ -65,16 +62,14 @@ git fetch
 git checkout origin/main -- homework/hw2.qmd homework/data README.md
 ```
 
-3. Open `homework/hw2.qmd`. It should start with instructions for downloading
-   BEA data, and you should see a new `homework/data` folder
+3. Open `homework/hw2.qmd`. It should start with instructions for downloading BEA data, and you should see a new `homework/data` folder.
 
 ## Get HW2 Into Your Project: What to Expect
 
-- **No output is normal.** If nothing prints, it worked
-- The Git pane may list a few files as changed. Ignore it
+- **No output is normal.** If nothing prints, it worked.
+- The Git pane may list a few files as changed. Ignore it.
 - **Your HW1 work is not touched**
-- Please **don't** use `git pull` or the Pull button. From here on, every new
-  homework comes out with these same two lines and a different file name
+- Please **don't** use `git pull` or the Pull button. From here on, every new homework comes out with these same two lines and a different file name.
 
 # R Warm-Up {background-color="#007155"}
 
@@ -93,10 +88,8 @@ git checkout origin/main -- homework/hw2.qmd homework/data README.md
 - Code goes in **chunks**, gray boxes that start with ```` ```{r} ````
 - Run one line: **Cmd/Ctrl + Enter**
 - Run a whole chunk: **Cmd/Ctrl + Shift + Enter**, or the green ▶ arrow
-- **Render** runs *everything* from top to bottom in a fresh session, and
-  builds the HTML file
-- If it works when you run it by hand but fails at Render, you probably
-  created something in the Console that isn't in the document
+- **Render** runs *everything* from top to bottom in a fresh session, and builds the HTML file
+- If it works when you run it by hand but fails at Render, you probably created something in the Console that isn't in the document
 
 ## Objects and Assignment
 
@@ -120,8 +113,8 @@ round(mean(pop), digits = 0)
 ```
 
 - A function takes **arguments** in parentheses and returns a result
-- Functions can nest. R works from the inside out
-- Stuck? Type `?round` in the Console to see its help page
+- Functions can nest. R works from the inside out.
+- Stuck? Type `?round` in the Console to see its help page.
 
 ## Data Frames
 
@@ -150,8 +143,7 @@ library(tidyverse)
 
 ## The Tidyverse
 
-A family of packages that share a design philosophy, and that are built to
-work together.
+A family of packages that share a design philosophy, and that are built to work together.
 
 | Package | Job |
 |---|---|
@@ -172,8 +164,7 @@ glimpse(midwest)
 - 437 counties in IL, IN, MI, OH and WI, from the 2000 Census
 - Comes with the tidyverse (inside ggplot2), so there's nothing to download
 - It's the same shape as your HW2 data: **one row per county**
-- Useful columns: `county`, `state`, `poptotal`, `percollege`,
-  `percbelowpoverty`, and `inmetro` (1 = metro county, 0 = non-metro)
+- Useful columns: `county`, `state`, `poptotal`, `percollege`, `percbelowpoverty`, and `inmetro` (1 = metro county, 0 = non-metro)
 
 ## Break? {background-color="#007155"}
 
@@ -182,10 +173,9 @@ glimpse(midwest)
 ## How Every dplyr Verb Works
 
 - The first argument is always a data frame
-- The other arguments say what to do with it, using column names
-  **without quotes**
+- The other arguments say what to do with it, using column names **without quotes**
 - The result is always a **new** data frame
-- The original is left unchanged. To keep a result, assign it with `<-`
+- The original is left unchanged. To keep a result, assign it with `<-`.
 
 ## The Pipe: `|>` {.smaller}
 
@@ -242,9 +232,8 @@ midwest |> filter(state == "WI" | "MI")  # has to be state == "MI"
 
 - The first one needs a double equals sign. 
   - A single `=` *sets* something, like an argument (`digits = 0`) or a new column in `mutate()`. 
-  - A double `==` *asks* a question, "is this equal to that?", and answers `TRUE` or `FALSE` for every row. `filter()` needs the question
-- The last one looks like it should work, but R needs a full comparison on
-each side of `|`. Use `%in%` instead.
+  - A double `==` *asks* a question, "is this equal to that?", and answers `TRUE` or `FALSE` for every row. `filter()` needs the question.
+- The last one looks like it should work, but R needs a full comparison on each side of `|`. Use `%in%` instead.
 
 ## `arrange()`: Sort Rows {.smaller}
 
@@ -300,9 +289,7 @@ midwest |>
 
 - `slice_head(n = 5)` and `slice_tail(n = 5)`: the first or last 5 rows
 - `slice_sample()` gives different rows every time you run it
-- Position depends on order, so `arrange()` then `slice_head()` gives you a
-  "top 5." `slice_max()` and `slice_min()` do that in one step (more on
-  those after the break)
+- Position depends on order, so `arrange()` then `slice_head()` gives you a "top 5." `slice_max()` and `slice_min()` do that in one step (more on those after the break).
 
 ## `distinct()` and `count()` {.smaller}
 
@@ -335,8 +322,7 @@ midwest |>
   select(county, state, starts_with("perc"))
 ```
 
-- Pick columns by name, or with helpers like `starts_with()`, `ends_with()`,
-  and `contains()`
+- Pick columns by name, or with helpers like `starts_with()`, `ends_with()`, and `contains()`
 - A minus sign drops columns: `select(-PID)`
 - You can also use column numbers (called indexes): `select(1, 2:5)`
 
@@ -351,10 +337,7 @@ midwest |>
 
 - `rename(new_name = old_name)`
 - `relocate()` moves columns without dropping any
-- Why the dot in `.after`? Most arguments to dplyr verbs are **your column
-  names**, so dplyr puts a `.` in front of its own settings (`.after`,
-  `.before`, `.by`) to keep the two from colliding. If your data had a column
-  called `after`, then `relocate(after)` would still mean that column
+- Why the dot in `.after`? Most arguments to dplyr verbs are **your column names**, so dplyr puts a `.` in front of its own settings (`.after`, `.before`, `.by`) to keep the two from colliding. If your data had a column called `after`, then `relocate(after)` would still mean that column.
 
 ## `mutate()`: Make New Columns {.smaller}
 
@@ -378,10 +361,8 @@ if_else(inmetro == 1, "Metro", "Non-metro")
   - a **condition**: a test that's `TRUE` or `FALSE` for each row
   - the value to use where the condition is `TRUE`
   - the value to use where the condition is `FALSE`
-- Here, R checks each county one at a time: if `inmetro == 1` is `TRUE`, the
-  new column gets `"Metro"`; if it's `FALSE`, it gets `"Non-metro"`
-- You'll also see base R's `ifelse()` (no underscore) online. It works the
-  same way, but `if_else()` is stricter and catches more mistakes
+- Here, R checks each county one at a time: if `inmetro == 1` is `TRUE`, the new column gets `"Metro"`; if it's `FALSE`, it gets `"Non-metro"`
+- You'll also see base R's `ifelse()` (no underscore) online. It works the same way, but `if_else()` is stricter and catches more mistakes.
 
 ## `case_when()`: More Than Two Outcomes {.smaller}
 
@@ -423,9 +404,8 @@ midwest |>
 
 ::::
 
-- Each line is `condition ~ value`. Read the `~` as "then"
-- R checks the lines **top to bottom** for each row, and the first `TRUE`
-  wins. That's why `"Medium"` doesn't need `& poptotal < 100000`
+- Each line is `condition ~ value`. Read the `~` as "then".
+- R checks the lines **top to bottom** for each row, and the first `TRUE` wins. That's why `"Medium"` doesn't need `& poptotal < 100000`.
 - `.default` catches everything that didn't match (another dot argument!)
 
 ## Your Turn (15 min) {.smaller}
@@ -434,8 +414,7 @@ Using `midwest`, write one pipeline for each:
 
 1. Non-metro counties in Illinois, sorted from highest to lowest poverty rate
 2. Keep only `county`, `state`, and every column that starts with `pop`
-3. Add a column for the share of adults with a college degree **who are not**
-   professionals (`percollege - percprof`)
+3. Add a column for the share of adults with a college degree **who are not** professionals (`percollege - percprof`)
 
 Work with a neighbor. If you get an error, read the whole message aloud to your partner first. It often tells you exactly what's wrong.
 
@@ -473,7 +452,7 @@ midwest |>
   )
 ```
 
-- `group_by()` doesn't change what you see. It changes what happens *next*
+- `group_by()` doesn't change what you see. It changes what happens *next*.
 - `summarize()` collapses each group down to **one row**
 - `count()` did this, but `summarize()` gives a lot more options!
 
@@ -485,14 +464,11 @@ midwest |>
   summarize(avg_poverty = mean(percbelowpoverty), .groups = "drop")
 ```
 
-**A question we might have**: is non-metro poverty higher than metro
-poverty in every state?
+**A question we might have**: is non-metro poverty higher than metro poverty in every state?
 
 ## Watch Out: Averaging Averages (or Percentages) {.smaller}
 
-`mean(percbelowpoverty)` treats a county of 1,700 people the same as
-Cook County (5 million). To get the real state-wide rate, add up the people,
-*then* divide:
+`mean(percbelowpoverty)` treats a county of 1,700 people the same as Cook County (5 million). To get the real state-wide rate, add up the people, *then* divide:
 
 ```{r}
 midwest |>
@@ -506,7 +482,7 @@ This is where data and coding collide, and it will come up again with the NBRC d
 
 ## Missing Values {.smaller}
 
-- Real data has gaps. In R, a missing value is `NA`
+- Real data has gaps. In R, a missing value is `NA`.
 - Any math with an `NA` in it returns `NA`, unless you tell R to skip them
 
 ```{r}
@@ -514,12 +490,11 @@ mean(c(10, 20, NA))
 mean(c(10, 20, NA), na.rm = TRUE)
 ```
 
-- `midwest` has no missing values, but your BEA data might. The HW2 'starter
-  code' handles most of it
+- `midwest` has no missing values, but your BEA data might. The HW2 'starter code' handles most of it.
 
 ## Dropping Missing Values: `is.na()` {.smaller}
 
-- To drop rows with a missing value, use `is.na()`. The `!` means "not"
+- To drop rows with a missing value, use `is.na()`. The `!` means "not".
 
 ```{r}
 town_income <- tibble(
@@ -530,8 +505,7 @@ town_income <- tibble(
 town_income |> filter(!is.na(income))
 ```
 
-- `filter(income == NA)` **doesn't work**. Nothing is ever "equal to" a
-  missing value, so always use `is.na()`
+- `filter(income == NA)` **doesn't work**. Nothing is ever "equal to" a missing value, so always use `is.na()`.
 
 ## `slice_max()` and `slice_min()` {.smaller}
 
@@ -561,11 +535,9 @@ midwest |>
 
 ::::
 
-- `# Groups: state [5]` means the result is **still grouped**. Anything you do
-  next happens state by state until you add `ungroup()`
+- `# Groups: state [5]` means the result is **still grouped**. Anything you do next happens state by state until you add `ungroup()`.
 <!-- - Shortcut: many verbs can group for just one step, with nothing left over:
-  `summarize(avg_poverty = mean(percbelowpoverty), .by = state)`. The
-  `slice_` verbs spell it `by`, with no dot -->
+  `summarize(avg_poverty = mean(percbelowpoverty), .by = state)`. The `slice_` verbs spell it `by`, with no dot -->
 
 ## Saving What You Make
 
@@ -578,16 +550,12 @@ nrow(rural_wi)
 ```
 
 - Without `<-`, the result prints and then disappears
-- **Give results new names** rather than overwriting the original. If you
-  write `midwest <- midwest |> filter(...)`, the rest of the data is gone
-  until you re-run from the top
+- **Give results new names** rather than overwriting the original. If you write `midwest <- midwest |> filter(...)`, the rest of the data is gone until you re-run from the top.
 
 ## Your Turn (15 min)
 
-1. How many non-metro counties does each state have? (Hint: `count()` can
-   take two columns)
-2. For each state, find the non-metro county with the highest share of
-   college graduates
+1. How many non-metro counties does each state have? (Hint: `count()` can take two columns.)
+2. For each state, find the non-metro county with the highest share of college graduates
 3. **This one's challenging:** for each state, what share of *people* (not counties) live in a metro county?
 
 ## Your Turn: One Way to Do It {.smaller}
@@ -613,9 +581,8 @@ midwest |>
 
 ## Why Style Matters
 
-- You will read your code more often than you write it, and so will your
-  NBRC teammates
-- R4DS Ch. 4 is the full guide. Here are the rules that matter most
+- You will read your code more often than you write it, and so will your NBRC teammates
+- R4DS Ch. 4 is the full guide. Here are the rules that matter most.
 
 ## A Few Rules (More Like Guidelines) {.smaller}
 
@@ -657,16 +624,15 @@ Read the **whole** message. The answer is usually in there.
 
 ## Let's Do Step 1 Together
 
-- BEA's website takes a few clicks to navigate, so we'll get everyone's
-  `hw2a.csv` downloaded and uploaded into `homework/data` before you leave
+- BEA's website takes a few clicks to navigate, so we'll get everyone's `hw2a.csv` downloaded and uploaded into `homework/data` before you leave
 - After that, everything else in the assignment uses tonight's tools
 
 ## Before Next Class
 
 - [ ] **HW1** due Sunday, Sept. 13 by 11:59pm. Render before you save!
 - [ ] Download your first BEA file for HW2, if we didn't finish tonight
-- [ ] Read R4DS [Ch. 7 (Data import)](https://r4ds.hadley.nz/data-import)
-      and [Ch. 8 (Getting help)](https://r4ds.hadley.nz/workflow-help), and
-      skim [Ch. 5 (Data tidying)](https://r4ds.hadley.nz/data-tidy)
+- [ ] Read R4DS [Ch. 7 (Data import)](https://r4ds.hadley.nz/data-import) and [Ch. 8 (Getting help)](https://r4ds.hadley.nz/workflow-help), and skim [Ch. 5 (Data tidying)](https://r4ds.hadley.nz/data-tidy)
 
 Next week: getting data from files, APIs, and the web, plus joins.
+
+## Thank you! {background-color="#007155"}

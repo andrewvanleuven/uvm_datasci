@@ -32,3 +32,16 @@ $body-bg: #ffffff;
 .reveal .slides section.smaller h2.title-long {
   font-size: calc(1.2em / 0.7);
 }
+
+// Side-by-side figures (layout-ncol): drop the image, figure, and panel
+// margins that otherwise leave a large empty gap under the plots.
+.reveal .quarto-layout-panel {
+  margin-bottom: 0.4em;
+}
+.reveal .quarto-layout-panel .quarto-figure,
+.reveal .quarto-layout-panel figure,
+.reveal .quarto-layout-panel figure p,
+.reveal .quarto-layout-panel img {
+  margin: 0;
+  line-height: 0;
+}

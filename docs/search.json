@@ -116,49 +116,49 @@
     "href": "slides/week03.html#where-data-comes-from",
     "title": "Week 3: Getting Data",
     "section": "Where Data Comes From",
-    "text": "Where Data Comes From\n\n\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API (application programming interface) you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS Ch. 24, much further along in the book than we’ve gotten\nReading files is readr’s job, the tidyverse package behind read_csv() and other similar functions"
+    "text": "Where Data Comes From\n\n\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API (application programming interface) you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS Ch. 24, much further along in the book than we’ve gotten.\nReading files is readr’s job, the tidyverse package behind read_csv() and other similar functions"
   },
   {
     "objectID": "slides/week03.html#reading-files-revisited",
     "href": "slides/week03.html#reading-files-revisited",
     "title": "Week 3: Getting Data",
     "section": "Reading Files, Revisited",
-    "text": "Reading Files, Revisited\n\nread_csv(\n  \"data/hw2a.csv\",\n  skip = 3,\n  na = c(\"\", \"NA\", \"(NA)\", \"N/A\")\n)\n\n\nread_csv() is in HW2’s starter code\nskip jumps past header rows a file doesn’t need, common in government exports\nna tells readr which strings actually mean “missing.” This varies widely.\nreadr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column"
+    "text": "Reading Files, Revisited\n\nread_csv(\n  \"data/hw2a.csv\",\n  skip = 3,\n  na = c(\"\", \"NA\", \"(NA)\", \"N/A\")\n)\n\n\nread_csv() is in HW2’s starter code\nskip jumps past header rows a file doesn’t need, common in government exports\nna tells readr which strings actually mean “missing.” This varies widely.\nreadr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column."
   },
   {
     "objectID": "slides/week03.html#whats-an-api",
     "href": "slides/week03.html#whats-an-api",
     "title": "Week 3: Getting Data",
     "section": "What’s an API?",
-    "text": "What’s an API?\n\nApplication programming interface: structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t"
+    "text": "What’s an API?\n\nApplication programming interface: structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t."
   },
   {
     "objectID": "slides/week03.html#not-every-api-is-free",
     "href": "slides/week03.html#not-every-api-is-free",
     "title": "Week 3: Getting Data",
     "section": "Not Every API Is Free",
-    "text": "Not Every API Is Free\n\nThere is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.\nThe catch: you have to pay! (a fraction of a penny for each, but it adds up)\nIf a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time."
+    "text": "Not Every API Is Free\n\nThere is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.\nThe catch: you have to pay! (a fraction of a penny for each, but it adds up).\nIf a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time."
   },
   {
     "objectID": "slides/week03.html#a-live-example-the-bls-api",
     "href": "slides/week03.html#a-live-example-the-bls-api",
     "title": "Week 3: Getting Data",
     "section": "A Live Example: the BLS API",
-    "text": "A Live Example: the BLS API\n\nlibrary(jsonlite)\n\nurl &lt;- \"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000\"\nbls_raw &lt;- fromJSON(url)\nbls_raw\n\nbls_raw$Results$series$data[[1]] |&gt; head()\n\n\nLNS14000000 is the BLS series ID for the national unemployment rate\nNo key needed for a request this small, heavier use wants a free one\nfromJSON() already turned the nested JSON into data frames. We just have to dig through the list to find the one we want\nRead bls_raw$Results$series$data[[1]] left to right: start at bls_raw, step into $Results, then $series, then grab the first item out of the data list with [[1]]"
+    "text": "A Live Example: the BLS API\n\nlibrary(jsonlite)\n\nurl &lt;- \"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000\"\nbls_raw &lt;- fromJSON(url)\nbls_raw\n\nbls_raw$Results$series$data[[1]] |&gt; head()\n\n\nLNS14000000 is the BLS series ID for the national unemployment rate\nNo key needed for a request this small, heavier use wants a free one\nfromJSON() already turned the nested JSON into data frames. We just have to dig through the list to find the one we want.\nRead bls_raw$Results$series$data[[1]] left to right: start at bls_raw, step into $Results, then $series, then grab the first item out of the data list with [[1]]"
   },
   {
     "objectID": "slides/week03.html#turning-it-into-a-tidy-data-frame",
     "href": "slides/week03.html#turning-it-into-a-tidy-data-frame",
     "title": "Week 3: Getting Data",
     "section": "Turning It Into a Tidy Data Frame",
-    "text": "Turning It Into a Tidy Data Frame\n\nunemployment &lt;- bls_raw$Results$series$data[[1]] |&gt;\n  as_tibble() |&gt;\n  select(year, period, value) |&gt;\n  mutate(value = as.numeric(value))\n\nunemployment\n\n\n$ and [[ ]] dig through the nested list until you hit the data frame you actually want\nWatch value after the conversion: one row comes back NA, from the month of the 2025 government shutdown. Real missing data, not a mistake\nWeek 8’s tidycensus wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend."
+    "text": "Turning It Into a Tidy Data Frame\n\nunemployment &lt;- bls_raw$Results$series$data[[1]] |&gt;\n  as_tibble() |&gt;\n  select(year, period, value) |&gt;\n  mutate(value = as.numeric(value))\n\nunemployment\n\n\n$ and [[ ]] dig through the nested list until you hit the data frame you actually want\nWatch value after the conversion: one row comes back NA, from the month of the 2025 government shutdown. Real missing data, not a mistake.\nWeek 8’s tidycensus wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend."
   },
   {
     "objectID": "slides/week03.html#web-scraping-a-quick-look",
     "href": "slides/week03.html#web-scraping-a-quick-look",
     "title": "Week 3: Getting Data",
     "section": "Web Scraping: A Quick Look",
-    "text": "Web Scraping: A Quick Look\n\nlibrary(rvest)\n\npage &lt;- read_html(\"https://en.wikipedia.org/wiki/List_of_counties_in_Vermont\")\ncounties &lt;- page |&gt;\n  html_element(\"table.wikitable\") |&gt;\n  html_table()\n\n\nSome data only exists inside a web page, with no file or API behind it\nrvest reads a page’s HTML and pulls out a specific table or element\nThe process is fragile: if the page’s layout changes, your code breaks with no warning\nUse it last, after checking for a file or an API. Read the site’s terms of service and robots.txt first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked"
+    "text": "Web Scraping: A Quick Look\n\nlibrary(rvest)\n\npage &lt;- read_html(\"https://en.wikipedia.org/wiki/List_of_counties_in_Vermont\")\ncounties &lt;- page |&gt;\n  html_element(\"table.wikitable\") |&gt;\n  html_table()\n\n\nSome data only exists inside a web page, with no file or API behind it\nrvest reads a page’s HTML and pulls out a specific table or element\nThe process is fragile: if the page’s layout changes, your code breaks with no warning\nUse it last, after checking for a file or an API. Read the site’s terms of service and robots.txt first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked."
   },
   {
     "objectID": "slides/week03.html#break",
@@ -172,7 +172,7 @@
     "href": "slides/week03.html#why-joins",
     "title": "Week 3: Getting Data",
     "section": "Why Joins",
-    "text": "Why Joins\n\nHW2 step 5 asks you to combine df and df2 using a shared column, county_fips\nA join lines up rows from two tables using one or more shared columns, called keys (we will often refer to this as a “unique identifier”)\nNothing here is BEA-specific. Joins work the same way on any two data frames that share a key"
+    "text": "Why Joins\n\nHW2 step 5 asks you to combine df and df2 using a shared column, county_fips\nA join lines up rows from two tables using one or more shared columns, called keys (we will often refer to this as a “unique identifier”)\nNothing here is BEA-specific. Joins work the same way on any two data frames that share a key."
   },
   {
     "objectID": "slides/week03.html#a-small-example",
@@ -186,7 +186,7 @@
     "href": "slides/week03.html#left_join-keep-everything-on-the-left",
     "title": "Week 3: Getting Data",
     "section": "left_join(): Keep Everything on the Left",
-    "text": "left_join(): Keep Everything on the Left\n\npop |&gt; left_join(income, by = \"county_fips\")\n\n# A tibble: 3 × 4\n  county_fips county_name population income\n  &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;  &lt;dbl&gt;\n1 50001       Addison          37363  58000\n2 50003       Bennington       34478  52000\n3 50007       Chittenden      168323     NA\n\n\n\nEvery row of pop survives, matched or not\nChittenden (50007) has no match in income, so it gets NA\n50011’s income is dropped. It wasn’t in pop to begin with"
+    "text": "left_join(): Keep Everything on the Left\n\npop |&gt; left_join(income, by = \"county_fips\")\n\n# A tibble: 3 × 4\n  county_fips county_name population income\n  &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;  &lt;dbl&gt;\n1 50001       Addison          37363  58000\n2 50003       Bennington       34478  52000\n3 50007       Chittenden      168323     NA\n\n\n\nEvery row of pop survives, matched or not\nChittenden (50007) has no match in income, so it gets NA\n50011’s income is dropped. It wasn’t in pop to begin with."
   },
   {
     "objectID": "slides/week03.html#other-join-types-briefly",
@@ -221,7 +221,7 @@
     "href": "slides/week03.html#joining-them",
     "title": "Week 3: Getting Data",
     "section": "Joining Them",
-    "text": "Joining Them\n\nflights |&gt;\n  select(year, month, day, carrier, flight, dest) |&gt;\n  left_join(airlines, by = \"carrier\")\n\n# A tibble: 336,776 × 7\n   year month   day carrier flight dest  name                  \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                 \n1  2013     1     1 UA        1545 IAH   United Air Lines Inc. \n2  2013     1     1 UA        1714 IAH   United Air Lines Inc. \n3  2013     1     1 AA        1141 MIA   American Airlines Inc.\n4  2013     1     1 B6         725 BQN   JetBlue Airways       \n5  2013     1     1 DL         461 ATL   Delta Air Lines Inc.  \n# ℹ 336,771 more rows\n\n\n\nSame left_join(), same idea as pop and income, just bigger, real data\nEvery flight keeps its row. It just gains the airline’s full name"
+    "text": "Joining Them\n\nflights |&gt;\n  select(year, month, day, carrier, flight, dest) |&gt;\n  left_join(airlines, by = \"carrier\")\n\n# A tibble: 336,776 × 7\n   year month   day carrier flight dest  name                  \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                 \n1  2013     1     1 UA        1545 IAH   United Air Lines Inc. \n2  2013     1     1 UA        1714 IAH   United Air Lines Inc. \n3  2013     1     1 AA        1141 MIA   American Airlines Inc.\n4  2013     1     1 B6         725 BQN   JetBlue Airways       \n5  2013     1     1 DL         461 ATL   Delta Air Lines Inc.  \n# ℹ 336,771 more rows\n\n\n\nSame left_join(), same idea as pop and income, just bigger, real data\nEvery flight keeps its row. It just gains the airline’s full name."
   },
   {
     "objectID": "slides/week03.html#your-turn-15-min",
@@ -242,7 +242,14 @@
     "href": "slides/week03.html#before-next-class",
     "title": "Week 3: Getting Data",
     "section": "Before Next Class",
-    "text": "Before Next Class\n\nNothing new due this week, but get HW2 (due Sept. 27) working if tonight’s join didn’t click. Office hours or email, any time\nRead R4DS Ch. 9 (Layers) and Ch. 10 (Exploratory data analysis), and skim Ch. 11 (Communication)\n\nNext week: exploratory data analysis and your first ggplot2 charts."
+    "text": "Before Next Class\n\nNothing new due this week, but get HW2 (due Sept. 27) working if tonight’s join didn’t click. Office hours or email, any time.\nRead R4DS Ch. 9 (Layers) and Ch. 10 (Exploratory data analysis), and skim Ch. 11 (Communication)\n\nNext week: exploratory data analysis and your first ggplot2 charts."
+  },
+  {
+    "objectID": "slides/week03.html#thank-you",
+    "href": "slides/week03.html#thank-you",
+    "title": "Week 3: Getting Data",
+    "section": "Thank you!",
+    "text": "Thank you!"
   },
   {
     "objectID": "slides/week01.html#welcome",
@@ -270,7 +277,7 @@
     "href": "slides/week01.html#attendance-participation",
     "title": "Week 1: What is Data Science?",
     "section": "Attendance & Participation",
-    "text": "Attendance & Participation\n\nAttendance tracked starting Week 2\nOne free absence, no questions asked\nAfter that, it costs you. Give me a heads-up in advance if you know you’ll miss one\nThis is a lab-heavy course. You learn R by writing R, not by watching it"
+    "text": "Attendance & Participation\n\nAttendance tracked starting Week 2\nOne free absence, no questions asked\nAfter that, it costs you. Give me a heads-up in advance if you know you’ll miss one.\nThis is a lab-heavy course. You learn R by writing R, not by watching it."
   },
   {
     "objectID": "slides/week01.html#ai-tools-encouraged-with-a-catch",
@@ -312,7 +319,7 @@
     "href": "slides/week01.html#primary-vs.-secondary-data",
     "title": "Week 1: What is Data Science?",
     "section": "Primary vs. Secondary Data",
-    "text": "Primary vs. Secondary Data\n\nPrimary data: you collected it yourself\nSecondary data: someone else collected it, and you’re using it\nRule of thumb: if you have to ask, it’s secondary data\nAlmost everything we touch this semester, the ACS, Census, USDA ERS, and any data NBRC hands us, is secondary. Knowing where it came from and how it was collected matters as much as what it says"
+    "text": "Primary vs. Secondary Data\n\nPrimary data: you collected it yourself\nSecondary data: someone else collected it, and you’re using it\nRule of thumb: if you have to ask, it’s secondary data\nAlmost everything we touch this semester, the ACS, Census, USDA ERS, and any data NBRC hands us, is secondary. Knowing where it came from and how it was collected matters as much as what it says."
   },
   {
     "objectID": "slides/week01.html#what-is-data-science",
@@ -355,6 +362,13 @@
     "title": "Week 1: What is Data Science?",
     "section": "Before Next Class",
     "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (confirmed live in class today)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
+  },
+  {
+    "objectID": "slides/week01.html#thank-you",
+    "href": "slides/week01.html#thank-you",
+    "title": "Week 1: What is Data Science?",
+    "section": "Thank you!",
+    "text": "Thank you!"
   },
   {
     "objectID": "project.html",
@@ -550,7 +564,7 @@
     "href": "slides/week02.html#welcome-to-lafayette-l202",
     "title": "Week 2: Into the Tidyverse",
     "section": "Welcome to Lafayette L202",
-    "text": "Welcome to Lafayette L202\n\nOur first in-person session. Let’s do a quick re-introduction (name, day job, hometown)\nToday is hands-on. Open your Posit Cloud project and keep it open all night\nTonight’s goal is to get comfortable with R and use it to manipulate some real-world data"
+    "text": "Welcome to Lafayette L202\n\nOur first in-person session. Let’s do a quick re-introduction (name, day job, hometown).\nToday is hands-on. Open your Posit Cloud project and keep it open all night.\nTonight’s goal is to get comfortable with R and use it to manipulate some real-world data"
   },
   {
     "objectID": "slides/week02.html#todays-plan",
@@ -564,21 +578,21 @@
     "href": "slides/week02.html#hw1-due-sunday-sept.-13-by-1159pm",
     "title": "Week 2: Into the Tidyverse",
     "section": "HW1: Due Sunday (Sept. 13) by 11:59pm",
-    "text": "HW1: Due Sunday (Sept. 13) by 11:59pm\nTwo notes on the version in your project:\n\nMake your two vectors the same length. Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error\nClick Render before you save. Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page"
+    "text": "HW1: Due Sunday (Sept. 13) by 11:59pm\nTwo notes on the version in your project:\n\nMake your two vectors the same length. Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error.\nClick Render before you save. Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page."
   },
   {
     "objectID": "slides/week02.html#get-hw2-into-your-project",
     "href": "slides/week02.html#get-hw2-into-your-project",
     "title": "Week 2: Into the Tidyverse",
     "section": "Get HW2 Into Your Project",
-    "text": "Get HW2 Into Your Project\nThe hw2.qmd in your project is an old placeholder. Let’s swap in the real one together.\n\nClick the Terminal tab, next to Console (not the Console itself!)\nCopy and paste these two lines, then press Enter:\n\ngit fetch\ngit checkout origin/main -- homework/hw2.qmd homework/data README.md\n\nOpen homework/hw2.qmd. It should start with instructions for downloading BEA data, and you should see a new homework/data folder"
+    "text": "Get HW2 Into Your Project\nThe hw2.qmd in your project is an old placeholder. Let’s swap in the real one together.\n\nClick the Terminal tab, next to Console (not the Console itself!)\nCopy and paste these two lines, then press Enter:\n\ngit fetch\ngit checkout origin/main -- homework/hw2.qmd homework/data README.md\n\nOpen homework/hw2.qmd. It should start with instructions for downloading BEA data, and you should see a new homework/data folder."
   },
   {
     "objectID": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
     "href": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
     "title": "Week 2: Into the Tidyverse",
     "section": "Get HW2 Into Your Project: What to Expect",
-    "text": "Get HW2 Into Your Project: What to Expect\n\nNo output is normal. If nothing prints, it worked\nThe Git pane may list a few files as changed. Ignore it\nYour HW1 work is not touched\nPlease don’t use git pull or the Pull button. From here on, every new homework comes out with these same two lines and a different file name"
+    "text": "Get HW2 Into Your Project: What to Expect\n\nNo output is normal. If nothing prints, it worked.\nThe Git pane may list a few files as changed. Ignore it.\nYour HW1 work is not touched\nPlease don’t use git pull or the Pull button. From here on, every new homework comes out with these same two lines and a different file name."
   },
   {
     "objectID": "slides/week02.html#where-things-live-in-rstudio",
@@ -606,7 +620,7 @@
     "href": "slides/week02.html#functions",
     "title": "Week 2: Into the Tidyverse",
     "section": "Functions",
-    "text": "Functions\n\nmean(pop)\n\n[1] 19897.67\n\nmax(pop)\n\n[1] 44743\n\nround(mean(pop), digits = 0)\n\n[1] 19898\n\n\n\nA function takes arguments in parentheses and returns a result\nFunctions can nest. R works from the inside out\nStuck? Type ?round in the Console to see its help page"
+    "text": "Functions\n\nmean(pop)\n\n[1] 19897.67\n\nmax(pop)\n\n[1] 44743\n\nround(mean(pop), digits = 0)\n\n[1] 19898\n\n\n\nA function takes arguments in parentheses and returns a result\nFunctions can nest. R works from the inside out.\nStuck? Type ?round in the Console to see its help page."
   },
   {
     "objectID": "slides/week02.html#data-frames",
@@ -655,7 +669,7 @@
     "href": "slides/week02.html#how-every-dplyr-verb-works",
     "title": "Week 2: Into the Tidyverse",
     "section": "How Every dplyr Verb Works",
-    "text": "How Every dplyr Verb Works\n\nThe first argument is always a data frame\nThe other arguments say what to do with it, using column names without quotes\nThe result is always a new data frame\nThe original is left unchanged. To keep a result, assign it with &lt;-"
+    "text": "How Every dplyr Verb Works\n\nThe first argument is always a data frame\nThe other arguments say what to do with it, using column names without quotes\nThe result is always a new data frame\nThe original is left unchanged. To keep a result, assign it with &lt;-."
   },
   {
     "objectID": "slides/week02.html#the-pipe",
@@ -683,7 +697,7 @@
     "href": "slides/week02.html#filter-mistakes-everyone-makes",
     "title": "Week 2: Into the Tidyverse",
     "section": "filter(): Mistakes Everyone Makes",
-    "text": "filter(): Mistakes Everyone Makes\n\nmidwest |&gt; filter(state = \"WI\")          # one = sign\nmidwest |&gt; filter(state == WI)           # forgot the quotes\nmidwest |&gt; filter(state == \"wi\")         # capitalization matters\nmidwest |&gt; filter(state == \"WI\" | \"MI\")  # has to be state == \"MI\"\n\n\nThe first one needs a double equals sign.\n\nA single = sets something, like an argument (digits = 0) or a new column in mutate().\nA double == asks a question, “is this equal to that?”, and answers TRUE or FALSE for every row. filter() needs the question\n\nThe last one looks like it should work, but R needs a full comparison on each side of |. Use %in% instead."
+    "text": "filter(): Mistakes Everyone Makes\n\nmidwest |&gt; filter(state = \"WI\")          # one = sign\nmidwest |&gt; filter(state == WI)           # forgot the quotes\nmidwest |&gt; filter(state == \"wi\")         # capitalization matters\nmidwest |&gt; filter(state == \"WI\" | \"MI\")  # has to be state == \"MI\"\n\n\nThe first one needs a double equals sign.\n\nA single = sets something, like an argument (digits = 0) or a new column in mutate().\nA double == asks a question, “is this equal to that?”, and answers TRUE or FALSE for every row. filter() needs the question.\n\nThe last one looks like it should work, but R needs a full comparison on each side of |. Use %in% instead."
   },
   {
     "objectID": "slides/week02.html#arrange-sort-rows",
@@ -697,7 +711,7 @@
     "href": "slides/week02.html#slice-pick-rows-by-position",
     "title": "Week 2: Into the Tidyverse",
     "section": "slice(): Pick Rows by Position",
-    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 BENTON    IN        9441\n2 HENDRICKS IN       75717\n3 ISABELLA  MI       54624\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)"
+    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county      state poptotal\n  &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;\n1 MASON       MI       25537\n2 FOND DU LAC WI       90083\n3 MORGAN      IN       55920\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)."
   },
   {
     "objectID": "slides/week02.html#distinct-and-count",
@@ -718,7 +732,7 @@
     "href": "slides/week02.html#rename-and-relocate",
     "title": "Week 2: Into the Tidyverse",
     "section": "rename() and relocate()",
-    "text": "rename() and relocate()\n\nmidwest |&gt;\n  rename(metro = inmetro, pop = poptotal) |&gt;\n  relocate(metro, .after = state) |&gt;\n  select(county:pop)\n\n# A tibble: 437 × 5\n  county    state metro  area   pop\n  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;\n1 ADAMS     IL        0 0.052 66090\n2 ALEXANDER IL        0 0.014 10626\n3 BOND      IL        0 0.022 14991\n4 BOONE     IL        1 0.017 30806\n5 BROWN     IL        0 0.018  5836\n# ℹ 432 more rows\n\n\n\nrename(new_name = old_name)\nrelocate() moves columns without dropping any\nWhy the dot in .after? Most arguments to dplyr verbs are your column names, so dplyr puts a . in front of its own settings (.after, .before, .by) to keep the two from colliding. If your data had a column called after, then relocate(after) would still mean that column"
+    "text": "rename() and relocate()\n\nmidwest |&gt;\n  rename(metro = inmetro, pop = poptotal) |&gt;\n  relocate(metro, .after = state) |&gt;\n  select(county:pop)\n\n# A tibble: 437 × 5\n  county    state metro  area   pop\n  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;\n1 ADAMS     IL        0 0.052 66090\n2 ALEXANDER IL        0 0.014 10626\n3 BOND      IL        0 0.022 14991\n4 BOONE     IL        1 0.017 30806\n5 BROWN     IL        0 0.018  5836\n# ℹ 432 more rows\n\n\n\nrename(new_name = old_name)\nrelocate() moves columns without dropping any\nWhy the dot in .after? Most arguments to dplyr verbs are your column names, so dplyr puts a . in front of its own settings (.after, .before, .by) to keep the two from colliding. If your data had a column called after, then relocate(after) would still mean that column."
   },
   {
     "objectID": "slides/week02.html#mutate-make-new-columns",
@@ -732,14 +746,14 @@
     "href": "slides/week02.html#if_else-pick-between-two-values",
     "title": "Week 2: Into the Tidyverse",
     "section": "if_else(): Pick Between Two Values",
-    "text": "if_else(): Pick Between Two Values\n\nif_else(inmetro == 1, \"Metro\", \"Non-metro\")\n\n\nif_else() takes 3 arguments, in this order:\n\na condition: a test that’s TRUE or FALSE for each row\nthe value to use where the condition is TRUE\nthe value to use where the condition is FALSE\n\nHere, R checks each county one at a time: if inmetro == 1 is TRUE, the new column gets \"Metro\"; if it’s FALSE, it gets \"Non-metro\"\nYou’ll also see base R’s ifelse() (no underscore) online. It works the same way, but if_else() is stricter and catches more mistakes"
+    "text": "if_else(): Pick Between Two Values\n\nif_else(inmetro == 1, \"Metro\", \"Non-metro\")\n\n\nif_else() takes 3 arguments, in this order:\n\na condition: a test that’s TRUE or FALSE for each row\nthe value to use where the condition is TRUE\nthe value to use where the condition is FALSE\n\nHere, R checks each county one at a time: if inmetro == 1 is TRUE, the new column gets \"Metro\"; if it’s FALSE, it gets \"Non-metro\"\nYou’ll also see base R’s ifelse() (no underscore) online. It works the same way, but if_else() is stricter and catches more mistakes."
   },
   {
     "objectID": "slides/week02.html#case_when-more-than-two-outcomes",
     "href": "slides/week02.html#case_when-more-than-two-outcomes",
     "title": "Week 2: Into the Tidyverse",
     "section": "case_when(): More Than Two Outcomes",
-    "text": "case_when(): More Than Two Outcomes\n\n\n\n\n\n\n\nFor reference\n\n\nWe won’t use case_when() again in class, but it’s here for when you need it.\n\n\n\n\n\n\n\nmidwest |&gt;\n  mutate(\n    size = case_when(\n      poptotal &gt;= 100000 ~ \"Large\",\n      poptotal &gt;= 25000 ~ \"Medium\",\n      .default = \"Small\"\n    )\n  ) |&gt;\n  count(size)\n\n\n\n\n# A tibble: 3 × 2\n  size       n\n  &lt;chr&gt;  &lt;int&gt;\n1 Large     85\n2 Medium   198\n3 Small    154\n\n\n\n\nEach line is condition ~ value. Read the ~ as “then”\nR checks the lines top to bottom for each row, and the first TRUE wins. That’s why \"Medium\" doesn’t need & poptotal &lt; 100000\n.default catches everything that didn’t match (another dot argument!)"
+    "text": "case_when(): More Than Two Outcomes\n\n\n\n\n\n\n\nFor reference\n\n\nWe won’t use case_when() again in class, but it’s here for when you need it.\n\n\n\n\n\n\n\nmidwest |&gt;\n  mutate(\n    size = case_when(\n      poptotal &gt;= 100000 ~ \"Large\",\n      poptotal &gt;= 25000 ~ \"Medium\",\n      .default = \"Small\"\n    )\n  ) |&gt;\n  count(size)\n\n\n\n\n# A tibble: 3 × 2\n  size       n\n  &lt;chr&gt;  &lt;int&gt;\n1 Large     85\n2 Medium   198\n3 Small    154\n\n\n\n\nEach line is condition ~ value. Read the ~ as “then”.\nR checks the lines top to bottom for each row, and the first TRUE wins. That’s why \"Medium\" doesn’t need & poptotal &lt; 100000.\n.default catches everything that didn’t match (another dot argument!)"
   },
   {
     "objectID": "slides/week02.html#your-turn-15-min",
@@ -767,7 +781,7 @@
     "href": "slides/week02.html#group_by-summarize",
     "title": "Week 2: Into the Tidyverse",
     "section": "group_by() + summarize()",
-    "text": "group_by() + summarize()\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    counties = n(),\n    total_pop = sum(poptotal),\n    avg_poverty = mean(percbelowpoverty)\n  )\n\n# A tibble: 5 × 4\n  state counties total_pop avg_poverty\n  &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;       &lt;dbl&gt;\n1 IL         102  11430602        13.1\n2 IN          92   5544159        10.3\n3 MI          83   9295297        14.2\n4 OH          88  10847115        13.0\n5 WI          72   4891769        11.9\n\n\n\ngroup_by() doesn’t change what you see. It changes what happens next\nsummarize() collapses each group down to one row\ncount() did this, but summarize() gives a lot more options!"
+    "text": "group_by() + summarize()\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    counties = n(),\n    total_pop = sum(poptotal),\n    avg_poverty = mean(percbelowpoverty)\n  )\n\n# A tibble: 5 × 4\n  state counties total_pop avg_poverty\n  &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;       &lt;dbl&gt;\n1 IL         102  11430602        13.1\n2 IN          92   5544159        10.3\n3 MI          83   9295297        14.2\n4 OH          88  10847115        13.0\n5 WI          72   4891769        11.9\n\n\n\ngroup_by() doesn’t change what you see. It changes what happens next.\nsummarize() collapses each group down to one row\ncount() did this, but summarize() gives a lot more options!"
   },
   {
     "objectID": "slides/week02.html#grouping-by-two-things",
@@ -788,35 +802,35 @@
     "href": "slides/week02.html#missing-values",
     "title": "Week 2: Into the Tidyverse",
     "section": "Missing Values",
-    "text": "Missing Values\n\nReal data has gaps. In R, a missing value is NA\nAny math with an NA in it returns NA, unless you tell R to skip them\n\n\nmean(c(10, 20, NA))\n\n[1] NA\n\nmean(c(10, 20, NA), na.rm = TRUE)\n\n[1] 15\n\n\n\nmidwest has no missing values, but your BEA data might. The HW2 ‘starter code’ handles most of it"
+    "text": "Missing Values\n\nReal data has gaps. In R, a missing value is NA.\nAny math with an NA in it returns NA, unless you tell R to skip them\n\n\nmean(c(10, 20, NA))\n\n[1] NA\n\nmean(c(10, 20, NA), na.rm = TRUE)\n\n[1] 15\n\n\n\nmidwest has no missing values, but your BEA data might. The HW2 ‘starter code’ handles most of it."
   },
   {
     "objectID": "slides/week02.html#dropping-missing-values-is.na",
     "href": "slides/week02.html#dropping-missing-values-is.na",
     "title": "Week 2: Into the Tidyverse",
     "section": "Dropping Missing Values: is.na()",
-    "text": "Dropping Missing Values: is.na()\n\nTo drop rows with a missing value, use is.na(). The ! means “not”\n\n\ntown_income &lt;- tibble(\n  town = c(\"Burlington\", \"Montpelier\", \"St. Albans\"),\n  income = c(52000, NA, 61000)\n)\n\ntown_income |&gt; filter(!is.na(income))\n\n# A tibble: 2 × 2\n  town       income\n  &lt;chr&gt;       &lt;dbl&gt;\n1 Burlington  52000\n2 St. Albans  61000\n\n\n\nfilter(income == NA) doesn’t work. Nothing is ever “equal to” a missing value, so always use is.na()"
+    "text": "Dropping Missing Values: is.na()\n\nTo drop rows with a missing value, use is.na(). The ! means “not”.\n\n\ntown_income &lt;- tibble(\n  town = c(\"Burlington\", \"Montpelier\", \"St. Albans\"),\n  income = c(52000, NA, 61000)\n)\n\ntown_income |&gt; filter(!is.na(income))\n\n# A tibble: 2 × 2\n  town       income\n  &lt;chr&gt;       &lt;dbl&gt;\n1 Burlington  52000\n2 St. Albans  61000\n\n\n\nfilter(income == NA) doesn’t work. Nothing is ever “equal to” a missing value, so always use is.na()."
   },
   {
     "objectID": "slides/week02.html#slice_max-and-slice_min",
     "href": "slides/week02.html#slice_max-and-slice_min",
     "title": "Week 2: Into the Tidyverse",
     "section": "slice_max() and slice_min()",
-    "text": "slice_max() and slice_min()\n\n\nThe biggest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_max(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 COOK      IL     5105067\n2 MARION    IN      797159\n3 WAYNE     MI     2111687\n4 CUYAHOGA  OH     1412140\n5 MILWAUKEE WI      959275\n\n\n\nThe smallest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_min(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 POPE      IL        4373\n2 OHIO      IN        5315\n3 KEWEENAW  MI        1701\n4 VINTON    OH       11098\n5 MENOMINEE WI        3890\n\n\n\n\n# Groups: state [5] means the result is still grouped. Anything you do next happens state by state until you add ungroup()"
+    "text": "slice_max() and slice_min()\n\n\nThe biggest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_max(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 COOK      IL     5105067\n2 MARION    IN      797159\n3 WAYNE     MI     2111687\n4 CUYAHOGA  OH     1412140\n5 MILWAUKEE WI      959275\n\n\n\nThe smallest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_min(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 POPE      IL        4373\n2 OHIO      IN        5315\n3 KEWEENAW  MI        1701\n4 VINTON    OH       11098\n5 MENOMINEE WI        3890\n\n\n\n\n# Groups: state [5] means the result is still grouped. Anything you do next happens state by state until you add ungroup()."
   },
   {
     "objectID": "slides/week02.html#saving-what-you-make",
     "href": "slides/week02.html#saving-what-you-make",
     "title": "Week 2: Into the Tidyverse",
     "section": "Saving What You Make",
-    "text": "Saving What You Make\n\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0)\n\nnrow(midwest)\n\n[1] 437\n\nnrow(rural_wi)\n\n[1] 52\n\n\n\nWithout &lt;-, the result prints and then disappears\nGive results new names rather than overwriting the original. If you write midwest &lt;- midwest |&gt; filter(...), the rest of the data is gone until you re-run from the top"
+    "text": "Saving What You Make\n\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0)\n\nnrow(midwest)\n\n[1] 437\n\nnrow(rural_wi)\n\n[1] 52\n\n\n\nWithout &lt;-, the result prints and then disappears\nGive results new names rather than overwriting the original. If you write midwest &lt;- midwest |&gt; filter(...), the rest of the data is gone until you re-run from the top."
   },
   {
     "objectID": "slides/week02.html#your-turn-15-min-1",
     "href": "slides/week02.html#your-turn-15-min-1",
     "title": "Week 2: Into the Tidyverse",
     "section": "Your Turn (15 min)",
-    "text": "Your Turn (15 min)\n\nHow many non-metro counties does each state have? (Hint: count() can take two columns)\nFor each state, find the non-metro county with the highest share of college graduates\nThis one’s challenging: for each state, what share of people (not counties) live in a metro county?"
+    "text": "Your Turn (15 min)\n\nHow many non-metro counties does each state have? (Hint: count() can take two columns.)\nFor each state, find the non-metro county with the highest share of college graduates\nThis one’s challenging: for each state, what share of people (not counties) live in a metro county?"
   },
   {
     "objectID": "slides/week02.html#your-turn-one-way-to-do-it-1",
@@ -830,7 +844,7 @@
     "href": "slides/week02.html#why-style-matters",
     "title": "Week 2: Into the Tidyverse",
     "section": "Why Style Matters",
-    "text": "Why Style Matters\n\nYou will read your code more often than you write it, and so will your NBRC teammates\nR4DS Ch. 4 is the full guide. Here are the rules that matter most"
+    "text": "Why Style Matters\n\nYou will read your code more often than you write it, and so will your NBRC teammates\nR4DS Ch. 4 is the full guide. Here are the rules that matter most."
   },
   {
     "objectID": "slides/week02.html#a-few-rules-more-like-guidelines",
@@ -868,25 +882,32 @@
     "text": "Before Next Class\n\nHW1 due Sunday, Sept. 13 by 11:59pm. Render before you save!\nDownload your first BEA file for HW2, if we didn’t finish tonight\nRead R4DS Ch. 7 (Data import) and Ch. 8 (Getting help), and skim Ch. 5 (Data tidying)\n\nNext week: getting data from files, APIs, and the web, plus joins."
   },
   {
+    "objectID": "slides/week02.html#thank-you",
+    "href": "slides/week02.html#thank-you",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Thank you!",
+    "text": "Thank you!"
+  },
+  {
     "objectID": "slides/week04.html#welcome-back",
     "href": "slides/week04.html#welcome-back",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Welcome Back",
-    "text": "Welcome Back\n\nThree weeks of getting data into R and reshaping it. Tonight we finally look at it\nKeep your Posit Cloud project open. Every chart tonight is one you can run yourself\nTonight’s goal: go from a data frame you’ve never seen to a handful of charts that tell you what’s in it"
+    "text": "Welcome Back\n\nThree weeks of getting data into R and reshaping it. Tonight we finally look at it.\nKeep your Posit Cloud project + these slides open in separate tabs. Every chart tonight is one you can run yourself (clipboard button = copy entire code chunk).\nTonight’s goal: go from a data frame you’ve never seen to a handful of charts that tell you what’s in it"
   },
   {
     "objectID": "slides/week04.html#todays-plan",
     "href": "slides/week04.html#todays-plan",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Today’s Plan",
-    "text": "Today’s Plan\n\nHousekeeping: HW2 is due Sunday\nWhy we plot: summary statistics can hide a lot\nThe grammar of graphics: data, aesthetics, and geoms\nBuilding a plot, layer by layer: aesthetics, facets, labels\nBreak\nExploratory data analysis: variation, covariation, and unusual values\nSaving your work and your turn"
+    "text": "Today’s Plan\n\nHousekeeping: HW2 is due Sunday\nWhy we plot: summary statistics can hide a lot\nThe grammar of graphics: data, aesthetics, and geoms\nBuilding a plot, layer by layer: aesthetics, facets, labels\nExploratory data analysis: variation, covariation, and unusual values\nSaving your work (and your turn)"
   },
   {
     "objectID": "slides/week04.html#hw2-is-due-sunday",
     "href": "slides/week04.html#hw2-is-due-sunday",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "HW2 Is Due Sunday",
-    "text": "HW2 Is Due Sunday\n\nHW2 is due Sunday, Sept. 27 by 11:59pm\nLast week’s left_join() demo covers step 5. If the join still isn’t working, grab me at the break or email me before the weekend\nRemember to Render before you’re done. If it doesn’t render, I can’t grade it\nHW3 (due Oct. 25) will cover tonight and next week, so tonight’s code is worth keeping"
+    "text": "HW2 Is Due Sunday\n\nHW2 is due Sunday, Sept. 27 by 11:59pm\nLast week’s left_join() demo covers step 5. If the join still isn’t working, raise your hand at the break (or email me before Sunday).\nRemember to Render before you’re done. If it doesn’t render, I can’t grade it. Please just email me your .html files. I have access to your code if need be, but the files make grading easier."
   },
   {
     "objectID": "slides/week04.html#four-datasets-one-set-of-statistics",
@@ -900,84 +921,84 @@
     "href": "slides/week04.html#not-even-close",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Not Even Close",
-    "text": "Not Even Close\n\n\nOne linear trend, one curve, one outlier dragging the line, and one single point doing all the work\nSummary statistics are a compression. A chart is often the fastest way to see what the compression threw away"
+    "text": "Not Even Close\n\n\nOne linear trend, one curve, one outlier dragging the line, and one single point doing all the work\nSummary statistics are a compression. A chart is often the fastest way to see what the compression might’ve overlooked.\nThese four charts came from a few lines of ggplot2 code. By the end of tonight you’ll be able to write them yourself, starting with how ggplot2 thinks about a chart."
   },
   {
     "objectID": "slides/week04.html#every-ggplot-has-three-parts",
     "href": "slides/week04.html#every-ggplot-has-three-parts",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Every ggplot Has Three Parts",
-    "text": "Every ggplot Has Three Parts\n\n\n\nData: a data frame, one row per observation\nAesthetics (aes()): which columns map to which visual properties, like x position, y position, color, or size\nGeoms: the shapes that actually get drawn, like points, bars, lines, or boxes\n\nEverything else (facets, scales, labels, themes) refines those three. R4DS Ch. 9 calls this a layered grammar, because you build a plot by adding layers with +."
+    "text": "Every ggplot Has Three Parts\n\n\n\nData: a data frame, one row per observation (this is why we pivot_longer)\nAesthetics aes(): which columns map to which visual properties, like x position, y position, color, or size\nGeoms: the shapes that actually get drawn, like points, bars, lines, or boxes\n\nEverything else (facets, scales, labels, themes) refines those three. R4DS Ch. 9 calls this a layered grammar, because you build a plot by adding layers with +"
   },
   {
     "objectID": "slides/week04.html#tonights-data-midwest-again",
     "href": "slides/week04.html#tonights-data-midwest-again",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Tonight’s Data: midwest, Again",
-    "text": "Tonight’s Data: midwest, Again\n\nmidwest |&gt;\n  select(county, state, poptotal, popdensity, percollege,\n         percbelowpoverty, inmetro)\n\n# A tibble: 437 × 7\n  county   state poptotal popdensity percollege percbelowpoverty inmetro\n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;   &lt;int&gt;\n1 ADAMS    IL       66090      1271.       19.6            13.2        0\n2 ALEXAND… IL       10626       759        11.2            32.2        0\n3 BOND     IL       14991       681.       17.0            12.1        0\n4 BOONE    IL       30806      1812.       17.3             7.21       1\n5 BROWN    IL        5836       324.       14.5            13.5        0\n# ℹ 432 more rows\n\n\n\nThe same 437 Midwestern counties from Week 2, from the 2000 Census\nAlready in ggplot2, so there’s nothing to download\ninmetro is 1 for counties in a metro area and 0 otherwise"
+    "text": "Tonight’s Data: midwest, Again\n\nmidwest_df &lt;- midwest |&gt;\n  select(county, state, poptotal, popdensity, percollege,\n         percbelowpoverty, inmetro)\n\nmidwest_df\n\n# A tibble: 437 × 7\n  county   state poptotal popdensity percollege percbelowpoverty inmetro\n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;   &lt;int&gt;\n1 ADAMS    IL       66090      1271.       19.6            13.2        0\n2 ALEXAND… IL       10626       759        11.2            32.2        0\n3 BOND     IL       14991       681.       17.0            12.1        0\n4 BOONE    IL       30806      1812.       17.3             7.21       1\n5 BROWN    IL        5836       324.       14.5            13.5        0\n# ℹ 432 more rows\n\n\n\nThe same 437 Midwestern counties from Week 2, from the 2000 Census\n&lt;- saves the result as a new object, midwest_df. Assigning prints nothing, so the second line just types the name to show it.\nEvery chart tonight starts from midwest_df. Look for it in your Environment pane.\ninmetro is 1 for counties in a metro area and 0 otherwise"
   },
   {
     "objectID": "slides/week04.html#step-1-just-the-data",
     "href": "slides/week04.html#step-1-just-the-data",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Step 1: Just the Data",
-    "text": "Step 1: Just the Data\n\nggplot(midwest)\n\n\n\nA blank canvas. ggplot knows the data, but not what to draw or where"
+    "text": "Step 1: Just the Data\n\nggplot(midwest_df)\n\n\n\nA blank canvas. ggplot knows the data, but not what to draw or where"
   },
   {
     "objectID": "slides/week04.html#step-2-add-aesthetics",
     "href": "slides/week04.html#step-2-add-aesthetics",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Step 2: Add Aesthetics",
-    "text": "Step 2: Add Aesthetics\n\nggplot(midwest, aes(x = percollege, y = percbelowpoverty))\n\n\n\nNow it knows which column goes on which axis, so it draws the axes and scales. Still no data on the plot"
+    "text": "Step 2: Add Aesthetics\n\nbase_plot &lt;- ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty))\n\nbase_plot\n\n\n\nNow it knows which column goes on which axis, so it draws the axes and scales. Still no data on the plot.\nA plot is an object too, so we can save it as base_plot and build on it"
   },
   {
     "objectID": "slides/week04.html#step-3-add-a-geom",
     "href": "slides/week04.html#step-3-add-a-geom",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Step 3: Add a Geom",
-    "text": "Step 3: Add a Geom\n\nggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point()\n\n\n\ngeom_point() draws one point per row\nA first look: more college grads, somewhat less poverty, but lots of scatter"
+    "text": "Step 3: Add a Geom\n\nbase_plot +\n  geom_point()\n\n\n\nbase_plot already holds the data and aesthetics. + geom_point() adds the layer that draws one point per row.\nbase_plot itself hasn’t changed. To keep the new version, assign it: scatter &lt;- base_plot + geom_point().\nA first look: more college grads, somewhat less poverty, but lots of scatter"
   },
   {
     "objectID": "slides/week04.html#mapping-a-third-variable-to-color",
     "href": "slides/week04.html#mapping-a-third-variable-to-color",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Mapping a Third Variable to Color",
-    "text": "Mapping a Third Variable to Color\n\nggplot(midwest, aes(x = percollege, y = percbelowpoverty, color = state)) +\n  geom_point()\n\n\n\nAnything inside aes() is mapped to a column, and ggplot builds the legend for you\nFive colors is about the limit before a chart gets hard to read"
+    "text": "Mapping a Third Variable to Color\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = state)) +\n  geom_point()\n\n\n\nAnything inside aes() is mapped to a column, and ggplot builds the legend for you\nFive colors is about the limit before a chart gets hard to read"
   },
   {
     "objectID": "slides/week04.html#mapping-vs.-setting",
     "href": "slides/week04.html#mapping-vs.-setting",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Mapping vs. Setting",
-    "text": "Mapping vs. Setting\nggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(aes(color = \"blue\"))\nggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(color = \"blue\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLeft: \"blue\" inside aes() is treated as data, a column where every value is the word “blue.” You get a salmon-colored legend entry\nRight: outside aes(), it’s a fixed setting. Every point is blue\nRule of thumb: inside aes() if it depends on the data, outside if it doesn’t"
+    "text": "Mapping vs. Setting\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(aes(color = inmetro))\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(color = \"blue\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLeft, mapped: inside aes(), color comes from a column, with a legend\nRight, set: outside aes(), one fixed color and no legend\ninmetro is stored as a number, so ggplot gives it a 0-to-1 color gradient even though it’s only ever 0 or 1\nRule of thumb: inside aes() if it depends on the data"
   },
   {
-    "objectID": "slides/week04.html#layers-stack",
-    "href": "slides/week04.html#layers-stack",
+    "objectID": "slides/week04.html#layers-can-stack",
+    "href": "slides/week04.html#layers-can-stack",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
-    "section": "Layers Stack",
-    "text": "Layers Stack\n\nggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.4) +\n  geom_smooth(method = \"lm\", formula = y ~ x)\n\n\n\nEach + geom_*() adds a layer on top of the last\nalpha makes points semi-transparent, so overlapping points show up darker\ngeom_smooth(method = \"lm\") adds a linear trend with a confidence band"
+    "section": "Layers Can Stack",
+    "text": "Layers Can Stack\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.4) +\n  geom_smooth(method = \"lm\", formula = y ~ x)\n\n\n\nEach + geom_*() adds a layer on top of the last\nalpha makes points semi-transparent, so overlapping points show up darker\ngeom_smooth(method = \"lm\") adds a linear trend with a confidence band (se = FALSE hides it)"
   },
   {
     "objectID": "slides/week04.html#global-vs.-local-aesthetics",
     "href": "slides/week04.html#global-vs.-local-aesthetics",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Global vs. Local Aesthetics",
-    "text": "Global vs. Local Aesthetics\n\nggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(aes(color = state), alpha = 0.5) +\n  geom_smooth(method = \"lm\", formula = y ~ x, color = \"black\")\n\n\n\nAesthetics in ggplot() apply to every layer\nAesthetics in a single geom apply only to that layer\nHere, color by state for the points, but one overall trend line. Move color = state up into ggplot() and you’d get five lines instead"
+    "text": "Global vs. Local Aesthetics\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(aes(color = state), alpha = 0.5) +\n  geom_smooth(method = \"lm\", formula = y ~ x, color = \"black\")\n\n\n\nAesthetics in ggplot() apply to every layer\nAesthetics in a single geom apply only to that layer\nHere, color by state for the points, but one overall trend line. Move color = state up into ggplot() and you’d get five lines instead."
   },
   {
     "objectID": "slides/week04.html#facets-small-multiples",
     "href": "slides/week04.html#facets-small-multiples",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Facets: Small Multiples",
-    "text": "Facets: Small Multiples\n\nggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.5) +\n  facet_wrap(~ state)\n\n\n\nfacet_wrap() makes one panel per value of a variable, all on the same scales\nOften easier to read than five colors crammed into one panel"
+    "text": "Facets: Small Multiples\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.5) +\n  facet_wrap(~ state)\n\n\n\nfacet_wrap() makes one panel per value of a variable, all on the same scales\nOften easier to read than five colors crammed into one panel"
   },
   {
     "objectID": "slides/week04.html#labels-make-it-readable",
     "href": "slides/week04.html#labels-make-it-readable",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Labels Make It Readable",
-    "text": "Labels Make It Readable\n\nggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.5, color = \"#007155\") +\n  labs(\n    title = \"More college grads, less poverty\",\n    subtitle = \"Midwestern counties, 2000 Census\",\n    x = \"Adults with a college degree (%)\",\n    y = \"Population below poverty line (%)\",\n    caption = \"Source: ggplot2::midwest\"\n  )\n\n\n\nColumn names like percbelowpoverty are fine for you. They are not fine for anyone else\nA title that states the finding does more work than one that restates the axes"
+    "text": "Labels Make It Readable\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.5, color = \"#007155\") +\n  labs(\n    title = \"More college grads, less poverty\",\n    subtitle = \"Midwestern counties, 2000 Census\",\n    x = \"Adults with a college degree (%)\",\n    y = \"Population below poverty line (%)\",\n    caption = \"Source: ggplot2::midwest\"\n  )\n\n\n\nColumn names like percbelowpoverty are fine for you. They are not fine for anyone else.\nA title that states the finding does more work than one that restates the axes"
   },
   {
     "objectID": "slides/week04.html#the-template",
@@ -998,104 +1019,125 @@
     "href": "slides/week04.html#what-is-eda",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "What Is EDA?",
-    "text": "What Is EDA?\n\nExploratory data analysis is a loop, not a formal procedure:\n\nAsk a question about your data\nAnswer it with a chart, a transformation, or a summary\nUse what you learned to ask a better question\n\nMost of these charts are for you. They don’t need titles or polish\nR4DS Ch. 10 frames it around two kinds of questions: how does a variable vary, and how do variables covary?"
+    "text": "What Is EDA?\n\n“Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise.”\n— John Tukey\n\n\nExploratory data analysis is a loop, not a formal procedure:\n\nAsk a question about your data\nAnswer it with a chart, a transformation, or a summary\nUse what you learned to ask a better question\n\nMost of these charts are for you. They don’t need titles or polish."
+  },
+  {
+    "objectID": "slides/week04.html#asking-good-questions",
+    "href": "slides/week04.html#asking-good-questions",
+    "title": "Week 4: Exploratory Data Analysis & ggplot2",
+    "section": "Asking Good Questions",
+    "text": "Asking Good Questions\n\nAs Wickham says in Ch. 10, “EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.”\nR4DS Ch. 10 frames it around two kinds of questions: how does a variable vary, and how do variables covary?"
   },
   {
     "objectID": "slides/week04.html#continuous-variables-histograms",
     "href": "slides/week04.html#continuous-variables-histograms",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Continuous Variables: Histograms",
-    "text": "Continuous Variables: Histograms\n\nggplot(midwest, aes(x = percbelowpoverty)) +\n  geom_histogram(binwidth = 2)\n\n\n\nA histogram cuts the x-axis into bins and counts the rows in each\nMost counties sit between about 7% and 18% in poverty, with a tail to the right"
+    "text": "Continuous Variables: Histograms\n\nggplot(midwest_df, aes(x = percbelowpoverty)) +\n  geom_histogram(binwidth = 2)\n\n\n\nA histogram cuts the x-axis into bins and counts the rows in each\nMost counties sit between about 7% and 18% in poverty, with a tail to the right"
   },
   {
     "objectID": "slides/week04.html#bin-width-changes-the-story",
     "href": "slides/week04.html#bin-width-changes-the-story",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Bin Width Changes the Story",
-    "text": "Bin Width Changes the Story\nggplot(midwest, aes(x = percbelowpoverty)) +\n  geom_histogram(binwidth = 0.5)\nggplot(midwest, aes(x = percbelowpoverty)) +\n  geom_histogram(binwidth = 10)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nToo narrow and it’s noise. Too wide and the shape disappears\nTry a few. There’s no single right answer, and the default (30 bins) is rarely the best one"
+    "text": "Bin Width Changes the Story\nggplot(midwest_df, aes(x = percbelowpoverty)) +\n  geom_histogram(binwidth = 0.5)\nggplot(midwest_df, aes(x = percbelowpoverty)) +\n  geom_histogram(binwidth = 10)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nToo narrow and it’s noise. Too wide and the shape disappears.\nTry a few. There’s no single right answer, and the default (30 bins) is not always the best one."
   },
   {
     "objectID": "slides/week04.html#skewed-data-try-a-log-scale",
     "href": "slides/week04.html#skewed-data-try-a-log-scale",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Skewed Data: Try a Log Scale",
-    "text": "Skewed Data: Try a Log Scale\nggplot(midwest, aes(x = poptotal)) +\n  geom_histogram(bins = 30)\nggplot(midwest, aes(x = poptotal)) +\n  geom_histogram(bins = 30) +\n  scale_x_log10(labels = scales::label_comma())\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLeft: Cook County (Chicago, 5 million people) squashes everything else into one bar\nRight: on a log scale, each step on the axis is ten times bigger than the last, and the distribution becomes readable\nCounty populations, incomes, and housing prices almost always need this"
+    "text": "Skewed Data: Try a Log Scale\nggplot(midwest_df, aes(x = poptotal)) +\n  geom_histogram(bins = 30)\nggplot(midwest_df, aes(x = poptotal)) +\n  geom_histogram(bins = 30) +\n  scale_x_log10(labels = scales::label_comma())\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLeft: Cook County (Chicago, 5M people) squashes everything else into one bar\nRight: on a log scale, each step on the axis is ten times bigger than the last, and the distribution becomes readable\nCounty populations, incomes, and housing prices almost always need this"
   },
   {
     "objectID": "slides/week04.html#categorical-variables-bar-charts",
     "href": "slides/week04.html#categorical-variables-bar-charts",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Categorical Variables: Bar Charts",
-    "text": "Categorical Variables: Bar Charts\n\nggplot(midwest, aes(x = state)) +\n  geom_bar()\n\n\n\ngeom_bar() counts rows for you, the same thing count(state) did in Week 2\nAlready have the counts in a column? Use geom_col() instead, with the counts as y"
+    "text": "Categorical Variables: Bar Charts\n\nggplot(midwest_df, aes(x = state)) +\n  geom_bar()\n\n\n\ngeom_bar() counts rows for you, the same thing count(state) did in Week 2\nIf you already have the counts in a column, you can use geom_col() instead, with the counts as y"
   },
   {
     "objectID": "slides/week04.html#unusual-values",
     "href": "slides/week04.html#unusual-values",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Unusual Values",
-    "text": "Unusual Values\n\nmidwest |&gt;\n  filter(percbelowpoverty &gt; 30) |&gt;\n  select(county, state, poptotal, percbelowpoverty)\n\n# A tibble: 3 × 4\n  county    state poptotal percbelowpoverty\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;            &lt;dbl&gt;\n1 ALEXANDER IL       10626             32.2\n2 PULASKI   IL        7523             30.2\n3 MENOMINEE WI        3890             48.7\n\n\n\nThe long right tail from the histogram, pulled out with filter()\nOutliers aren’t automatically errors. Check whether each one is real or a data problem. These are real: Menominee County, WI is almost entirely the Menominee Reservation, and Alexander and Pulaski are at Illinois’s rural southern tip\nDon’t delete an unusual value just because it’s unusual. If it’s a real error, replace it with NA and say so"
+    "text": "Unusual Values\n\nhigh_poverty &lt;- midwest_df |&gt;\n  filter(percbelowpoverty &gt; 30) |&gt;\n  select(county, state, poptotal, percbelowpoverty)\n\nhigh_poverty\n\n# A tibble: 3 × 4\n  county    state poptotal percbelowpoverty\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;            &lt;dbl&gt;\n1 ALEXANDER IL       10626             32.2\n2 PULASKI   IL        7523             30.2\n3 MENOMINEE WI        3890             48.7\n\n\n\nThe long right tail from the histogram, pulled out with filter()\nOutliers aren’t automatically errors. Check whether each one is real or a data problem. These are real: Menominee County, WI is almost entirely the Menominee Reservation, and Alexander and Pulaski are at Illinois’s rural southern tip.\nDon’t delete an unusual value just because it’s unusual. If it’s a real error, replace it with NA and say so."
+  },
+  {
+    "objectID": "slides/week04.html#adding-a-column-well-reuse",
+    "href": "slides/week04.html#adding-a-column-well-reuse",
+    "title": "Week 4: Exploratory Data Analysis & ggplot2",
+    "section": "Adding a Column We’ll Reuse",
+    "text": "Adding a Column We’ll Reuse\n\nmidwest_df &lt;- midwest_df |&gt;\n  mutate(metro = if_else(inmetro == 1, \"Metro\", \"Nonmetro\"))\n\nmidwest_df |&gt; count(metro)\n\n# A tibble: 2 × 2\n  metro        n\n  &lt;chr&gt;    &lt;int&gt;\n1 Metro      150\n2 Nonmetro   287\n\n\n\ninmetro’s 1s and 0s make poor labels, so we add a readable metro column\nAssigning back to midwest_df overwrites it with the new version. Every chart from here on can use metro without repeating the mutate().\nOverwriting an object is fine for adding a column. Be careful doing it with filter(), since dropped rows don’t come back until you rerun the earlier code."
   },
   {
     "objectID": "slides/week04.html#categorical-continuous-boxplots",
     "href": "slides/week04.html#categorical-continuous-boxplots",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Categorical + Continuous: Boxplots",
-    "text": "Categorical + Continuous: Boxplots\n\nmidwest |&gt;\n  mutate(metro = if_else(inmetro == 1, \"Metro\", \"Nonmetro\")) |&gt;\n  ggplot(aes(x = metro, y = percollege)) +\n  geom_boxplot()\n\n\n\nThe box is the middle 50% of counties, the line is the median, and the dots are outliers\nMetro counties have a clearly higher share of college grads, and far more spread\nNotice the pipe: a mutate() first, then straight into ggplot()"
+    "text": "Categorical + Continuous: Boxplots\n\nggplot(midwest_df, aes(x = metro, y = percollege)) +\n  geom_boxplot()\n\n\n\nThe box is the middle 50% of counties, the line is the median, and the dots are outliers\nMetro counties have a clearly higher share of college grads, and far more spread"
   },
   {
     "objectID": "slides/week04.html#reordering-categories",
     "href": "slides/week04.html#reordering-categories",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Reordering Categories",
-    "text": "Reordering Categories\n\nggplot(midwest, aes(x = fct_reorder(state, percbelowpoverty, median),\n                    y = percbelowpoverty)) +\n  geom_boxplot() +\n  labs(x = NULL)\n\n\n\nBy default ggplot puts categories in alphabetical order, which is almost never what you want\nfct_reorder() sorts them by the median of another variable, so the pattern reads left to right"
+    "text": "Reordering Categories\n\nggplot(midwest_df, aes(x = fct_reorder(state, percbelowpoverty, median),\n                    y = percbelowpoverty)) +\n  geom_boxplot() +\n  labs(x = NULL)\n\n\n\nBy default ggplot puts categories in alphabetical order, which is almost never what you want\nfct_reorder() sorts them by the median of another variable, so the pattern reads left to right"
   },
   {
     "objectID": "slides/week04.html#two-categorical-variables",
     "href": "slides/week04.html#two-categorical-variables",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Two Categorical Variables",
-    "text": "Two Categorical Variables\n\nmidwest |&gt;\n  mutate(metro = if_else(inmetro == 1, \"Metro\", \"Nonmetro\")) |&gt;\n  count(state, metro) |&gt;\n  ggplot(aes(x = state, y = metro, fill = n)) +\n  geom_tile() +\n  geom_text(aes(label = n), color = \"white\", size = 6)\n\n\n\ncount() the combinations first, then draw a tile for each one\nA heat map like this is really just a colored table. For a handful of categories, a plain table from count() can work just as well"
+    "text": "Two Categorical Variables\n\nmetro_counts &lt;- midwest_df |&gt;\n  count(state, metro)\n\nggplot(metro_counts, aes(x = state, y = metro, fill = n)) +\n  geom_tile() +\n  geom_text(aes(label = n), color = \"white\", size = 6)\n\n\n\ncount() the combinations first and save them as metro_counts, then draw a tile for each row of it\nA heat map like this is really just a colored table. For a handful of categories, a plain table from count() can work just as well."
   },
   {
     "objectID": "slides/week04.html#two-continuous-variables",
     "href": "slides/week04.html#two-continuous-variables",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Two Continuous Variables",
-    "text": "Two Continuous Variables\n\nggplot(midwest, aes(x = popdensity, y = percollege)) +\n  geom_point(alpha = 0.4) +\n  scale_x_log10(labels = scales::label_comma()) +\n  geom_smooth(method = \"loess\", formula = y ~ x)\n\n\n\nThe scatterplot you already know, with a log x-axis for the same reason as before\nmethod = \"loess\" fits a curve instead of a straight line. Denser counties have more college grads, and the relationship steepens at the top"
+    "text": "Two Continuous Variables\n\nggplot(midwest_df, aes(x = popdensity, y = percollege)) +\n  geom_point(alpha = 0.4) +\n  scale_x_log10(labels = scales::label_comma()) +\n  geom_smooth(method = \"loess\", formula = y ~ x)\n\n\n\nThe scatterplot you already know, with a log x-axis for the same reason as before\nmethod = \"loess\" fits a curve instead of a straight line. It’s flat across rural counties, climbs through the middle, and levels off in the densest ones. A straight line would miss that shape."
   },
   {
     "objectID": "slides/week04.html#patterns-are-questions-not-answers",
     "href": "slides/week04.html#patterns-are-questions-not-answers",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Patterns Are Questions, Not Answers",
-    "text": "Patterns Are Questions, Not Answers\nWhen you spot a pattern, ask:\n\nCould it be coincidence?\nHow strong is it, and how would you describe it in one sentence?\nWhat other variable might explain it? (Here, metro status is doing a lot of the work)\nDoes it hold within subgroups, like each state or metro vs. nonmetro?\n\nEDA points you toward the story. It doesn’t prove it."
+    "text": "Patterns Are Questions, Not Answers\nWhen you spot a pattern, ask:\n\nCould it be coincidence?\nHow strong is it, and how would you describe it in one sentence?\nWhat other variable might explain it? (Here, metro status is doing a lot of the work.)\nDoes it hold within subgroups, like each state or metro vs. nonmetro?\n\nEDA points you toward the story. It doesn’t prove it.\nNote: There are often many ways to accomplish the same task. Check out this article about alternatives to boxplots."
   },
   {
     "objectID": "slides/week04.html#saving-a-plot",
     "href": "slides/week04.html#saving-a-plot",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Saving a Plot",
-    "text": "Saving a Plot\n\np &lt;- ggplot(midwest, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point()\n\nggsave(\"poverty_college.png\", p, width = 8, height = 5, dpi = 300)\n\n\nA ggplot is an object like any other, so you can assign it with &lt;-\nggsave() writes it to a file, sized in inches. Set the size on purpose so text doesn’t come out tiny\nInside a Quarto document, you usually don’t need this. The chart renders right into the HTML"
+    "text": "Saving a Plot\n\np &lt;- ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point()\n\nggsave(\"poverty_college.png\", p, width = 8, height = 5, dpi = 300)\n\n\nSame idea as base_plot earlier: save the plot as an object, then hand that object to ggsave()\nggsave() writes it to a file, sized in inches. Set the size on purpose so text doesn’t come out tiny.\nInside a Quarto document, you usually don’t need this. The chart renders right into the HTML."
   },
   {
     "objectID": "slides/week04.html#your-turn-20-min",
     "href": "slides/week04.html#your-turn-20-min",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Your Turn (20 min)",
-    "text": "Your Turn (20 min)\nUsing midwest, make each of these. Work with a neighbor.\n\nA histogram of percollege. Try at least two bin widths and pick the one you think tells the story best\nA scatterplot of percollege (x) against percbelowpoverty (y), colored by metro status (build the metro column with mutate() first)\nBoxplots of percollege by state, sorted by median\nTake any one of the three and give it real labels with labs(), including a title that states what you see"
+    "text": "Your Turn (20 min)\nUsing midwest_df, make each of these. Work with a neighbor.\n\nA histogram of percollege. Try at least two bin widths and pick the one you think tells the story best.\nA scatterplot of percollege (x) against percbelowpoverty (y), colored by metro status (if metro is missing, rerun the mutate() from earlier)\nBoxplots of percollege by state, sorted by median\nTake any one of the three and give it real labels with labs(), including a title that states what you see"
   },
   {
     "objectID": "slides/week04.html#your-turn-one-way-to-do-it",
     "href": "slides/week04.html#your-turn-one-way-to-do-it",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Your Turn: One Way to Do It",
-    "text": "Your Turn: One Way to Do It\n\n# 1\nggplot(midwest, aes(x = percollege)) +\n  geom_histogram(binwidth = 2)\n\n# 2\nmidwest |&gt;\n  mutate(metro = if_else(inmetro == 1, \"Metro\", \"Nonmetro\")) |&gt;\n  ggplot(aes(x = percollege, y = percbelowpoverty, color = metro)) +\n  geom_point(alpha = 0.5)\n\n# 3\nggplot(midwest, aes(x = fct_reorder(state, percollege, median),\n                    y = percollege)) +\n  geom_boxplot()\n\n# 4\nggplot(midwest, aes(x = percollege)) +\n  geom_histogram(binwidth = 2) +\n  labs(title = \"In most Midwestern counties, under 1 in 5 adults has a degree\",\n       x = \"Adults with a college degree (%)\", y = \"Number of counties\")"
+    "text": "Your Turn: One Way to Do It\n\n# 1\nggplot(midwest_df, aes(x = percollege)) +\n  geom_histogram(binwidth = 2)\n\n# 2\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +\n  geom_point(alpha = 0.5)\n\n# 3\nggplot(midwest_df, aes(x = fct_reorder(state, percollege, median),\n                    y = percollege)) +\n  geom_boxplot()\n\n# 4\ncollege_hist &lt;- ggplot(midwest_df, aes(x = percollege)) +\n  geom_histogram(binwidth = 2) +\n  labs(title = \"In most Midwestern counties, under 1 in 5 adults has a degree\",\n       x = \"Adults with a college degree (%)\", y = \"Number of counties\")\n\ncollege_hist"
   },
   {
     "objectID": "slides/week04.html#before-next-class",
     "href": "slides/week04.html#before-next-class",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
     "section": "Before Next Class",
-    "text": "Before Next Class\n\nHW2 is due Sunday, Sept. 27 by 11:59pm. Render it before you’re done\nSkim R4DS Ch. 11 (Communication) if you didn’t get to it this week\nRead Hutchins & Van Leuven (2025) on data visualization in applied economics\n\nNext week: advanced ggplot2, and what separates a chart that works from one that doesn’t."
+    "text": "Before Next Class\n\nHW2 is due Sunday, Sept. 27 by 11:59pm. Render it before you’re done.\nSkim R4DS Ch. 11 (Communication) if you didn’t get to it this week\nRead Hutchins & Van Leuven (2025) on data visualization in applied economics\n\nNext week: advanced ggplot2, and what separates a chart that works from one that doesn’t."
+  },
+  {
+    "objectID": "slides/week04.html#thank-you",
+    "href": "slides/week04.html#thank-you",
+    "title": "Week 4: Exploratory Data Analysis & ggplot2",
+    "section": "Thank you!",
+    "text": "Thank you!"
   }
 ]

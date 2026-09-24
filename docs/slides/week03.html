@@ -103,7 +103,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7523458df77c68673fa44e0f45a7e43b.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-b38ab0c6d74c36f57c3531bc2f76d8ce.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -340,7 +340,7 @@ Andrew Van Leuven
 <li>A file someone hands you, or you download: CSV, Excel, and the like</li>
 <li>A live API (application programming interface) you query with code</li>
 <li>A web page you scrape, when nothing else is available</li>
-<li>R4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS <a href="https://r4ds.hadley.nz/webscraping.html">Ch. 24</a>, much further along in the book than we’ve gotten</li>
+<li>R4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS <a href="https://r4ds.hadley.nz/webscraping.html">Ch. 24</a>, much further along in the book than we’ve gotten.</li>
 <li>Reading files is <code>readr</code>’s job, the tidyverse package behind <code>read_csv()</code> and other similar functions</li>
 </ul>
 </div><div class="column" style="width:30%;">
@@ -360,7 +360,7 @@ Andrew Van Leuven
 <li><code>read_csv()</code> is in HW2’s starter code</li>
 <li><code>skip</code> jumps past header rows a file doesn’t need, common in government exports</li>
 <li><code>na</code> tells readr which strings actually mean “missing.” This varies widely.</li>
-<li><code>readr</code> prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column</li>
+<li><code>readr</code> prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column.</li>
 </ul>
 </section></section>
 <section>
@@ -373,14 +373,14 @@ Andrew Van Leuven
 <ul>
 <li><strong>Application programming interface</strong>: structured way to ask a website for data and get back something other than a webpage, usually JSON</li>
 <li>You build a URL with your request baked in, and the server sends back data instead of a rendered page</li>
-<li>Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t</li>
+<li>Census, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t.</li>
 </ul>
 </section>
 <section id="not-every-api-is-free" class="slide level2 smaller">
 <h2>Not Every API Is Free</h2>
 <ul>
 <li>There is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.</li>
-<li><strong>The catch</strong>: you have to pay! (a fraction of a penny for each, but it adds up)</li>
+<li><strong>The catch</strong>: you have to pay! (a fraction of a penny for each, but it adds up).</li>
 <li>If a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time.</li>
 </ul>
 </section>
@@ -398,7 +398,7 @@ Andrew Van Leuven
 <ul>
 <li><code>LNS14000000</code> is the BLS series ID for the national unemployment rate</li>
 <li>No key needed for a request this small, heavier use wants a free one</li>
-<li><code>fromJSON()</code> already turned the nested JSON into data frames. We just have to dig through the list to find the one we want</li>
+<li><code>fromJSON()</code> already turned the nested JSON into data frames. We just have to dig through the list to find the one we want.</li>
 <li>Read <code>bls_raw$Results$series$data[[1]]</code> left to right: start at <code>bls_raw</code>, step into <code>$Results</code>, then <code>$series</code>, then grab the first item out of the <code>data</code> list with <code>[[1]]</code></li>
 </ul>
 </section>
@@ -414,7 +414,7 @@ Andrew Van Leuven
 </div>
 <ul>
 <li><code>$</code> and <code>[[ ]]</code> dig through the nested list until you hit the data frame you actually want</li>
-<li>Watch <code>value</code> after the conversion: one row comes back <code>NA</code>, from the month of the 2025 government shutdown. Real missing data, not a mistake</li>
+<li>Watch <code>value</code> after the conversion: one row comes back <code>NA</code>, from the month of the 2025 government shutdown. Real missing data, not a mistake.</li>
 <li>Week 8’s <code>tidycensus</code> wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend.</li>
 </ul>
 </section>
@@ -432,7 +432,7 @@ Andrew Van Leuven
 <li>Some data only exists inside a web page, with no file or API behind it</li>
 <li><code>rvest</code> reads a page’s HTML and pulls out a specific table or element</li>
 <li><strong>The process is fragile</strong>: if the page’s layout changes, your code breaks with no warning</li>
-<li>Use it last, after checking for a file or an API. Read the site’s terms of service and <code>robots.txt</code> first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked</li>
+<li>Use it last, after checking for a file or an API. Read the site’s terms of service and <code>robots.txt</code> first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked.</li>
 </ul>
 </section>
 <section id="break" class="slide level2" data-background-color="#007155">
@@ -448,7 +448,7 @@ Andrew Van Leuven
 <ul>
 <li>HW2 step 5 asks you to combine <code>df</code> and <code>df2</code> using a shared column, <code>county_fips</code></li>
 <li>A join lines up rows from two tables using one or more shared columns, called <strong>keys</strong> (we will often refer to this as a “unique identifier”)</li>
-<li>Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key</li>
+<li>Nothing here is BEA-specific. Joins work the same way on any two data frames that share a key.</li>
 </ul>
 
 <img data-src="https://r4ds.hadley.nz/diagrams/join/venn.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
@@ -487,7 +487,7 @@ Andrew Van Leuven
 <ul>
 <li>Every row of <code>pop</code> survives, matched or not</li>
 <li>Chittenden (50007) has no match in <code>income</code>, so it gets <code>NA</code></li>
-<li>50011’s income is dropped. It wasn’t in <code>pop</code> to begin with</li>
+<li>50011’s income is dropped. It wasn’t in <code>pop</code> to begin with.</li>
 </ul>
 </section>
 <section id="other-join-types-briefly" class="slide level2">
@@ -594,7 +594,7 @@ Andrew Van Leuven
 </div>
 <ul>
 <li>Same <code>left_join()</code>, same idea as <code>pop</code> and <code>income</code>, just bigger, real data</li>
-<li>Every flight keeps its row. It just gains the airline’s full name</li>
+<li>Every flight keeps its row. It just gains the airline’s full name.</li>
 </ul>
 </section>
 <section id="your-turn-15-min" class="slide level2 smaller scrollable">
@@ -628,10 +628,13 @@ Andrew Van Leuven
 <section id="before-next-class" class="slide level2">
 <h2>Before Next Class</h2>
 <ul class="task-list">
-<li><label><input type="checkbox">Nothing new due this week, but get HW2 (due Sept.&nbsp;27) working if tonight’s join didn’t click. Office hours or email, any time</label></li>
+<li><label><input type="checkbox">Nothing new due this week, but get HW2 (due Sept.&nbsp;27) working if tonight’s join didn’t click. Office hours or email, any time.</label></li>
 <li><label><input type="checkbox">Read R4DS <a href="https://r4ds.hadley.nz/layers">Ch. 9 (Layers)</a> and <a href="https://r4ds.hadley.nz/EDA.html">Ch. 10 (Exploratory data analysis)</a>, and skim <a href="https://r4ds.hadley.nz/communication">Ch. 11 (Communication)</a></label></li>
 </ul>
 <p>Next week: exploratory data analysis and your first <code>ggplot2</code> charts.</p>
+</section>
+<section id="thank-you" class="slide level2" data-background-color="#007155">
+<h2>Thank you!</h2>
 
 
 </section></section>
