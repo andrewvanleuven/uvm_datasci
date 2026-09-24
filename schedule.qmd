@@ -1,5 +1,6 @@
 ---
 title: "Course Schedule"
+body-classes: schedule-page
 ---
 
 The course meets **Thursdays, 4:35–7:35 pm** in **Morrill Hall 005**, a basement computer lab — no need to bring your own computer, though you're welcome to if you prefer. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.

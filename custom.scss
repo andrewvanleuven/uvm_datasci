@@ -26,3 +26,10 @@ h1, h2, h3 {
   padding: 1.25rem 1.5rem;
   margin: 1rem 0;
 }
+
+// Schedule page: keep dates and "Week N" slide links on one line
+// (2nd and 4th columns of the unit tables).
+.schedule-page table td:nth-child(2),
+.schedule-page table td:nth-child(4) {
+  white-space: nowrap;
+}
