@@ -70,825 +70,6 @@
     "text": "Schedule\nSee the Schedule page for the full week-by-week breakdown."
   },
   {
-    "objectID": "slides/week03.html#welcome-to-morrill-hall-005",
-    "href": "slides/week03.html#welcome-to-morrill-hall-005",
-    "title": "Week 3: Getting Data",
-    "section": "Welcome to Morrill Hall 005",
-    "text": "Welcome to Morrill Hall 005\n\nOur new room for the rest of the semester: a basement computer lab, so there’s a machine at every seat\nTonight is a tour of where data comes from, beyond the file(s) you already have sitting in your project\nWe’ll cover exactly what HW2’s join step needs"
-  },
-  {
-    "objectID": "slides/week03.html#todays-plan",
-    "href": "slides/week03.html#todays-plan",
-    "title": "Week 3: Getting Data",
-    "section": "Today’s Plan",
-    "text": "Today’s Plan\n\nHousekeeping: nothing new is due this week\nA quick tour of tidyr: wide data vs. long data\nReading files, revisited: skip, na, and messy real-world exports\nAPIs: asking a website for data instead of clicking through pages\nWeb scraping: a last resort, and why\nBreak\nJoins: combining two data frames, with toy data and a real airline dataset"
-  },
-  {
-    "objectID": "slides/week03.html#nothing-new-due-this-week",
-    "href": "slides/week03.html#nothing-new-due-this-week",
-    "title": "Week 3: Getting Data",
-    "section": "Nothing New Due This Week",
-    "text": "Nothing New Due This Week\n\nHW1 was due Sunday. I will grade soon.\nHW2 (due Sept. 27) is your only open assignment (tonight’s demo on joins will help with HW2’s step 5)\nWe’ll do a similar join together before you leave, preparing you to do the real thing in your homework."
-  },
-  {
-    "objectID": "slides/week03.html#wide-vs.-long-data",
-    "href": "slides/week03.html#wide-vs.-long-data",
-    "title": "Week 3: Getting Data",
-    "section": "Wide vs. Long Data",
-    "text": "Wide vs. Long Data\n\nbea_wide &lt;- tibble(\n  county_name = c(\"Addison, VT\", \"Chittenden, VT\", \"Rutland, VT\"),\n  pop_2020 = c(37363, 168323, 60572),\n  pop_2021 = c(37162, 169660, 60381),\n  pop_2022 = c(36777, 170533, 59949)\n)\n\nbea_wide\n\n# A tibble: 3 × 4\n  county_name    pop_2020 pop_2021 pop_2022\n  &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;\n1 Addison, VT       37363    37162    36777\n2 Chittenden, VT   168323   169660   170533\n3 Rutland, VT       60572    60381    59949\n\n\n\nOne row per county, but each year gets its own column\nThis is what you get if you ever download multiple years from BEA at once, instead of the single year HW2 asked for"
-  },
-  {
-    "objectID": "slides/week03.html#pivot_longer-wide-to-long",
-    "href": "slides/week03.html#pivot_longer-wide-to-long",
-    "title": "Week 3: Getting Data",
-    "section": "pivot_longer(): Wide to Long",
-    "text": "pivot_longer(): Wide to Long\n\nbea_long &lt;- bea_wide |&gt;\n  pivot_longer(\n    cols = starts_with(\"pop_\"),\n    names_to = \"year\",\n    names_prefix = \"pop_\",\n    values_to = \"population\"\n  )\n\nbea_long\n\n# A tibble: 9 × 3\n  county_name    year  population\n  &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;\n1 Addison, VT    2020       37363\n2 Addison, VT    2021       37162\n3 Addison, VT    2022       36777\n4 Chittenden, VT 2020      168323\n5 Chittenden, VT 2021      169660\n# ℹ 4 more rows\n\n\n\nOne row per county and year, instead of one row per county\nAlmost everything in dplyr and ggplot2 wants data in this shape\nnames_prefix strips \"pop_\" so the year column just holds the number"
-  },
-  {
-    "objectID": "slides/week03.html#pivot_wider-the-reverse",
-    "href": "slides/week03.html#pivot_wider-the-reverse",
-    "title": "Week 3: Getting Data",
-    "section": "pivot_wider(): The Reverse",
-    "text": "pivot_wider(): The Reverse\n\nbea_long |&gt;\n  pivot_wider(names_from = year, values_from = population)\n\n# A tibble: 3 × 4\n  county_name    `2020` `2021` `2022`\n  &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 Addison, VT     37363  37162  36777\n2 Chittenden, VT 168323 169660 170533\n3 Rutland, VT     60572  60381  59949\n\n\n\nTakes values from one column and spreads them into new columns, one per unique value\nGood for a summary table you want to read by eye, less useful once you need to filter or group by year again"
-  },
-  {
-    "objectID": "slides/week03.html#where-data-comes-from",
-    "href": "slides/week03.html#where-data-comes-from",
-    "title": "Week 3: Getting Data",
-    "section": "Where Data Comes From",
-    "text": "Where Data Comes From\n\n\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API (application programming interface) you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS Ch. 24, much further along in the book than we’ve gotten.\nReading files is readr’s job, the tidyverse package behind read_csv() and other similar functions"
-  },
-  {
-    "objectID": "slides/week03.html#reading-files-revisited",
-    "href": "slides/week03.html#reading-files-revisited",
-    "title": "Week 3: Getting Data",
-    "section": "Reading Files, Revisited",
-    "text": "Reading Files, Revisited\n\nread_csv(\n  \"data/hw2a.csv\",\n  skip = 3,\n  na = c(\"\", \"NA\", \"(NA)\", \"N/A\")\n)\n\n\nread_csv() is in HW2’s starter code\nskip jumps past header rows a file doesn’t need, common in government exports\nna tells readr which strings actually mean “missing.” This varies widely.\nreadr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column."
-  },
-  {
-    "objectID": "slides/week03.html#whats-an-api",
-    "href": "slides/week03.html#whats-an-api",
-    "title": "Week 3: Getting Data",
-    "section": "What’s an API?",
-    "text": "What’s an API?\n\nApplication programming interface: structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t."
-  },
-  {
-    "objectID": "slides/week03.html#not-every-api-is-free",
-    "href": "slides/week03.html#not-every-api-is-free",
-    "title": "Week 3: Getting Data",
-    "section": "Not Every API Is Free",
-    "text": "Not Every API Is Free\n\nThere is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.\nThe catch: you have to pay! (a fraction of a penny for each, but it adds up).\nIf a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time."
-  },
-  {
-    "objectID": "slides/week03.html#a-live-example-the-bls-api",
-    "href": "slides/week03.html#a-live-example-the-bls-api",
-    "title": "Week 3: Getting Data",
-    "section": "A Live Example: the BLS API",
-    "text": "A Live Example: the BLS API\n\nlibrary(jsonlite)\n\nurl &lt;- \"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000\"\nbls_raw &lt;- fromJSON(url)\nbls_raw\n\nbls_raw$Results$series$data[[1]] |&gt; head()\n\n\nLNS14000000 is the BLS series ID for the national unemployment rate\nNo key needed for a request this small, heavier use wants a free one\nfromJSON() already turned the nested JSON into data frames. We just have to dig through the list to find the one we want.\nRead bls_raw$Results$series$data[[1]] left to right: start at bls_raw, step into $Results, then $series, then grab the first item out of the data list with [[1]]"
-  },
-  {
-    "objectID": "slides/week03.html#turning-it-into-a-tidy-data-frame",
-    "href": "slides/week03.html#turning-it-into-a-tidy-data-frame",
-    "title": "Week 3: Getting Data",
-    "section": "Turning It Into a Tidy Data Frame",
-    "text": "Turning It Into a Tidy Data Frame\n\nunemployment &lt;- bls_raw$Results$series$data[[1]] |&gt;\n  as_tibble() |&gt;\n  select(year, period, value) |&gt;\n  mutate(value = as.numeric(value))\n\nunemployment\n\n\n$ and [[ ]] dig through the nested list until you hit the data frame you actually want\nWatch value after the conversion: one row comes back NA, from the month of the 2025 government shutdown. Real missing data, not a mistake.\nWeek 8’s tidycensus wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend."
-  },
-  {
-    "objectID": "slides/week03.html#web-scraping-a-quick-look",
-    "href": "slides/week03.html#web-scraping-a-quick-look",
-    "title": "Week 3: Getting Data",
-    "section": "Web Scraping: A Quick Look",
-    "text": "Web Scraping: A Quick Look\n\nlibrary(rvest)\n\npage &lt;- read_html(\"https://en.wikipedia.org/wiki/List_of_counties_in_Vermont\")\ncounties &lt;- page |&gt;\n  html_element(\"table.wikitable\") |&gt;\n  html_table()\n\n\nSome data only exists inside a web page, with no file or API behind it\nrvest reads a page’s HTML and pulls out a specific table or element\nThe process is fragile: if the page’s layout changes, your code breaks with no warning\nUse it last, after checking for a file or an API. Read the site’s terms of service and robots.txt first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked."
-  },
-  {
-    "objectID": "slides/week03.html#break",
-    "href": "slides/week03.html#break",
-    "title": "Week 3: Getting Data",
-    "section": "Break?",
-    "text": "Break?"
-  },
-  {
-    "objectID": "slides/week03.html#why-joins",
-    "href": "slides/week03.html#why-joins",
-    "title": "Week 3: Getting Data",
-    "section": "Why Joins",
-    "text": "Why Joins\n\nHW2 step 5 asks you to combine df and df2 using a shared column, county_fips\nA join lines up rows from two tables using one or more shared columns, called keys (we will often refer to this as a “unique identifier”)\nNothing here is BEA-specific. Joins work the same way on any two data frames that share a key."
-  },
-  {
-    "objectID": "slides/week03.html#a-small-example",
-    "href": "slides/week03.html#a-small-example",
-    "title": "Week 3: Getting Data",
-    "section": "A Small Example",
-    "text": "A Small Example\n\npop &lt;- tibble(\n  county_fips = c(\"50001\", \"50003\", \"50007\"),\n  county_name = c(\"Addison\", \"Bennington\", \"Chittenden\"),\n  population = c(37363, 34478, 168323)\n)\n\nincome &lt;- tibble(\n  county_fips = c(\"50001\", \"50003\", \"50011\"),\n  income = c(58000, 52000, 71000)\n)\n\n\nBoth tables share county_fips, the key\nThe counties don’t fully overlap: 50007 is only in pop, 50011 only in income"
-  },
-  {
-    "objectID": "slides/week03.html#left_join-keep-everything-on-the-left",
-    "href": "slides/week03.html#left_join-keep-everything-on-the-left",
-    "title": "Week 3: Getting Data",
-    "section": "left_join(): Keep Everything on the Left",
-    "text": "left_join(): Keep Everything on the Left\n\npop |&gt; left_join(income, by = \"county_fips\")\n\n# A tibble: 3 × 4\n  county_fips county_name population income\n  &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;  &lt;dbl&gt;\n1 50001       Addison          37363  58000\n2 50003       Bennington       34478  52000\n3 50007       Chittenden      168323     NA\n\n\n\nEvery row of pop survives, matched or not\nChittenden (50007) has no match in income, so it gets NA\n50011’s income is dropped. It wasn’t in pop to begin with."
-  },
-  {
-    "objectID": "slides/week03.html#other-join-types-briefly",
-    "href": "slides/week03.html#other-join-types-briefly",
-    "title": "Week 3: Getting Data",
-    "section": "Other Join Types, Briefly",
-    "text": "Other Join Types, Briefly\n\n\n\nJoin\nKeeps\n\n\n\n\nleft_join()\nEverything on the left, matched where possible\n\n\ninner_join()\nOnly rows that match in both\n\n\nfull_join()\nEverything from both, matched where possible\n\n\n\nleft_join() is the one you’ll reach for almost every time: you have a main table and you’re adding to it."
-  },
-  {
-    "objectID": "slides/week03.html#watch-out-duplicate-column-names",
-    "href": "slides/week03.html#watch-out-duplicate-column-names",
-    "title": "Week 3: Getting Data",
-    "section": "Watch Out: Duplicate Column Names",
-    "text": "Watch Out: Duplicate Column Names\n\nIf both tables have a column with the same name that isn’t the key (both have county_name, say), the join keeps both and adds .x and .y suffixes\nTwo fixes:\n\nselect() away the extra column from one side before joining\nJoin on every shared column: by = c(\"county_fips\", \"county_name\", \"state\")"
-  },
-  {
-    "objectID": "slides/week03.html#a-bigger-example-nycflights13",
-    "href": "slides/week03.html#a-bigger-example-nycflights13",
-    "title": "Week 3: Getting Data",
-    "section": "A Bigger Example: nycflights13",
-    "text": "A Bigger Example: nycflights13\n\ninstall.packages(\"nycflights13\")  # once, if you don't already have it\n\n\nlibrary(nycflights13)\n\nflights |&gt; select(year, month, day, carrier, flight, dest)\n\n# A tibble: 336,776 × 6\n   year month   day carrier flight dest \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;\n1  2013     1     1 UA        1545 IAH  \n2  2013     1     1 UA        1714 IAH  \n3  2013     1     1 AA        1141 MIA  \n4  2013     1     1 B6         725 BQN  \n5  2013     1     1 DL         461 ATL  \n# ℹ 336,771 more rows\n\n\n\nThe same package R4DS’s joins chapter uses: every flight that left a NYC airport in 2013\ncarrier is a two-letter code, not an airline name, exactly the kind of gap a join fills"
-  },
-  {
-    "objectID": "slides/week03.html#the-lookup-table-airlines",
-    "href": "slides/week03.html#the-lookup-table-airlines",
-    "title": "Week 3: Getting Data",
-    "section": "The Lookup Table: airlines",
-    "text": "The Lookup Table: airlines\n\nairlines\n\n# A tibble: 16 × 2\n  carrier name                  \n  &lt;chr&gt;   &lt;chr&gt;                 \n1 9E      Endeavor Air Inc.     \n2 AA      American Airlines Inc.\n3 AS      Alaska Airlines Inc.  \n4 B6      JetBlue Airways       \n5 DL      Delta Air Lines Inc.  \n# ℹ 11 more rows\n\n\n\nOne row per code, the exact shape you want on the right side of a left_join()\nSame key idea as pop and income: both tables share a column, carrier"
-  },
-  {
-    "objectID": "slides/week03.html#joining-them",
-    "href": "slides/week03.html#joining-them",
-    "title": "Week 3: Getting Data",
-    "section": "Joining Them",
-    "text": "Joining Them\n\nflights |&gt;\n  select(year, month, day, carrier, flight, dest) |&gt;\n  left_join(airlines, by = \"carrier\")\n\n# A tibble: 336,776 × 7\n   year month   day carrier flight dest  name                  \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                 \n1  2013     1     1 UA        1545 IAH   United Air Lines Inc. \n2  2013     1     1 UA        1714 IAH   United Air Lines Inc. \n3  2013     1     1 AA        1141 MIA   American Airlines Inc.\n4  2013     1     1 B6         725 BQN   JetBlue Airways       \n5  2013     1     1 DL         461 ATL   Delta Air Lines Inc.  \n# ℹ 336,771 more rows\n\n\n\nSame left_join(), same idea as pop and income, just bigger, real data\nEvery flight keeps its row. It just gains the airline’s full name."
-  },
-  {
-    "objectID": "slides/week03.html#your-turn-15-min",
-    "href": "slides/week03.html#your-turn-15-min",
-    "title": "Week 3: Getting Data",
-    "section": "Your Turn (15 min)",
-    "text": "Your Turn (15 min)\n\nUsing pop and income from tonight, try inner_join() instead of left_join(). How many rows come back, and why?\nPivot bea_wide to long format, then find the county with the biggest year-over-year change\nJoin flights to airlines, then use count() and arrange() to find which carrier had the most flights out of New York in 2013\n\nWork with a neighbor. Reading the whole error message aloud still works."
-  },
-  {
-    "objectID": "slides/week03.html#your-turn-one-way-to-do-it",
-    "href": "slides/week03.html#your-turn-one-way-to-do-it",
-    "title": "Week 3: Getting Data",
-    "section": "Your Turn: One Way to Do It",
-    "text": "Your Turn: One Way to Do It\n\n# 1\npop |&gt; inner_join(income, by = \"county_fips\")\n# Only 2 rows: just the counties present in both tables\n\n# 2\nbea_long |&gt;\n  group_by(county_name) |&gt;\n  mutate(change = population - lag(population)) |&gt;\n  filter(!is.na(change))\n\n# 3\nflights |&gt;\n  left_join(airlines, by = \"carrier\") |&gt;\n  count(name, sort = TRUE)"
-  },
-  {
-    "objectID": "slides/week03.html#before-next-class",
-    "href": "slides/week03.html#before-next-class",
-    "title": "Week 3: Getting Data",
-    "section": "Before Next Class",
-    "text": "Before Next Class\n\nNothing new due this week, but get HW2 (due Sept. 27) working if tonight’s join didn’t click. Office hours or email, any time.\nRead R4DS Ch. 9 (Layers) and Ch. 10 (Exploratory data analysis), and skim Ch. 11 (Communication)\n\nNext week: exploratory data analysis and your first ggplot2 charts."
-  },
-  {
-    "objectID": "slides/week03.html#thank-you",
-    "href": "slides/week03.html#thank-you",
-    "title": "Week 3: Getting Data",
-    "section": "Thank you!",
-    "text": "Thank you!"
-  },
-  {
-    "objectID": "slides/week01.html#welcome",
-    "href": "slides/week01.html#welcome",
-    "title": "Week 1: What is Data Science?",
-    "section": "Welcome",
-    "text": "Welcome\n\nApplied Data Science & Visualization (CDAE 7990)\nToday only: virtual, via Teams\nStarting next week: Lafayette Hall L202, in person\nAsk questions anytime, either by unmuting or dropping them in chat"
-  },
-  {
-    "objectID": "slides/week01.html#todays-plan",
-    "href": "slides/week01.html#todays-plan",
-    "title": "Week 1: What is Data Science?",
-    "section": "Today’s Plan",
-    "text": "Today’s Plan\n\nSyllabus highlights (not a line-by-line read-through)\nWhat is data? What is data science?\nThe tools we’ll use all semester\nGet everyone into Posit Cloud, together, right now\nA first look at the NBRC project"
-  },
-  {
-    "objectID": "slides/week01.html#the-course-in-three-numbers",
-    "href": "slides/week01.html#the-course-in-three-numbers",
-    "title": "Week 1: What is Data Science?",
-    "section": "The Course, in Three Numbers",
-    "text": "The Course, in Three Numbers\n\nThe NBRC project is 70% of your grade\nHomework (5 assignments) is 15%\nParticipation & attendance is 15%\n\nFull breakdown: check out the online syllabus"
-  },
-  {
-    "objectID": "slides/week01.html#attendance-participation",
-    "href": "slides/week01.html#attendance-participation",
-    "title": "Week 1: What is Data Science?",
-    "section": "Attendance & Participation",
-    "text": "Attendance & Participation\n\nAttendance tracked starting Week 2\nOne free absence, no questions asked\nAfter that, it costs you. Give me a heads-up in advance if you know you’ll miss one.\nThis is a lab-heavy course. You learn R by writing R, not by watching it."
-  },
-  {
-    "objectID": "slides/week01.html#ai-tools-encouraged-with-a-catch",
-    "href": "slides/week01.html#ai-tools-encouraged-with-a-catch",
-    "title": "Week 1: What is Data Science?",
-    "section": "AI Tools: Encouraged, With a Catch",
-    "text": "AI Tools: Encouraged, With a Catch\n\nUsing AI to help with your coding is expected, not frowned on\nBut some evaluation is oral and visual, including presentations, code walkthroughs, and design critique\nYou need to be able to explain and defend your own work\nOver-reliance shows up fast in those moments"
-  },
-  {
-    "objectID": "slides/week01.html#what-is-data",
-    "href": "slides/week01.html#what-is-data",
-    "title": "Week 1: What is Data Science?",
-    "section": "What Is Data?",
-    "text": "What Is Data?\n\nA spreadsheet is not the same thing as a dataset\nA dataset is not the same thing as a data product\nDiscussion: where’s the line, and why does it matter for this course?"
-  },
-  {
-    "objectID": "slides/week01.html#data-is-plural",
-    "href": "slides/week01.html#data-is-plural",
-    "title": "Week 1: What is Data Science?",
-    "section": "Data Is Plural",
-    "text": "Data Is Plural\n\n“Data” is plural for datum: a single piece of information\nWe collect and use data to answer questions, or to get a clearer picture of what’s actually going on\nAlmost everything we touch this semester is rectangular:\n\nRows are observations\nColumns are variables"
-  },
-  {
-    "objectID": "slides/week01.html#a-toy-example",
-    "href": "slides/week01.html#a-toy-example",
-    "title": "Week 1: What is Data Science?",
-    "section": "A Toy Example",
-    "text": "A Toy Example\n\n\n\nCoffee Shop\nCity\nCups Sold (Daily)\nRating\n\n\n\n\nBrew Co.\nBurlington\n340\n4.5\n\n\nBean There\nMontpelier\n210\n4.2\n\n\nRoast House\nSt. Albans\n180\n4.7\n\n\n\n\nWhat are the observations here?\nWhat are the variables?\nWhat questions could this table answer? What can’t it answer?"
-  },
-  {
-    "objectID": "slides/week01.html#types-of-data",
-    "href": "slides/week01.html#types-of-data",
-    "title": "Week 1: What is Data Science?",
-    "section": "Types of Data",
-    "text": "Types of Data\n\nQuantitative: measured with numbers; answers “how many?” or “how often?”\n\nContinuous: fractions make sense (3.14 miles)\nDiscrete: fractions don’t make sense (3.14 students)\n\nQualitative: describes attributes or properties\n\nNominal: categories with no order (urban / rural)\nOrdinal: categories with a ranking (never / sometimes / always)"
-  },
-  {
-    "objectID": "slides/week01.html#primary-vs.-secondary-data",
-    "href": "slides/week01.html#primary-vs.-secondary-data",
-    "title": "Week 1: What is Data Science?",
-    "section": "Primary vs. Secondary Data",
-    "text": "Primary vs. Secondary Data\n\nPrimary data: you collected it yourself\nSecondary data: someone else collected it, and you’re using it\nRule of thumb: if you have to ask, it’s secondary data\nAlmost everything we touch this semester, the ACS, Census, USDA ERS, and any data NBRC hands us, is secondary. Knowing where it came from and how it was collected matters as much as what it says."
-  },
-  {
-    "objectID": "slides/week01.html#what-is-data-science",
-    "href": "slides/week01.html#what-is-data-science",
-    "title": "Week 1: What is Data Science?",
-    "section": "What Is Data Science?",
-    "text": "What Is Data Science?\n\n\n\n\nThe R4DS “whole game”:\nimport → tidy → transform ⇄ visualize ⇄ model → communicate\n\nWe’ll touch every stage of this loop this semester\nMost of the course lives in transform/visualize, but the NBRC project forces you through the whole loop"
-  },
-  {
-    "objectID": "slides/week01.html#the-tools",
-    "href": "slides/week01.html#the-tools",
-    "title": "Week 1: What is Data Science?",
-    "section": "The Tools",
-    "text": "The Tools\n\nR is the language\nPosit Cloud is where we all code (no local install needed)\nQuarto turns code into reports, slides, and sites (this website is built with it)\n\nNo live coding today. That starts next week."
-  },
-  {
-    "objectID": "slides/week01.html#lets-get-into-posit-cloud-right-now",
-    "href": "slides/week01.html#lets-get-into-posit-cloud-right-now",
-    "title": "Week 1: What is Data Science?",
-    "section": "Let’s Get Into Posit Cloud, Right Now",
-    "text": "Let’s Get Into Posit Cloud, Right Now\nIn-class to-do, right now:\n\nCheck your UVM email for the Posit Cloud invitation\nAccept it\nOpen the class workspace to get your own private copy\nPlease let me know if anything doesn’t work, since it’s better to find out together tonight"
-  },
-  {
-    "objectID": "slides/week01.html#our-semester-long-partner-nbrc",
-    "href": "slides/week01.html#our-semester-long-partner-nbrc",
-    "title": "Week 1: What is Data Science?",
-    "section": "Our Semester-Long Partner: NBRC",
-    "text": "Our Semester-Long Partner: NBRC\n\nNorthern Border Regional Commission\nFederal-state commission serving rural ME, NH, NY, VT\nYour semester-long project client\nTeam domains (subject to change): Rural Housing, Rural Hub Services"
-  },
-  {
-    "objectID": "slides/week01.html#whats-coming",
-    "href": "slides/week01.html#whats-coming",
-    "title": "Week 1: What is Data Science?",
-    "section": "What’s Coming",
-    "text": "What’s Coming\n\nNBRC visits campus Week 6 (Oct 8) for the project kickoff\nAlso Week 6: a guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural-labor-market research\nTeams and scope lock in Week 7"
-  },
-  {
-    "objectID": "slides/week01.html#before-next-class",
-    "href": "slides/week01.html#before-next-class",
-    "title": "Week 1: What is Data Science?",
-    "section": "Before Next Class",
-    "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (confirmed live in class today)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
-  },
-  {
-    "objectID": "slides/week01.html#thank-you",
-    "href": "slides/week01.html#thank-you",
-    "title": "Week 1: What is Data Science?",
-    "section": "Thank you!",
-    "text": "Thank you!"
-  },
-  {
-    "objectID": "project.html",
-    "href": "project.html",
-    "title": "Community Partner Project",
-    "section": "",
-    "text": "WarningTeam Assignments Pending\n\n\n\nDomain areas and team assignments will be finalized during the Week 6 kickoff meeting with NBRC (held in class, not a field trip). The structure below is provisional."
-  },
-  {
-    "objectID": "project.html#overview",
-    "href": "project.html#overview",
-    "title": "Community Partner Project",
-    "section": "Overview",
-    "text": "Overview\nThe semester-long applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nStudents work in small teams. Each team analyzes a different domain area across NBRC’s full four-state territory (rather than each team covering a single state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC."
-  },
-  {
-    "objectID": "project.html#domain-areas",
-    "href": "project.html#domain-areas",
-    "title": "Community Partner Project",
-    "section": "Domain Areas",
-    "text": "Domain Areas\nFor now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):\n\nRural Housing: issues relating to supply, demand, and affordability of housing in NBRC counties\nRural Hub Services: quantifying and visualizing the essential businesses or amenities that appear in central regional towns to serve all the smaller surrounding communities"
-  },
-  {
-    "objectID": "project.html#team-assignments",
-    "href": "project.html#team-assignments",
-    "title": "Community Partner Project",
-    "section": "Team Assignments",
-    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nRural Housing\nTBD\n\n\n2\nRural Hub Services\nTBD"
-  },
-  {
-    "objectID": "project.html#key-dates-grading",
-    "href": "project.html#key-dates-grading",
-    "title": "Community Partner Project",
-    "section": "Key Dates & Grading",
-    "text": "Key Dates & Grading\nThe project is worth 70% of your course grade, broken into four graded milestones (see the Syllabus for the full grading policy):\n\n\n\n\n\n\n\n\nDate\nMilestone\nWeight\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n—\n\n\nOct 15 (Week 7)\nScope & Team Charter due\n10%\n\n\nNov 19 (Week 12)\nPreliminary Outputs + Peer Critique due\n20%\n\n\nDec 3 (Week 14)\nDraft Deliverable + Revision due\n20%\n\n\nDec 17 (Week 16)\nField trip: Final Deliverable + Presentation due (in-person)\n20%"
-  },
-  {
-    "objectID": "project.html#deliverable-format",
-    "href": "project.html#deliverable-format",
-    "title": "Community Partner Project",
-    "section": "Deliverable Format",
-    "text": "Deliverable Format\n[Draft — instructor to revise as project scope firms up after the Week 6 kickoff.]\nEach of the four graded milestones below builds directly on the last. There’s no single “project” handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.\n\nScope & Team Charter (Week 7, 10%)\nA short planning document, not an analysis. At this point in the semester, teams have core R/tidyverse skills but haven’t yet covered spatial analysis (Weeks 8–9) or Quarto (Week 10). Should include:\n\nTeam roster and a rough division of responsibilities\nThe domain area (Rural Housing or Rural Hub Services) and 2–3 concrete research questions the team plans to answer for NBRC\nA first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)\nA work plan mapped to the remaining milestones below\n\nMust be a Quarto document (.qmd). The point at this stage is alignment within the team and with the instructor, not production value.\n\n\nPreliminary Outputs + Peer Critique (Week 12, 20%)\nBy this point teams have covered spatial analysis and Quarto, so this milestone should look like real, if rough, output. Expect to bring:\n\nAt least one polished chart or map addressing one of your research questions, built in R (ggplot2/sf)\nA short written or verbal framing of what the visualization shows and why it matters to NBRC\nParticipation in structured peer critique, giving and receiving feedback with at least one other team in class\n\nThis is graded on effort and communication quality, not on having “finished” analysis. The critique is meant to catch problems while there’s still time to fix them.\n\n\nDraft Deliverable + Revision (Week 14, 20%)\nA near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team’s choice of report, slide deck, or simple dashboard, consistent with what’s covered in Week 10.\n\n\nFinal Deliverable + Presentation (Week 16, 20%)\nThis is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It’s a Quarto-rendered report, dashboard, or slide deck that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas."
-  },
-  {
-    "objectID": "index.html#course-overview",
-    "href": "index.html#course-overview",
-    "title": "Applied Data Science & Visualization",
-    "section": "Course Overview",
-    "text": "Course Overview\nThis course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.\nA core component is a semester-long applied project delivered to an external community partner."
-  },
-  {
-    "objectID": "index.html#logistics",
-    "href": "index.html#logistics",
-    "title": "Applied Data Science & Visualization",
-    "section": "Logistics",
-    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nMorrill Hall 005 (basement computer lab)\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
-  },
-  {
-    "objectID": "index.html#textbook",
-    "href": "index.html#textbook",
-    "title": "Applied Data Science & Visualization",
-    "section": "Textbook",
-    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online."
-  },
-  {
-    "objectID": "index.html#course-units",
-    "href": "index.html#course-units",
-    "title": "Applied Data Science & Visualization",
-    "section": "Course Units",
-    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: NBRC campus visit + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
-  },
-  {
-    "objectID": "index.html#community-partner",
-    "href": "index.html#community-partner",
-    "title": "Applied Data Science & Visualization",
-    "section": "Community Partner",
-    "text": "Community Partner\nThis semester’s applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
-  },
-  {
-    "objectID": "policies.html",
-    "href": "policies.html",
-    "title": "University Policies & Resources",
-    "section": "",
-    "text": "The information below is lifted straight from official UVM documents and campus resources. You’ve likely already seen most of it in your other course syllabi, since it’s the same for every UVM class. It’s still worth a skim at the start of the semester. Anything in the main Syllabus is an additional layer on top of these bedrock university guidelines."
-  },
-  {
-    "objectID": "policies.html#lived-name-and-pronoun-information",
-    "href": "policies.html#lived-name-and-pronoun-information",
-    "title": "University Policies & Resources",
-    "section": "Lived Name and Pronoun Information",
-    "text": "Lived Name and Pronoun Information\nThe UVM Directory includes fields for indicating your lived name and your pronouns. Lived names (preferred names, names in use) are names that an individual wants to be known by in the University community. Entering your pronouns is strongly encouraged to help create a more inclusive and respectful campus community. To update your information, log in to the UVM Directory. A preview box will let you see how this information will appear in other campus systems."
-  },
-  {
-    "objectID": "policies.html#research-and-citation-help",
-    "href": "policies.html#research-and-citation-help",
-    "title": "University Policies & Resources",
-    "section": "Research and Citation Help",
-    "text": "Research and Citation Help\nFor help selecting research topics, finding information, citing sources, and more, ask a librarian. The UVM Libraries are eager to help, by phone, email, chat, text, or individual consultation.\n\nHowe Library: library.uvm.edu/askhowe\nDana Medical Library: dana.uvm.edu/help/ask\nSilver Special Collections Library: specialcollections.uvm.edu/help/ask"
-  },
-  {
-    "objectID": "policies.html#course-evaluation",
-    "href": "policies.html#course-evaluation",
-    "title": "University Policies & Resources",
-    "section": "Course Evaluation",
-    "text": "Course Evaluation\nAll students are expected to complete an evaluation of the course at its conclusion. Evaluations are anonymous and confidential; the feedback gained, including constructive criticism, is used to improve the course."
-  },
-  {
-    "objectID": "policies.html#potential-changes-during-the-semester",
-    "href": "policies.html#potential-changes-during-the-semester",
-    "title": "University Policies & Resources",
-    "section": "Potential Changes During the Semester",
-    "text": "Potential Changes During the Semester\nThe University of Vermont reserves the right to make changes in course offerings, mode of delivery, degree requirements, charges, regulations, and procedures as educational, financial, health, safety, and welfare considerations require, or as necessary to comply with governmental, accreditation, or public health directives. See the UVM Catalogue for the general statement."
-  },
-  {
-    "objectID": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
-    "href": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
-    "title": "University Policies & Resources",
-    "section": "Intellectual Property / Prohibition on Sharing Academic Materials",
-    "text": "Intellectual Property / Prohibition on Sharing Academic Materials\nStudents are prohibited from publicly sharing or selling academic materials they did not author — for example, the class syllabus, outlines or presentations authored by the professor, practice questions, textbook excerpts, or other copyrighted class materials — and from sharing assessments such as homework or take-home exams. Violations are handled under UVM’s Intellectual Property policy and Code of Academic Integrity."
-  },
-  {
-    "objectID": "policies.html#tips-for-success",
-    "href": "policies.html#tips-for-success",
-    "title": "University Policies & Resources",
-    "section": "Tips for Success",
-    "text": "Tips for Success\nA few general resources for students, including for remote/online sessions:\n\nChecklist for success in online/remote courses\nAcademic support for online learning\n\nOther helpful resources beyond your professor: the Graduate Writing Center, Supplemental Instruction, Learning Co-op tutors."
-  },
-  {
-    "objectID": "policies.html#student-learning-accommodations",
-    "href": "policies.html#student-learning-accommodations",
-    "title": "University Policies & Resources",
-    "section": "Student Learning Accommodations",
-    "text": "Student Learning Accommodations\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS), UVM’s office of Disability Services for students. SAS works with students and faculty in an interactive process to explore reasonable and appropriate accommodations, which are communicated to faculty in an accommodation letter. All students are strongly encouraged to discuss with their instructor the accommodations they plan to use in each course.\nContact SAS: A170 Living/Learning Center · (802) 656-7753 · access@uvm.edu · www.uvm.edu/access"
-  },
-  {
-    "objectID": "policies.html#important-uvm-policies",
-    "href": "policies.html#important-uvm-policies",
-    "title": "University Policies & Resources",
-    "section": "Important UVM Policies",
-    "text": "Important UVM Policies\nAcademic Integrity — Addresses plagiarism, fabrication, collusion, and cheating.\nCode of Student Conduct — Outlines conduct expectations as well as students’ rights and responsibilities.\nFERPA Rights Disclosure — Communicates students’ rights regarding access to, and privacy of, their educational records under the Family Educational Rights and Privacy Act (FERPA) of 1974.\nFinal Exam Policy — Outlines expectations during final exams and explains the timing and process of the examination period.\nGrade Appeals — The procedure to follow if you would like to contest a grade.\nGrading — GPA calculation and general grading information.\nReligious Holidays — Students have the right to practice the religion of their choice. Each semester, students should submit in writing to their instructor(s) — as early as possible, and at least one week before a documented religious holiday — the date(s) of any conflict or absence. Faculty must permit students who miss work or exams for religious observance to make up that work.\n(Full text of these policies is maintained centrally by UVM. Search uvm.edu/policies for the current version of any policy named above.)"
-  },
-  {
-    "objectID": "policies.html#promoting-health-safety",
-    "href": "policies.html#promoting-health-safety",
-    "title": "University Policies & Resources",
-    "section": "Promoting Health & Safety",
-    "text": "Promoting Health & Safety\nThe University of Vermont’s top priority is supporting a healthy and safe community:\n\nCenter for Health and Wellbeing — uvm.edu/health\nCounseling & Psychiatry Services (CAPS) — Direct line: (802) 656-3340\nC.A.R.E. — If you’re concerned about a UVM community member or a specific event, contact the Dean of Students Office at (802) 656-3380, or report anonymously online via the C.A.R.E. Team website."
-  },
-  {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Course Schedule",
-    "section": "",
-    "text": "The course meets Thursdays, 4:35–7:35 pm in Morrill Hall 005, a basement computer lab — no need to bring your own computer, though you’re welcome to if you prefer. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.\nAll five homework assignments (see Syllabus for topics) live in your Posit Cloud workspace as hw1.qmd–hw5.qmd; due dates are noted inline below."
-  },
-  {
-    "objectID": "schedule.html#unit-1-foundations",
-    "href": "schedule.html#unit-1-foundations",
-    "title": "Course Schedule",
-    "section": "Unit 1 — Foundations",
-    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Tidying, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R. Virtual session, link will be emailed.\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse. HW1 due Sept. 13 by 11:59pm.\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8 (skim Ch. 5)\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2. HW2 due Sept. 27 by 11:59pm.\nWeek 4\nR4DS Ch. 9-10 (skim 11)\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Hutchins & Van Leuven (2025)"
-  },
-  {
-    "objectID": "schedule.html#unit-2-community-partnership",
-    "href": "schedule.html#unit-2-community-partnership",
-    "title": "Course Schedule",
-    "section": "Unit 2 — Community Partnership",
-    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is a normal in-class day (no mid-semester field trip), split between a guest lecture and NBRC’s on-campus project kickoff. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nHr. 1: guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research. Hr. 2: NBRC kickoff, with Sarah Waring & Chris Saunders visiting to launch the project. Hr. 3 is flexible.\nWeek 6\nNone\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed. Scope & Team Charter due (10% of project grade).\nWeek 7\nNone"
-  },
-  {
-    "objectID": "schedule.html#unit-3-spatial-analysis",
-    "href": "schedule.html#unit-3-spatial-analysis",
-    "title": "Course Schedule",
-    "section": "Unit 3 — Spatial Analysis",
-    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. See Analyzing US Census Data and Spatial Data Science, both free online. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths. HW3 due Oct. 25 by 11:59pm.\nWeek 8\nAnalyzing US Census Data (Chapters 1 and 4)\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography. HW4 due Nov. 1 by 11:59pm.\nWeek 9\nSpatial Data Science (skim Chapters 1-3)"
-  },
-  {
-    "objectID": "schedule.html#unit-4-communication",
-    "href": "schedule.html#unit-4-communication",
-    "title": "Course Schedule",
-    "section": "Unit 4 — Communication",
-    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. HW5 due Nov. 8 by 11:59pm.\nWeek 10\nR4DS: Quarto\n\n\n11\nNov 12\nNo class (instructor at conference)"
-  },
-  {
-    "objectID": "schedule.html#unit-5-project",
-    "href": "schedule.html#unit-5-project",
-    "title": "Course Schedule",
-    "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique. Preliminary Outputs + Peer Critique due (20% of project grade).\n\n\n13\nNov 26\nNo class (Thanksgiving)\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision. Draft Deliverable + Revision due (20% of project grade).\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier: final presentations (in-person). Final Deliverable + Presentation due (20% of project grade).\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
-  },
-  {
-    "objectID": "slides/week02.html#welcome-to-lafayette-l202",
-    "href": "slides/week02.html#welcome-to-lafayette-l202",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Welcome to Lafayette L202",
-    "text": "Welcome to Lafayette L202\n\nOur first in-person session. Let’s do a quick re-introduction (name, day job, hometown).\nToday is hands-on. Open your Posit Cloud project and keep it open all night.\nTonight’s goal is to get comfortable with R and use it to manipulate some real-world data"
-  },
-  {
-    "objectID": "slides/week02.html#todays-plan",
-    "href": "slides/week02.html#todays-plan",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Today’s Plan",
-    "text": "Today’s Plan\n\nHousekeeping: HW1 is due Sunday, and HW2 needs to get into your project\nR warm-up: objects, functions, packages, and where things live in RStudio\ndplyr, part 1: working with rows and columns\nBreak\ndplyr, part 2: groups and summaries\nCode style, and a preview of HW2"
-  },
-  {
-    "objectID": "slides/week02.html#hw1-due-sunday-sept.-13-by-1159pm",
-    "href": "slides/week02.html#hw1-due-sunday-sept.-13-by-1159pm",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "HW1: Due Sunday (Sept. 13) by 11:59pm",
-    "text": "HW1: Due Sunday (Sept. 13) by 11:59pm\nTwo notes on the version in your project:\n\nMake your two vectors the same length. Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error.\nClick Render before you save. Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page."
-  },
-  {
-    "objectID": "slides/week02.html#get-hw2-into-your-project",
-    "href": "slides/week02.html#get-hw2-into-your-project",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Get HW2 Into Your Project",
-    "text": "Get HW2 Into Your Project\nThe hw2.qmd in your project is an old placeholder. Let’s swap in the real one together.\n\nClick the Terminal tab, next to Console (not the Console itself!)\nCopy and paste these two lines, then press Enter:\n\ngit fetch\ngit checkout origin/main -- homework/hw2.qmd homework/data README.md\n\nOpen homework/hw2.qmd. It should start with instructions for downloading BEA data, and you should see a new homework/data folder."
-  },
-  {
-    "objectID": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
-    "href": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Get HW2 Into Your Project: What to Expect",
-    "text": "Get HW2 Into Your Project: What to Expect\n\nNo output is normal. If nothing prints, it worked.\nThe Git pane may list a few files as changed. Ignore it.\nYour HW1 work is not touched\nPlease don’t use git pull or the Pull button. From here on, every new homework comes out with these same two lines and a different file name."
-  },
-  {
-    "objectID": "slides/week02.html#where-things-live-in-rstudio",
-    "href": "slides/week02.html#where-things-live-in-rstudio",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Where Things Live in RStudio",
-    "text": "Where Things Live in RStudio\n\n\n\n\n\n\n\nPane\nWhat it’s for\n\n\n\n\nEditor (top left)\nYour .qmd files. This is where your work lives\n\n\nConsole (bottom left)\nRuns R right now. Nothing typed here is saved\n\n\nTerminal (tab next to Console)\nTalks to the computer, not R. We only use it for git\n\n\nEnvironment (top right)\nEvery object you’ve created this session\n\n\nFiles (bottom right)\nYour project’s folders. Upload data here"
-  },
-  {
-    "objectID": "slides/week02.html#working-in-a-quarto-document",
-    "href": "slides/week02.html#working-in-a-quarto-document",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Working in a Quarto Document",
-    "text": "Working in a Quarto Document\n\nCode goes in chunks, gray boxes that start with ```{r}\nRun one line: Cmd/Ctrl + Enter\nRun a whole chunk: Cmd/Ctrl + Shift + Enter, or the green ▶ arrow\nRender runs everything from top to bottom in a fresh session, and builds the HTML file\nIf it works when you run it by hand but fails at Render, you probably created something in the Console that isn’t in the document"
-  },
-  {
-    "objectID": "slides/week02.html#objects-and-assignment",
-    "href": "slides/week02.html#objects-and-assignment",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Objects and Assignment",
-    "text": "Objects and Assignment\n\ntowns &lt;- c(\"Burlington\", \"Montpelier\", \"St. Albans\")\npop &lt;- c(44743, 8074, 6876)\n\npop\n\n[1] 44743  8074  6876\n\n\n\n&lt;- means “store this under that name”\nc() combines values into a vector\nA name like pop doesn’t show anything until you run it"
-  },
-  {
-    "objectID": "slides/week02.html#functions",
-    "href": "slides/week02.html#functions",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Functions",
-    "text": "Functions\n\nmean(pop)\n\n[1] 19897.67\n\nmax(pop)\n\n[1] 44743\n\nround(mean(pop), digits = 0)\n\n[1] 19898\n\n\n\nA function takes arguments in parentheses and returns a result\nFunctions can nest. R works from the inside out.\nStuck? Type ?round in the Console to see its help page."
-  },
-  {
-    "objectID": "slides/week02.html#data-frames",
-    "href": "slides/week02.html#data-frames",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Data Frames",
-    "text": "Data Frames\n\nvt &lt;- data.frame(town = towns, population = pop)\nvt\n\n        town population\n1 Burlington      44743\n2 Montpelier       8074\n3 St. Albans       6876\n\n\n\nA data frame is a set of vectors of the same length, side by side\nRows are observations, columns are variables\nThis is the only kind of object we’ll use for most of the semester"
-  },
-  {
-    "objectID": "slides/week02.html#packages",
-    "href": "slides/week02.html#packages",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Packages",
-    "text": "Packages\n\nBase R can do a lot, but packages add new functions\nInstall once per project: install.packages(\"tidyverse\")\n\nAlready done for you in Posit Cloud\n\nLoad every session, at the top of every document:\n\n\nlibrary(tidyverse)\n\n\nIf R says it could not find function, you probably forgot to load the package"
-  },
-  {
-    "objectID": "slides/week02.html#the-tidyverse",
-    "href": "slides/week02.html#the-tidyverse",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "The Tidyverse",
-    "text": "The Tidyverse\nA family of packages that share a design philosophy, and that are built to work together.\n\n\n\nPackage\nJob\n\n\n\n\nreadr\nRead data in (read_csv())\n\n\ndplyr\nTransform it (tonight’s topic)\n\n\ntidyr\nReshape it\n\n\nstringr\nWork with text\n\n\nggplot2\nVisualize it (Weeks 4–5)"
-  },
-  {
-    "objectID": "slides/week02.html#tonights-data-midwest",
-    "href": "slides/week02.html#tonights-data-midwest",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Tonight’s Data: midwest",
-    "text": "Tonight’s Data: midwest\n\nglimpse(midwest)\n\nRows: 437\nColumns: 28\n$ PID                  &lt;int&gt; 561, 562, 563, 564, 565, 566, 567, 568, 5…\n$ county               &lt;chr&gt; \"ADAMS\", \"ALEXANDER\", \"BOND\", \"BOONE\", \"B…\n$ state                &lt;chr&gt; \"IL\", \"IL\", \"IL\", \"IL\", \"IL\", \"IL\", \"IL\",…\n$ area                 &lt;dbl&gt; 0.052, 0.014, 0.022, 0.017, 0.018, 0.050,…\n$ poptotal             &lt;int&gt; 66090, 10626, 14991, 30806, 5836, 35688, …\n$ popdensity           &lt;dbl&gt; 1270.9615, 759.0000, 681.4091, 1812.1176,…\n$ popwhite             &lt;int&gt; 63917, 7054, 14477, 29344, 5264, 35157, 5…\n$ popblack             &lt;int&gt; 1702, 3496, 429, 127, 547, 50, 1, 111, 16…\n$ popamerindian        &lt;int&gt; 98, 19, 35, 46, 14, 65, 8, 30, 8, 331, 51…\n$ popasian             &lt;int&gt; 249, 48, 16, 150, 5, 195, 15, 61, 23, 803…\n$ popother             &lt;int&gt; 124, 9, 34, 1139, 6, 221, 0, 84, 6, 1596,…\n$ percwhite            &lt;dbl&gt; 96.71206, 66.38434, 96.57128, 95.25417, 9…\n$ percblack            &lt;dbl&gt; 2.57527614, 32.90043290, 2.86171703, 0.41…\n$ percamerindan        &lt;dbl&gt; 0.14828264, 0.17880670, 0.23347342, 0.149…\n$ percasian            &lt;dbl&gt; 0.37675897, 0.45172219, 0.10673071, 0.486…\n$ percother            &lt;dbl&gt; 0.18762294, 0.08469791, 0.22680275, 3.697…\n$ popadults            &lt;int&gt; 43298, 6724, 9669, 19272, 3979, 23444, 35…\n$ perchsd              &lt;dbl&gt; 75.10740, 59.72635, 69.33499, 75.47219, 6…\n$ percollege           &lt;dbl&gt; 19.63139, 11.24331, 17.03382, 17.27895, 1…\n$ percprof             &lt;dbl&gt; 4.355859, 2.870315, 4.488572, 4.197800, 3…\n$ poppovertyknown      &lt;int&gt; 63628, 10529, 14235, 30337, 4815, 35107, …\n$ percpovertyknown     &lt;dbl&gt; 96.27478, 99.08714, 94.95697, 98.47757, 8…\n$ percbelowpoverty     &lt;dbl&gt; 13.151443, 32.244278, 12.068844, 7.209019…\n$ percchildbelowpovert &lt;dbl&gt; 18.011717, 45.826514, 14.036061, 11.17953…\n$ percadultpoverty     &lt;dbl&gt; 11.009776, 27.385647, 10.852090, 5.536013…\n$ percelderlypoverty   &lt;dbl&gt; 12.443812, 25.228976, 12.697410, 6.217047…\n$ inmetro              &lt;int&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,…\n$ category             &lt;chr&gt; \"AAR\", \"LHR\", \"AAR\", \"ALU\", \"AAR\", \"AAR\",…"
-  },
-  {
-    "objectID": "slides/week02.html#tonights-data-midwest-1",
-    "href": "slides/week02.html#tonights-data-midwest-1",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Tonight’s Data: midwest",
-    "text": "Tonight’s Data: midwest\n\n437 counties in IL, IN, MI, OH and WI, from the 2000 Census\nComes with the tidyverse (inside ggplot2), so there’s nothing to download\nIt’s the same shape as your HW2 data: one row per county\nUseful columns: county, state, poptotal, percollege, percbelowpoverty, and inmetro (1 = metro county, 0 = non-metro)"
-  },
-  {
-    "objectID": "slides/week02.html#break",
-    "href": "slides/week02.html#break",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Break?",
-    "text": "Break?"
-  },
-  {
-    "objectID": "slides/week02.html#how-every-dplyr-verb-works",
-    "href": "slides/week02.html#how-every-dplyr-verb-works",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "How Every dplyr Verb Works",
-    "text": "How Every dplyr Verb Works\n\nThe first argument is always a data frame\nThe other arguments say what to do with it, using column names without quotes\nThe result is always a new data frame\nThe original is left unchanged. To keep a result, assign it with &lt;-."
-  },
-  {
-    "objectID": "slides/week02.html#the-pipe",
-    "href": "slides/week02.html#the-pipe",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "The Pipe: |>",
-    "text": "The Pipe: |&gt;\nRead |&gt; as “and then.”\n\n# nested: read inside out\narrange(filter(midwest, state == \"WI\"), poptotal)\n\n# piped: read top to bottom\nmidwest |&gt;\n  filter(state == \"WI\") |&gt;\n  arrange(poptotal)\n\nTo get |&gt; instead of %&gt;% (in RStudio on your machine), go to Tools → Global Options → Code and check Use native pipe operator. This is already enabled in Posit Cloud!"
-  },
-  {
-    "objectID": "slides/week02.html#filter-keep-rows-that-match",
-    "href": "slides/week02.html#filter-keep-rows-that-match",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "filter(): Keep Rows That Match",
-    "text": "filter(): Keep Rows That Match\n\nmidwest |&gt;\n  filter(state == \"WI\", inmetro == 0) |&gt;\n  select(county, state, poptotal, inmetro)\n\n# A tibble: 52 × 4\n  county   state poptotal inmetro\n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;   &lt;int&gt;\n1 ADAMS    WI       15682       0\n2 ASHLAND  WI       16307       0\n3 BARRON   WI       40750       0\n4 BAYFIELD WI       14008       0\n5 BUFFALO  WI       13584       0\n# ℹ 47 more rows\n\n\nA comma between conditions means and."
-  },
-  {
-    "objectID": "slides/week02.html#filter-comparisons",
-    "href": "slides/week02.html#filter-comparisons",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "filter(): Comparisons",
-    "text": "filter(): Comparisons\n\n\n\nOperator\nMeaning\n\n\n\n\n==\nequals (two = signs!)\n\n\n!=\ndoes not equal\n\n\n&gt;, &gt;=, &lt;, &lt;=\ngreater/less than\n\n\n&, |\nand, or\n\n\n%in%\nmatches any value in a list\n\n\n\n\nmidwest |&gt; filter(state == \"MI\" | state == \"OH\")\nmidwest |&gt; filter(state %in% c(\"MI\", \"OH\"))   # same thing, less typing"
-  },
-  {
-    "objectID": "slides/week02.html#filter-mistakes-everyone-makes",
-    "href": "slides/week02.html#filter-mistakes-everyone-makes",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "filter(): Mistakes Everyone Makes",
-    "text": "filter(): Mistakes Everyone Makes\n\nmidwest |&gt; filter(state = \"WI\")          # one = sign\nmidwest |&gt; filter(state == WI)           # forgot the quotes\nmidwest |&gt; filter(state == \"wi\")         # capitalization matters\nmidwest |&gt; filter(state == \"WI\" | \"MI\")  # has to be state == \"MI\"\n\n\nThe first one needs a double equals sign.\n\nA single = sets something, like an argument (digits = 0) or a new column in mutate().\nA double == asks a question, “is this equal to that?”, and answers TRUE or FALSE for every row. filter() needs the question.\n\nThe last one looks like it should work, but R needs a full comparison on each side of |. Use %in% instead."
-  },
-  {
-    "objectID": "slides/week02.html#arrange-sort-rows",
-    "href": "slides/week02.html#arrange-sort-rows",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "arrange(): Sort Rows",
-    "text": "arrange(): Sort Rows\n\n\nDefault: smallest first\n\nmidwest |&gt;\n  arrange(percbelowpoverty) |&gt;\n  select(county, state, percbelowpoverty)\n\n# A tibble: 437 × 3\n  county     state percbelowpoverty\n  &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;\n1 OZAUKEE    WI                2.18\n2 DU PAGE    IL                2.71\n3 WAUKESHA   WI                3.12\n4 WASHINGTON WI                3.24\n5 KENDALL    IL                3.39\n# ℹ 432 more rows\n\n\n\nWith desc(): largest first\n\nmidwest |&gt;\n  arrange(desc(percbelowpoverty)) |&gt;\n  select(county, state, percbelowpoverty)\n\n# A tibble: 437 × 3\n  county    state percbelowpoverty\n  &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;\n1 MENOMINEE WI                48.7\n2 ALEXANDER IL                32.2\n3 PULASKI   IL                30.2\n4 ATHENS    OH                28.7\n5 ADAMS     OH                28.5\n# ℹ 432 more rows"
-  },
-  {
-    "objectID": "slides/week02.html#slice-pick-rows-by-position",
-    "href": "slides/week02.html#slice-pick-rows-by-position",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "slice(): Pick Rows by Position",
-    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county      state poptotal\n  &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;\n1 MASON       MI       25537\n2 FOND DU LAC WI       90083\n3 MORGAN      IN       55920\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)."
-  },
-  {
-    "objectID": "slides/week02.html#distinct-and-count",
-    "href": "slides/week02.html#distinct-and-count",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "distinct() and count()",
-    "text": "distinct() and count()\n\n\ndistinct(): just the unique values\n\nmidwest |&gt; distinct(state)\n\n# A tibble: 5 × 1\n  state\n  &lt;chr&gt;\n1 IL   \n2 IN   \n3 MI   \n4 OH   \n5 WI   \n\n\n\ncount(): unique values and how many rows have each\n\nmidwest |&gt; count(state)\n\n# A tibble: 5 × 2\n  state     n\n  &lt;chr&gt; &lt;int&gt;\n1 IL      102\n2 IN       92\n3 MI       83\n4 OH       88\n5 WI       72\n\n\n\nAdd sort = TRUE to count() to put the biggest first."
-  },
-  {
-    "objectID": "slides/week02.html#select-keep-some-columns",
-    "href": "slides/week02.html#select-keep-some-columns",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "select(): Keep Some Columns",
-    "text": "select(): Keep Some Columns\n\nmidwest |&gt;\n  select(county, state, starts_with(\"perc\"))\n\n# A tibble: 437 × 15\n  county    state percwhite percblack percamerindan percasian percother\n  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 ADAMS     IL         96.7     2.58          0.148    0.377     0.188 \n2 ALEXANDER IL         66.4    32.9           0.179    0.452     0.0847\n3 BOND      IL         96.6     2.86          0.233    0.107     0.227 \n4 BOONE     IL         95.3     0.412         0.149    0.487     3.70  \n5 BROWN     IL         90.2     9.37          0.240    0.0857    0.103 \n# ℹ 432 more rows\n# ℹ 8 more variables: perchsd &lt;dbl&gt;, percollege &lt;dbl&gt;, percprof &lt;dbl&gt;,\n#   percpovertyknown &lt;dbl&gt;, percbelowpoverty &lt;dbl&gt;,\n#   percchildbelowpovert &lt;dbl&gt;, percadultpoverty &lt;dbl&gt;,\n#   percelderlypoverty &lt;dbl&gt;\n\n\n\nPick columns by name, or with helpers like starts_with(), ends_with(), and contains()\nA minus sign drops columns: select(-PID)\nYou can also use column numbers (called indexes): select(1, 2:5)"
-  },
-  {
-    "objectID": "slides/week02.html#rename-and-relocate",
-    "href": "slides/week02.html#rename-and-relocate",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "rename() and relocate()",
-    "text": "rename() and relocate()\n\nmidwest |&gt;\n  rename(metro = inmetro, pop = poptotal) |&gt;\n  relocate(metro, .after = state) |&gt;\n  select(county:pop)\n\n# A tibble: 437 × 5\n  county    state metro  area   pop\n  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;\n1 ADAMS     IL        0 0.052 66090\n2 ALEXANDER IL        0 0.014 10626\n3 BOND      IL        0 0.022 14991\n4 BOONE     IL        1 0.017 30806\n5 BROWN     IL        0 0.018  5836\n# ℹ 432 more rows\n\n\n\nrename(new_name = old_name)\nrelocate() moves columns without dropping any\nWhy the dot in .after? Most arguments to dplyr verbs are your column names, so dplyr puts a . in front of its own settings (.after, .before, .by) to keep the two from colliding. If your data had a column called after, then relocate(after) would still mean that column."
-  },
-  {
-    "objectID": "slides/week02.html#mutate-make-new-columns",
-    "href": "slides/week02.html#mutate-make-new-columns",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "mutate(): Make New Columns",
-    "text": "mutate(): Make New Columns\n\nmidwest |&gt;\n  mutate(\n    pop_thousands = poptotal / 1000,\n    metro_label = if_else(inmetro == 1, \"Metro\", \"Non-metro\")\n  ) |&gt;\n  select(county, state, pop_thousands, metro_label)\n\n# A tibble: 437 × 4\n  county    state pop_thousands metro_label\n  &lt;chr&gt;     &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;      \n1 ADAMS     IL            66.1  Non-metro  \n2 ALEXANDER IL            10.6  Non-metro  \n3 BOND      IL            15.0  Non-metro  \n4 BOONE     IL            30.8  Metro      \n5 BROWN     IL             5.84 Non-metro  \n# ℹ 432 more rows"
-  },
-  {
-    "objectID": "slides/week02.html#if_else-pick-between-two-values",
-    "href": "slides/week02.html#if_else-pick-between-two-values",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "if_else(): Pick Between Two Values",
-    "text": "if_else(): Pick Between Two Values\n\nif_else(inmetro == 1, \"Metro\", \"Non-metro\")\n\n\nif_else() takes 3 arguments, in this order:\n\na condition: a test that’s TRUE or FALSE for each row\nthe value to use where the condition is TRUE\nthe value to use where the condition is FALSE\n\nHere, R checks each county one at a time: if inmetro == 1 is TRUE, the new column gets \"Metro\"; if it’s FALSE, it gets \"Non-metro\"\nYou’ll also see base R’s ifelse() (no underscore) online. It works the same way, but if_else() is stricter and catches more mistakes."
-  },
-  {
-    "objectID": "slides/week02.html#case_when-more-than-two-outcomes",
-    "href": "slides/week02.html#case_when-more-than-two-outcomes",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "case_when(): More Than Two Outcomes",
-    "text": "case_when(): More Than Two Outcomes\n\n\n\n\n\n\n\nFor reference\n\n\nWe won’t use case_when() again in class, but it’s here for when you need it.\n\n\n\n\n\n\n\nmidwest |&gt;\n  mutate(\n    size = case_when(\n      poptotal &gt;= 100000 ~ \"Large\",\n      poptotal &gt;= 25000 ~ \"Medium\",\n      .default = \"Small\"\n    )\n  ) |&gt;\n  count(size)\n\n\n\n\n# A tibble: 3 × 2\n  size       n\n  &lt;chr&gt;  &lt;int&gt;\n1 Large     85\n2 Medium   198\n3 Small    154\n\n\n\n\nEach line is condition ~ value. Read the ~ as “then”.\nR checks the lines top to bottom for each row, and the first TRUE wins. That’s why \"Medium\" doesn’t need & poptotal &lt; 100000.\n.default catches everything that didn’t match (another dot argument!)"
-  },
-  {
-    "objectID": "slides/week02.html#your-turn-15-min",
-    "href": "slides/week02.html#your-turn-15-min",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Your Turn (15 min)",
-    "text": "Your Turn (15 min)\nUsing midwest, write one pipeline for each:\n\nNon-metro counties in Illinois, sorted from highest to lowest poverty rate\nKeep only county, state, and every column that starts with pop\nAdd a column for the share of adults with a college degree who are not professionals (percollege - percprof)\n\nWork with a neighbor. If you get an error, read the whole message aloud to your partner first. It often tells you exactly what’s wrong."
-  },
-  {
-    "objectID": "slides/week02.html#your-turn-one-way-to-do-it",
-    "href": "slides/week02.html#your-turn-one-way-to-do-it",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Your Turn: One Way to Do It",
-    "text": "Your Turn: One Way to Do It\n\n# 1\nmidwest |&gt;\n  filter(state == \"IL\", inmetro == 0) |&gt;\n  arrange(desc(percbelowpoverty))\n\n# 2\nmidwest |&gt;\n  select(county, state, starts_with(\"pop\"))\n\n# 3\nmidwest |&gt;\n  mutate(college_nonprof = percollege - percprof)"
-  },
-  {
-    "objectID": "slides/week02.html#break-1",
-    "href": "slides/week02.html#break-1",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Break",
-    "text": "Break"
-  },
-  {
-    "objectID": "slides/week02.html#group_by-summarize",
-    "href": "slides/week02.html#group_by-summarize",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "group_by() + summarize()",
-    "text": "group_by() + summarize()\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    counties = n(),\n    total_pop = sum(poptotal),\n    avg_poverty = mean(percbelowpoverty)\n  )\n\n# A tibble: 5 × 4\n  state counties total_pop avg_poverty\n  &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;       &lt;dbl&gt;\n1 IL         102  11430602        13.1\n2 IN          92   5544159        10.3\n3 MI          83   9295297        14.2\n4 OH          88  10847115        13.0\n5 WI          72   4891769        11.9\n\n\n\ngroup_by() doesn’t change what you see. It changes what happens next.\nsummarize() collapses each group down to one row\ncount() did this, but summarize() gives a lot more options!"
-  },
-  {
-    "objectID": "slides/week02.html#grouping-by-two-things",
-    "href": "slides/week02.html#grouping-by-two-things",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Grouping by Two Things",
-    "text": "Grouping by Two Things\n\nmidwest |&gt;\n  group_by(state, inmetro) |&gt;\n  summarize(avg_poverty = mean(percbelowpoverty), .groups = \"drop\")\n\n# A tibble: 10 × 3\n  state inmetro avg_poverty\n  &lt;chr&gt;   &lt;int&gt;       &lt;dbl&gt;\n1 IL          0       14.4 \n2 IL          1        9.56\n3 IN          0       10.8 \n4 IN          1        9.59\n5 MI          0       15.5 \n# ℹ 5 more rows\n\n\nA question we might have: is non-metro poverty higher than metro poverty in every state?"
-  },
-  {
-    "objectID": "slides/week02.html#watch-out-averaging-averages-or-percentages",
-    "href": "slides/week02.html#watch-out-averaging-averages-or-percentages",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Watch Out: Averaging Averages (or Percentages)",
-    "text": "Watch Out: Averaging Averages (or Percentages)\nmean(percbelowpoverty) treats a county of 1,700 people the same as Cook County (5 million). To get the real state-wide rate, add up the people, then divide:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    poverty_rate = sum(poptotal * percbelowpoverty / 100) / sum(poptotal) * 100\n  )\n\n# A tibble: 5 × 2\n  state poverty_rate\n  &lt;chr&gt;        &lt;dbl&gt;\n1 IL            11.9\n2 IN            10.7\n3 MI            13.1\n4 OH            12.5\n5 WI            10.7\n\n\nThis is where data and coding collide, and it will come up again with the NBRC data."
-  },
-  {
-    "objectID": "slides/week02.html#missing-values",
-    "href": "slides/week02.html#missing-values",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Missing Values",
-    "text": "Missing Values\n\nReal data has gaps. In R, a missing value is NA.\nAny math with an NA in it returns NA, unless you tell R to skip them\n\n\nmean(c(10, 20, NA))\n\n[1] NA\n\nmean(c(10, 20, NA), na.rm = TRUE)\n\n[1] 15\n\n\n\nmidwest has no missing values, but your BEA data might. The HW2 ‘starter code’ handles most of it."
-  },
-  {
-    "objectID": "slides/week02.html#dropping-missing-values-is.na",
-    "href": "slides/week02.html#dropping-missing-values-is.na",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Dropping Missing Values: is.na()",
-    "text": "Dropping Missing Values: is.na()\n\nTo drop rows with a missing value, use is.na(). The ! means “not”.\n\n\ntown_income &lt;- tibble(\n  town = c(\"Burlington\", \"Montpelier\", \"St. Albans\"),\n  income = c(52000, NA, 61000)\n)\n\ntown_income |&gt; filter(!is.na(income))\n\n# A tibble: 2 × 2\n  town       income\n  &lt;chr&gt;       &lt;dbl&gt;\n1 Burlington  52000\n2 St. Albans  61000\n\n\n\nfilter(income == NA) doesn’t work. Nothing is ever “equal to” a missing value, so always use is.na()."
-  },
-  {
-    "objectID": "slides/week02.html#slice_max-and-slice_min",
-    "href": "slides/week02.html#slice_max-and-slice_min",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "slice_max() and slice_min()",
-    "text": "slice_max() and slice_min()\n\n\nThe biggest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_max(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 COOK      IL     5105067\n2 MARION    IN      797159\n3 WAYNE     MI     2111687\n4 CUYAHOGA  OH     1412140\n5 MILWAUKEE WI      959275\n\n\n\nThe smallest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_min(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 POPE      IL        4373\n2 OHIO      IN        5315\n3 KEWEENAW  MI        1701\n4 VINTON    OH       11098\n5 MENOMINEE WI        3890\n\n\n\n\n# Groups: state [5] means the result is still grouped. Anything you do next happens state by state until you add ungroup()."
-  },
-  {
-    "objectID": "slides/week02.html#saving-what-you-make",
-    "href": "slides/week02.html#saving-what-you-make",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Saving What You Make",
-    "text": "Saving What You Make\n\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0)\n\nnrow(midwest)\n\n[1] 437\n\nnrow(rural_wi)\n\n[1] 52\n\n\n\nWithout &lt;-, the result prints and then disappears\nGive results new names rather than overwriting the original. If you write midwest &lt;- midwest |&gt; filter(...), the rest of the data is gone until you re-run from the top."
-  },
-  {
-    "objectID": "slides/week02.html#your-turn-15-min-1",
-    "href": "slides/week02.html#your-turn-15-min-1",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Your Turn (15 min)",
-    "text": "Your Turn (15 min)\n\nHow many non-metro counties does each state have? (Hint: count() can take two columns.)\nFor each state, find the non-metro county with the highest share of college graduates\nThis one’s challenging: for each state, what share of people (not counties) live in a metro county?"
-  },
-  {
-    "objectID": "slides/week02.html#your-turn-one-way-to-do-it-1",
-    "href": "slides/week02.html#your-turn-one-way-to-do-it-1",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Your Turn: One Way to Do It",
-    "text": "Your Turn: One Way to Do It\n\n# 1\nmidwest |&gt; count(state, inmetro)\n\n# 2\nmidwest |&gt;\n  filter(inmetro == 0) |&gt;\n  group_by(state) |&gt;\n  slice_max(percollege, n = 1)\n\n# 3\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(metro_share = sum(poptotal[inmetro == 1]) / sum(poptotal))"
-  },
-  {
-    "objectID": "slides/week02.html#why-style-matters",
-    "href": "slides/week02.html#why-style-matters",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Why Style Matters",
-    "text": "Why Style Matters\n\nYou will read your code more often than you write it, and so will your NBRC teammates\nR4DS Ch. 4 is the full guide. Here are the rules that matter most."
-  },
-  {
-    "objectID": "slides/week02.html#a-few-rules-more-like-guidelines",
-    "href": "slides/week02.html#a-few-rules-more-like-guidelines",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "A Few Rules (More Like Guidelines)",
-    "text": "A Few Rules (More Like Guidelines)\n\n# hard to read\ndf2&lt;-midwest|&gt;filter(state==\"WI\",inmetro==0)|&gt;mutate(PopK=poptotal/1000)\n\n# easier\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0) |&gt;\n  mutate(pop_k = poptotal / 1000)\n\n\nNames in snake_case, and names that describe the contents\nSpaces around &lt;-, ==, +, and after commas\nOne verb per line, with |&gt; at the end of each line\nComments explain why, not what"
-  },
-  {
-    "objectID": "slides/week02.html#reading-error-messages",
-    "href": "slides/week02.html#reading-error-messages",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Reading Error Messages",
-    "text": "Reading Error Messages\n\n\n\n\n\n\n\nYou see\nIt usually means\n\n\n\n\ncould not find function \"glimpse\"\nYou didn’t run library(tidyverse)\n\n\nobject 'midwst' not found\nA typo, or you never ran the chunk that created it\n\n\nunexpected symbol\nA missing comma, parenthesis, or |&gt;\n\n\nWe detected a named input\nYou used = where you meant ==\n\n\n\nRead the whole message. The answer is usually in there."
-  },
-  {
-    "objectID": "slides/week02.html#hw2-wrangling-data-due-sept.-27",
-    "href": "slides/week02.html#hw2-wrangling-data-due-sept.-27",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "HW2: Wrangling Data (Due Sept. 27)",
-    "text": "HW2: Wrangling Data (Due Sept. 27)\n\nDownload real county data from the Bureau of Economic Analysis (BEA)\nUse at least three dplyr verbs from tonight\nDownload a second BEA table and join the two (joins are next week)\nFull instructions are in your hw2.qmd"
-  },
-  {
-    "objectID": "slides/week02.html#lets-do-step-1-together",
-    "href": "slides/week02.html#lets-do-step-1-together",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Let’s Do Step 1 Together",
-    "text": "Let’s Do Step 1 Together\n\nBEA’s website takes a few clicks to navigate, so we’ll get everyone’s hw2a.csv downloaded and uploaded into homework/data before you leave\nAfter that, everything else in the assignment uses tonight’s tools"
-  },
-  {
-    "objectID": "slides/week02.html#before-next-class",
-    "href": "slides/week02.html#before-next-class",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Before Next Class",
-    "text": "Before Next Class\n\nHW1 due Sunday, Sept. 13 by 11:59pm. Render before you save!\nDownload your first BEA file for HW2, if we didn’t finish tonight\nRead R4DS Ch. 7 (Data import) and Ch. 8 (Getting help), and skim Ch. 5 (Data tidying)\n\nNext week: getting data from files, APIs, and the web, plus joins."
-  },
-  {
-    "objectID": "slides/week02.html#thank-you",
-    "href": "slides/week02.html#thank-you",
-    "title": "Week 2: Into the Tidyverse",
-    "section": "Thank you!",
-    "text": "Thank you!"
-  },
-  {
     "objectID": "slides/week04.html#welcome-back",
     "href": "slides/week04.html#welcome-back",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
@@ -1137,6 +318,1042 @@
     "objectID": "slides/week04.html#thank-you",
     "href": "slides/week04.html#thank-you",
     "title": "Week 4: Exploratory Data Analysis & ggplot2",
+    "section": "Thank you!",
+    "text": "Thank you!"
+  },
+  {
+    "objectID": "slides/week02.html#welcome-to-lafayette-l202",
+    "href": "slides/week02.html#welcome-to-lafayette-l202",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Welcome to Lafayette L202",
+    "text": "Welcome to Lafayette L202\n\nOur first in-person session. Let’s do a quick re-introduction (name, day job, hometown).\nToday is hands-on. Open your Posit Cloud project and keep it open all night.\nTonight’s goal is to get comfortable with R and use it to manipulate some real-world data"
+  },
+  {
+    "objectID": "slides/week02.html#todays-plan",
+    "href": "slides/week02.html#todays-plan",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nHousekeeping: HW1 is due Sunday, and HW2 needs to get into your project\nR warm-up: objects, functions, packages, and where things live in RStudio\ndplyr, part 1: working with rows and columns\nBreak\ndplyr, part 2: groups and summaries\nCode style, and a preview of HW2"
+  },
+  {
+    "objectID": "slides/week02.html#hw1-due-sunday-sept.-13-by-1159pm",
+    "href": "slides/week02.html#hw1-due-sunday-sept.-13-by-1159pm",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "HW1: Due Sunday (Sept. 13) by 11:59pm",
+    "text": "HW1: Due Sunday (Sept. 13) by 11:59pm\nTwo notes on the version in your project:\n\nMake your two vectors the same length. Step 4 combines them into a data frame. If one has 5 items and the other has 6, R will throw an error.\nClick Render before you save. Confirm it knits to HTML with no errors. I grade by opening your copy, so an error means I see an empty page."
+  },
+  {
+    "objectID": "slides/week02.html#get-hw2-into-your-project",
+    "href": "slides/week02.html#get-hw2-into-your-project",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Get HW2 Into Your Project",
+    "text": "Get HW2 Into Your Project\nThe hw2.qmd in your project is an old placeholder. Let’s swap in the real one together.\n\nClick the Terminal tab, next to Console (not the Console itself!)\nCopy and paste these two lines, then press Enter:\n\ngit fetch\ngit checkout origin/main -- homework/hw2.qmd homework/data README.md\n\nOpen homework/hw2.qmd. It should start with instructions for downloading BEA data, and you should see a new homework/data folder."
+  },
+  {
+    "objectID": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
+    "href": "slides/week02.html#get-hw2-into-your-project-what-to-expect",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Get HW2 Into Your Project: What to Expect",
+    "text": "Get HW2 Into Your Project: What to Expect\n\nNo output is normal. If nothing prints, it worked.\nThe Git pane may list a few files as changed. Ignore it.\nYour HW1 work is not touched\nPlease don’t use git pull or the Pull button. From here on, every new homework comes out with these same two lines and a different file name."
+  },
+  {
+    "objectID": "slides/week02.html#where-things-live-in-rstudio",
+    "href": "slides/week02.html#where-things-live-in-rstudio",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Where Things Live in RStudio",
+    "text": "Where Things Live in RStudio\n\n\n\n\n\n\n\nPane\nWhat it’s for\n\n\n\n\nEditor (top left)\nYour .qmd files. This is where your work lives\n\n\nConsole (bottom left)\nRuns R right now. Nothing typed here is saved\n\n\nTerminal (tab next to Console)\nTalks to the computer, not R. We only use it for git\n\n\nEnvironment (top right)\nEvery object you’ve created this session\n\n\nFiles (bottom right)\nYour project’s folders. Upload data here"
+  },
+  {
+    "objectID": "slides/week02.html#working-in-a-quarto-document",
+    "href": "slides/week02.html#working-in-a-quarto-document",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Working in a Quarto Document",
+    "text": "Working in a Quarto Document\n\nCode goes in chunks, gray boxes that start with ```{r}\nRun one line: Cmd/Ctrl + Enter\nRun a whole chunk: Cmd/Ctrl + Shift + Enter, or the green ▶ arrow\nRender runs everything from top to bottom in a fresh session, and builds the HTML file\nIf it works when you run it by hand but fails at Render, you probably created something in the Console that isn’t in the document"
+  },
+  {
+    "objectID": "slides/week02.html#objects-and-assignment",
+    "href": "slides/week02.html#objects-and-assignment",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Objects and Assignment",
+    "text": "Objects and Assignment\n\ntowns &lt;- c(\"Burlington\", \"Montpelier\", \"St. Albans\")\npop &lt;- c(44743, 8074, 6876)\n\npop\n\n[1] 44743  8074  6876\n\n\n\n&lt;- means “store this under that name”\nc() combines values into a vector\nA name like pop doesn’t show anything until you run it"
+  },
+  {
+    "objectID": "slides/week02.html#functions",
+    "href": "slides/week02.html#functions",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Functions",
+    "text": "Functions\n\nmean(pop)\n\n[1] 19897.67\n\nmax(pop)\n\n[1] 44743\n\nround(mean(pop), digits = 0)\n\n[1] 19898\n\n\n\nA function takes arguments in parentheses and returns a result\nFunctions can nest. R works from the inside out.\nStuck? Type ?round in the Console to see its help page."
+  },
+  {
+    "objectID": "slides/week02.html#data-frames",
+    "href": "slides/week02.html#data-frames",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Data Frames",
+    "text": "Data Frames\n\nvt &lt;- data.frame(town = towns, population = pop)\nvt\n\n        town population\n1 Burlington      44743\n2 Montpelier       8074\n3 St. Albans       6876\n\n\n\nA data frame is a set of vectors of the same length, side by side\nRows are observations, columns are variables\nThis is the only kind of object we’ll use for most of the semester"
+  },
+  {
+    "objectID": "slides/week02.html#packages",
+    "href": "slides/week02.html#packages",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Packages",
+    "text": "Packages\n\nBase R can do a lot, but packages add new functions\nInstall once per project: install.packages(\"tidyverse\")\n\nAlready done for you in Posit Cloud\n\nLoad every session, at the top of every document:\n\n\nlibrary(tidyverse)\n\n\nIf R says it could not find function, you probably forgot to load the package"
+  },
+  {
+    "objectID": "slides/week02.html#the-tidyverse",
+    "href": "slides/week02.html#the-tidyverse",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "The Tidyverse",
+    "text": "The Tidyverse\nA family of packages that share a design philosophy, and that are built to work together.\n\n\n\nPackage\nJob\n\n\n\n\nreadr\nRead data in (read_csv())\n\n\ndplyr\nTransform it (tonight’s topic)\n\n\ntidyr\nReshape it\n\n\nstringr\nWork with text\n\n\nggplot2\nVisualize it (Weeks 4–5)"
+  },
+  {
+    "objectID": "slides/week02.html#tonights-data-midwest",
+    "href": "slides/week02.html#tonights-data-midwest",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Tonight’s Data: midwest",
+    "text": "Tonight’s Data: midwest\n\nglimpse(midwest)\n\nRows: 437\nColumns: 28\n$ PID                  &lt;int&gt; 561, 562, 563, 564, 565, 566, 567, 568, 5…\n$ county               &lt;chr&gt; \"ADAMS\", \"ALEXANDER\", \"BOND\", \"BOONE\", \"B…\n$ state                &lt;chr&gt; \"IL\", \"IL\", \"IL\", \"IL\", \"IL\", \"IL\", \"IL\",…\n$ area                 &lt;dbl&gt; 0.052, 0.014, 0.022, 0.017, 0.018, 0.050,…\n$ poptotal             &lt;int&gt; 66090, 10626, 14991, 30806, 5836, 35688, …\n$ popdensity           &lt;dbl&gt; 1270.9615, 759.0000, 681.4091, 1812.1176,…\n$ popwhite             &lt;int&gt; 63917, 7054, 14477, 29344, 5264, 35157, 5…\n$ popblack             &lt;int&gt; 1702, 3496, 429, 127, 547, 50, 1, 111, 16…\n$ popamerindian        &lt;int&gt; 98, 19, 35, 46, 14, 65, 8, 30, 8, 331, 51…\n$ popasian             &lt;int&gt; 249, 48, 16, 150, 5, 195, 15, 61, 23, 803…\n$ popother             &lt;int&gt; 124, 9, 34, 1139, 6, 221, 0, 84, 6, 1596,…\n$ percwhite            &lt;dbl&gt; 96.71206, 66.38434, 96.57128, 95.25417, 9…\n$ percblack            &lt;dbl&gt; 2.57527614, 32.90043290, 2.86171703, 0.41…\n$ percamerindan        &lt;dbl&gt; 0.14828264, 0.17880670, 0.23347342, 0.149…\n$ percasian            &lt;dbl&gt; 0.37675897, 0.45172219, 0.10673071, 0.486…\n$ percother            &lt;dbl&gt; 0.18762294, 0.08469791, 0.22680275, 3.697…\n$ popadults            &lt;int&gt; 43298, 6724, 9669, 19272, 3979, 23444, 35…\n$ perchsd              &lt;dbl&gt; 75.10740, 59.72635, 69.33499, 75.47219, 6…\n$ percollege           &lt;dbl&gt; 19.63139, 11.24331, 17.03382, 17.27895, 1…\n$ percprof             &lt;dbl&gt; 4.355859, 2.870315, 4.488572, 4.197800, 3…\n$ poppovertyknown      &lt;int&gt; 63628, 10529, 14235, 30337, 4815, 35107, …\n$ percpovertyknown     &lt;dbl&gt; 96.27478, 99.08714, 94.95697, 98.47757, 8…\n$ percbelowpoverty     &lt;dbl&gt; 13.151443, 32.244278, 12.068844, 7.209019…\n$ percchildbelowpovert &lt;dbl&gt; 18.011717, 45.826514, 14.036061, 11.17953…\n$ percadultpoverty     &lt;dbl&gt; 11.009776, 27.385647, 10.852090, 5.536013…\n$ percelderlypoverty   &lt;dbl&gt; 12.443812, 25.228976, 12.697410, 6.217047…\n$ inmetro              &lt;int&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,…\n$ category             &lt;chr&gt; \"AAR\", \"LHR\", \"AAR\", \"ALU\", \"AAR\", \"AAR\",…"
+  },
+  {
+    "objectID": "slides/week02.html#tonights-data-midwest-1",
+    "href": "slides/week02.html#tonights-data-midwest-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Tonight’s Data: midwest",
+    "text": "Tonight’s Data: midwest\n\n437 counties in IL, IN, MI, OH and WI, from the 2000 Census\nComes with the tidyverse (inside ggplot2), so there’s nothing to download\nIt’s the same shape as your HW2 data: one row per county\nUseful columns: county, state, poptotal, percollege, percbelowpoverty, and inmetro (1 = metro county, 0 = non-metro)"
+  },
+  {
+    "objectID": "slides/week02.html#break",
+    "href": "slides/week02.html#break",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Break?",
+    "text": "Break?"
+  },
+  {
+    "objectID": "slides/week02.html#how-every-dplyr-verb-works",
+    "href": "slides/week02.html#how-every-dplyr-verb-works",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "How Every dplyr Verb Works",
+    "text": "How Every dplyr Verb Works\n\nThe first argument is always a data frame\nThe other arguments say what to do with it, using column names without quotes\nThe result is always a new data frame\nThe original is left unchanged. To keep a result, assign it with &lt;-."
+  },
+  {
+    "objectID": "slides/week02.html#the-pipe",
+    "href": "slides/week02.html#the-pipe",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "The Pipe: |>",
+    "text": "The Pipe: |&gt;\nRead |&gt; as “and then.”\n\n# nested: read inside out\narrange(filter(midwest, state == \"WI\"), poptotal)\n\n# piped: read top to bottom\nmidwest |&gt;\n  filter(state == \"WI\") |&gt;\n  arrange(poptotal)\n\nTo get |&gt; instead of %&gt;% (in RStudio on your machine), go to Tools → Global Options → Code and check Use native pipe operator. This is already enabled in Posit Cloud!"
+  },
+  {
+    "objectID": "slides/week02.html#filter-keep-rows-that-match",
+    "href": "slides/week02.html#filter-keep-rows-that-match",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "filter(): Keep Rows That Match",
+    "text": "filter(): Keep Rows That Match\n\nmidwest |&gt;\n  filter(state == \"WI\", inmetro == 0) |&gt;\n  select(county, state, poptotal, inmetro)\n\n# A tibble: 52 × 4\n  county   state poptotal inmetro\n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;   &lt;int&gt;\n1 ADAMS    WI       15682       0\n2 ASHLAND  WI       16307       0\n3 BARRON   WI       40750       0\n4 BAYFIELD WI       14008       0\n5 BUFFALO  WI       13584       0\n# ℹ 47 more rows\n\n\nA comma between conditions means and."
+  },
+  {
+    "objectID": "slides/week02.html#filter-comparisons",
+    "href": "slides/week02.html#filter-comparisons",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "filter(): Comparisons",
+    "text": "filter(): Comparisons\n\n\n\nOperator\nMeaning\n\n\n\n\n==\nequals (two = signs!)\n\n\n!=\ndoes not equal\n\n\n&gt;, &gt;=, &lt;, &lt;=\ngreater/less than\n\n\n&, |\nand, or\n\n\n%in%\nmatches any value in a list\n\n\n\n\nmidwest |&gt; filter(state == \"MI\" | state == \"OH\")\nmidwest |&gt; filter(state %in% c(\"MI\", \"OH\"))   # same thing, less typing"
+  },
+  {
+    "objectID": "slides/week02.html#filter-mistakes-everyone-makes",
+    "href": "slides/week02.html#filter-mistakes-everyone-makes",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "filter(): Mistakes Everyone Makes",
+    "text": "filter(): Mistakes Everyone Makes\n\nmidwest |&gt; filter(state = \"WI\")          # one = sign\nmidwest |&gt; filter(state == WI)           # forgot the quotes\nmidwest |&gt; filter(state == \"wi\")         # capitalization matters\nmidwest |&gt; filter(state == \"WI\" | \"MI\")  # has to be state == \"MI\"\n\n\nThe first one needs a double equals sign.\n\nA single = sets something, like an argument (digits = 0) or a new column in mutate().\nA double == asks a question, “is this equal to that?”, and answers TRUE or FALSE for every row. filter() needs the question.\n\nThe last one looks like it should work, but R needs a full comparison on each side of |. Use %in% instead."
+  },
+  {
+    "objectID": "slides/week02.html#arrange-sort-rows",
+    "href": "slides/week02.html#arrange-sort-rows",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "arrange(): Sort Rows",
+    "text": "arrange(): Sort Rows\n\n\nDefault: smallest first\n\nmidwest |&gt;\n  arrange(percbelowpoverty) |&gt;\n  select(county, state, percbelowpoverty)\n\n# A tibble: 437 × 3\n  county     state percbelowpoverty\n  &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;\n1 OZAUKEE    WI                2.18\n2 DU PAGE    IL                2.71\n3 WAUKESHA   WI                3.12\n4 WASHINGTON WI                3.24\n5 KENDALL    IL                3.39\n# ℹ 432 more rows\n\n\n\nWith desc(): largest first\n\nmidwest |&gt;\n  arrange(desc(percbelowpoverty)) |&gt;\n  select(county, state, percbelowpoverty)\n\n# A tibble: 437 × 3\n  county    state percbelowpoverty\n  &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;\n1 MENOMINEE WI                48.7\n2 ALEXANDER IL                32.2\n3 PULASKI   IL                30.2\n4 ATHENS    OH                28.7\n5 ADAMS     OH                28.5\n# ℹ 432 more rows"
+  },
+  {
+    "objectID": "slides/week02.html#slice-pick-rows-by-position",
+    "href": "slides/week02.html#slice-pick-rows-by-position",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "slice(): Pick Rows by Position",
+    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county   state poptotal\n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;\n1 RICHLAND OH      126137\n2 BARAGA   MI        7954\n3 GRANT    IN       74169\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)."
+  },
+  {
+    "objectID": "slides/week02.html#distinct-and-count",
+    "href": "slides/week02.html#distinct-and-count",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "distinct() and count()",
+    "text": "distinct() and count()\n\n\ndistinct(): just the unique values\n\nmidwest |&gt; distinct(state)\n\n# A tibble: 5 × 1\n  state\n  &lt;chr&gt;\n1 IL   \n2 IN   \n3 MI   \n4 OH   \n5 WI   \n\n\n\ncount(): unique values and how many rows have each\n\nmidwest |&gt; count(state)\n\n# A tibble: 5 × 2\n  state     n\n  &lt;chr&gt; &lt;int&gt;\n1 IL      102\n2 IN       92\n3 MI       83\n4 OH       88\n5 WI       72\n\n\n\nAdd sort = TRUE to count() to put the biggest first."
+  },
+  {
+    "objectID": "slides/week02.html#select-keep-some-columns",
+    "href": "slides/week02.html#select-keep-some-columns",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "select(): Keep Some Columns",
+    "text": "select(): Keep Some Columns\n\nmidwest |&gt;\n  select(county, state, starts_with(\"perc\"))\n\n# A tibble: 437 × 15\n  county    state percwhite percblack percamerindan percasian percother\n  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 ADAMS     IL         96.7     2.58          0.148    0.377     0.188 \n2 ALEXANDER IL         66.4    32.9           0.179    0.452     0.0847\n3 BOND      IL         96.6     2.86          0.233    0.107     0.227 \n4 BOONE     IL         95.3     0.412         0.149    0.487     3.70  \n5 BROWN     IL         90.2     9.37          0.240    0.0857    0.103 \n# ℹ 432 more rows\n# ℹ 8 more variables: perchsd &lt;dbl&gt;, percollege &lt;dbl&gt;, percprof &lt;dbl&gt;,\n#   percpovertyknown &lt;dbl&gt;, percbelowpoverty &lt;dbl&gt;,\n#   percchildbelowpovert &lt;dbl&gt;, percadultpoverty &lt;dbl&gt;,\n#   percelderlypoverty &lt;dbl&gt;\n\n\n\nPick columns by name, or with helpers like starts_with(), ends_with(), and contains()\nA minus sign drops columns: select(-PID)\nYou can also use column numbers (called indexes): select(1, 2:5)"
+  },
+  {
+    "objectID": "slides/week02.html#rename-and-relocate",
+    "href": "slides/week02.html#rename-and-relocate",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "rename() and relocate()",
+    "text": "rename() and relocate()\n\nmidwest |&gt;\n  rename(metro = inmetro, pop = poptotal) |&gt;\n  relocate(metro, .after = state) |&gt;\n  select(county:pop)\n\n# A tibble: 437 × 5\n  county    state metro  area   pop\n  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;\n1 ADAMS     IL        0 0.052 66090\n2 ALEXANDER IL        0 0.014 10626\n3 BOND      IL        0 0.022 14991\n4 BOONE     IL        1 0.017 30806\n5 BROWN     IL        0 0.018  5836\n# ℹ 432 more rows\n\n\n\nrename(new_name = old_name)\nrelocate() moves columns without dropping any\nWhy the dot in .after? Most arguments to dplyr verbs are your column names, so dplyr puts a . in front of its own settings (.after, .before, .by) to keep the two from colliding. If your data had a column called after, then relocate(after) would still mean that column."
+  },
+  {
+    "objectID": "slides/week02.html#mutate-make-new-columns",
+    "href": "slides/week02.html#mutate-make-new-columns",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "mutate(): Make New Columns",
+    "text": "mutate(): Make New Columns\n\nmidwest |&gt;\n  mutate(\n    pop_thousands = poptotal / 1000,\n    metro_label = if_else(inmetro == 1, \"Metro\", \"Non-metro\")\n  ) |&gt;\n  select(county, state, pop_thousands, metro_label)\n\n# A tibble: 437 × 4\n  county    state pop_thousands metro_label\n  &lt;chr&gt;     &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;      \n1 ADAMS     IL            66.1  Non-metro  \n2 ALEXANDER IL            10.6  Non-metro  \n3 BOND      IL            15.0  Non-metro  \n4 BOONE     IL            30.8  Metro      \n5 BROWN     IL             5.84 Non-metro  \n# ℹ 432 more rows"
+  },
+  {
+    "objectID": "slides/week02.html#if_else-pick-between-two-values",
+    "href": "slides/week02.html#if_else-pick-between-two-values",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "if_else(): Pick Between Two Values",
+    "text": "if_else(): Pick Between Two Values\n\nif_else(inmetro == 1, \"Metro\", \"Non-metro\")\n\n\nif_else() takes 3 arguments, in this order:\n\na condition: a test that’s TRUE or FALSE for each row\nthe value to use where the condition is TRUE\nthe value to use where the condition is FALSE\n\nHere, R checks each county one at a time: if inmetro == 1 is TRUE, the new column gets \"Metro\"; if it’s FALSE, it gets \"Non-metro\"\nYou’ll also see base R’s ifelse() (no underscore) online. It works the same way, but if_else() is stricter and catches more mistakes."
+  },
+  {
+    "objectID": "slides/week02.html#case_when-more-than-two-outcomes",
+    "href": "slides/week02.html#case_when-more-than-two-outcomes",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "case_when(): More Than Two Outcomes",
+    "text": "case_when(): More Than Two Outcomes\n\n\n\n\n\n\n\nFor reference\n\n\nWe won’t use case_when() again in class, but it’s here for when you need it.\n\n\n\n\n\n\n\nmidwest |&gt;\n  mutate(\n    size = case_when(\n      poptotal &gt;= 100000 ~ \"Large\",\n      poptotal &gt;= 25000 ~ \"Medium\",\n      .default = \"Small\"\n    )\n  ) |&gt;\n  count(size)\n\n\n\n\n# A tibble: 3 × 2\n  size       n\n  &lt;chr&gt;  &lt;int&gt;\n1 Large     85\n2 Medium   198\n3 Small    154\n\n\n\n\nEach line is condition ~ value. Read the ~ as “then”.\nR checks the lines top to bottom for each row, and the first TRUE wins. That’s why \"Medium\" doesn’t need & poptotal &lt; 100000.\n.default catches everything that didn’t match (another dot argument!)"
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-15-min",
+    "href": "slides/week02.html#your-turn-15-min",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn (15 min)",
+    "text": "Your Turn (15 min)\nUsing midwest, write one pipeline for each:\n\nNon-metro counties in Illinois, sorted from highest to lowest poverty rate\nKeep only county, state, and every column that starts with pop\nAdd a column for the share of adults with a college degree who are not professionals (percollege - percprof)\n\nWork with a neighbor. If you get an error, read the whole message aloud to your partner first. It often tells you exactly what’s wrong."
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-one-way-to-do-it",
+    "href": "slides/week02.html#your-turn-one-way-to-do-it",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It\n\n# 1\nmidwest |&gt;\n  filter(state == \"IL\", inmetro == 0) |&gt;\n  arrange(desc(percbelowpoverty))\n\n# 2\nmidwest |&gt;\n  select(county, state, starts_with(\"pop\"))\n\n# 3\nmidwest |&gt;\n  mutate(college_nonprof = percollege - percprof)"
+  },
+  {
+    "objectID": "slides/week02.html#break-1",
+    "href": "slides/week02.html#break-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Break",
+    "text": "Break"
+  },
+  {
+    "objectID": "slides/week02.html#group_by-summarize",
+    "href": "slides/week02.html#group_by-summarize",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "group_by() + summarize()",
+    "text": "group_by() + summarize()\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    counties = n(),\n    total_pop = sum(poptotal),\n    avg_poverty = mean(percbelowpoverty)\n  )\n\n# A tibble: 5 × 4\n  state counties total_pop avg_poverty\n  &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;       &lt;dbl&gt;\n1 IL         102  11430602        13.1\n2 IN          92   5544159        10.3\n3 MI          83   9295297        14.2\n4 OH          88  10847115        13.0\n5 WI          72   4891769        11.9\n\n\n\ngroup_by() doesn’t change what you see. It changes what happens next.\nsummarize() collapses each group down to one row\ncount() did this, but summarize() gives a lot more options!"
+  },
+  {
+    "objectID": "slides/week02.html#grouping-by-two-things",
+    "href": "slides/week02.html#grouping-by-two-things",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Grouping by Two Things",
+    "text": "Grouping by Two Things\n\nmidwest |&gt;\n  group_by(state, inmetro) |&gt;\n  summarize(avg_poverty = mean(percbelowpoverty), .groups = \"drop\")\n\n# A tibble: 10 × 3\n  state inmetro avg_poverty\n  &lt;chr&gt;   &lt;int&gt;       &lt;dbl&gt;\n1 IL          0       14.4 \n2 IL          1        9.56\n3 IN          0       10.8 \n4 IN          1        9.59\n5 MI          0       15.5 \n# ℹ 5 more rows\n\n\nA question we might have: is non-metro poverty higher than metro poverty in every state?"
+  },
+  {
+    "objectID": "slides/week02.html#watch-out-averaging-averages-or-percentages",
+    "href": "slides/week02.html#watch-out-averaging-averages-or-percentages",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Watch Out: Averaging Averages (or Percentages)",
+    "text": "Watch Out: Averaging Averages (or Percentages)\nmean(percbelowpoverty) treats a county of 1,700 people the same as Cook County (5 million). To get the real state-wide rate, add up the people, then divide:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(\n    poverty_rate = sum(poptotal * percbelowpoverty / 100) / sum(poptotal) * 100\n  )\n\n# A tibble: 5 × 2\n  state poverty_rate\n  &lt;chr&gt;        &lt;dbl&gt;\n1 IL            11.9\n2 IN            10.7\n3 MI            13.1\n4 OH            12.5\n5 WI            10.7\n\n\nThis is where data and coding collide, and it will come up again with the NBRC data."
+  },
+  {
+    "objectID": "slides/week02.html#missing-values",
+    "href": "slides/week02.html#missing-values",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Missing Values",
+    "text": "Missing Values\n\nReal data has gaps. In R, a missing value is NA.\nAny math with an NA in it returns NA, unless you tell R to skip them\n\n\nmean(c(10, 20, NA))\n\n[1] NA\n\nmean(c(10, 20, NA), na.rm = TRUE)\n\n[1] 15\n\n\n\nmidwest has no missing values, but your BEA data might. The HW2 ‘starter code’ handles most of it."
+  },
+  {
+    "objectID": "slides/week02.html#dropping-missing-values-is.na",
+    "href": "slides/week02.html#dropping-missing-values-is.na",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Dropping Missing Values: is.na()",
+    "text": "Dropping Missing Values: is.na()\n\nTo drop rows with a missing value, use is.na(). The ! means “not”.\n\n\ntown_income &lt;- tibble(\n  town = c(\"Burlington\", \"Montpelier\", \"St. Albans\"),\n  income = c(52000, NA, 61000)\n)\n\ntown_income |&gt; filter(!is.na(income))\n\n# A tibble: 2 × 2\n  town       income\n  &lt;chr&gt;       &lt;dbl&gt;\n1 Burlington  52000\n2 St. Albans  61000\n\n\n\nfilter(income == NA) doesn’t work. Nothing is ever “equal to” a missing value, so always use is.na()."
+  },
+  {
+    "objectID": "slides/week02.html#slice_max-and-slice_min",
+    "href": "slides/week02.html#slice_max-and-slice_min",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "slice_max() and slice_min()",
+    "text": "slice_max() and slice_min()\n\n\nThe biggest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_max(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 COOK      IL     5105067\n2 MARION    IN      797159\n3 WAYNE     MI     2111687\n4 CUYAHOGA  OH     1412140\n5 MILWAUKEE WI      959275\n\n\n\nThe smallest county in each state:\n\nmidwest |&gt;\n  group_by(state) |&gt;\n  slice_min(poptotal, n = 1) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 POPE      IL        4373\n2 OHIO      IN        5315\n3 KEWEENAW  MI        1701\n4 VINTON    OH       11098\n5 MENOMINEE WI        3890\n\n\n\n\n# Groups: state [5] means the result is still grouped. Anything you do next happens state by state until you add ungroup()."
+  },
+  {
+    "objectID": "slides/week02.html#saving-what-you-make",
+    "href": "slides/week02.html#saving-what-you-make",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Saving What You Make",
+    "text": "Saving What You Make\n\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0)\n\nnrow(midwest)\n\n[1] 437\n\nnrow(rural_wi)\n\n[1] 52\n\n\n\nWithout &lt;-, the result prints and then disappears\nGive results new names rather than overwriting the original. If you write midwest &lt;- midwest |&gt; filter(...), the rest of the data is gone until you re-run from the top."
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-15-min-1",
+    "href": "slides/week02.html#your-turn-15-min-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn (15 min)",
+    "text": "Your Turn (15 min)\n\nHow many non-metro counties does each state have? (Hint: count() can take two columns.)\nFor each state, find the non-metro county with the highest share of college graduates\nThis one’s challenging: for each state, what share of people (not counties) live in a metro county?"
+  },
+  {
+    "objectID": "slides/week02.html#your-turn-one-way-to-do-it-1",
+    "href": "slides/week02.html#your-turn-one-way-to-do-it-1",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It\n\n# 1\nmidwest |&gt; count(state, inmetro)\n\n# 2\nmidwest |&gt;\n  filter(inmetro == 0) |&gt;\n  group_by(state) |&gt;\n  slice_max(percollege, n = 1)\n\n# 3\nmidwest |&gt;\n  group_by(state) |&gt;\n  summarize(metro_share = sum(poptotal[inmetro == 1]) / sum(poptotal))"
+  },
+  {
+    "objectID": "slides/week02.html#why-style-matters",
+    "href": "slides/week02.html#why-style-matters",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Why Style Matters",
+    "text": "Why Style Matters\n\nYou will read your code more often than you write it, and so will your NBRC teammates\nR4DS Ch. 4 is the full guide. Here are the rules that matter most."
+  },
+  {
+    "objectID": "slides/week02.html#a-few-rules-more-like-guidelines",
+    "href": "slides/week02.html#a-few-rules-more-like-guidelines",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "A Few Rules (More Like Guidelines)",
+    "text": "A Few Rules (More Like Guidelines)\n\n# hard to read\ndf2&lt;-midwest|&gt;filter(state==\"WI\",inmetro==0)|&gt;mutate(PopK=poptotal/1000)\n\n# easier\nrural_wi &lt;- midwest |&gt;\n  filter(state == \"WI\", inmetro == 0) |&gt;\n  mutate(pop_k = poptotal / 1000)\n\n\nNames in snake_case, and names that describe the contents\nSpaces around &lt;-, ==, +, and after commas\nOne verb per line, with |&gt; at the end of each line\nComments explain why, not what"
+  },
+  {
+    "objectID": "slides/week02.html#reading-error-messages",
+    "href": "slides/week02.html#reading-error-messages",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Reading Error Messages",
+    "text": "Reading Error Messages\n\n\n\n\n\n\n\nYou see\nIt usually means\n\n\n\n\ncould not find function \"glimpse\"\nYou didn’t run library(tidyverse)\n\n\nobject 'midwst' not found\nA typo, or you never ran the chunk that created it\n\n\nunexpected symbol\nA missing comma, parenthesis, or |&gt;\n\n\nWe detected a named input\nYou used = where you meant ==\n\n\n\nRead the whole message. The answer is usually in there."
+  },
+  {
+    "objectID": "slides/week02.html#hw2-wrangling-data-due-sept.-27",
+    "href": "slides/week02.html#hw2-wrangling-data-due-sept.-27",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "HW2: Wrangling Data (Due Sept. 27)",
+    "text": "HW2: Wrangling Data (Due Sept. 27)\n\nDownload real county data from the Bureau of Economic Analysis (BEA)\nUse at least three dplyr verbs from tonight\nDownload a second BEA table and join the two (joins are next week)\nFull instructions are in your hw2.qmd"
+  },
+  {
+    "objectID": "slides/week02.html#lets-do-step-1-together",
+    "href": "slides/week02.html#lets-do-step-1-together",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Let’s Do Step 1 Together",
+    "text": "Let’s Do Step 1 Together\n\nBEA’s website takes a few clicks to navigate, so we’ll get everyone’s hw2a.csv downloaded and uploaded into homework/data before you leave\nAfter that, everything else in the assignment uses tonight’s tools"
+  },
+  {
+    "objectID": "slides/week02.html#before-next-class",
+    "href": "slides/week02.html#before-next-class",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Before Next Class",
+    "text": "Before Next Class\n\nHW1 due Sunday, Sept. 13 by 11:59pm. Render before you save!\nDownload your first BEA file for HW2, if we didn’t finish tonight\nRead R4DS Ch. 7 (Data import) and Ch. 8 (Getting help), and skim Ch. 5 (Data tidying)\n\nNext week: getting data from files, APIs, and the web, plus joins."
+  },
+  {
+    "objectID": "slides/week02.html#thank-you",
+    "href": "slides/week02.html#thank-you",
+    "title": "Week 2: Into the Tidyverse",
+    "section": "Thank you!",
+    "text": "Thank you!"
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Course Schedule",
+    "section": "",
+    "text": "The course meets Thursdays, 4:35–7:35 pm in Morrill Hall 005, a basement computer lab — no need to bring your own computer, though you’re welcome to if you prefer. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.\nAll five homework assignments (see Syllabus for topics) live in your Posit Cloud workspace as hw1.qmd–hw5.qmd; due dates are noted inline below."
+  },
+  {
+    "objectID": "schedule.html#unit-1-foundations",
+    "href": "schedule.html#unit-1-foundations",
+    "title": "Course Schedule",
+    "section": "Unit 1 — Foundations",
+    "text": "Unit 1 — Foundations\n\n\n\n\n\n\nCore skills: R basics, tidyverse, dplyr, data import, EDA, ggplot2 R for Data Science: Intro, Whole Game, Data Transformation, Data Tidying, Data Import, EDA, Layers, Communication\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n1\nSep 3\nWhat is data? What is data science? Intro to R. Virtual session, link will be emailed.\nWeek 1\nR4DS Intro\n\n\n2\nSep 10\ndplyr basics; into the tidyverse. HW1 due Sept. 13 by 11:59pm.\nWeek 2\nR4DS Ch. 3–4\n\n\n3\nSep 17\nGetting data: APIs, scraping, joins\nWeek 3\nR4DS Ch. 7–8 (skim Ch. 5)\n\n\n4\nSep 24\nExploratory data analysis; intro to ggplot2. HW2 due Sept. 27 by 11:59pm.\nWeek 4\nR4DS Ch. 9-10 (skim 11)\n\n\n5\nOct 1\nAdvanced ggplot2; principles of effective visualization\nWeek 5\nR4DS Hutchins & Van Leuven (2025)"
+  },
+  {
+    "objectID": "schedule.html#unit-2-community-partnership",
+    "href": "schedule.html#unit-2-community-partnership",
+    "title": "Course Schedule",
+    "section": "Unit 2 — Community Partnership",
+    "text": "Unit 2 — Community Partnership\n\n\n\n\n\n\nWeek 6 is a normal in-class day (no mid-semester field trip), split between a guest lecture and NBRC’s on-campus project kickoff. Week 7 bridges visualization into project launch.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n6\nOct 8\nHr. 1: guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research. Hr. 2: NBRC kickoff, with Sarah Waring & Chris Saunders visiting to launch the project. Hr. 3 is flexible.\nWeek 6\nNone\n\n\n7\nOct 15\nChart types and visual communication; project teams + scope confirmed. Scope & Team Charter due (10% of project grade).\nWeek 7\nNone"
+  },
+  {
+    "objectID": "schedule.html#unit-3-spatial-analysis",
+    "href": "schedule.html#unit-3-spatial-analysis",
+    "title": "Course Schedule",
+    "section": "Unit 3 — Spatial Analysis",
+    "text": "Unit 3 — Spatial Analysis\n\n\n\n\n\n\nSupplemental to R4DS. See Analyzing US Census Data and Spatial Data Science, both free online. Packages: sf, tidycensus, tigris, ggspatial\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n8\nOct 22\nIntro to GIS; Census geography; sf and tidycensus; basic choropleths. HW3 due Oct. 25 by 11:59pm.\nWeek 8\nAnalyzing US Census Data (Chapters 1 and 4)\n\n\n9\nOct 29\nAdvanced GIS; non-Census spatial data; publication-level cartography. HW4 due Nov. 1 by 11:59pm.\nWeek 9\nSpatial Data Science (skim Chapters 1-3)"
+  },
+  {
+    "objectID": "schedule.html#unit-4-communication",
+    "href": "schedule.html#unit-4-communication",
+    "title": "Course Schedule",
+    "section": "Unit 4 — Communication",
+    "text": "Unit 4 — Communication\n\n\n\n\n\n\nQuarto as a one-stop communication tool. Packages: quarto, rmarkdown. Includes a brief git/GitHub primer.\n\n\n\n\n\n\nWeek\nDate\nTopic\nSlides\nReading\n\n\n\n\n10\nNov 5\nQuarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. HW5 due Nov. 8 by 11:59pm.\nWeek 10\nR4DS: Quarto\n\n\n11\nNov 12\nNo class (instructor at conference)"
+  },
+  {
+    "objectID": "schedule.html#unit-5-project",
+    "href": "schedule.html#unit-5-project",
+    "title": "Course Schedule",
+    "section": "Unit 5 — Project",
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique. Preliminary Outputs + Peer Critique due (20% of project grade).\n\n\n13\nNov 26\nNo class (Thanksgiving)\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision. Draft Deliverable + Revision due (20% of project grade).\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier: final presentations (in-person). Final Deliverable + Presentation due (20% of project grade).\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: August 2026"
+  },
+  {
+    "objectID": "policies.html",
+    "href": "policies.html",
+    "title": "University Policies & Resources",
+    "section": "",
+    "text": "The information below is lifted straight from official UVM documents and campus resources. You’ve likely already seen most of it in your other course syllabi, since it’s the same for every UVM class. It’s still worth a skim at the start of the semester. Anything in the main Syllabus is an additional layer on top of these bedrock university guidelines."
+  },
+  {
+    "objectID": "policies.html#lived-name-and-pronoun-information",
+    "href": "policies.html#lived-name-and-pronoun-information",
+    "title": "University Policies & Resources",
+    "section": "Lived Name and Pronoun Information",
+    "text": "Lived Name and Pronoun Information\nThe UVM Directory includes fields for indicating your lived name and your pronouns. Lived names (preferred names, names in use) are names that an individual wants to be known by in the University community. Entering your pronouns is strongly encouraged to help create a more inclusive and respectful campus community. To update your information, log in to the UVM Directory. A preview box will let you see how this information will appear in other campus systems."
+  },
+  {
+    "objectID": "policies.html#research-and-citation-help",
+    "href": "policies.html#research-and-citation-help",
+    "title": "University Policies & Resources",
+    "section": "Research and Citation Help",
+    "text": "Research and Citation Help\nFor help selecting research topics, finding information, citing sources, and more, ask a librarian. The UVM Libraries are eager to help, by phone, email, chat, text, or individual consultation.\n\nHowe Library: library.uvm.edu/askhowe\nDana Medical Library: dana.uvm.edu/help/ask\nSilver Special Collections Library: specialcollections.uvm.edu/help/ask"
+  },
+  {
+    "objectID": "policies.html#course-evaluation",
+    "href": "policies.html#course-evaluation",
+    "title": "University Policies & Resources",
+    "section": "Course Evaluation",
+    "text": "Course Evaluation\nAll students are expected to complete an evaluation of the course at its conclusion. Evaluations are anonymous and confidential; the feedback gained, including constructive criticism, is used to improve the course."
+  },
+  {
+    "objectID": "policies.html#potential-changes-during-the-semester",
+    "href": "policies.html#potential-changes-during-the-semester",
+    "title": "University Policies & Resources",
+    "section": "Potential Changes During the Semester",
+    "text": "Potential Changes During the Semester\nThe University of Vermont reserves the right to make changes in course offerings, mode of delivery, degree requirements, charges, regulations, and procedures as educational, financial, health, safety, and welfare considerations require, or as necessary to comply with governmental, accreditation, or public health directives. See the UVM Catalogue for the general statement."
+  },
+  {
+    "objectID": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
+    "href": "policies.html#intellectual-property-prohibition-on-sharing-academic-materials",
+    "title": "University Policies & Resources",
+    "section": "Intellectual Property / Prohibition on Sharing Academic Materials",
+    "text": "Intellectual Property / Prohibition on Sharing Academic Materials\nStudents are prohibited from publicly sharing or selling academic materials they did not author — for example, the class syllabus, outlines or presentations authored by the professor, practice questions, textbook excerpts, or other copyrighted class materials — and from sharing assessments such as homework or take-home exams. Violations are handled under UVM’s Intellectual Property policy and Code of Academic Integrity."
+  },
+  {
+    "objectID": "policies.html#tips-for-success",
+    "href": "policies.html#tips-for-success",
+    "title": "University Policies & Resources",
+    "section": "Tips for Success",
+    "text": "Tips for Success\nA few general resources for students, including for remote/online sessions:\n\nChecklist for success in online/remote courses\nAcademic support for online learning\n\nOther helpful resources beyond your professor: the Graduate Writing Center, Supplemental Instruction, Learning Co-op tutors."
+  },
+  {
+    "objectID": "policies.html#student-learning-accommodations",
+    "href": "policies.html#student-learning-accommodations",
+    "title": "University Policies & Resources",
+    "section": "Student Learning Accommodations",
+    "text": "Student Learning Accommodations\nIn keeping with University policy, any student with a documented disability interested in utilizing ADA accommodations should contact Student Accessibility Services (SAS), UVM’s office of Disability Services for students. SAS works with students and faculty in an interactive process to explore reasonable and appropriate accommodations, which are communicated to faculty in an accommodation letter. All students are strongly encouraged to discuss with their instructor the accommodations they plan to use in each course.\nContact SAS: A170 Living/Learning Center · (802) 656-7753 · access@uvm.edu · www.uvm.edu/access"
+  },
+  {
+    "objectID": "policies.html#important-uvm-policies",
+    "href": "policies.html#important-uvm-policies",
+    "title": "University Policies & Resources",
+    "section": "Important UVM Policies",
+    "text": "Important UVM Policies\nAcademic Integrity — Addresses plagiarism, fabrication, collusion, and cheating.\nCode of Student Conduct — Outlines conduct expectations as well as students’ rights and responsibilities.\nFERPA Rights Disclosure — Communicates students’ rights regarding access to, and privacy of, their educational records under the Family Educational Rights and Privacy Act (FERPA) of 1974.\nFinal Exam Policy — Outlines expectations during final exams and explains the timing and process of the examination period.\nGrade Appeals — The procedure to follow if you would like to contest a grade.\nGrading — GPA calculation and general grading information.\nReligious Holidays — Students have the right to practice the religion of their choice. Each semester, students should submit in writing to their instructor(s) — as early as possible, and at least one week before a documented religious holiday — the date(s) of any conflict or absence. Faculty must permit students who miss work or exams for religious observance to make up that work.\n(Full text of these policies is maintained centrally by UVM. Search uvm.edu/policies for the current version of any policy named above.)"
+  },
+  {
+    "objectID": "policies.html#promoting-health-safety",
+    "href": "policies.html#promoting-health-safety",
+    "title": "University Policies & Resources",
+    "section": "Promoting Health & Safety",
+    "text": "Promoting Health & Safety\nThe University of Vermont’s top priority is supporting a healthy and safe community:\n\nCenter for Health and Wellbeing — uvm.edu/health\nCounseling & Psychiatry Services (CAPS) — Direct line: (802) 656-3340\nC.A.R.E. — If you’re concerned about a UVM community member or a specific event, contact the Dean of Students Office at (802) 656-3380, or report anonymously online via the C.A.R.E. Team website."
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Overview",
+    "text": "Course Overview\nThis course introduces students to data science and visualization as tools for understanding complex social, economic, and environmental questions. Students learn R for data wrangling, spatial analysis, and reproducible reporting, with an emphasis on producing work that is useful to real audiences.\nA core component is a semester-long applied project delivered to an external community partner."
+  },
+  {
+    "objectID": "index.html#logistics",
+    "href": "index.html#logistics",
+    "title": "Applied Data Science & Visualization",
+    "section": "Logistics",
+    "text": "Logistics\n\n\n\nInstructor\nAndrew Van Leuven, Assistant Professor\n\n\nDepartment\nCommunity Development & Applied Economics (CDAE), UVM Extension\n\n\nMeets\nThursdays, 4:35–7:35 pm\n\n\nLocation\nMorrill Hall 005 (basement computer lab)\n\n\nSemester\nFall 2026\n\n\nCredit Hours\n3\n\n\nOffice Hours\nBy appointment\n\n\nOffice Location\n209AA Morrill Hall\n\n\nComputing\nPosit Cloud (course workspace)\n\n\nPrimary language\nR"
+  },
+  {
+    "objectID": "index.html#textbook",
+    "href": "index.html#textbook",
+    "title": "Applied Data Science & Visualization",
+    "section": "Textbook",
+    "text": "Textbook\nWe follow R for Data Science (2nd ed.) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, available free online."
+  },
+  {
+    "objectID": "index.html#course-units",
+    "href": "index.html#course-units",
+    "title": "Applied Data Science & Visualization",
+    "section": "Course Units",
+    "text": "Course Units\n\n\n\nUnit\nWeeks\nTheme\n\n\n\n\n1\n1–5\nFoundations: R, tidyverse, EDA, ggplot2\n\n\n2\n6–7\nCommunity Partnership: NBRC campus visit + project launch\n\n\n3\n8–9\nSpatial Analysis: GIS, Census data, cartography\n\n\n4\n10\nCommunication: Quarto reports, slides, dashboards\n\n\n5\n12, 14–16\nProject: workdays, critique, final presentations"
+  },
+  {
+    "objectID": "index.html#community-partner",
+    "href": "index.html#community-partner",
+    "title": "Applied Data Science & Visualization",
+    "section": "Community Partner",
+    "text": "Community Partner\nThis semester’s applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nSee the Project page for team assignments and deliverables.\n\nFull course policies, grading, and expectations are on the Syllabus page."
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Community Partner Project",
+    "section": "",
+    "text": "WarningTeam Assignments Pending\n\n\n\nDomain areas and team assignments will be finalized during the Week 6 kickoff meeting with NBRC (held in class, not a field trip). The structure below is provisional."
+  },
+  {
+    "objectID": "project.html#overview",
+    "href": "project.html#overview",
+    "title": "Community Partner Project",
+    "section": "Overview",
+    "text": "Overview\nThe semester-long applied project is completed in partnership with the Northern Border Regional Commission (NBRC), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.\nStudents work in small teams. Each team analyzes a different domain area across NBRC’s full four-state territory (rather than each team covering a single state). All teams use a consistent structure so outputs are comparable and can be assembled into a unified product for NBRC."
+  },
+  {
+    "objectID": "project.html#domain-areas",
+    "href": "project.html#domain-areas",
+    "title": "Community Partner Project",
+    "section": "Domain Areas",
+    "text": "Domain Areas\nFor now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):\n\nRural Housing: issues relating to supply, demand, and affordability of housing in NBRC counties\nRural Hub Services: quantifying and visualizing the essential businesses or amenities that appear in central regional towns to serve all the smaller surrounding communities"
+  },
+  {
+    "objectID": "project.html#team-assignments",
+    "href": "project.html#team-assignments",
+    "title": "Community Partner Project",
+    "section": "Team Assignments",
+    "text": "Team Assignments\n[Placeholder — teams will be assigned in Week 7 (Oct 15) after the project kickoff meeting.]\n\n\n\nTeam\nDomain Area\nMembers\n\n\n\n\n1\nRural Housing\nTBD\n\n\n2\nRural Hub Services\nTBD"
+  },
+  {
+    "objectID": "project.html#key-dates-grading",
+    "href": "project.html#key-dates-grading",
+    "title": "Community Partner Project",
+    "section": "Key Dates & Grading",
+    "text": "Key Dates & Grading\nThe project is worth 70% of your course grade, broken into four graded milestones (see the Syllabus for the full grading policy):\n\n\n\n\n\n\n\n\nDate\nMilestone\nWeight\n\n\n\n\nOct 8 (Week 6)\nNBRC visits class: partner kickoff meeting\n—\n\n\nOct 15 (Week 7)\nScope & Team Charter due\n10%\n\n\nNov 19 (Week 12)\nPreliminary Outputs + Peer Critique due\n20%\n\n\nDec 3 (Week 14)\nDraft Deliverable + Revision due\n20%\n\n\nDec 17 (Week 16)\nField trip: Final Deliverable + Presentation due (in-person)\n20%"
+  },
+  {
+    "objectID": "project.html#deliverable-format",
+    "href": "project.html#deliverable-format",
+    "title": "Community Partner Project",
+    "section": "Deliverable Format",
+    "text": "Deliverable Format\n[Draft — instructor to revise as project scope firms up after the Week 6 kickoff.]\nEach of the four graded milestones below builds directly on the last. There’s no single “project” handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.\n\nScope & Team Charter (Week 7, 10%)\nA short planning document, not an analysis. At this point in the semester, teams have core R/tidyverse skills but haven’t yet covered spatial analysis (Weeks 8–9) or Quarto (Week 10). Should include:\n\nTeam roster and a rough division of responsibilities\nThe domain area (Rural Housing or Rural Hub Services) and 2–3 concrete research questions the team plans to answer for NBRC\nA first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)\nA work plan mapped to the remaining milestones below\n\nMust be a Quarto document (.qmd). The point at this stage is alignment within the team and with the instructor, not production value.\n\n\nPreliminary Outputs + Peer Critique (Week 12, 20%)\nBy this point teams have covered spatial analysis and Quarto, so this milestone should look like real, if rough, output. Expect to bring:\n\nAt least one polished chart or map addressing one of your research questions, built in R (ggplot2/sf)\nA short written or verbal framing of what the visualization shows and why it matters to NBRC\nParticipation in structured peer critique, giving and receiving feedback with at least one other team in class\n\nThis is graded on effort and communication quality, not on having “finished” analysis. The critique is meant to catch problems while there’s still time to fix them.\n\n\nDraft Deliverable + Revision (Week 14, 20%)\nA near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team’s choice of report, slide deck, or simple dashboard, consistent with what’s covered in Week 10.\n\n\nFinal Deliverable + Presentation (Week 16, 20%)\nThis is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It’s a Quarto-rendered report, dashboard, or slide deck that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas."
+  },
+  {
+    "objectID": "slides/week01.html#welcome",
+    "href": "slides/week01.html#welcome",
+    "title": "Week 1: What is Data Science?",
+    "section": "Welcome",
+    "text": "Welcome\n\nApplied Data Science & Visualization (CDAE 7990)\nToday only: virtual, via Teams\nStarting next week: Lafayette Hall L202, in person\nAsk questions anytime, either by unmuting or dropping them in chat"
+  },
+  {
+    "objectID": "slides/week01.html#todays-plan",
+    "href": "slides/week01.html#todays-plan",
+    "title": "Week 1: What is Data Science?",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nSyllabus highlights (not a line-by-line read-through)\nWhat is data? What is data science?\nThe tools we’ll use all semester\nGet everyone into Posit Cloud, together, right now\nA first look at the NBRC project"
+  },
+  {
+    "objectID": "slides/week01.html#the-course-in-three-numbers",
+    "href": "slides/week01.html#the-course-in-three-numbers",
+    "title": "Week 1: What is Data Science?",
+    "section": "The Course, in Three Numbers",
+    "text": "The Course, in Three Numbers\n\nThe NBRC project is 70% of your grade\nHomework (5 assignments) is 15%\nParticipation & attendance is 15%\n\nFull breakdown: check out the online syllabus"
+  },
+  {
+    "objectID": "slides/week01.html#attendance-participation",
+    "href": "slides/week01.html#attendance-participation",
+    "title": "Week 1: What is Data Science?",
+    "section": "Attendance & Participation",
+    "text": "Attendance & Participation\n\nAttendance tracked starting Week 2\nOne free absence, no questions asked\nAfter that, it costs you. Give me a heads-up in advance if you know you’ll miss one.\nThis is a lab-heavy course. You learn R by writing R, not by watching it."
+  },
+  {
+    "objectID": "slides/week01.html#ai-tools-encouraged-with-a-catch",
+    "href": "slides/week01.html#ai-tools-encouraged-with-a-catch",
+    "title": "Week 1: What is Data Science?",
+    "section": "AI Tools: Encouraged, With a Catch",
+    "text": "AI Tools: Encouraged, With a Catch\n\nUsing AI to help with your coding is expected, not frowned on\nBut some evaluation is oral and visual, including presentations, code walkthroughs, and design critique\nYou need to be able to explain and defend your own work\nOver-reliance shows up fast in those moments"
+  },
+  {
+    "objectID": "slides/week01.html#what-is-data",
+    "href": "slides/week01.html#what-is-data",
+    "title": "Week 1: What is Data Science?",
+    "section": "What Is Data?",
+    "text": "What Is Data?\n\nA spreadsheet is not the same thing as a dataset\nA dataset is not the same thing as a data product\nDiscussion: where’s the line, and why does it matter for this course?"
+  },
+  {
+    "objectID": "slides/week01.html#data-is-plural",
+    "href": "slides/week01.html#data-is-plural",
+    "title": "Week 1: What is Data Science?",
+    "section": "Data Is Plural",
+    "text": "Data Is Plural\n\n“Data” is plural for datum: a single piece of information\nWe collect and use data to answer questions, or to get a clearer picture of what’s actually going on\nAlmost everything we touch this semester is rectangular:\n\nRows are observations\nColumns are variables"
+  },
+  {
+    "objectID": "slides/week01.html#a-toy-example",
+    "href": "slides/week01.html#a-toy-example",
+    "title": "Week 1: What is Data Science?",
+    "section": "A Toy Example",
+    "text": "A Toy Example\n\n\n\nCoffee Shop\nCity\nCups Sold (Daily)\nRating\n\n\n\n\nBrew Co.\nBurlington\n340\n4.5\n\n\nBean There\nMontpelier\n210\n4.2\n\n\nRoast House\nSt. Albans\n180\n4.7\n\n\n\n\nWhat are the observations here?\nWhat are the variables?\nWhat questions could this table answer? What can’t it answer?"
+  },
+  {
+    "objectID": "slides/week01.html#types-of-data",
+    "href": "slides/week01.html#types-of-data",
+    "title": "Week 1: What is Data Science?",
+    "section": "Types of Data",
+    "text": "Types of Data\n\nQuantitative: measured with numbers; answers “how many?” or “how often?”\n\nContinuous: fractions make sense (3.14 miles)\nDiscrete: fractions don’t make sense (3.14 students)\n\nQualitative: describes attributes or properties\n\nNominal: categories with no order (urban / rural)\nOrdinal: categories with a ranking (never / sometimes / always)"
+  },
+  {
+    "objectID": "slides/week01.html#primary-vs.-secondary-data",
+    "href": "slides/week01.html#primary-vs.-secondary-data",
+    "title": "Week 1: What is Data Science?",
+    "section": "Primary vs. Secondary Data",
+    "text": "Primary vs. Secondary Data\n\nPrimary data: you collected it yourself\nSecondary data: someone else collected it, and you’re using it\nRule of thumb: if you have to ask, it’s secondary data\nAlmost everything we touch this semester, the ACS, Census, USDA ERS, and any data NBRC hands us, is secondary. Knowing where it came from and how it was collected matters as much as what it says."
+  },
+  {
+    "objectID": "slides/week01.html#what-is-data-science",
+    "href": "slides/week01.html#what-is-data-science",
+    "title": "Week 1: What is Data Science?",
+    "section": "What Is Data Science?",
+    "text": "What Is Data Science?\n\n\n\n\nThe R4DS “whole game”:\nimport → tidy → transform ⇄ visualize ⇄ model → communicate\n\nWe’ll touch every stage of this loop this semester\nMost of the course lives in transform/visualize, but the NBRC project forces you through the whole loop"
+  },
+  {
+    "objectID": "slides/week01.html#the-tools",
+    "href": "slides/week01.html#the-tools",
+    "title": "Week 1: What is Data Science?",
+    "section": "The Tools",
+    "text": "The Tools\n\nR is the language\nPosit Cloud is where we all code (no local install needed)\nQuarto turns code into reports, slides, and sites (this website is built with it)\n\nNo live coding today. That starts next week."
+  },
+  {
+    "objectID": "slides/week01.html#lets-get-into-posit-cloud-right-now",
+    "href": "slides/week01.html#lets-get-into-posit-cloud-right-now",
+    "title": "Week 1: What is Data Science?",
+    "section": "Let’s Get Into Posit Cloud, Right Now",
+    "text": "Let’s Get Into Posit Cloud, Right Now\nIn-class to-do, right now:\n\nCheck your UVM email for the Posit Cloud invitation\nAccept it\nOpen the class workspace to get your own private copy\nPlease let me know if anything doesn’t work, since it’s better to find out together tonight"
+  },
+  {
+    "objectID": "slides/week01.html#our-semester-long-partner-nbrc",
+    "href": "slides/week01.html#our-semester-long-partner-nbrc",
+    "title": "Week 1: What is Data Science?",
+    "section": "Our Semester-Long Partner: NBRC",
+    "text": "Our Semester-Long Partner: NBRC\n\nNorthern Border Regional Commission\nFederal-state commission serving rural ME, NH, NY, VT\nYour semester-long project client\nTeam domains (subject to change): Rural Housing, Rural Hub Services"
+  },
+  {
+    "objectID": "slides/week01.html#whats-coming",
+    "href": "slides/week01.html#whats-coming",
+    "title": "Week 1: What is Data Science?",
+    "section": "What’s Coming",
+    "text": "What’s Coming\n\nNBRC visits campus Week 6 (Oct 8) for the project kickoff\nAlso Week 6: a guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural-labor-market research\nTeams and scope lock in Week 7"
+  },
+  {
+    "objectID": "slides/week01.html#before-next-class",
+    "href": "slides/week01.html#before-next-class",
+    "title": "Week 1: What is Data Science?",
+    "section": "Before Next Class",
+    "text": "Before Next Class\n\nPosit Cloud workspace access confirmed (confirmed live in class today)\nRead the R4DS Intro chapter: https://r4ds.hadley.nz/intro\nSkim the syllabus and schedule\n\nSee you in Lafayette Hall L202 next Thursday."
+  },
+  {
+    "objectID": "slides/week01.html#thank-you",
+    "href": "slides/week01.html#thank-you",
+    "title": "Week 1: What is Data Science?",
+    "section": "Thank you!",
+    "text": "Thank you!"
+  },
+  {
+    "objectID": "slides/week03.html#welcome-to-morrill-hall-005",
+    "href": "slides/week03.html#welcome-to-morrill-hall-005",
+    "title": "Week 3: Getting Data",
+    "section": "Welcome to Morrill Hall 005",
+    "text": "Welcome to Morrill Hall 005\n\nOur new room for the rest of the semester: a basement computer lab, so there’s a machine at every seat\nTonight is a tour of where data comes from, beyond the file(s) you already have sitting in your project\nWe’ll cover exactly what HW2’s join step needs"
+  },
+  {
+    "objectID": "slides/week03.html#todays-plan",
+    "href": "slides/week03.html#todays-plan",
+    "title": "Week 3: Getting Data",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nHousekeeping: nothing new is due this week\nA quick tour of tidyr: wide data vs. long data\nReading files, revisited: skip, na, and messy real-world exports\nAPIs: asking a website for data instead of clicking through pages\nWeb scraping: a last resort, and why\nBreak\nJoins: combining two data frames, with toy data and a real airline dataset"
+  },
+  {
+    "objectID": "slides/week03.html#nothing-new-due-this-week",
+    "href": "slides/week03.html#nothing-new-due-this-week",
+    "title": "Week 3: Getting Data",
+    "section": "Nothing New Due This Week",
+    "text": "Nothing New Due This Week\n\nHW1 was due Sunday. I will grade soon.\nHW2 (due Sept. 27) is your only open assignment (tonight’s demo on joins will help with HW2’s step 5)\nWe’ll do a similar join together before you leave, preparing you to do the real thing in your homework."
+  },
+  {
+    "objectID": "slides/week03.html#wide-vs.-long-data",
+    "href": "slides/week03.html#wide-vs.-long-data",
+    "title": "Week 3: Getting Data",
+    "section": "Wide vs. Long Data",
+    "text": "Wide vs. Long Data\n\nbea_wide &lt;- tibble(\n  county_name = c(\"Addison, VT\", \"Chittenden, VT\", \"Rutland, VT\"),\n  pop_2020 = c(37363, 168323, 60572),\n  pop_2021 = c(37162, 169660, 60381),\n  pop_2022 = c(36777, 170533, 59949)\n)\n\nbea_wide\n\n# A tibble: 3 × 4\n  county_name    pop_2020 pop_2021 pop_2022\n  &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;\n1 Addison, VT       37363    37162    36777\n2 Chittenden, VT   168323   169660   170533\n3 Rutland, VT       60572    60381    59949\n\n\n\nOne row per county, but each year gets its own column\nThis is what you get if you ever download multiple years from BEA at once, instead of the single year HW2 asked for"
+  },
+  {
+    "objectID": "slides/week03.html#pivot_longer-wide-to-long",
+    "href": "slides/week03.html#pivot_longer-wide-to-long",
+    "title": "Week 3: Getting Data",
+    "section": "pivot_longer(): Wide to Long",
+    "text": "pivot_longer(): Wide to Long\n\nbea_long &lt;- bea_wide |&gt;\n  pivot_longer(\n    cols = starts_with(\"pop_\"),\n    names_to = \"year\",\n    names_prefix = \"pop_\",\n    values_to = \"population\"\n  )\n\nbea_long\n\n# A tibble: 9 × 3\n  county_name    year  population\n  &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;\n1 Addison, VT    2020       37363\n2 Addison, VT    2021       37162\n3 Addison, VT    2022       36777\n4 Chittenden, VT 2020      168323\n5 Chittenden, VT 2021      169660\n# ℹ 4 more rows\n\n\n\nOne row per county and year, instead of one row per county\nAlmost everything in dplyr and ggplot2 wants data in this shape\nnames_prefix strips \"pop_\" so the year column just holds the number"
+  },
+  {
+    "objectID": "slides/week03.html#pivot_wider-the-reverse",
+    "href": "slides/week03.html#pivot_wider-the-reverse",
+    "title": "Week 3: Getting Data",
+    "section": "pivot_wider(): The Reverse",
+    "text": "pivot_wider(): The Reverse\n\nbea_long |&gt;\n  pivot_wider(names_from = year, values_from = population)\n\n# A tibble: 3 × 4\n  county_name    `2020` `2021` `2022`\n  &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 Addison, VT     37363  37162  36777\n2 Chittenden, VT 168323 169660 170533\n3 Rutland, VT     60572  60381  59949\n\n\n\nTakes values from one column and spreads them into new columns, one per unique value\nGood for a summary table you want to read by eye, less useful once you need to filter or group by year again"
+  },
+  {
+    "objectID": "slides/week03.html#where-data-comes-from",
+    "href": "slides/week03.html#where-data-comes-from",
+    "title": "Week 3: Getting Data",
+    "section": "Where Data Comes From",
+    "text": "Where Data Comes From\n\n\n\nA file someone hands you, or you download: CSV, Excel, and the like\nA live API (application programming interface) you query with code\nA web page you scrape, when nothing else is available\nR4DS Ch. 7-8 covers the first in depth. APIs and scraping are in R4DS Ch. 24, much further along in the book than we’ve gotten.\nReading files is readr’s job, the tidyverse package behind read_csv() and other similar functions"
+  },
+  {
+    "objectID": "slides/week03.html#reading-files-revisited",
+    "href": "slides/week03.html#reading-files-revisited",
+    "title": "Week 3: Getting Data",
+    "section": "Reading Files, Revisited",
+    "text": "Reading Files, Revisited\n\nread_csv(\n  \"data/hw2a.csv\",\n  skip = 3,\n  na = c(\"\", \"NA\", \"(NA)\", \"N/A\")\n)\n\n\nread_csv() is in HW2’s starter code\nskip jumps past header rows a file doesn’t need, common in government exports\nna tells readr which strings actually mean “missing.” This varies widely.\nreadr prints a column specification when it loads. Always glance at it. A date or number read in as text usually means a stray character snuck into that column."
+  },
+  {
+    "objectID": "slides/week03.html#whats-an-api",
+    "href": "slides/week03.html#whats-an-api",
+    "title": "Week 3: Getting Data",
+    "section": "What’s an API?",
+    "text": "What’s an API?\n\nApplication programming interface: structured way to ask a website for data and get back something other than a webpage, usually JSON\nYou build a URL with your request baked in, and the server sends back data instead of a rendered page\nCensus, BLS, and BEA all publish APIs. Some want a free registration key, a few don’t."
+  },
+  {
+    "objectID": "slides/week03.html#not-every-api-is-free",
+    "href": "slides/week03.html#not-every-api-is-free",
+    "title": "Week 3: Getting Data",
+    "section": "Not Every API Is Free",
+    "text": "Not Every API Is Free\n\nThere is an entire industry based around data for purchase. For example, you might want to get a drive distance from UVM campus to 500 different addresses in Vermont. You could get this for free by manually entering the addresses into Google Maps. Or you could give Google a single file with every address and have it calculate all 500 distances in a few minutes.\nThe catch: you have to pay! (a fraction of a penny for each, but it adds up).\nIf a private data provider gives you an API key, keep it secret or bad actors can drain your credits (or wallet) in a very short time."
+  },
+  {
+    "objectID": "slides/week03.html#a-live-example-the-bls-api",
+    "href": "slides/week03.html#a-live-example-the-bls-api",
+    "title": "Week 3: Getting Data",
+    "section": "A Live Example: the BLS API",
+    "text": "A Live Example: the BLS API\n\nlibrary(jsonlite)\n\nurl &lt;- \"https://api.bls.gov/publicAPI/v1/timeseries/data/LNS14000000\"\nbls_raw &lt;- fromJSON(url)\nbls_raw\n\nbls_raw$Results$series$data[[1]] |&gt; head()\n\n\nLNS14000000 is the BLS series ID for the national unemployment rate\nNo key needed for a request this small, heavier use wants a free one\nfromJSON() already turned the nested JSON into data frames. We just have to dig through the list to find the one we want.\nRead bls_raw$Results$series$data[[1]] left to right: start at bls_raw, step into $Results, then $series, then grab the first item out of the data list with [[1]]"
+  },
+  {
+    "objectID": "slides/week03.html#turning-it-into-a-tidy-data-frame",
+    "href": "slides/week03.html#turning-it-into-a-tidy-data-frame",
+    "title": "Week 3: Getting Data",
+    "section": "Turning It Into a Tidy Data Frame",
+    "text": "Turning It Into a Tidy Data Frame\n\nunemployment &lt;- bls_raw$Results$series$data[[1]] |&gt;\n  as_tibble() |&gt;\n  select(year, period, value) |&gt;\n  mutate(value = as.numeric(value))\n\nunemployment\n\n\n$ and [[ ]] dig through the nested list until you hit the data frame you actually want\nWatch value after the conversion: one row comes back NA, from the month of the 2025 government shutdown. Real missing data, not a mistake.\nWeek 8’s tidycensus wraps this same fetch-then-dig pattern, but for Census data specifically. It will become our friend."
+  },
+  {
+    "objectID": "slides/week03.html#web-scraping-a-quick-look",
+    "href": "slides/week03.html#web-scraping-a-quick-look",
+    "title": "Week 3: Getting Data",
+    "section": "Web Scraping: A Quick Look",
+    "text": "Web Scraping: A Quick Look\n\nlibrary(rvest)\n\npage &lt;- read_html(\"https://en.wikipedia.org/wiki/List_of_counties_in_Vermont\")\ncounties &lt;- page |&gt;\n  html_element(\"table.wikitable\") |&gt;\n  html_table()\n\n\nSome data only exists inside a web page, with no file or API behind it\nrvest reads a page’s HTML and pulls out a specific table or element\nThe process is fragile: if the page’s layout changes, your code breaks with no warning\nUse it last, after checking for a file or an API. Read the site’s terms of service and robots.txt first, and never hit a server with rapid repeated requests, it can look like an attack and get you blocked."
+  },
+  {
+    "objectID": "slides/week03.html#break",
+    "href": "slides/week03.html#break",
+    "title": "Week 3: Getting Data",
+    "section": "Break?",
+    "text": "Break?"
+  },
+  {
+    "objectID": "slides/week03.html#why-joins",
+    "href": "slides/week03.html#why-joins",
+    "title": "Week 3: Getting Data",
+    "section": "Why Joins",
+    "text": "Why Joins\n\nHW2 step 5 asks you to combine df and df2 using a shared column, county_fips\nA join lines up rows from two tables using one or more shared columns, called keys (we will often refer to this as a “unique identifier”)\nNothing here is BEA-specific. Joins work the same way on any two data frames that share a key."
+  },
+  {
+    "objectID": "slides/week03.html#a-small-example",
+    "href": "slides/week03.html#a-small-example",
+    "title": "Week 3: Getting Data",
+    "section": "A Small Example",
+    "text": "A Small Example\n\npop &lt;- tibble(\n  county_fips = c(\"50001\", \"50003\", \"50007\"),\n  county_name = c(\"Addison\", \"Bennington\", \"Chittenden\"),\n  population = c(37363, 34478, 168323)\n)\n\nincome &lt;- tibble(\n  county_fips = c(\"50001\", \"50003\", \"50011\"),\n  income = c(58000, 52000, 71000)\n)\n\n\nBoth tables share county_fips, the key\nThe counties don’t fully overlap: 50007 is only in pop, 50011 only in income"
+  },
+  {
+    "objectID": "slides/week03.html#left_join-keep-everything-on-the-left",
+    "href": "slides/week03.html#left_join-keep-everything-on-the-left",
+    "title": "Week 3: Getting Data",
+    "section": "left_join(): Keep Everything on the Left",
+    "text": "left_join(): Keep Everything on the Left\n\npop |&gt; left_join(income, by = \"county_fips\")\n\n# A tibble: 3 × 4\n  county_fips county_name population income\n  &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;  &lt;dbl&gt;\n1 50001       Addison          37363  58000\n2 50003       Bennington       34478  52000\n3 50007       Chittenden      168323     NA\n\n\n\nEvery row of pop survives, matched or not\nChittenden (50007) has no match in income, so it gets NA\n50011’s income is dropped. It wasn’t in pop to begin with."
+  },
+  {
+    "objectID": "slides/week03.html#other-join-types-briefly",
+    "href": "slides/week03.html#other-join-types-briefly",
+    "title": "Week 3: Getting Data",
+    "section": "Other Join Types, Briefly",
+    "text": "Other Join Types, Briefly\n\n\n\nJoin\nKeeps\n\n\n\n\nleft_join()\nEverything on the left, matched where possible\n\n\ninner_join()\nOnly rows that match in both\n\n\nfull_join()\nEverything from both, matched where possible\n\n\n\nleft_join() is the one you’ll reach for almost every time: you have a main table and you’re adding to it."
+  },
+  {
+    "objectID": "slides/week03.html#watch-out-duplicate-column-names",
+    "href": "slides/week03.html#watch-out-duplicate-column-names",
+    "title": "Week 3: Getting Data",
+    "section": "Watch Out: Duplicate Column Names",
+    "text": "Watch Out: Duplicate Column Names\n\nIf both tables have a column with the same name that isn’t the key (both have county_name, say), the join keeps both and adds .x and .y suffixes\nTwo fixes:\n\nselect() away the extra column from one side before joining\nJoin on every shared column: by = c(\"county_fips\", \"county_name\", \"state\")"
+  },
+  {
+    "objectID": "slides/week03.html#a-bigger-example-nycflights13",
+    "href": "slides/week03.html#a-bigger-example-nycflights13",
+    "title": "Week 3: Getting Data",
+    "section": "A Bigger Example: nycflights13",
+    "text": "A Bigger Example: nycflights13\n\ninstall.packages(\"nycflights13\")  # once, if you don't already have it\n\n\nlibrary(nycflights13)\n\nflights |&gt; select(year, month, day, carrier, flight, dest)\n\n# A tibble: 336,776 × 6\n   year month   day carrier flight dest \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;\n1  2013     1     1 UA        1545 IAH  \n2  2013     1     1 UA        1714 IAH  \n3  2013     1     1 AA        1141 MIA  \n4  2013     1     1 B6         725 BQN  \n5  2013     1     1 DL         461 ATL  \n# ℹ 336,771 more rows\n\n\n\nThe same package R4DS’s joins chapter uses: every flight that left a NYC airport in 2013\ncarrier is a two-letter code, not an airline name, exactly the kind of gap a join fills"
+  },
+  {
+    "objectID": "slides/week03.html#the-lookup-table-airlines",
+    "href": "slides/week03.html#the-lookup-table-airlines",
+    "title": "Week 3: Getting Data",
+    "section": "The Lookup Table: airlines",
+    "text": "The Lookup Table: airlines\n\nairlines\n\n# A tibble: 16 × 2\n  carrier name                  \n  &lt;chr&gt;   &lt;chr&gt;                 \n1 9E      Endeavor Air Inc.     \n2 AA      American Airlines Inc.\n3 AS      Alaska Airlines Inc.  \n4 B6      JetBlue Airways       \n5 DL      Delta Air Lines Inc.  \n# ℹ 11 more rows\n\n\n\nOne row per code, the exact shape you want on the right side of a left_join()\nSame key idea as pop and income: both tables share a column, carrier"
+  },
+  {
+    "objectID": "slides/week03.html#joining-them",
+    "href": "slides/week03.html#joining-them",
+    "title": "Week 3: Getting Data",
+    "section": "Joining Them",
+    "text": "Joining Them\n\nflights |&gt;\n  select(year, month, day, carrier, flight, dest) |&gt;\n  left_join(airlines, by = \"carrier\")\n\n# A tibble: 336,776 × 7\n   year month   day carrier flight dest  name                  \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                 \n1  2013     1     1 UA        1545 IAH   United Air Lines Inc. \n2  2013     1     1 UA        1714 IAH   United Air Lines Inc. \n3  2013     1     1 AA        1141 MIA   American Airlines Inc.\n4  2013     1     1 B6         725 BQN   JetBlue Airways       \n5  2013     1     1 DL         461 ATL   Delta Air Lines Inc.  \n# ℹ 336,771 more rows\n\n\n\nSame left_join(), same idea as pop and income, just bigger, real data\nEvery flight keeps its row. It just gains the airline’s full name."
+  },
+  {
+    "objectID": "slides/week03.html#your-turn-15-min",
+    "href": "slides/week03.html#your-turn-15-min",
+    "title": "Week 3: Getting Data",
+    "section": "Your Turn (15 min)",
+    "text": "Your Turn (15 min)\n\nUsing pop and income from tonight, try inner_join() instead of left_join(). How many rows come back, and why?\nPivot bea_wide to long format, then find the county with the biggest year-over-year change\nJoin flights to airlines, then use count() and arrange() to find which carrier had the most flights out of New York in 2013\n\nWork with a neighbor. Reading the whole error message aloud still works."
+  },
+  {
+    "objectID": "slides/week03.html#your-turn-one-way-to-do-it",
+    "href": "slides/week03.html#your-turn-one-way-to-do-it",
+    "title": "Week 3: Getting Data",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It\n\n# 1\npop |&gt; inner_join(income, by = \"county_fips\")\n# Only 2 rows: just the counties present in both tables\n\n# 2\nbea_long |&gt;\n  group_by(county_name) |&gt;\n  mutate(change = population - lag(population)) |&gt;\n  filter(!is.na(change))\n\n# 3\nflights |&gt;\n  left_join(airlines, by = \"carrier\") |&gt;\n  count(name, sort = TRUE)"
+  },
+  {
+    "objectID": "slides/week03.html#before-next-class",
+    "href": "slides/week03.html#before-next-class",
+    "title": "Week 3: Getting Data",
+    "section": "Before Next Class",
+    "text": "Before Next Class\n\nNothing new due this week, but get HW2 (due Sept. 27) working if tonight’s join didn’t click. Office hours or email, any time.\nRead R4DS Ch. 9 (Layers) and Ch. 10 (Exploratory data analysis), and skim Ch. 11 (Communication)\n\nNext week: exploratory data analysis and your first ggplot2 charts."
+  },
+  {
+    "objectID": "slides/week03.html#thank-you",
+    "href": "slides/week03.html#thank-you",
+    "title": "Week 3: Getting Data",
+    "section": "Thank you!",
+    "text": "Thank you!"
+  },
+  {
+    "objectID": "slides/week05.html#welcome-back",
+    "href": "slides/week05.html#welcome-back",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Welcome Back",
+    "text": "Welcome Back\n\nLast week’s charts were for you: quick, unlabeled, and good enough to learn what’s in the data\nTonight’s charts are for someone else, so the choices start to matter: which geom, which colors, which axis, and what to leave out\nWe have a guest tonight, so we’ll start there\nNo homework is due this week. HW3 isn’t due until Oct. 25, and I’ll tell you when it’s released."
+  },
+  {
+    "objectID": "slides/week05.html#todays-plan",
+    "href": "slides/week05.html#todays-plan",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nMeet Tessa\nWhat else can ggplot do? More geoms, scales, color, and themes\nBest practices in visualization: what makes a chart work, and how charts mislead\nYour turn: fix a bad chart"
+  },
+  {
+    "objectID": "slides/week05.html#tonights-data",
+    "href": "slides/week05.html#tonights-data",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Tonight’s Data",
+    "text": "Tonight’s Data\n\nmidwest_df &lt;- midwest |&gt;\n  select(county, state, poptotal, popdensity, percollege,\n         percbelowpoverty, inmetro) |&gt;\n  mutate(metro = if_else(inmetro == 1, \"Metro\", \"Nonmetro\"))\n\nmidwest_df\n\n# A tibble: 437 × 8\n  county   state poptotal popdensity percollege percbelowpoverty inmetro\n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;   &lt;int&gt;\n1 ADAMS    IL       66090      1271.       19.6            13.2        0\n2 ALEXAND… IL       10626       759        11.2            32.2        0\n3 BOND     IL       14991       681.       17.0            12.1        0\n4 BOONE    IL       30806      1812.       17.3             7.21       1\n5 BROWN    IL        5836       324.       14.5            13.5        0\n# ℹ 432 more rows\n# ℹ 1 more variable: metro &lt;chr&gt;\n\n\n\nThe same 437 Midwestern counties as last week, with the readable metro column already added\nWe’ll also borrow economics, a second dataset built into ggplot2, because midwest has no time dimension\nThe template hasn’t changed: data, aesthetics, geoms. Everything tonight is a new piece to plug into it."
+  },
+  {
+    "objectID": "slides/week05.html#lines-change-over-time",
+    "href": "slides/week05.html#lines-change-over-time",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Lines: Change Over Time",
+    "text": "Lines: Change Over Time\n\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line()\n\n\n\neconomics has one row per month of US data from 1967 to 2015. unemploy is the number of unemployed people, in thousands.\ngeom_line() connects the observations in order along the x-axis. Reach for it when x is time.\nThe peak is 15.4 million people in October 2009"
+  },
+  {
+    "objectID": "slides/week05.html#bars-from-a-summary-table",
+    "href": "slides/week05.html#bars-from-a-summary-table",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Bars From a Summary Table",
+    "text": "Bars From a Summary Table\n\nstate_summary &lt;- midwest_df |&gt;\n  group_by(state) |&gt;\n  summarize(avg_poverty = mean(percbelowpoverty),\n            avg_college = mean(percollege))\n\nggplot(state_summary, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty))) +\n  geom_col()\n\n\n\nSummarize first and save the result as state_summary, then give geom_col() the numbers to draw\nPutting the category on y gives horizontal bars, which leaves room for long labels like county or industry names\nfct_reorder() again, so the bars read in order instead of alphabetically"
+  },
+  {
+    "objectID": "slides/week05.html#densities-comparing-distributions",
+    "href": "slides/week05.html#densities-comparing-distributions",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Densities: Comparing Distributions",
+    "text": "Densities: Comparing Distributions\n\nggplot(midwest_df, aes(x = percollege, fill = metro)) +\n  geom_density(alpha = 0.5)\n\n\n\nA density is a smoothed histogram. It makes two overlapping groups much easier to compare than two stacked histograms.\nEach curve has the same area, so 150 metro counties and 287 nonmetro counties can be compared directly\nNonmetro counties bunch up around 15%. Metro counties sit higher and spread much wider."
+  },
+  {
+    "objectID": "slides/week05.html#text-and-highlighting",
+    "href": "slides/week05.html#text-and-highlighting",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Text and Highlighting",
+    "text": "Text and Highlighting\n\nhigh_poverty &lt;- midwest_df |&gt;\n  filter(percbelowpoverty &gt; 30) |&gt;\n  mutate(county = str_to_title(county))\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(color = \"gray70\") +\n  geom_point(data = high_poverty, color = \"#007155\", size = 3) +\n  geom_text(data = high_poverty, aes(label = county), hjust = 0, nudge_x = 1, size = 5)\n\n\n\nA layer can use its own data. The gray points are every county, and the green points and labels come from high_poverty (last week’s three unusual values).\ngeom_text() needs a label aesthetic. hjust and nudge_x move the text off the point.\nGray for context plus one color for the story is one of the most useful tricks in the whole package"
+  },
+  {
+    "objectID": "slides/week05.html#scales-controlling-the-axes",
+    "href": "slides/week05.html#scales-controlling-the-axes",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Scales: Controlling the Axes",
+    "text": "Scales: Controlling the Axes\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.4) +\n  scale_x_continuous(labels = scales::label_percent(scale = 1)) +\n  scale_y_continuous(labels = scales::label_percent(scale = 1),\n                     breaks = seq(0, 50, by = 10))\n\n\n\nEvery aesthetic has a scale, and ggplot picks a default for each. The functions are named scale_&lt;aesthetic&gt;_&lt;type&gt;().\nlabels controls how the numbers are written and breaks controls where the ticks go\nscale = 1 because our data is already 0 to 100. Without it, label_percent() assumes proportions and would print 2,000%.\nOther helpers you’ll want: label_comma() and label_dollar()"
+  },
+  {
+    "objectID": "slides/week05.html#color-scales-categories",
+    "href": "slides/week05.html#color-scales-categories",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Color Scales: Categories",
+    "text": "Color Scales: Categories\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +\n  geom_point(alpha = 0.6) +\n  scale_color_manual(values = c(\"Metro\" = \"#007155\", \"Nonmetro\" = \"gray60\"))\n\n\n\nColor is an aesthetic, so it has a scale too. scale_color_manual() lets you name the color for each category.\nDon’t want to pick colors yourself? scale_color_brewer(palette = \"Dark2\") uses a ready-made palette.\nPoints and lines take color. Bars, boxes, and densities take fill, so their scales are scale_fill_*()."
+  },
+  {
+    "objectID": "slides/week05.html#color-scales-continuous-values",
+    "href": "slides/week05.html#color-scales-continuous-values",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Color Scales: Continuous Values",
+    "text": "Color Scales: Continuous Values\n\nggplot(midwest_df, aes(x = popdensity, y = percollege, color = percbelowpoverty)) +\n  geom_point() +\n  scale_x_log10(labels = scales::label_comma()) +\n  scale_color_viridis_c(option = \"magma\", direction = -1)\n\n\n\nA number mapped to color needs a gradient that runs from light to dark in one direction\nThe viridis palettes (\"viridis\", \"magma\", \"plasma\", and others) do that, and they stay readable in grayscale and for color-blind readers\ndirection = -1 flips the palette so that dark means high"
+  },
+  {
+    "objectID": "slides/week05.html#themes-everything-that-isnt-data",
+    "href": "slides/week05.html#themes-everything-that-isnt-data",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Themes: Everything That Isn’t Data",
+    "text": "Themes: Everything That Isn’t Data\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.4) +\n  theme_minimal()\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +\n  geom_point(alpha = 0.4) +\n  theme_classic()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA theme controls the background, gridlines, fonts, and legend placement. It never touches the data.\nThe gray default is theme_gray(). Also built in: theme_bw(), theme_light(), and theme_void() (nothing at all, which is what we’ll use for maps).\nTired of adding it to every chart? Run theme_set(theme_minimal()) once at the top of your document."
+  },
+  {
+    "objectID": "slides/week05.html#from-default-to-finished",
+    "href": "slides/week05.html#from-default-to-finished",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "From Default to Finished",
+    "text": "From Default to Finished\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +\n  geom_point(alpha = 0.6) +\n  scale_color_manual(values = c(\"Metro\" = \"#007155\", \"Nonmetro\" = \"gray60\")) +\n  scale_x_continuous(labels = scales::label_percent(scale = 1)) +\n  scale_y_continuous(labels = scales::label_percent(scale = 1)) +\n  labs(\n    title = \"The most college-educated counties are metro counties\",\n    subtitle = \"Midwestern counties, 2000 Census\",\n    x = \"Adults with a college degree\",\n    y = \"Population below poverty line\",\n    color = NULL,\n    caption = \"Source: ggplot2::midwest\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"bottom\",\n        panel.grid.minor = element_blank())\n\n\n\nNothing new here. It’s tonight’s pieces stacked on last week’s scatterplot: a color scale, two axis scales, labels, and a theme.\ntheme() adjusts one element at a time, on top of whichever complete theme you chose\nOf the 24 counties where more than 30% of adults have a degree, 21 are metro"
+  },
+  {
+    "objectID": "slides/week05.html#break",
+    "href": "slides/week05.html#break",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Break?",
+    "text": "Break?"
+  },
+  {
+    "objectID": "slides/week05.html#you-read-far-more-charts-than-you-make",
+    "href": "slides/week05.html#you-read-far-more-charts-than-you-make",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "You Read Far More Charts Than You Make",
+    "text": "You Read Far More Charts Than You Make\nTonight’s reading suggests four questions to ask of any chart, whether it’s yours or someone else’s:\n\nWhat do you see? Sum up the main takeaway in one sentence.\nWho created it? The source often tells you what the chart is for.\nAre you being tricked? Look at the axes, the scales, and the sizes.\nWhat is missing? Ask what data or context was left out.\n\nWhen something is off, Wilke’s three words help you say how it’s off:\n\nUgly: an aesthetic problem, like clashing colors or distracting fonts\nBad: a perception problem. The chart is hard to read.\nWrong: an accuracy problem. The chart misstates the data."
+  },
+  {
+    "objectID": "slides/week05.html#exhibit-a-whats-wrong-here",
+    "href": "slides/week05.html#exhibit-a-whats-wrong-here",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Exhibit A: What’s Wrong Here?",
+    "text": "Exhibit A: What’s Wrong Here?\n\nBad figure A goes here"
+  },
+  {
+    "objectID": "slides/week05.html#exhibit-b-whats-wrong-here",
+    "href": "slides/week05.html#exhibit-b-whats-wrong-here",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Exhibit B: What’s Wrong Here?",
+    "text": "Exhibit B: What’s Wrong Here?\n\nBad figure B goes here"
+  },
+  {
+    "objectID": "slides/week05.html#exhibit-c-whats-wrong-here",
+    "href": "slides/week05.html#exhibit-c-whats-wrong-here",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Exhibit C: What’s Wrong Here?",
+    "text": "Exhibit C: What’s Wrong Here?\n\nBad figure C goes here"
+  },
+  {
+    "objectID": "slides/week05.html#rule-1-start-with-the-question",
+    "href": "slides/week05.html#rule-1-start-with-the-question",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Rule 1: Start With the Question",
+    "text": "Rule 1: Start With the Question\nBefore picking a geom, ask what you are trying to show. The reading’s decision tree (Figure 1) has four branches, plus maps:\n\nDistribution: how values are spread out (histogram, density, boxplot)\nComposition: how a whole divides into parts (stacked bars or a waffle plot, rarely a pie)\nRelationship: how variables move together (scatterplot)\nComparison: how groups or time periods differ (bar chart, line chart)\nGeography: where something happens (maps, starting in Week 8)\n\nThe same data can sit on more than one branch. We’ll spend more time on choosing a chart type in Week 7."
+  },
+  {
+    "objectID": "slides/week05.html#rule-2-show-the-data",
+    "href": "slides/week05.html#rule-2-show-the-data",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Rule 2: Show the Data",
+    "text": "Rule 2: Show the Data\n\n“Above all else show the data.”\n— Edward Tufte\n\nTufte’s five principles from The Visual Display of Quantitative Information:\n\nAbove all else, show the data\nMaximize the data-ink ratio\nErase non-data-ink\nErase redundant data-ink\nRevise and edit\n\n\nData-ink is the part of a chart that actually represents data. Everything else is non-data-ink: borders, backgrounds, heavy gridlines, and decoration that Tufte calls chartjunk.\nYou don’t have to be as strict as Tufte. The useful habit is asking of every element, “what is this doing for the reader?”"
+  },
+  {
+    "objectID": "slides/week05.html#same-five-numbers-less-ink",
+    "href": "slides/week05.html#same-five-numbers-less-ink",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Same Five Numbers, Less Ink",
+    "text": "Same Five Numbers, Less Ink\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGone: the legend and the five colors (the axis already names each state), the bar outlines, the gray panel, the border, and the gridlines\nAdded: the numbers themselves, and an order that means something\nFive colors for five bars is redundant data-ink. Color was saying the same thing as position."
+  },
+  {
+    "objectID": "slides/week05.html#rule-3-ink-should-be-proportional-to-the-data",
+    "href": "slides/week05.html#rule-3-ink-should-be-proportional-to-the-data",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Rule 3: Ink Should Be Proportional to the Data",
+    "text": "Rule 3: Ink Should Be Proportional to the Data\nggplot(state_summary, aes(x = state, y = avg_poverty)) +\n  geom_col() +\n  coord_cartesian(ylim = c(10, 14.5))\nggplot(state_summary, aes(x = state, y = avg_poverty)) +\n  geom_col()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA bar’s length is the number. Cut off the bottom of the axis and the lengths no longer match the data.\nLeft: Michigan’s bar is about eight times as tall as Indiana’s. Right: the real gap is 14.2% vs. 10.3%, about 38% higher.\nBars start at zero, always. Points and lines encode position rather than length, so they have more freedom, but a tight axis can still exaggerate a small change.\nThe same principle rules out using area or 3D to show a single number. Double a circle’s radius and its area quadruples."
+  },
+  {
+    "objectID": "slides/week05.html#how-to-lie-with-a-chart",
+    "href": "slides/week05.html#how-to-lie-with-a-chart",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "How to Lie With a Chart",
+    "text": "How to Lie With a Chart\nrecent &lt;- economics |&gt;\n  filter(date &gt;= as.Date(\"2010-01-01\"))\n\nggplot(recent, aes(x = date, y = unemploy)) +\n  geom_line()\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEvery number in both charts is true. Left, unemployment is in free fall. Right, the same five years are the recovery from the highest count in the series.\nTufte: graphics must not quote data out of context. Choosing the start date is one of the easiest ways to do it.\nThe other classics from the reading: a truncated y-axis, area standing in for a single number, and inconsistent axes or tick spacing\nEven the right-hand chart leaves something out. The US population grew from 199 million to 320 million over these years, so a raw count overstates the trend. Rates travel better than counts."
+  },
+  {
+    "objectID": "slides/week05.html#rule-4-give-color-one-job",
+    "href": "slides/week05.html#rule-4-give-color-one-job",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Rule 4: Give Color One Job",
+    "text": "Rule 4: Give Color One Job\nWilke describes three uses of color. Pick one per chart:\n\nDistinguish categories: a qualitative palette, with no implied order (scale_color_brewer(), scale_color_manual())\nRepresent values: a sequential palette, light to dark (scale_color_viridis_c())\nHighlight: gray for everything, one color for the thing you want seen\n\nAnd three ways it goes wrong:\n\nToo many categories: beyond three to five colors, readers can’t keep track. Facet or highlight instead.\nColor for the sake of color: if the color doesn’t encode anything, it’s decoration\nThe wrong kind of palette for the data, which is the next two slides"
+  },
+  {
+    "objectID": "slides/week05.html#a-rainbow-has-no-order",
+    "href": "slides/week05.html#a-rainbow-has-no-order",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "A Rainbow Has No Order",
+    "text": "A Rainbow Has No Order\ncolor_plot &lt;- ggplot(midwest_df, aes(x = popdensity, y = percollege,\n                                     color = percbelowpoverty)) +\n  geom_point() +\n  scale_x_log10(labels = scales::label_comma()) +\n  labs(color = \"Poverty (%)\")\n\ncolor_plot + scale_color_gradientn(colors = rainbow(7))\ncolor_plot + scale_color_viridis_c(direction = -1)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPoverty runs in one direction, from low to high. A rainbow doesn’t, since nothing about green says “more than yellow.”\nLeft: your eye sorts counties into color bands (the oranges, the yellows, the greens) with sharp edges that aren’t in the data\nRight: darker is higher. No legend-checking required.\nFigure 5 in the reading shows the same problem on a county map"
+  },
+  {
+    "objectID": "slides/week05.html#diverging-palettes-need-a-real-midpoint",
+    "href": "slides/week05.html#diverging-palettes-need-a-real-midpoint",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Diverging Palettes Need a Real Midpoint",
+    "text": "Diverging Palettes Need a Real Midpoint\ncolor_plot + scale_color_distiller(palette = \"RdBu\")\ncolor_plot + scale_color_distiller(palette = \"Blues\", direction = 1)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA diverging palette has two colors that meet at a neutral middle. It tells the reader there are two kinds of values, above and below.\nLeft: the middle lands near 25% poverty only because that’s halfway between the lowest and highest county. Nothing happens at 25%.\nUse diverging colors when the midpoint means something, like zero change, a break-even point, or a national average. Otherwise use a sequential palette.\nEven then, where you put the midpoint changes the story. Figure 6 in the reading moves it from 0 to −1 and gets a different map."
+  },
+  {
+    "objectID": "slides/week05.html#rule-5-know-whos-reading",
+    "href": "slides/week05.html#rule-5-know-whos-reading",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Rule 5: Know Who’s Reading",
+    "text": "Rule 5: Know Who’s Reading\n\nColor-vision deficiency: roughly 1 in 12 men can’t reliably tell red from green. Viridis and the ColorBrewer palettes marked colorblind-safe are built for this.\nGrayscale: if your chart might be printed or photocopied, check that it survives without color\nConnotation: colors carry meaning before your legend does. Red and blue on a US map reads as politics, red reads as hot or bad, and green reads as good.\nNormalize: a map or bar chart of raw counts mostly shows where people live. Divide by population, households, or farms so places can be compared.\nExpertise: NBRC staff know the region far better than you do, and they are not R users. Titles, labels, and units should need no translation."
+  },
+  {
+    "objectID": "slides/week05.html#before-you-share-a-chart",
+    "href": "slides/week05.html#before-you-share-a-chart",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Before You Share a Chart",
+    "text": "Before You Share a Chart\n\nCan you state the takeaway in one sentence? Is that sentence the title?\nDoes the chart type match the question (distribution, composition, relationship, comparison, geography)?\nDo bars start at zero, and are the axes honest and labeled in plain language?\nIs color doing exactly one job, with the right kind of palette?\nCould a reader be misled by what you left out (the time window, the denominator, the comparison group)?\nIs there anything you could erase without losing information?\nWould it survive a black-and-white printer?"
+  },
+  {
+    "objectID": "slides/week05.html#your-turn-15-min",
+    "href": "slides/week05.html#your-turn-15-min",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Your Turn (15 min)",
+    "text": "Your Turn (15 min)\nThis chart uses state_summary from earlier. Run it, then work with a neighbor.\n\nggplot(state_summary, aes(x = state, y = avg_college, fill = avg_college)) +\n  geom_col() +\n  scale_fill_gradientn(colors = rainbow(5)) +\n  coord_cartesian(ylim = c(16, 20.5)) +\n  theme_dark()\n\n\n\nList everything wrong with it. Label each problem ugly, bad, or wrong.\nRewrite the code to fix every item on your list\nGive it real labels, including a title that states the takeaway"
+  },
+  {
+    "objectID": "slides/week05.html#your-turn-one-way-to-do-it",
+    "href": "slides/week05.html#your-turn-one-way-to-do-it",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It\n\nggplot(state_summary, aes(x = avg_college, y = fct_reorder(state, avg_college))) +\n  geom_col(fill = \"#007155\") +\n  scale_x_continuous(labels = scales::label_percent(scale = 1)) +\n  labs(\n    title = \"Wisconsin's counties lead the Midwest in college graduates\",\n    subtitle = \"Average county share of adults with a college degree, 2000\",\n    x = NULL, y = NULL,\n    caption = \"Source: ggplot2::midwest\"\n  ) +\n  theme_minimal() +\n  theme(panel.grid.major.y = element_blank(),\n        panel.grid.minor = element_blank())\n\n\n\nWrong: the y-axis started at 16, so Indiana’s bar nearly vanished\nBad: rainbow colors for a single ordered number, and bars in alphabetical order\nUgly: the dark panel, a legend repeating what the bars already say, and raw column names for labels"
+  },
+  {
+    "objectID": "slides/week05.html#before-next-class",
+    "href": "slides/week05.html#before-next-class",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
+    "section": "Before Next Class",
+    "text": "Before Next Class\n\nNo homework due this week. HW3 is due Sunday, Oct. 25.\nNext week is a different kind of class. Hour 1 is a guest lecture from Andy Crawley (University of Maine), and Hour 2 is the NBRC project kickoff with Sarah Waring and Chris Saunders.\nCome with questions for NBRC. Look back at the two domain areas on the project page before Thursday.\nKeep an eye out for terrible charts in the wild, and send me the worst ones you find"
+  },
+  {
+    "objectID": "slides/week05.html#thank-you",
+    "href": "slides/week05.html#thank-you",
+    "title": "Week 5: More ggplot2 & Visualization Best Practices",
     "section": "Thank you!",
     "text": "Thank you!"
   }
