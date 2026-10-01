@@ -51,14 +51,13 @@ theme_dark <- function(base_size = 16, ...) ggplot2::theme_dark(base_size = base
 - **Meet Tessa**
 - **What else can ggplot do?** More geoms, scales, color, and themes
 - **Best practices in visualization**: what makes a figure work, and how figures mislead
-- **Your turn**: fix a bad plot
-- Tessa and I both have a hard stop at 6:30, so if we're short on time, **Your Turn** becomes self-guided
+- **Your turn**: fix a bad plot (might become self-guided if we're not done by 6:30pm)
 
 # Meet Tessa {background-color="#007155"}
 
 # What Else Can ggplot Do? {background-color="#007155"}
 
-## Tonight's Data {.smaller}
+## Tonight's Data {.smallest}
 
 ```{r}
 midwest_df <- midwest |>
@@ -84,12 +83,12 @@ ggplot(economics, aes(x = date, y = unemploy)) +
 - `geom_line()` connects the observations in order along the x-axis. Reach for it when x is time.
 - The peak is 15.4 million people in October 2009
 
-## One Year, Crowded Axis {.smaller}
+## One Year, Crowded Axis {.smallest}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 3
+#| fig-height: 2.75
 #| out-width: "100%"
 unemploy_2009 <- economics |>
   filter(date >= "2009-01-01", date <= "2009-12-01") |>
@@ -107,7 +106,7 @@ ggplot(unemploy_2009, aes(x = month, y = unemploy)) +
 - `theme(axis.text.x = element_text(angle = 45, hjust = 1))` rotates just the x-axis text. `hjust` keeps the rotated labels lined up under their bars.
 - Axis text, titles, and ticks are all controlled through `theme()`, one `element_text()` at a time
 
-## Bubbles: A Third Variable {.smaller}
+## Bubbles: A Third Variable {.smallest}
 
 ```{r}
 ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, size = poptotal)) +
@@ -167,21 +166,19 @@ ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
 
 ::: {.columns}
 
-::: {.column width="55%"}
+::: {.column width="40%"}
 - Today's colors are placeholders. Color is a design choice like any other, and we'll come back to it when we cover best practices
 - Palettes generally come in three types: **sequential** (low to high), **diverging** (two directions from a meaningful middle), and **qualitative** (categories, no order)
-- Click the screenshot to open the real tool
+- Click the screenshot to open the *ColorBrewer* tool
 :::
 
-::: {.column width="45%"}
+::: {.column width="60%"}
 [![](../img/brewer.png)](https://colorbrewer2.org/){fig-align="center"}
-
-*ColorBrewer*
 :::
 
 :::
 
-## Color Scales: Categories {.smaller}
+## Color Scales: Categories {.smallest}
 
 ```{r}
 ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +
@@ -190,7 +187,7 @@ ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +
 ```
 
 - Color is an aesthetic, so it has a scale too. `scale_color_manual()` lets you name the color for each category.
-- Don't want to pick colors yourself? `scale_color_brewer(palette = "Dark2")` uses a ready-made palette.
+- Don't want to pick colors yourself? `scale_color_brewer(palette = "Dark2")` uses a ready-made palette. Other palletes from Brewer are also available.
 - Points and lines take `color`. Bars, boxes, and densities take `fill`, so their scales are `scale_fill_*()`.
 
 ## Color Scales: Continuous Values {.smaller}
@@ -286,25 +283,25 @@ When something is off, Wilke's three words help you say *how* it's off:
 
 ## Exhibit A: What's Wrong Here? {.smaller}
 
-![](../img/awful_viz/cnn.jpeg){fig-align="center" height="520" fig-alt="CNN map of the United States, entirely orange, captioned 43 percent out of stock nationwide during the baby formula shortage"}
+![](../img/awful_viz/cnn.jpeg){fig-align="center" height="500" fig-alt="CNN map of the United States, entirely orange, captioned 43 percent out of stock nationwide during the baby formula shortage"}
 
 *Source: CNN,* The Situation Room
 
 ## Exhibit B: What's Wrong Here? {.smaller}
 
-![](../img/awful_viz/fox.png){fig-align="center" height="520" fig-alt="Fox News figure showing the percentage of Americans identifying as Christian, 2009 versus 2019"}
+![](../img/awful_viz/fox.png){fig-align="center" height="500" fig-alt="Fox News figure showing the percentage of Americans identifying as Christian, 2009 versus 2019"}
 
 *Source: Fox News,* Tucker Carlson Tonight
 
 ## Exhibit C: What's Wrong Here? {.smaller}
 
-![](../img/awful_viz/cnn_violent_crime_axis.jpg){fig-align="center" height="520" fig-alt="CNN line chart titled Violent Crime Is a Very Big Problem, with four dates on the x-axis: April 2021, June 2020, March 2019, October 2018"}
+![](../img/awful_viz/cnn_violent_crime_axis.jpg){fig-align="center" height="500" fig-alt="CNN line chart titled Violent Crime Is a Very Big Problem, with four dates on the x-axis: April 2021, June 2020, March 2019, October 2018"}
 
 *Source: CNN,* Cuomo Prime Time
 
 ## Exhibit D: What's Wrong Here? {.smaller}
 
-![](../img/awful_viz/al_dol_bubble_chart.png){fig-align="center" height="520" fig-alt="Alabama Department of Labor dashboard showing weekly unemployment claims as randomly packed, color-coded circles"}
+![](../img/awful_viz/al_dol_bubble_chart.png){fig-align="center" height="500" fig-alt="Alabama Department of Labor dashboard showing weekly unemployment claims as randomly packed, color-coded circles"}
 
 *Source: Alabama Department of Labor*
 
@@ -386,7 +383,7 @@ ggplot(state_summary, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty)))
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 3
+#| fig-height: 2.8
 #| out-width: "100%"
 ggplot(state_summary, aes(x = state, y = avg_poverty)) +
   geom_col() +
@@ -437,12 +434,12 @@ And three ways it goes wrong:
 - **Color for the sake of color**: if the color doesn't encode anything, it's decoration
 - **The wrong kind of palette** for the data, which is the next two slides
 
-## A Rainbow Has No Order {.smaller}
+## A Rainbow Has No Order {.smallest}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 3
+#| fig-height: 2.8
 #| out-width: "100%"
 color_plot <- ggplot(midwest_df, aes(x = popdensity, y = percollege,
                                      color = percbelowpoverty)) +
@@ -458,7 +455,7 @@ color_plot + scale_color_viridis_c(direction = -1)
 - Poverty runs in one direction, from low to high. A rainbow doesn't, since nothing about green says "more than yellow."
 - **Left**: your eye sorts counties into color bands (the oranges, the yellows, the greens) with sharp edges that aren't in the data
 - **Right**: darker is higher. No legend-checking required.
-- Figure 5 in the reading shows the same problem on a county map
+<!-- - Figure 5 in the reading shows the same problem on a county map -->
 
 ## Diverging Palettes Need a Real Midpoint {.smallest}
 
@@ -537,7 +534,7 @@ ggplot(state_summary, aes(x = avg_college, y = fct_reorder(state, avg_college)))
 - **Bad**: rainbow colors for a single ordered number, and bars in alphabetical order
 - **Ugly**: the dark panel, a legend repeating what the bars already say, and raw column names for labels
 
-## Before Next Class
+## Before Next Class {.smaller}
 
 - [ ] No homework due this week. HW3 is due **Sunday, Oct. 25**.
 - [ ] Next week is a different kind of class. Hour 1 is a guest lecture from Andy Crawley (University of Maine), and Hour 2 is the NBRC project kickoff with Sarah Waring and Chris Saunders.

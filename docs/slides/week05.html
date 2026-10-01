@@ -230,8 +230,7 @@ Andrew Van Leuven
 <li><strong>Meet Tessa</strong></li>
 <li><strong>What else can ggplot do?</strong> More geoms, scales, color, and themes</li>
 <li><strong>Best practices in visualization</strong>: what makes a figure work, and how figures mislead</li>
-<li><strong>Your turn</strong>: fix a bad plot</li>
-<li>Tessa and I both have a hard stop at 6:30, so if we’re short on time, <strong>Your Turn</strong> becomes self-guided</li>
+<li><strong>Your turn</strong>: fix a bad plot (might become self-guided if we’re not done by 6:30pm)</li>
 </ul>
 </section>
 <section id="meet-tessa" class="title-slide slide level1 center" data-background-color="#007155">
@@ -244,7 +243,7 @@ Andrew Van Leuven
 <h1>What Else Can ggplot Do?</h1>
 
 </section>
-<section id="tonights-data" class="slide level2 smaller">
+<section id="tonights-data" class="slide level2 smallest">
 <h2>Tonight’s Data</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>midwest_df <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
@@ -285,7 +284,7 @@ Andrew Van Leuven
 <li>The peak is 15.4 million people in October 2009</li>
 </ul>
 </section>
-<section id="one-year-crowded-axis" class="slide level2 smaller">
+<section id="one-year-crowded-axis" class="slide level2 smallest">
 <h2>One Year, Crowded Axis</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>unemploy_2009 <span class="ot">&lt;-</span> economics <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="st">"2009-01-01"</span>, date <span class="sc">&lt;=</span> <span class="st">"2009-12-01"</span>) <span class="sc">|&gt;</span></span>
@@ -296,7 +295,7 @@ Andrew Van Leuven
 <span id="cb4-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(unemploy_2009, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> unemploy)) <span class="sc">+</span></span>
 <span id="cb4-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb4-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -320,7 +319,7 @@ Andrew Van Leuven
 <li>Axis text, titles, and ticks are all controlled through <code>theme()</code>, one <code>element_text()</code> at a time</li>
 </ul>
 </section>
-<section id="bubbles-a-third-variable" class="slide level2 smaller">
+<section id="bubbles-a-third-variable" class="slide level2 smallest">
 <h2>Bubbles: A Third Variable</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">size =</span> poptotal)) <span class="sc">+</span></span>
@@ -387,18 +386,17 @@ Andrew Van Leuven
 <section id="a-quick-note-on-color" class="slide level2 smaller">
 <h2>A Quick Note on Color</h2>
 <div class="columns">
-<div class="column" style="width:55%;">
+<div class="column" style="width:40%;">
 <ul>
 <li>Today’s colors are placeholders. Color is a design choice like any other, and we’ll come back to it when we cover best practices</li>
 <li>Palettes generally come in three types: <strong>sequential</strong> (low to high), <strong>diverging</strong> (two directions from a meaningful middle), and <strong>qualitative</strong> (categories, no order)</li>
-<li>Click the screenshot to open the real tool</li>
+<li>Click the screenshot to open the <em>ColorBrewer</em> tool</li>
 </ul>
-</div><div class="column" style="width:45%;">
+</div><div class="column" style="width:60%;">
 <p><a href="https://colorbrewer2.org/" data-fig-align="center"><img data-src="../img/brewer.png"></a></p>
-<p><em>ColorBrewer</em></p>
 </div></div>
 </section>
-<section id="color-scales-categories" class="slide level2 smaller">
+<section id="color-scales-categories" class="slide level2 smallest">
 <h2>Color Scales: Categories</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> metro)) <span class="sc">+</span></span>
@@ -408,7 +406,7 @@ Andrew Van Leuven
 </div>
 <img data-src="week05_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><ul>
 <li>Color is an aesthetic, so it has a scale too. <code>scale_color_manual()</code> lets you name the color for each category.</li>
-<li>Don’t want to pick colors yourself? <code>scale_color_brewer(palette = "Dark2")</code> uses a ready-made palette.</li>
+<li>Don’t want to pick colors yourself? <code>scale_color_brewer(palette = "Dark2")</code> uses a ready-made palette. Other palletes from Brewer are also available.</li>
 <li>Points and lines take <code>color</code>. Bars, boxes, and densities take <code>fill</code>, so their scales are <code>scale_fill_*()</code>.</li>
 </ul>
 </section>
@@ -435,7 +433,7 @@ Andrew Van Leuven
 <span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty)) <span class="sc">+</span></span>
 <span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
 <span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -517,7 +515,7 @@ Andrew Van Leuven
 <h2>Exhibit A: What’s Wrong Here?</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/awful_viz/cnn.jpeg" class="quarto-figure quarto-figure-center" alt="CNN map of the United States, entirely orange, captioned 43 percent out of stock nationwide during the baby formula shortage" height="520"></p>
+<p><img data-src="../img/awful_viz/cnn.jpeg" class="quarto-figure quarto-figure-center" alt="CNN map of the United States, entirely orange, captioned 43 percent out of stock nationwide during the baby formula shortage" height="500"></p>
 </figure>
 </div>
 <p><em>Source: CNN,</em> The Situation Room</p>
@@ -526,7 +524,7 @@ Andrew Van Leuven
 <h2>Exhibit B: What’s Wrong Here?</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/awful_viz/fox.png" class="quarto-figure quarto-figure-center" alt="Fox News figure showing the percentage of Americans identifying as Christian, 2009 versus 2019" height="520"></p>
+<p><img data-src="../img/awful_viz/fox.png" class="quarto-figure quarto-figure-center" alt="Fox News figure showing the percentage of Americans identifying as Christian, 2009 versus 2019" height="500"></p>
 </figure>
 </div>
 <p><em>Source: Fox News,</em> Tucker Carlson Tonight</p>
@@ -535,7 +533,7 @@ Andrew Van Leuven
 <h2>Exhibit C: What’s Wrong Here?</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/awful_viz/cnn_violent_crime_axis.jpg" class="quarto-figure quarto-figure-center" alt="CNN line chart titled Violent Crime Is a Very Big Problem, with four dates on the x-axis: April 2021, June 2020, March 2019, October 2018" height="520"></p>
+<p><img data-src="../img/awful_viz/cnn_violent_crime_axis.jpg" class="quarto-figure quarto-figure-center" alt="CNN line chart titled Violent Crime Is a Very Big Problem, with four dates on the x-axis: April 2021, June 2020, March 2019, October 2018" height="500"></p>
 </figure>
 </div>
 <p><em>Source: CNN,</em> Cuomo Prime Time</p>
@@ -544,7 +542,7 @@ Andrew Van Leuven
 <h2>Exhibit D: What’s Wrong Here?</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/awful_viz/al_dol_bubble_chart.png" class="quarto-figure quarto-figure-center" alt="Alabama Department of Labor dashboard showing weekly unemployment claims as randomly packed, color-coded circles" height="520"></p>
+<p><img data-src="../img/awful_viz/al_dol_bubble_chart.png" class="quarto-figure quarto-figure-center" alt="Alabama Department of Labor dashboard showing weekly unemployment claims as randomly packed, color-coded circles" height="500"></p>
 </figure>
 </div>
 <p><em>Source: Alabama Department of Labor</em></p>
@@ -590,7 +588,7 @@ Andrew Van Leuven
 </section>
 <section id="same-five-numbers-less-ink" class="slide level2 smaller">
 <h2>Same Five Numbers, Less Ink</h2>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -621,7 +619,7 @@ Andrew Van Leuven
 <span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="fl">14.5</span>))</span>
 <span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(state_summary, <span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> avg_poverty)) <span class="sc">+</span></span>
 <span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -654,7 +652,7 @@ Andrew Van Leuven
 <span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
 <span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(economics, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> unemploy)) <span class="sc">+</span></span>
 <span id="cb14-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -693,7 +691,7 @@ Andrew Van Leuven
 <li><strong>The wrong kind of palette</strong> for the data, which is the next two slides</li>
 </ul>
 </section>
-<section id="a-rainbow-has-no-order" class="slide level2 smaller">
+<section id="a-rainbow-has-no-order" class="slide level2 smallest">
 <h2>A Rainbow Has No Order</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>color_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest_df, <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege,</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>                                     <span class="at">color =</span> percbelowpoverty)) <span class="sc">+</span></span>
@@ -703,7 +701,7 @@ Andrew Van Leuven
 <span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>color_plot <span class="sc">+</span> <span class="fu">scale_color_gradientn</span>(<span class="at">colors =</span> <span class="fu">rainbow</span>(<span class="dv">7</span>))</span>
 <span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>color_plot <span class="sc">+</span> <span class="fu">scale_color_viridis_c</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -724,15 +722,14 @@ Andrew Van Leuven
 <ul>
 <li>Poverty runs in one direction, from low to high. A rainbow doesn’t, since nothing about green says “more than yellow.”</li>
 <li><strong>Left</strong>: your eye sorts counties into color bands (the oranges, the yellows, the greens) with sharp edges that aren’t in the data</li>
-<li><strong>Right</strong>: darker is higher. No legend-checking required.</li>
-<li>Figure 5 in the reading shows the same problem on a county map</li>
+<li><strong>Right</strong>: darker is higher. No legend-checking required. <!-- - Figure 5 in the reading shows the same problem on a county map --></li>
 </ul>
 </section>
 <section id="diverging-palettes-need-a-real-midpoint" class="slide level2 smallest">
 <h2>Diverging Palettes Need a Real Midpoint</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>color_plot <span class="sc">+</span> <span class="fu">scale_color_distiller</span>(<span class="at">palette =</span> <span class="st">"RdBu"</span>)</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>color_plot <span class="sc">+</span> <span class="fu">scale_color_distiller</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>, <span class="at">direction =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -819,7 +816,7 @@ Andrew Van Leuven
 <li><strong>Ugly</strong>: the dark panel, a legend repeating what the bars already say, and raw column names for labels</li>
 </ul>
 </section>
-<section id="before-next-class" class="slide level2">
+<section id="before-next-class" class="slide level2 smaller">
 <h2>Before Next Class</h2>
 <ul class="task-list">
 <li><label><input type="checkbox">No homework due this week. HW3 is due <strong>Sunday, Oct.&nbsp;25</strong>.</label></li>

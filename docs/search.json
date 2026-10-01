@@ -473,7 +473,7 @@
     "href": "slides/week02.html#slice-pick-rows-by-position",
     "title": "Week 2: Into the Tidyverse",
     "section": "slice(): Pick Rows by Position",
-    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 BUREAU    IL       35688\n2 PERRY     IL       21412\n3 WHITESIDE IL       60186\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)."
+    "text": "slice(): Pick Rows by Position\n\n\nslice(): rows by number\n\nmidwest |&gt;\n  slice(1:3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county    state poptotal\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;\n1 ADAMS     IL       66090\n2 ALEXANDER IL       10626\n3 BOND      IL       14991\n\n\n\nslice_sample(): random rows\n\nmidwest |&gt;\n  slice_sample(n = 3) |&gt;\n  select(county, state, poptotal)\n\n# A tibble: 3 × 3\n  county  state poptotal\n  &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt;\n1 HANCOCK IN       45527\n2 GRATIOT MI       38982\n3 BROWN   IN       14080\n\n\n\n\nslice_head(n = 5) and slice_tail(n = 5): the first or last 5 rows\nslice_sample() gives different rows every time you run it\nPosition depends on order, so arrange() then slice_head() gives you a “top 5.” slice_max() and slice_min() do that in one step (more on those after the break)."
   },
   {
     "objectID": "slides/week02.html#distinct-and-count",
@@ -1152,7 +1152,7 @@
     "href": "slides/week05.html#todays-plan",
     "title": "Week 5: More ggplot2 + Best Practices in Data Visualization",
     "section": "Today’s Plan",
-    "text": "Today’s Plan\n\nMeet Tessa\nWhat else can ggplot do? More geoms, scales, color, and themes\nBest practices in visualization: what makes a figure work, and how figures mislead\nYour turn: fix a bad plot\nTessa and I both have a hard stop at 6:30, so if we’re short on time, Your Turn becomes self-guided"
+    "text": "Today’s Plan\n\nMeet Tessa\nWhat else can ggplot do? More geoms, scales, color, and themes\nBest practices in visualization: what makes a figure work, and how figures mislead\nYour turn: fix a bad plot (might become self-guided if we’re not done by 6:30pm)"
   },
   {
     "objectID": "slides/week05.html#tonights-data",
@@ -1208,14 +1208,14 @@
     "href": "slides/week05.html#a-quick-note-on-color",
     "title": "Week 5: More ggplot2 + Best Practices in Data Visualization",
     "section": "A Quick Note on Color",
-    "text": "A Quick Note on Color\n\n\n\nToday’s colors are placeholders. Color is a design choice like any other, and we’ll come back to it when we cover best practices\nPalettes generally come in three types: sequential (low to high), diverging (two directions from a meaningful middle), and qualitative (categories, no order)\nClick the screenshot to open the real tool\n\n\n\nColorBrewer"
+    "text": "A Quick Note on Color\n\n\n\nToday’s colors are placeholders. Color is a design choice like any other, and we’ll come back to it when we cover best practices\nPalettes generally come in three types: sequential (low to high), diverging (two directions from a meaningful middle), and qualitative (categories, no order)\nClick the screenshot to open the ColorBrewer tool"
   },
   {
     "objectID": "slides/week05.html#color-scales-categories",
     "href": "slides/week05.html#color-scales-categories",
     "title": "Week 5: More ggplot2 + Best Practices in Data Visualization",
     "section": "Color Scales: Categories",
-    "text": "Color Scales: Categories\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +\n  geom_point(alpha = 0.6) +\n  scale_color_manual(values = c(\"Metro\" = \"#f35d00\", \"Nonmetro\" = \"gray60\"))\n\n\n\nColor is an aesthetic, so it has a scale too. scale_color_manual() lets you name the color for each category.\nDon’t want to pick colors yourself? scale_color_brewer(palette = \"Dark2\") uses a ready-made palette.\nPoints and lines take color. Bars, boxes, and densities take fill, so their scales are scale_fill_*()."
+    "text": "Color Scales: Categories\n\nggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +\n  geom_point(alpha = 0.6) +\n  scale_color_manual(values = c(\"Metro\" = \"#f35d00\", \"Nonmetro\" = \"gray60\"))\n\n\n\nColor is an aesthetic, so it has a scale too. scale_color_manual() lets you name the color for each category.\nDon’t want to pick colors yourself? scale_color_brewer(palette = \"Dark2\") uses a ready-made palette. Other palletes from Brewer are also available.\nPoints and lines take color. Bars, boxes, and densities take fill, so their scales are scale_fill_*()."
   },
   {
     "objectID": "slides/week05.html#color-scales-continuous-values",
@@ -1327,7 +1327,7 @@
     "href": "slides/week05.html#a-rainbow-has-no-order",
     "title": "Week 5: More ggplot2 + Best Practices in Data Visualization",
     "section": "A Rainbow Has No Order",
-    "text": "A Rainbow Has No Order\ncolor_plot &lt;- ggplot(midwest_df, aes(x = popdensity, y = percollege,\n                                     color = percbelowpoverty)) +\n  geom_point() +\n  scale_x_log10(labels = scales::label_comma()) +\n  labs(color = \"Poverty (%)\")\n\ncolor_plot + scale_color_gradientn(colors = rainbow(7))\ncolor_plot + scale_color_viridis_c(direction = -1)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPoverty runs in one direction, from low to high. A rainbow doesn’t, since nothing about green says “more than yellow.”\nLeft: your eye sorts counties into color bands (the oranges, the yellows, the greens) with sharp edges that aren’t in the data\nRight: darker is higher. No legend-checking required.\nFigure 5 in the reading shows the same problem on a county map"
+    "text": "A Rainbow Has No Order\ncolor_plot &lt;- ggplot(midwest_df, aes(x = popdensity, y = percollege,\n                                     color = percbelowpoverty)) +\n  geom_point() +\n  scale_x_log10(labels = scales::label_comma()) +\n  labs(color = \"Poverty (%)\")\n\ncolor_plot + scale_color_gradientn(colors = rainbow(7))\ncolor_plot + scale_color_viridis_c(direction = -1)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPoverty runs in one direction, from low to high. A rainbow doesn’t, since nothing about green says “more than yellow.”\nLeft: your eye sorts counties into color bands (the oranges, the yellows, the greens) with sharp edges that aren’t in the data\nRight: darker is higher. No legend-checking required."
   },
   {
     "objectID": "slides/week05.html#diverging-palettes-need-a-real-midpoint",
