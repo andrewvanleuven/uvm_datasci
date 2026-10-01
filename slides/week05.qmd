@@ -1,5 +1,5 @@
 ---
-title: "Week 5: More ggplot2 & Visualization Best Practices"
+title: "Week 5: More ggplot2 + Best Practices in Data Visualization"
 subtitle: "CDAE 7990 · Applied Data Science & Visualization"
 author: "Andrew Van Leuven"
 date: "October 1, 2026"
@@ -8,7 +8,7 @@ format:
     theme: [default, ../slides.scss]
     slide-number: true
     show-slide-number: speaker
-    footer: "CDAE 7990 · Week 5"
+    footer: "[CDAE 7990](../index.html) · Week 5"
     logo: ""
     transition: fade
     code-line-numbers: false
@@ -41,17 +41,18 @@ theme_dark <- function(base_size = 16, ...) ggplot2::theme_dark(base_size = base
 
 ## Welcome Back
 
-- Last week's charts were for *you*: quick, unlabeled, and good enough to learn what's in the data
-- Tonight's charts are for someone else, so the choices start to matter: which geom, which colors, which axis, and what to leave out
-- We have a guest tonight, so we'll start there
+- Last week's figures were for *our* eyes: quick, unlabeled, and good enough to learn what's in the data
+- Tonight's figures are for someone else (i.e., stakeholders), so the choices start to matter: which geom, which colors, which axis, and what to leave out
 - No homework is due this week. HW3 isn't due until Oct. 25, and I'll tell you when it's released.
+- We have a guest tonight, so we'll start there
 
 ## Today's Plan
 
 - **Meet Tessa**
 - **What else can ggplot do?** More geoms, scales, color, and themes
-- **Best practices in visualization**: what makes a chart work, and how charts mislead
-- **Your turn**: fix a bad chart
+- **Best practices in visualization**: what makes a figure work, and how figures mislead
+- **Your turn**: fix a bad plot
+- Tessa and I both have a hard stop at 6:30, so if we're short on time, **Your Turn** becomes self-guided
 
 # Meet Tessa {background-color="#007155"}
 
@@ -83,21 +84,39 @@ ggplot(economics, aes(x = date, y = unemploy)) +
 - `geom_line()` connects the observations in order along the x-axis. Reach for it when x is time.
 - The peak is 15.4 million people in October 2009
 
-## Bars From a Summary Table {.smaller}
+## One Year, Crowded Axis {.smaller}
 
 ```{r}
-state_summary <- midwest_df |>
-  group_by(state) |>
-  summarize(avg_poverty = mean(percbelowpoverty),
-            avg_college = mean(percollege))
+#| layout-ncol: 2
+#| fig-width: 6
+#| fig-height: 3
+#| out-width: "100%"
+unemploy_2009 <- economics |>
+  filter(date >= "2009-01-01", date <= "2009-12-01") |>
+  mutate(month = month(date, label = TRUE, abbr = FALSE))
 
-ggplot(state_summary, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty))) +
+ggplot(unemploy_2009, aes(x = month, y = unemploy)) +
   geom_col()
+
+ggplot(unemploy_2009, aes(x = month, y = unemploy)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-- Summarize first and save the result as `state_summary`, then give `geom_col()` the numbers to draw
-- Putting the category on `y` gives horizontal bars, which leaves room for long labels like county or industry names
-- `fct_reorder()` again, so the bars read in order instead of alphabetically
+- 2009 was the peak year from the last slide. Twelve full month names at the default angle run into each other.
+- `theme(axis.text.x = element_text(angle = 45, hjust = 1))` rotates just the x-axis text. `hjust` keeps the rotated labels lined up under their bars.
+- Axis text, titles, and ticks are all controlled through `theme()`, one `element_text()` at a time
+
+## Bubbles: A Third Variable {.smaller}
+
+```{r}
+ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, size = poptotal)) +
+  geom_point(alpha = 0.4)
+```
+
+- `size` is another aesthetic. It maps a number to the area of each point instead of a position or a color.
+- Bigger circles are more populous counties, and Cook County (Chicago) jumps out immediately
+- Three numeric variables on one scatterplot, with no new geom. Just one more mapping inside `aes()`.
 
 ## Densities: Comparing Distributions {.smaller}
 
@@ -110,7 +129,7 @@ ggplot(midwest_df, aes(x = percollege, fill = metro)) +
 - Each curve has the same area, so 150 metro counties and 287 nonmetro counties can be compared directly
 - Nonmetro counties bunch up around 15%. Metro counties sit higher and spread much wider.
 
-## Text and Highlighting {.smaller}
+## Text and Highlighting {.smallest}
 
 ```{r}
 high_poverty <- midwest_df |>
@@ -126,8 +145,9 @@ ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
 - A layer can use its own data. The gray points are every county, and the green points and labels come from `high_poverty` (last week's three unusual values).
 - `geom_text()` needs a `label` aesthetic. `hjust` and `nudge_x` move the text off the point.
 - Gray for context plus one color for the story is one of the most useful tricks in the whole package
+- When a layer draws from a different data frame than the one in `ggplot()`, you have to name it with `data =`. Leave that out and the layer uses `midwest_df` again.
 
-## Scales: Controlling the Axes {.smaller}
+## Scales: Controlling the Axes {.smallest}
 
 ```{r}
 ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
@@ -140,14 +160,33 @@ ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
 - Every aesthetic has a scale, and ggplot picks a default for each. The functions are named `scale_<aesthetic>_<type>()`.
 - `labels` controls how the numbers are written and `breaks` controls where the ticks go
 - `scale = 1` because our data is already 0 to 100. Without it, `label_percent()` assumes proportions and would print 2,000%.
-- Other helpers you'll want: `label_comma()` and `label_dollar()`
+- Other helpers we might want: `label_comma()` and `label_dollar()`
+- `scales::label_percent()` borrows one function from the scales package without a `library(scales)` at the top. The `package::function()` form is handy for a one-off like this.
+
+## A Quick Note on Color {.smaller}
+
+::: {.columns}
+
+::: {.column width="55%"}
+- Today's colors are placeholders. Color is a design choice like any other, and we'll come back to it when we cover best practices
+- Palettes generally come in three types: **sequential** (low to high), **diverging** (two directions from a meaningful middle), and **qualitative** (categories, no order)
+- Click the screenshot to open the real tool
+:::
+
+::: {.column width="45%"}
+[![](../img/brewer.png)](https://colorbrewer2.org/){fig-align="center"}
+
+*ColorBrewer*
+:::
+
+:::
 
 ## Color Scales: Categories {.smaller}
 
 ```{r}
 ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +
   geom_point(alpha = 0.6) +
-  scale_color_manual(values = c("Metro" = "#007155", "Nonmetro" = "gray60"))
+  scale_color_manual(values = c("Metro" = "#f35d00", "Nonmetro" = "gray60"))
 ```
 
 - Color is an aesthetic, so it has a scale too. `scale_color_manual()` lets you name the color for each category.
@@ -167,12 +206,12 @@ ggplot(midwest_df, aes(x = popdensity, y = percollege, color = percbelowpoverty)
 - The viridis palettes (`"viridis"`, `"magma"`, `"plasma"`, and others) do that, and they stay readable in grayscale and for color-blind readers
 - `direction = -1` flips the palette so that dark means high
 
-## Themes: Everything That Isn't Data {.smaller}
+## Themes {.smaller}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 3
+#| fig-height: 3 
 #| out-width: "100%"
 ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
   geom_point(alpha = 0.4) +
@@ -185,12 +224,13 @@ ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty)) +
 
 - A theme controls the background, gridlines, fonts, and legend placement. It never touches the data.
 - The gray default is `theme_gray()`. Also built in: `theme_bw()`, `theme_light()`, and `theme_void()` (nothing at all, which is what we'll use for maps).
-- Tired of adding it to every chart? Run `theme_set(theme_minimal())` once at the top of your document.
+<!-- - Tired of adding it to every plot? Run `theme_set(theme_minimal())` once at the top of your document. -->
 
-## From Default to Finished {.smaller}
+##  A Finished Visualization {.smallest}
 
 ```{r}
-#| fig-height: 5
+#| label: finished-chart
+#| fig-show: hide
 ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +
   geom_point(alpha = 0.6) +
   scale_color_manual(values = c("Metro" = "#007155", "Nonmetro" = "gray60")) +
@@ -200,59 +240,77 @@ ggplot(midwest_df, aes(x = percollege, y = percbelowpoverty, color = metro)) +
     title = "The most college-educated counties are metro counties",
     subtitle = "Midwestern counties, 2000 Census",
     x = "Adults with a college degree",
-    y = "Population below poverty line",
+    y = "Population below poverty line", 
     color = NULL,
     caption = "Source: ggplot2::midwest"
   ) +
-  theme_minimal() +
+  theme_minimal(base_family = 'Tahoma') +
   theme(legend.position = "bottom",
-        panel.grid.minor = element_blank())
+        axis.title = element_text(face = 'bold'))
 ```
 
 - Nothing new here. It's tonight's pieces stacked on last week's scatterplot: a color scale, two axis scales, labels, and a theme.
 - `theme()` adjusts one element at a time, on top of whichever complete theme you chose
 - Of the 24 counties where more than 30% of adults have a degree, 21 are metro
 
+## {#finished-chart-figure}
+
+<!-- Re-runs the finished-chart chunk above so the figure gets a slide to itself. Edit the code there, not here. -->
+
+```{r}
+#| ref.label: finished-chart
+#| echo: false
+#| fig-width: 9
+#| fig-height: 5.6
+#| out-width: "100%"
+```
+
 ## Break? {background-color="#007155"}
 
 # Best Practices in Visualization {background-color="#007155"}
 
-## You Read Far More Charts Than You Make {.smaller}
+## You Read Far More Figures Than You Make {.smaller}
 
-Tonight's reading suggests four questions to ask of any chart, whether it's yours or someone else's:
+Tonight's reading suggests four questions to ask of any figure, whether it's yours or someone else's:
 
 1. **What do you see?** Sum up the main takeaway in one sentence.
-2. **Who created it?** The source often tells you what the chart is for.
+2. **Who created it?** The source often tells you what the figure is for.
 3. **Are you being tricked?** Look at the axes, the scales, and the sizes.
 4. **What is missing?** Ask what data or context was left out.
 
 When something is off, Wilke's three words help you say *how* it's off:
 
 - **Ugly**: an aesthetic problem, like clashing colors or distracting fonts
-- **Bad**: a perception problem. The chart is hard to read.
-- **Wrong**: an accuracy problem. The chart misstates the data.
+- **Bad**: a perception problem. The figure is hard to read.
+- **Wrong**: an accuracy problem. The figure misstates the data.
 
-## Exhibit A: What's Wrong Here?
+## Exhibit A: What's Wrong Here? {.smaller}
 
-<!-- PLACEHOLDER (Andrew): replace the italic line below with your figure, e.g.
-![](img/bad_figure_a.png){fig-align="center" height="520"}
-Save the image in slides/img/ and Quarto will copy it into docs/ on render. -->
+![](../img/awful_viz/cnn.jpeg){fig-align="center" height="520" fig-alt="CNN map of the United States, entirely orange, captioned 43 percent out of stock nationwide during the baby formula shortage"}
 
-*Bad figure A goes here*
+*Source: CNN,* The Situation Room
 
-## Exhibit B: What's Wrong Here?
+## Exhibit B: What's Wrong Here? {.smaller}
 
-<!-- PLACEHOLDER (Andrew): replace the italic line below with your figure, e.g.
-![](img/bad_figure_b.png){fig-align="center" height="520"} -->
+![](../img/awful_viz/fox.png){fig-align="center" height="520" fig-alt="Fox News figure showing the percentage of Americans identifying as Christian, 2009 versus 2019"}
 
-*Bad figure B goes here*
+*Source: Fox News,* Tucker Carlson Tonight
 
-## Exhibit C: What's Wrong Here?
+## Exhibit C: What's Wrong Here? {.smaller}
 
-<!-- PLACEHOLDER (Andrew): replace the italic line below with your figure, e.g.
-![](img/bad_figure_c.png){fig-align="center" height="520"} -->
+![](../img/awful_viz/cnn_violent_crime_axis.jpg){fig-align="center" height="520" fig-alt="CNN line chart titled Violent Crime Is a Very Big Problem, with four dates on the x-axis: April 2021, June 2020, March 2019, October 2018"}
 
-*Bad figure C goes here*
+*Source: CNN,* Cuomo Prime Time
+
+## Exhibit D: What's Wrong Here? {.smaller}
+
+![](../img/awful_viz/al_dol_bubble_chart.png){fig-align="center" height="520" fig-alt="Alabama Department of Labor dashboard showing weekly unemployment claims as randomly packed, color-coded circles"}
+
+*Source: Alabama Department of Labor*
+
+# Rules to Guide the Visualization Process {background-color="#007155"}
+
+## {background-image="../img/tree.png" background-size="contain"}
 
 ## Rule 1: Start With the Question {.smaller}
 
@@ -264,9 +322,9 @@ Before picking a geom, ask what you are trying to show. The reading's decision t
 - **Comparison**: how groups or time periods differ (bar chart, line chart)
 - **Geography**: *where* something happens (maps, starting in Week 8)
 
-The same data can sit on more than one branch. We'll spend more time on choosing a chart type in Week 7.
+The same data can sit on more than one branch. We'll spend more time on choosing a chart type in a few weeks.
 
-## Rule 2: Show the Data {.smaller}
+## Rule 2: Show the Data {.smallest}
 
 > "Above all else show the data."
 >
@@ -280,10 +338,18 @@ Tufte's five principles from *The Visual Display of Quantitative Information*:
 4. Erase redundant data-ink
 5. Revise and edit
 
-- **Data-ink** is the part of a chart that actually represents data. Everything else is non-data-ink: borders, backgrounds, heavy gridlines, and decoration that Tufte calls *chartjunk*.
+- **Data-ink** is the part of a figure that actually represents data. Everything else is non-data-ink: borders, backgrounds, heavy gridlines, and decoration that Tufte calls *chartjunk*.
 - You don't have to be as strict as Tufte. The useful habit is asking of every element, "what is this doing for the reader?"
 
 ## Same Five Numbers, Less Ink {.smaller}
+
+```{r}
+#| include: false
+state_summary <- midwest_df |>
+  group_by(state) |>
+  summarize(avg_poverty = mean(percbelowpoverty),
+            avg_college = mean(percollege))
+```
 
 ```{r}
 #| echo: false
@@ -315,7 +381,7 @@ ggplot(state_summary, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty)))
 - **Added**: the numbers themselves, and an order that means something
 - Five colors for five bars is *redundant* data-ink. Color was saying the same thing as position.
 
-## Rule 3: Ink Should Be Proportional to the Data {.smaller}
+## Rule 3: Ink Should Be Proportional to the Data {.smallest}
 
 ```{r}
 #| layout-ncol: 2
@@ -333,14 +399,14 @@ ggplot(state_summary, aes(x = state, y = avg_poverty)) +
 - A bar's length *is* the number. Cut off the bottom of the axis and the lengths no longer match the data.
 - **Left**: Michigan's bar is about eight times as tall as Indiana's. **Right**: the real gap is 14.2% vs. 10.3%, about 38% higher.
 - Bars start at zero, always. Points and lines encode position rather than length, so they have more freedom, but a tight axis can still exaggerate a small change.
-- The same principle rules out using area or 3D to show a single number. Double a circle's radius and its area quadruples.
+<!-- - The same principle rules out using area or 3D to show a single number. Double a circle's radius and its area quadruples. -->
 
-## How to Lie With a Chart {.smaller}
+## How to Lie With a Figure {.smallest}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 6
-#| fig-height: 3
+#| fig-height: 2.9
 #| out-width: "100%"
 recent <- economics |>
   filter(date >= as.Date("2010-01-01"))
@@ -352,14 +418,14 @@ ggplot(economics, aes(x = date, y = unemploy)) +
   geom_line()
 ```
 
-- Every number in both charts is true. **Left**, unemployment is in free fall. **Right**, the same five years are the recovery from the highest count in the series.
+- Every number in both plots is true. **Left**: unemployment is in free fall. **Right**: same five years are the recovery from the highest count in the series.
 - Tufte: graphics must not quote data out of context. Choosing the start date is one of the easiest ways to do it.
-- The other classics from the reading: a truncated y-axis, area standing in for a single number, and inconsistent axes or tick spacing
-- Even the right-hand chart leaves something out. The US population grew from 199 million to 320 million over these years, so a raw count overstates the trend. Rates travel better than counts.
+<!-- - The other classics from the reading: a truncated y-axis, area standing in for a single number, and inconsistent axes or tick spacing -->
+- Even the right-hand plot leaves something out. The US grew from 199M to 320M over these years, so a raw count overstates the trend. **Rates > counts (usually).**
 
 ## Rule 4: Give Color One Job {.smaller}
 
-Wilke describes three uses of color. Pick one per chart:
+Wilke describes three uses of color. Pick one per figure:
 
 - **Distinguish** categories: a qualitative palette, with no implied order (`scale_color_brewer()`, `scale_color_manual()`)
 - **Represent values**: a sequential palette, light to dark (`scale_color_viridis_c()`)
@@ -394,7 +460,7 @@ color_plot + scale_color_viridis_c(direction = -1)
 - **Right**: darker is higher. No legend-checking required.
 - Figure 5 in the reading shows the same problem on a county map
 
-## Diverging Palettes Need a Real Midpoint {.smaller}
+## Diverging Palettes Need a Real Midpoint {.smallest}
 
 ```{r}
 #| layout-ncol: 2
@@ -407,19 +473,20 @@ color_plot + scale_color_distiller(palette = "Blues", direction = 1)
 ```
 
 - A diverging palette has two colors that meet at a neutral middle. It tells the reader there are two *kinds* of values, above and below.
-- **Left**: the middle lands near 25% poverty only because that's halfway between the lowest and highest county. Nothing happens at 25%.
+- **Left**: the middle lands near 25% poverty only because that's halfway between the lowest and highest county. Nothing actually *happens* at 25%.
 - Use diverging colors when the midpoint means something, like zero change, a break-even point, or a national average. Otherwise use a sequential palette.
-- Even then, where you put the midpoint changes the story. Figure 6 in the reading moves it from 0 to −1 and gets a different map.
 
-## Rule 5: Know Who's Reading {.smaller}
+## Rule 5: Know Who's Reading {.smallest}
 
-- **Color-vision deficiency**: roughly 1 in 12 men can't reliably tell red from green. Viridis and the ColorBrewer palettes marked colorblind-safe are built for this.
-- **Grayscale**: if your chart might be printed or photocopied, check that it survives without color
+- **Color-vision deficiency**: roughly 1 in 12 men (~1 in 200 women) can't reliably tell red from green. Viridis and the ColorBrewer palettes marked colorblind-safe are built for this.
+- **Grayscale**: if your figure might be printed or photocopied, check that it survives without color
 - **Connotation**: colors carry meaning before your legend does. Red and blue on a US map reads as politics, red reads as hot or bad, and green reads as good.
 - **Normalize**: a map or bar chart of raw counts mostly shows where people live. Divide by population, households, or farms so places can be compared.
-- **Expertise**: NBRC staff know the region far better than you do, and they are not R users. Titles, labels, and units should need no translation.
+- **Expertise**: NBRC staff know the region far better than you do, and they are not R users. Titles, labels, and units should need no translation. 
 
-## Before You Share a Chart {.smaller}
+The last bullet could be it's own class. Writing/communicating for non-technical audience is harder than it sounds. Just ask Extension folks! 
+
+## Before You Share a Visualization {.smaller}
 
 1. Can you state the takeaway in one sentence? Is that sentence the title?
 2. Does the chart type match the question (distribution, composition, relationship, comparison, geography)?
@@ -431,7 +498,7 @@ color_plot + scale_color_distiller(palette = "Blues", direction = 1)
 
 ## Your Turn (15 min) {.smaller}
 
-This chart uses `state_summary` from earlier. Run it, then work with a neighbor.
+This plot uses `state_summary` from earlier. Run it, then work with a neighbor.
 
 ```{r}
 #| fig-height: 3.2
@@ -475,6 +542,6 @@ ggplot(state_summary, aes(x = avg_college, y = fct_reorder(state, avg_college)))
 - [ ] No homework due this week. HW3 is due **Sunday, Oct. 25**.
 - [ ] Next week is a different kind of class. Hour 1 is a guest lecture from Andy Crawley (University of Maine), and Hour 2 is the NBRC project kickoff with Sarah Waring and Chris Saunders.
 - [ ] Come with questions for NBRC. Look back at the two domain areas on the [project page](../project.html) before Thursday.
-- [ ] Keep an eye out for terrible charts in the wild, and send me the worst ones you find
+- [ ] Keep an eye out for terrible visualizations in the wild, and send me the worst ones you find
 
 ## Thank you! {background-color="#007155"}

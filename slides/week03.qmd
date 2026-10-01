@@ -8,7 +8,7 @@ format:
     theme: [default, ../slides.scss]
     slide-number: true
     show-slide-number: speaker
-    footer: "CDAE 7990 · Week 3"
+    footer: "[CDAE 7990](../index.html) · Week 3"
     logo: ""
     transition: fade
     code-line-numbers: false
