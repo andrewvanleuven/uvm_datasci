@@ -1,0 +1,357 @@
+---
+title: "Week 7: Visual Communication + Launching the NBRC Project"
+subtitle: "CDAE 7990 · Applied Data Science & Visualization"
+author: "Andrew Van Leuven"
+date: "October 15, 2026"
+format:
+  revealjs:
+    theme: [default, ../slides.scss]
+    slide-number: true
+    show-slide-number: speaker
+    footer: "[CDAE 7990](../index.html) · Week 7"
+    logo: ""
+    transition: fade
+    code-line-numbers: false
+    scrollable: true
+    date-format: long
+execute:
+  echo: true
+  eval: true
+---
+
+
+```{r}
+#| include: false
+library(tidyverse)
+options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
+wide_margin <- theme(plot.margin = margin(5.5, 22, 5.5, 5.5))
+theme_set(theme_gray(base_size = 16) + wide_margin)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 4.5, fig.align = "center",
+                      dpi = 150, out.width = "85%")
+theme_minimal <- function(base_size = 16, ...) ggplot2::theme_minimal(base_size = base_size, ...) + wide_margin
+
+pov_df <- midwest |>
+  mutate(metro = if_else(inmetro == 1, "Metro", "Nonmetro")) |>
+  group_by(state, inmetro, metro) |>
+  summarize(avg_poverty = mean(percbelowpoverty), .groups = "drop")
+```
+
+## Welcome Back
+
+- Tonight is mostly a working session. By the time you leave, you'll have a team, a domain area, and a solid start on your Scope & Team Charter.
+- A few schedule changes first, because the next month looks different than the syllabus says
+
+## Homework Changes
+
+- **HW3 is cancelled.** HW4 is a single problem set about maps, due **Sunday, Nov. 1**.
+- **HW5** is now due **Sunday, Nov. 15**
+- That's four homework assignments instead of five. The numbering stays the same, so there's simply no HW3.
+- I'm behind on grading HW1 and HW2, and I'm sorry about that. You'll have grades and feedback before next week.
+
+## Next Week (Oct. 22) Is Asynchronous
+
+- I've been invited to give a seminar at Purdue University, so I'll be on a plane during our class period
+- Class will be **self-guided**: a recorded video from me plus materials you work through on your own time that week
+- To make the most of this, I'm swapping two units. Next week's async session covers **Quarto and storytelling with data**, and maps move to the two in-person weeks after it.
+- Maps are where things break (coordinate systems, Census API keys, shapefiles), and I'd rather be in the room for that. You've been rendering Quarto documents all semester, so it suits a self-guided week.
+
+## The Rest of the Semester {.smaller}
+
+| Date | Class | Due |
+|---|---|---|
+| **Oct. 15** | Tonight: visual communication; pick teams; start the charter | |
+| **Oct. 22** | **Async**: Quarto, storytelling with data (video + self-guided) | Scope & Team Charter, **Sun. Oct. 25** |
+| **Oct. 29** | Intro to GIS; Census geography; `sf` and `tidycensus`; choropleths | HW4 (maps), **Sun. Nov. 1** |
+| **Nov. 5** | Advanced GIS; non-Census spatial data; cartography | |
+| **Nov. 12** | **No class** (conference) | HW5, **Sun. Nov. 15** |
+| **Nov. 19** | Project workday + peer critique | Preliminary Outputs |
+| **Nov. 26** | **No class** (Thanksgiving) | |
+| **Dec. 3** | In-class feedback and revision | Draft Deliverable |
+| **Dec. 10** | Final polish; presentation prep | |
+| **Dec. 17** | **Montpelier**: final presentations to NBRC | Final Deliverable + Presentation |
+
+## Today's Plan
+
+- **Visual communication**: matching figures to questions, and writing figures for NBRC
+- **The project, start to finish**: every milestone between now and Montpelier
+- **Work session**: pick teams, draft research questions, and get the charter well underway
+
+# Visual Communication {background-color="#007155"}
+
+## Start With the Question, Not the Chart Type {.smaller}
+
+| If your question is about... | Reach for... | In ggplot2 |
+|---|---|---|
+| **Comparison** across groups | Sorted bars, dot plot | `geom_col()`, `geom_point()` |
+| **Distribution** of one variable | Histogram, density, boxplot | `geom_histogram()`, `geom_density()`, `geom_boxplot()` |
+| **Change over time** | Line chart | `geom_line()` |
+| **Relationship** between two variables | Scatterplot | `geom_point()`, `geom_smooth()` |
+| **Composition** (parts of a whole) | Stacked bars, or just a table | `geom_col(position = "fill")` |
+| **Geography** (where?) | Choropleth, point map | `geom_sf()` (coming Oct. 29) |
+
+- This is the decision tree from the reading, compressed into one table
+- If you can't say which row your question belongs to, the question isn't sharp enough yet
+
+## Your Project Questions Have Shapes Too {.smaller}
+
+- *Which NBRC counties have the highest rent burden?* → **geography** (choropleth) or **comparison** (sorted dot plot)
+- *Have home values risen faster in NBRC counties than in the rest of each state?* → **change over time** (line chart, one line per group)
+- *Do counties with more seasonal homes have tighter year-round rental markets?* → **relationship** (scatterplot)
+- *Which towns host a hospital, a pharmacy, and a grocery store?* → **geography** (point map)
+- *How unevenly are essential services spread across the region?* → **distribution** (histogram of establishments per 1,000 residents)
+
+## Same Data, Two Audiences {.smaller}
+
+```{r}
+#| echo: false
+#| layout-ncol: 2
+#| fig-width: 6
+#| fig-height: 4.5
+#| out-width: "100%"
+ggplot(pov_df, aes(x = state, y = avg_poverty, fill = inmetro, group = inmetro)) +
+  geom_col(position = "dodge")
+
+ggplot(pov_df, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty), color = metro)) +
+  geom_line(aes(group = state), color = "gray70", linewidth = 1.5) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("Metro" = "gray50", "Nonmetro" = "#007155")) +
+  scale_x_continuous(labels = scales::label_percent(scale = 1)) +
+  labs(title = "Nonmetro counties are poorer\nin every Midwest state",
+       subtitle = "Average county poverty rate, 2000",
+       x = NULL, y = NULL, color = NULL,
+       caption = "Source: ggplot2::midwest") +
+  theme_minimal() +
+  theme(legend.position = "top", panel.grid.minor = element_blank())
+```
+
+- **Left** is for you: it answers "what's in here?" and is perfectly fine for exploring
+- **Right** is for NBRC. The title states the finding, the states are sorted, and the figure is a dot plot because the *gap* is the point.
+
+## The Code Behind the Right-Hand Figure {.smallest}
+
+```{r}
+#| eval: false
+pov_df <- midwest |>
+  mutate(metro = if_else(inmetro == 1, "Metro", "Nonmetro")) |>
+  group_by(state, metro) |>
+  summarize(avg_poverty = mean(percbelowpoverty), .groups = "drop")
+
+ggplot(pov_df, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty), color = metro)) +
+  geom_line(aes(group = state), color = "gray70", linewidth = 1.5) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("Metro" = "gray50", "Nonmetro" = "#007155")) +
+  scale_x_continuous(labels = scales::label_percent(scale = 1)) +
+  labs(title = "Nonmetro counties are poorer in every Midwest state",
+       subtitle = "Average county poverty rate, 2000",
+       x = NULL, y = NULL, color = NULL,
+       caption = "Source: ggplot2::midwest") +
+  theme_minimal() +
+  theme(legend.position = "top", panel.grid.minor = element_blank())
+```
+
+- This "dumbbell" plot is just two layers you already know: a gray `geom_line()` connecting each state's pair of points, then `geom_point()` on top
+- The gap is widest in Illinois (about 5 points) and narrowest in Indiana (about 1)
+
+## Writing Figures for NBRC {.smaller}
+
+- **One figure, one message.** If a figure needs two sentences to explain, it's probably two figures.
+- **The title is the takeaway.** "Rent burden by county" is a label. "One in three renters in Coös County pays more than 30% of income on rent" is a finding.
+- **Plain-language labels with units.** No column names, no acronyms NBRC staff would have to look up.
+- **Sort categories by value**, not alphabetically, unless the order itself means something
+- **Label directly** when you can, so readers don't bounce between the figure and a legend
+- **Normalize**: per capita, per household, or a percentage, so big counties don't win every comparison by default
+- **Always cite the source and year** in the caption
+- **Sometimes the answer is a table or a single number.** A big, well-labeled "38%" can beat any chart.
+
+## Break? {background-color="#007155"}
+
+# The Project, Start to Finish {background-color="#007155"}
+
+## One Deliverable That Grows {.smaller}
+
+- There's no single project handed in at the end. Each milestone is the same deliverable, more complete and more polished than the last time.
+- Each team covers one **domain area** across NBRC's whole four-state territory, so the two teams' work can be assembled into one product for NBRC
+
+| Due | Milestone | Weight |
+|---|---|---|
+| Sun. Oct. 25 | **Scope & Team Charter** | 10% |
+| Thu. Nov. 19 | **Preliminary Outputs + Peer Critique** | 20% |
+| Thu. Dec. 3 | **Draft Deliverable + Revision** | 20% |
+| Thu. Dec. 17 | **Final Deliverable + Presentation** (Montpelier) | 20% |
+
+- Together that's the 70% of your grade the project is worth
+
+## Milestone 1: Scope & Team Charter {.smaller}
+
+**Due Sunday, Oct. 25, 11:59pm · 10%**
+
+- A short planning document, not an analysis. One per team, written in Quarto (`.qmd`) and rendered to HTML.
+- **Team roster and roles**: who's doing what
+- **Domain area** and **2–3 concrete research questions** you plan to answer for NBRC
+- **A first pass at data sources** for each question
+- **A work plan** that maps your questions onto the remaining milestones
+- The goal is alignment within your team and with me, not production value. We'll get most of this done tonight.
+
+## Milestone 2: Preliminary Outputs + Peer Critique {.smaller}
+
+**Thursday, Nov. 19 · 20%**
+
+- By now you'll have covered Quarto and both mapping weeks, so this should be real (if rough) output
+- **At least one polished figure or map** addressing one of your research questions, built in R
+- **A short framing** of what it shows and why it matters to NBRC
+- **Structured peer critique** in class: you'll give and get feedback from the other team
+- Graded on effort and communication quality, not on having finished the analysis. The point is to catch problems while there's still time to fix them.
+
+## Milestone 3: Draft Deliverable + Revision {.smaller}
+
+**Thursday, Dec. 3 · 20%**
+
+- A near-complete version of the final product: full narrative, multiple figures and maps, and a clear throughline from data to an insight or recommendation for NBRC
+- Built in Quarto, as a report, slide deck, or simple dashboard (your team's choice)
+- I'll give feedback, and we'll use class time to revise
+
+## Milestone 4: Final Deliverable + Presentation {.smaller}
+
+**Thursday, Dec. 17, in Montpelier · 20%**
+
+- The polished, NBRC-facing version of your draft, with my Dec. 3 feedback incorporated
+- Something you could credibly hand to NBRC staff and they'd use
+- Delivered in person, with a short team presentation to NBRC stakeholders
+- Both teams follow the same general structure so the products fit together
+
+## How the Rest of the Course Feeds the Project {.smaller}
+
+- **Oct. 22 (Quarto, storytelling)**: the format your deliverable will be built in, and how to structure the narrative
+- **Oct. 29 (Census, `tidycensus`, choropleths)**: how you'll pull most of your data and make your first maps
+- **Nov. 5 (advanced GIS, cartography)**: point data like hospitals or bank branches, plus maps polished enough for NBRC
+- **HW4 and HW5** are deliberately close to what your project needs. Treat them as practice runs.
+- Between Nov. 19 and Dec. 17 there's no new instruction. Class time is workdays, critique, and revision, and I'm a coach rather than a lecturer.
+
+# Let's Get Started {background-color="#007155"}
+
+## Step 1: Pick a Team (~15 min) {.smaller}
+
+- **Rural Housing**: supply, demand, and affordability of housing in NBRC counties
+- **Rural Hub Services**: quantifying and visualizing the essential businesses and amenities that cluster in central towns to serve the smaller communities around them
+
+. . .
+
+- Go around the room: which domain is your first choice, and why?
+- We want two teams of roughly equal size
+- Think about what you bring, too. A good team mixes people who like wrangling data, people who like making figures, and people who like writing.
+
+## Step 2: Roles (~10 min) {.smaller}
+
+A starting point. Rename, merge, or split these however works for your team.
+
+- **Coordinator**: keeps the work plan current, runs team check-ins, and is the main point of contact with me
+- **Data lead**: owns the data pipeline, so everyone is working from the same cleaned files
+- **Visualization lead**: keeps figures and maps consistent (colors, fonts, labels) and holds the team to tonight's standards
+- **Writing lead**: owns the narrative and the final edit, so the deliverable reads in one voice
+
+Everyone writes code, and everyone writes prose. Roles are about who's *responsible*, not who does all the work.
+
+## Step 3: Research Questions (~30 min) {.smaller}
+
+A good research question for this project is:
+
+- **Answerable with data you can get** (public, county- or town-level, covering all four states)
+- **Specific**: it names a measure, a place, and ideally a comparison or a time span
+- **Useful to NBRC**: someone could make a funding or policy decision with the answer
+- **Figure-shaped**: you can already picture the map or chart that answers it
+
+. . .
+
+| Weak | Better |
+|---|---|
+| What is housing like in NBRC counties? | Which NBRC counties have the highest share of renters paying more than 30% of income on rent, and how do they compare with the rest of their state? |
+| Are rural services declining? | How has the number of grocery stores and pharmacies in NBRC counties changed since 2012, and which counties lost the most? |
+
+## Starter Data Sources {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Rural Housing**
+
+- **American Community Survey** via `tidycensus`: rent burden, home values, vacancy (including seasonal homes), age of housing stock
+- **HUD CHAS**: housing problems by income level
+- **HUD Fair Market Rents**
+- **Census Building Permits Survey**: new construction
+:::
+
+::: {.column width="50%"}
+**Rural Hub Services**
+
+- **County and ZIP Code Business Patterns**: establishments by industry (grocery, pharmacy, hardware, banks)
+- **FDIC Summary of Deposits**: bank branch locations
+- **CMS / HRSA**: hospitals and clinics
+- **USDA ERS rural-urban codes**: which places are hubs, and which are hinterland
+- **Census places and TIGER** via `tigris`
+:::
+
+::::
+
+- NBRC's service area is a defined list of counties, not four whole states. Get the list from [nbrc.gov](https://www.nbrc.gov) and make it the first object you build. Both teams should use the same one.
+
+## Step 4: Work Plan (~15 min) {.smaller}
+
+For each milestone, write down **what** you'll have and **who** owns it.
+
+- **By Nov. 19**: which question gets your first polished figure or map? Which data do you need cleaned before then?
+- **By Dec. 3**: what does a complete draft include? Report, slides, or dashboard?
+- **By Dec. 17**: who presents what in Montpelier?
+- **When will your team meet** outside of class, and where will your shared files live?
+
+## A Charter Template {.smallest}
+
+Copy this into a new `.qmd` file and fill it in.
+
+````markdown
+---
+title: "Scope & Team Charter: [Domain Area]"
+author: "[Team member names]"
+format:
+  html:
+    embed-resources: true
+---
+
+## Team and Roles
+
+## Research Questions
+
+1. ...
+2. ...
+
+## Data Sources
+
+For each question: which dataset, which geography (county, town, ZIP), and which years.
+
+## Work Plan
+
+| Milestone | What we'll have | Who owns it |
+|---|---|---|
+| Preliminary Outputs (Nov. 19) | | |
+| Draft Deliverable (Dec. 3) | | |
+| Final Deliverable (Dec. 17) | | |
+
+## Open Questions
+
+Anything you need from me or from NBRC.
+````
+
+## Before You Leave Tonight {.smaller}
+
+- [ ] Your team and domain area are settled
+- [ ] Everyone has a role
+- [ ] You have a draft list of research questions (more than 3 is fine for now)
+- [ ] You know whose workspace the charter lives in, and when you're meeting next
+
+## Before Next Class {.smaller}
+
+- [ ] **Scope & Team Charter** due **Sunday, Oct. 25, 11:59pm**
+- [ ] Next week (Oct. 22) is **asynchronous**. Watch the video and work through the self-guided materials sometime that week.
+- [ ] Reading for next week: [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html)
+- [ ] HW4 (maps) is due **Sunday, Nov. 1**. I'll tell you when it's released.
+
+## Thank you! {background-color="#007155"}

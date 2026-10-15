@@ -5,7 +5,7 @@ body-classes: schedule-page
 
 The course meets **Thursdays, 4:35–7:35 pm** in **Morrill Hall 005**, a basement computer lab — no need to bring your own computer, though you're welcome to if you prefer. There are 16 calendar weeks but only 13 teaching weeks (2 no-class weeks + 1 field trip week). Slides and readings will be linked as the semester progresses.
 
-All five homework assignments (see [Syllabus](syllabus.qmd#grading-policy) for topics) live in your [Posit Cloud workspace](https://posit.cloud/spaces/738679/content/12820277) as `hw1.qmd`–`hw5.qmd`; due dates are noted inline below.
+The homework assignments (see [Syllabus](syllabus.qmd#grading-policy) for topics) live in your [Posit Cloud workspace](https://posit.cloud/spaces/738679/content/12820277) as `hw1.qmd`–`hw5.qmd`; due dates are noted inline below. **HW3 has been cancelled**, so there are four assignments in total: HW1, HW2, HW4, and HW5.
 
 ---
 
@@ -35,11 +35,23 @@ Week 6 is a normal in-class day (no mid-semester field trip), split between a gu
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
 | 6 | Oct 8 | **Hr. 1:** guest lecture from Andy Crawley (University of Maine) on data & visualization in AI/rural labor markets research. **Hr. 2:** NBRC kickoff, with Sarah Waring & Chris Saunders visiting to launch the project. Hr. 3 is flexible. | [Week 6](#) | None |
-| 7 | Oct 15 | Chart types and visual communication; project teams + scope confirmed. *Scope & Team Charter due (10% of project grade).* | [Week 7](#) | None |
+| 7 | Oct 15 | Chart types and visual communication; project teams picked and Scope & Team Charter started in class. *Scope & Team Charter due Oct. 25 by 11:59pm (10% of project grade).* | [Week 7](slides/week07.html) | None |
 
 ---
 
-## Unit 3 — Spatial Analysis {.unit-header}
+## Unit 3 — Communication {.unit-header}
+
+::: {.callout-note appearance="minimal"}
+Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includes a brief git/GitHub primer. **This week is asynchronous** (instructor traveling): a recorded video plus self-guided materials.
+:::
+
+| Week | Date | Topic | Slides | Reading |
+|---|---|---|---|---|
+| 8 | Oct 22 | **Asynchronous, no in-person meeting.** Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *Scope & Team Charter due Oct. 25 by 11:59pm.* | [Week 8](#) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
+
+---
+
+## Unit 4 — Spatial Analysis {.unit-header}
 
 ::: {.callout-note appearance="minimal"}
 Supplemental to R4DS. See [*Analyzing US Census Data*](https://walker-data.com/census-r/index.html) and [*Spatial Data Science*](https://r-spatial.org/book/), both free online. Packages: `sf`, `tidycensus`, `tigris`, `ggspatial`
@@ -47,21 +59,9 @@ Supplemental to R4DS. See [*Analyzing US Census Data*](https://walker-data.com/c
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 8 | Oct 22 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due Oct. 25 by 11:59pm.* | [Week 8](#) | *Analyzing US Census Data* (Chapters 1 and 4) |
-| 9 | Oct 29 | Advanced GIS; non-Census spatial data; publication-level cartography. *HW4 due Nov. 1 by 11:59pm.* | [Week 9](#) | *Spatial Data Science* (skim Chapters 1-3) |
-
----
-
-## Unit 4 — Communication {.unit-header}
-
-::: {.callout-note appearance="minimal"}
-Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includes a brief git/GitHub primer.
-:::
-
-| Week | Date | Topic | Slides | Reading |
-|---|---|---|---|---|
-| 10 | Nov 5 | Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *HW5 due Nov. 8 by 11:59pm.* | [Week 10](#) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
-| 11 | Nov 12 | **No class** (instructor at conference) |
+| 9 | Oct 29 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW4 due Nov. 1 by 11:59pm.* | [Week 9](#) | *Analyzing US Census Data* (Chapters 1 and 4) |
+| 10 | Nov 5 | Advanced GIS; non-Census spatial data; publication-level cartography | [Week 10](#) | *Spatial Data Science* (skim Chapters 1-3) |
+| 11 | Nov 12 | **No class** (instructor at conference). *HW5 due Nov. 15 by 11:59pm.* |
 
 
 
@@ -85,4 +85,4 @@ No new instruction. Instructor acts as coach and reviewer.
 
 *This schedule is subject to change. Check back periodically to make sure you're working from the most current version.*
 
-*Last updated: August 2026*
+*Last updated: October 15, 2026*
