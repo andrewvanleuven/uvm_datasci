@@ -3,13 +3,6 @@ title: "Community Partner Project"
 subtitle: "Northern Border Regional Commission (NBRC)"
 ---
 
-::: {.callout-warning}
-## Team Assignments Pending
-Domain areas and team assignments will be finalized during the Week 6 kickoff meeting with NBRC (held in class, not a field trip). The structure below is provisional.
-:::
-
----
-
 ## Overview
 
 The semester-long applied project is completed in partnership with the [Northern Border Regional Commission (NBRC)](https://www.nbrc.gov), a federal-state economic and community development commission serving rural northern Maine, New Hampshire, New York, and Vermont.
@@ -20,7 +13,7 @@ Students work in small teams. Each team analyzes a different **domain area** acr
 
 ## Domain Areas
 
-For now, teams will be organized around two domain areas (more may be added before Week 7 if enrollment supports it):
+Teams are organized around two domain areas:
 
 - *Rural Housing*: issues relating to supply, demand, and affordability of housing in NBRC counties
 - *Rural Hub Services*: quantifying and visualizing the essential businesses or amenities that appear in central regional towns to serve all the smaller surrounding communities
@@ -71,8 +64,6 @@ Teams will draw primarily on publicly available data:
 
 ## Deliverable Format
 
-*[Draft — instructor to revise as project scope firms up after the Week 6 kickoff.]*
-
 Each of the four graded milestones below builds directly on the last. There's no single "project" handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.
 
 ### Scope & Team Charter (due Oct. 25, 10%)
@@ -84,7 +75,7 @@ A short planning document, not an analysis. At this point in the semester, teams
 - A first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)
 - A work plan mapped to the remaining milestones below
 
-Must be a Quarto document (`.qmd`). The point at this stage is alignment within the team and with the instructor, not production value.
+Submit one charter per team: a Quarto document (`.qmd`) rendered to PDF with `format: typst` in the YAML header, with **one** copy of the PDF emailed to the instructor per team. The point at this stage is alignment within the team and with the instructor, not production value.
 
 ### Preliminary Outputs + Peer Critique (Week 12, 20%)
 
