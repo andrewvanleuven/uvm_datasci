@@ -43,42 +43,44 @@ pov_df <- midwest |>
 
 ## Homework Changes
 
-- **HW3 is cancelled.** HW4 is a single problem set about maps, due **Sunday, Nov. 1**.
-- **HW5** is now due **Sunday, Nov. 15**
-- That's four homework assignments instead of five. The numbering stays the same, so there's simply no HW3.
-- I'm behind on grading HW1 and HW2, and I'm sorry about that. You'll have grades and feedback before next week.
+- **HW3** is due **Sunday, Nov. 1**. It follows up on tonight's and next week's material: visual communication and Quarto.
+- **HW4 is cancelled.** The numbering stays the same, so there's simply no HW4.
+- **HW5** is a single problem set about maps, due **Sunday, Nov. 15**
+- I'm behind on grading HW2, and I'm sorry about that. You'll have grades and feedback before next week.
 
-## Next Week (Oct. 22) Is Asynchronous
+## Next Week (Oct. 22) Is Asynchronous {.smaller}
 
 - I've been invited to give a seminar at Purdue University, so I'll be on a plane during our class period
-- Class will be **self-guided**: a recorded video from me plus materials you work through on your own time that week
+- Class will be **self-guided**: a recorded video from me + materials you work through on your own time that week
 - To make the most of this, I'm swapping two units. Next week's async session covers **Quarto and storytelling with data**, and maps move to the two in-person weeks after it.
 - Maps are where things break (coordinate systems, Census API keys, shapefiles), and I'd rather be in the room for that. You've been rendering Quarto documents all semester, so it suits a self-guided week.
 
-## The Rest of the Semester {.smaller}
+## The Rest of the Semester {.smallest}
 
 | Date | Class | Due |
 |---|---|---|
 | **Oct. 15** | Tonight: visual communication; pick teams; start the charter | |
 | **Oct. 22** | **Async**: Quarto, storytelling with data (video + self-guided) | Scope & Team Charter, **Sun. Oct. 25** |
-| **Oct. 29** | Intro to GIS; Census geography; `sf` and `tidycensus`; choropleths | HW4 (maps), **Sun. Nov. 1** |
+| **Oct. 29** | Intro to GIS; Census geography; `sf` and `tidycensus`; choropleths | HW3, **Sun. Nov. 1** |
 | **Nov. 5** | Advanced GIS; non-Census spatial data; cartography | |
-| **Nov. 12** | **No class** (conference) | HW5, **Sun. Nov. 15** |
+| **Nov. 12** | **No class** (conference) | HW5 (maps), **Sun. Nov. 15** |
 | **Nov. 19** | Project workday + peer critique | Preliminary Outputs |
 | **Nov. 26** | **No class** (Thanksgiving) | |
 | **Dec. 3** | In-class feedback and revision | Draft Deliverable |
 | **Dec. 10** | Final polish; presentation prep | |
 | **Dec. 17** | **Montpelier**: final presentations to NBRC | Final Deliverable + Presentation |
 
+: {tbl-colwidths="[12,58,30]"}
+
 ## Today's Plan
 
 - **Visual communication**: matching figures to questions, and writing figures for NBRC
-- **The project, start to finish**: every milestone between now and Montpelier
+- **The project, start to finish**: every milestone between now and Montpelier (or wherever we present our final projects)
 - **Work session**: pick teams, draft research questions, and get the charter well underway
 
 # Visual Communication {background-color="#007155"}
 
-## Start With the Question, Not the Chart Type {.smaller}
+## Start With the Question, Not the Chart Type {.smallest}
 
 | If your question is about... | Reach for... | In ggplot2 |
 |---|---|---|
@@ -155,13 +157,13 @@ ggplot(pov_df, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty), color =
 ## Writing Figures for NBRC {.smaller}
 
 - **One figure, one message.** If a figure needs two sentences to explain, it's probably two figures.
-- **The title is the takeaway.** "Rent burden by county" is a label. "One in three renters in Coös County pays more than 30% of income on rent" is a finding.
+- **The title is the takeaway.** "Rent burden by county" is a label, while "Nearly half of renters in Addison County pay more than 30% of income on rent" is a finding.
 - **Plain-language labels with units.** No column names, no acronyms NBRC staff would have to look up.
-- **Sort categories by value**, not alphabetically, unless the order itself means something
+- **Sort categories by value** (not A-Z) unless the order itself means something
 - **Label directly** when you can, so readers don't bounce between the figure and a legend
 - **Normalize**: per capita, per household, or a percentage, so big counties don't win every comparison by default
 - **Always cite the source and year** in the caption
-- **Sometimes the answer is a table or a single number.** A big, well-labeled "38%" can beat any chart.
+- **Sometimes the answer is just a table or a single number.** Less can be more.
 
 ## Break? {background-color="#007155"}
 
@@ -179,28 +181,30 @@ ggplot(pov_df, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty), color =
 | Thu. Dec. 3 | **Draft Deliverable + Revision** | 20% |
 | Thu. Dec. 17 | **Final Deliverable + Presentation** (Montpelier) | 20% |
 
+: {tbl-colwidths="[20,60,20]"}
+
 - Together that's the 70% of your grade the project is worth
 
 ## Milestone 1: Scope & Team Charter {.smaller}
 
 **Due Sunday, Oct. 25, 11:59pm · 10%**
 
-- A short planning document, not an analysis. One per team, written in Quarto (`.qmd`) and rendered to HTML.
+- A short planning document, not an analysis. One per team, written in Quarto (`.qmd`) and rendered to PDF (**one** copy emailed to me per group).
 - **Team roster and roles**: who's doing what
 - **Domain area** and **2–3 concrete research questions** you plan to answer for NBRC
 - **A first pass at data sources** for each question
 - **A work plan** that maps your questions onto the remaining milestones
-- The goal is alignment within your team and with me, not production value. We'll get most of this done tonight.
+- The goal is alignment within your team and with me, not production value. We'll get most of this done tonight (and the PDF Quarto rendering will be covered next week).
 
 ## Milestone 2: Preliminary Outputs + Peer Critique {.smaller}
 
 **Thursday, Nov. 19 · 20%**
 
 - By now you'll have covered Quarto and both mapping weeks, so this should be real (if rough) output
-- **At least one polished figure or map** addressing one of your research questions, built in R
+- **At least *one* polished figure or map** addressing one of your research questions, built in R
 - **A short framing** of what it shows and why it matters to NBRC
 - **Structured peer critique** in class: you'll give and get feedback from the other team
-- Graded on effort and communication quality, not on having finished the analysis. The point is to catch problems while there's still time to fix them.
+- Graded on *effort and communication quality*, not on having finished the analysis. The point is to catch problems while there's still time to fix them.
 
 ## Milestone 3: Draft Deliverable + Revision {.smaller}
 
@@ -224,8 +228,8 @@ ggplot(pov_df, aes(x = avg_poverty, y = fct_reorder(state, avg_poverty), color =
 - **Oct. 22 (Quarto, storytelling)**: the format your deliverable will be built in, and how to structure the narrative
 - **Oct. 29 (Census, `tidycensus`, choropleths)**: how you'll pull most of your data and make your first maps
 - **Nov. 5 (advanced GIS, cartography)**: point data like hospitals or bank branches, plus maps polished enough for NBRC
-- **HW4 and HW5** are deliberately close to what your project needs. Treat them as practice runs.
-- Between Nov. 19 and Dec. 17 there's no new instruction. Class time is workdays, critique, and revision, and I'm a coach rather than a lecturer.
+- **HW3 and HW5** are deliberately close to what your project needs. Treat them as practice runs.
+- Between Nov. 19 and Dec. 17 there's no new instruction. Class time is workdays, critique, and revision (and I'll be more of a coach than a lecturer).
 
 # Let's Get Started {background-color="#007155"}
 
@@ -257,7 +261,7 @@ A good research question for this project is:
 
 - **Answerable with data you can get** (public, county- or town-level, covering all four states)
 - **Specific**: it names a measure, a place, and ideally a comparison or a time span
-- **Useful to NBRC**: someone could make a funding or policy decision with the answer
+- **Useful to NBRC**: someone could make a funding/policy decision with the answer
 - **Figure-shaped**: you can already picture the map or chart that answers it
 
 . . .
@@ -266,6 +270,9 @@ A good research question for this project is:
 |---|---|
 | What is housing like in NBRC counties? | Which NBRC counties have the highest share of renters paying more than 30% of income on rent, and how do they compare with the rest of their state? |
 | Are rural services declining? | How has the number of grocery stores and pharmacies in NBRC counties changed since 2012, and which counties lost the most? |
+
+: {tbl-colwidths="[40,60]"}
+
 
 ## Starter Data Sources {.smaller}
 
@@ -287,7 +294,6 @@ A good research question for this project is:
 - **FDIC Summary of Deposits**: bank branch locations
 - **CMS / HRSA**: hospitals and clinics
 - **USDA ERS rural-urban codes**: which places are hubs, and which are hinterland
-- **Census places and TIGER** via `tigris`
 :::
 
 ::::
@@ -311,9 +317,7 @@ Copy this into a new `.qmd` file and fill it in.
 ---
 title: "Scope & Team Charter: [Domain Area]"
 author: "[Team member names]"
-format:
-  html:
-    embed-resources: true
+format: typst
 ---
 
 ## Team and Roles
@@ -352,6 +356,6 @@ Anything you need from me or from NBRC.
 - [ ] **Scope & Team Charter** due **Sunday, Oct. 25, 11:59pm**
 - [ ] Next week (Oct. 22) is **asynchronous**. Watch the video and work through the self-guided materials sometime that week.
 - [ ] Reading for next week: [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html)
-- [ ] HW4 (maps) is due **Sunday, Nov. 1**. I'll tell you when it's released.
+- [ ] HW3 is due **Sunday, Nov. 1**. I'll tell you when it's released.
 
 ## Thank you! {background-color="#007155"}

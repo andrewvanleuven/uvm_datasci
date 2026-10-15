@@ -72,16 +72,16 @@ You'll be evaluated through a combination of applied homework, in-class labs and
 | Participation & Attendance | 15% |
 
 ### Homework breakdown
-Four assignments, each covering what's been taught since the previous one. Each is due on a Sunday by 11:59pm. HW3 was cancelled, so the numbering skips from HW2 to HW4:
+Four assignments, each covering what's been taught since the previous one. Each is due on a Sunday by 11:59pm. HW4 was cancelled, so the numbering skips from HW3 to HW5:
 
 | # | Due | Topic | Weight |
 |---|---|---|---|
 | HW1 | Sun, Sept. 13 (after Week 2) | Intro to R | 3.75% |
 | HW2 | Sun, Sept. 27 (after Week 4) | dplyr / tidyverse; data import & joins | 3.75% |
-| HW4 | Sun, Nov. 1 (after Week 9) | Census data & choropleth mapping | 3.75% |
-| HW5 | Sun, Nov. 15 (after Week 10) | Spatial joins & publication cartography | 3.75% |
+| HW3 | Sun, Nov. 1 (after Week 9) | Visual communication, chart type selection, and Quarto | 3.75% |
+| HW5 | Sun, Nov. 15 (after Week 10) | Maps: Census data, choropleths, spatial joins & cartography | 3.75% |
 
-Each assignment is a Quarto document (`hw1.qmd`, `hw2.qmd`, `hw4.qmd`, `hw5.qmd`) already sitting in your Posit Cloud workspace. Open the file for that week, fill it in, and render it. There's no separate submission step: I review your workspace directly.
+Each assignment is a Quarto document (`hw1.qmd`, `hw2.qmd`, `hw3.qmd`, `hw5.qmd`) already sitting in your Posit Cloud workspace. Open the file for that week, fill it in, and render it. There's no separate submission step: I review your workspace directly.
 
 ### Project breakdown
 The 70% NBRC project grade is built from four milestones already on the [schedule](schedule.qmd), not assigned all at once at the end of the semester:

@@ -225,28 +225,28 @@ Andrew Van Leuven
 <section id="homework-changes" class="slide level2">
 <h2>Homework Changes</h2>
 <ul>
-<li><strong>HW3 is cancelled.</strong> HW4 is a single problem set about maps, due <strong>Sunday, Nov.&nbsp;1</strong>.</li>
-<li><strong>HW5</strong> is now due <strong>Sunday, Nov.&nbsp;15</strong></li>
-<li>That’s four homework assignments instead of five. The numbering stays the same, so there’s simply no HW3.</li>
-<li>I’m behind on grading HW1 and HW2, and I’m sorry about that. You’ll have grades and feedback before next week.</li>
+<li><strong>HW3</strong> is due <strong>Sunday, Nov.&nbsp;1</strong>. It follows up on tonight’s and next week’s material: visual communication and Quarto.</li>
+<li><strong>HW4 is cancelled.</strong> The numbering stays the same, so there’s simply no HW4.</li>
+<li><strong>HW5</strong> is a single problem set about maps, due <strong>Sunday, Nov.&nbsp;15</strong></li>
+<li>I’m behind on grading HW2, and I’m sorry about that. You’ll have grades and feedback before next week.</li>
 </ul>
 </section>
-<section id="next-week-oct.-22-is-asynchronous" class="slide level2">
+<section id="next-week-oct.-22-is-asynchronous" class="slide level2 smaller">
 <h2>Next Week (Oct.&nbsp;22) Is Asynchronous</h2>
 <ul>
 <li>I’ve been invited to give a seminar at Purdue University, so I’ll be on a plane during our class period</li>
-<li>Class will be <strong>self-guided</strong>: a recorded video from me plus materials you work through on your own time that week</li>
+<li>Class will be <strong>self-guided</strong>: a recorded video from me + materials you work through on your own time that week</li>
 <li>To make the most of this, I’m swapping two units. Next week’s async session covers <strong>Quarto and storytelling with data</strong>, and maps move to the two in-person weeks after it.</li>
 <li>Maps are where things break (coordinate systems, Census API keys, shapefiles), and I’d rather be in the room for that. You’ve been rendering Quarto documents all semester, so it suits a self-guided week.</li>
 </ul>
 </section>
-<section id="the-rest-of-the-semester" class="slide level2 smaller">
+<section id="the-rest-of-the-semester" class="slide level2 smallest">
 <h2>The Rest of the Semester</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 12%">
+<col style="width: 57%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -269,7 +269,7 @@ Andrew Van Leuven
 <tr class="odd">
 <td><strong>Oct.&nbsp;29</strong></td>
 <td>Intro to GIS; Census geography; <code>sf</code> and <code>tidycensus</code>; choropleths</td>
-<td>HW4 (maps), <strong>Sun. Nov.&nbsp;1</strong></td>
+<td>HW3, <strong>Sun. Nov.&nbsp;1</strong></td>
 </tr>
 <tr class="even">
 <td><strong>Nov.&nbsp;5</strong></td>
@@ -279,7 +279,7 @@ Andrew Van Leuven
 <tr class="odd">
 <td><strong>Nov.&nbsp;12</strong></td>
 <td><strong>No class</strong> (conference)</td>
-<td>HW5, <strong>Sun. Nov.&nbsp;15</strong></td>
+<td>HW5 (maps), <strong>Sun. Nov.&nbsp;15</strong></td>
 </tr>
 <tr class="even">
 <td><strong>Nov.&nbsp;19</strong></td>
@@ -313,7 +313,7 @@ Andrew Van Leuven
 <h2>Today’s Plan</h2>
 <ul>
 <li><strong>Visual communication</strong>: matching figures to questions, and writing figures for NBRC</li>
-<li><strong>The project, start to finish</strong>: every milestone between now and Montpelier</li>
+<li><strong>The project, start to finish</strong>: every milestone between now and Montpelier (or wherever we present our final projects)</li>
 <li><strong>Work session</strong>: pick teams, draft research questions, and get the charter well underway</li>
 </ul>
 </section>
@@ -322,7 +322,7 @@ Andrew Van Leuven
 <h1>Visual Communication</h1>
 
 </section>
-<section id="start-with-the-question-not-the-chart-type" class="slide level2 smaller">
+<section id="start-with-the-question-not-the-chart-type" class="slide level2 smallest">
 <h2>Start With the Question, Not the Chart Type</h2>
 <table class="caption-top">
 <colgroup>
@@ -387,7 +387,7 @@ Andrew Van Leuven
 </section>
 <section id="same-data-two-audiences" class="slide level2 smaller">
 <h2>Same Data, Two Audiences</h2>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -439,13 +439,13 @@ Andrew Van Leuven
 <h2>Writing Figures for NBRC</h2>
 <ul>
 <li><strong>One figure, one message.</strong> If a figure needs two sentences to explain, it’s probably two figures.</li>
-<li><strong>The title is the takeaway.</strong> “Rent burden by county” is a label. “One in three renters in Coös County pays more than 30% of income on rent” is a finding.</li>
+<li><strong>The title is the takeaway.</strong> “Rent burden by county” is a label, while “Nearly half of renters in Addison County pay more than 30% of income on rent” is a finding.</li>
 <li><strong>Plain-language labels with units.</strong> No column names, no acronyms NBRC staff would have to look up.</li>
-<li><strong>Sort categories by value</strong>, not alphabetically, unless the order itself means something</li>
+<li><strong>Sort categories by value</strong> (not A-Z) unless the order itself means something</li>
 <li><strong>Label directly</strong> when you can, so readers don’t bounce between the figure and a legend</li>
 <li><strong>Normalize</strong>: per capita, per household, or a percentage, so big counties don’t win every comparison by default</li>
 <li><strong>Always cite the source and year</strong> in the caption</li>
-<li><strong>Sometimes the answer is a table or a single number.</strong> A big, well-labeled “38%” can beat any chart.</li>
+<li><strong>Sometimes the answer is just a table or a single number.</strong> Less can be more.</li>
 </ul>
 </section>
 <section id="break" class="slide level2" data-background-color="#007155">
@@ -464,9 +464,9 @@ Andrew Van Leuven
 </ul>
 <table class="caption-top">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 20%">
+<col style="width: 60%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -506,12 +506,12 @@ Andrew Van Leuven
 <h2>Milestone 1: Scope &amp; Team Charter</h2>
 <p><strong>Due Sunday, Oct.&nbsp;25, 11:59pm · 10%</strong></p>
 <ul>
-<li>A short planning document, not an analysis. One per team, written in Quarto (<code>.qmd</code>) and rendered to HTML.</li>
+<li>A short planning document, not an analysis. One per team, written in Quarto (<code>.qmd</code>) and rendered to PDF (<strong>one</strong> copy emailed to me per group).</li>
 <li><strong>Team roster and roles</strong>: who’s doing what</li>
 <li><strong>Domain area</strong> and <strong>2–3 concrete research questions</strong> you plan to answer for NBRC</li>
 <li><strong>A first pass at data sources</strong> for each question</li>
 <li><strong>A work plan</strong> that maps your questions onto the remaining milestones</li>
-<li>The goal is alignment within your team and with me, not production value. We’ll get most of this done tonight.</li>
+<li>The goal is alignment within your team and with me, not production value. We’ll get most of this done tonight (and the PDF Quarto rendering will be covered next week).</li>
 </ul>
 </section>
 <section id="milestone-2-preliminary-outputs-peer-critique" class="slide level2 smaller">
@@ -519,10 +519,10 @@ Andrew Van Leuven
 <p><strong>Thursday, Nov.&nbsp;19 · 20%</strong></p>
 <ul>
 <li>By now you’ll have covered Quarto and both mapping weeks, so this should be real (if rough) output</li>
-<li><strong>At least one polished figure or map</strong> addressing one of your research questions, built in R</li>
+<li><strong>At least <em>one</em> polished figure or map</strong> addressing one of your research questions, built in R</li>
 <li><strong>A short framing</strong> of what it shows and why it matters to NBRC</li>
 <li><strong>Structured peer critique</strong> in class: you’ll give and get feedback from the other team</li>
-<li>Graded on effort and communication quality, not on having finished the analysis. The point is to catch problems while there’s still time to fix them.</li>
+<li>Graded on <em>effort and communication quality</em>, not on having finished the analysis. The point is to catch problems while there’s still time to fix them.</li>
 </ul>
 </section>
 <section id="milestone-3-draft-deliverable-revision" class="slide level2 smaller">
@@ -550,8 +550,8 @@ Andrew Van Leuven
 <li><strong>Oct.&nbsp;22 (Quarto, storytelling)</strong>: the format your deliverable will be built in, and how to structure the narrative</li>
 <li><strong>Oct.&nbsp;29 (Census, <code>tidycensus</code>, choropleths)</strong>: how you’ll pull most of your data and make your first maps</li>
 <li><strong>Nov.&nbsp;5 (advanced GIS, cartography)</strong>: point data like hospitals or bank branches, plus maps polished enough for NBRC</li>
-<li><strong>HW4 and HW5</strong> are deliberately close to what your project needs. Treat them as practice runs.</li>
-<li>Between Nov.&nbsp;19 and Dec.&nbsp;17 there’s no new instruction. Class time is workdays, critique, and revision, and I’m a coach rather than a lecturer.</li>
+<li><strong>HW3 and HW5</strong> are deliberately close to what your project needs. Treat them as practice runs.</li>
+<li>Between Nov.&nbsp;19 and Dec.&nbsp;17 there’s no new instruction. Class time is workdays, critique, and revision (and I’ll be more of a coach than a lecturer).</li>
 </ul>
 </section></section>
 <section>
@@ -590,14 +590,14 @@ Andrew Van Leuven
 <ul>
 <li><strong>Answerable with data you can get</strong> (public, county- or town-level, covering all four states)</li>
 <li><strong>Specific</strong>: it names a measure, a place, and ideally a comparison or a time span</li>
-<li><strong>Useful to NBRC</strong>: someone could make a funding or policy decision with the answer</li>
+<li><strong>Useful to NBRC</strong>: someone could make a funding/policy decision with the answer</li>
 <li><strong>Figure-shaped</strong>: you can already picture the map or chart that answers it</li>
 </ul>
 <div class="fragment">
 <table class="caption-top">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 40%">
+<col style="width: 60%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -636,7 +636,6 @@ Andrew Van Leuven
 <li><strong>FDIC Summary of Deposits</strong>: bank branch locations</li>
 <li><strong>CMS / HRSA</strong>: hospitals and clinics</li>
 <li><strong>USDA ERS rural-urban codes</strong>: which places are hubs, and which are hinterland</li>
-<li><strong>Census places and TIGER</strong> via <code>tigris</code></li>
 </ul>
 </div></div>
 <ul>
@@ -659,33 +658,31 @@ Andrew Van Leuven
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Scope &amp; Team Charter: [Domain Area]"</span></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "[Team member names]"</span></span>
-<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> typst</span></span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Team and Roles</span></span>
 <span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Team and Roles</span></span>
+<span id="cb2-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Questions</span></span>
 <span id="cb2-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Questions</span></span>
-<span id="cb2-12"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>...</span>
-<span id="cb2-14"><a aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>...</span>
+<span id="cb2-11"><a aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>...</span>
+<span id="cb2-12"><a aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>...</span>
+<span id="cb2-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Sources</span></span>
 <span id="cb2-15"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Sources</span></span>
+<span id="cb2-16"><a aria-hidden="true" tabindex="-1"></a>For each question: which dataset, which geography (county, town, ZIP), and which years.</span>
 <span id="cb2-17"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a aria-hidden="true" tabindex="-1"></a>For each question: which dataset, which geography (county, town, ZIP), and which years.</span>
+<span id="cb2-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Work Plan</span></span>
 <span id="cb2-19"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Work Plan</span></span>
-<span id="cb2-21"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Milestone <span class="pp">|</span> What we'll have <span class="pp">|</span> Who owns it <span class="pp">|</span></span>
-<span id="cb2-23"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb2-24"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Preliminary Outputs (Nov. 19) <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
-<span id="cb2-25"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Draft Deliverable (Dec. 3) <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
-<span id="cb2-26"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Final Deliverable (Dec. 17) <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb2-20"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Milestone <span class="pp">|</span> What we'll have <span class="pp">|</span> Who owns it <span class="pp">|</span></span>
+<span id="cb2-21"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb2-22"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Preliminary Outputs (Nov. 19) <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb2-23"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Draft Deliverable (Dec. 3) <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb2-24"><a aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Final Deliverable (Dec. 17) <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb2-25"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Open Questions</span></span>
 <span id="cb2-27"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Open Questions</span></span>
-<span id="cb2-29"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a aria-hidden="true" tabindex="-1"></a>Anything you need from me or from NBRC.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-28"><a aria-hidden="true" tabindex="-1"></a>Anything you need from me or from NBRC.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="before-you-leave-tonight" class="slide level2 smaller">
 <h2>Before You Leave Tonight</h2>
@@ -702,7 +699,7 @@ Andrew Van Leuven
 <li><label><input type="checkbox"><strong>Scope &amp; Team Charter</strong> due <strong>Sunday, Oct.&nbsp;25, 11:59pm</strong></label></li>
 <li><label><input type="checkbox">Next week (Oct.&nbsp;22) is <strong>asynchronous</strong>. Watch the video and work through the self-guided materials sometime that week.</label></li>
 <li><label><input type="checkbox">Reading for next week: <a href="https://r4ds.hadley.nz/quarto.html">R4DS: Quarto</a></label></li>
-<li><label><input type="checkbox">HW4 (maps) is due <strong>Sunday, Nov.&nbsp;1</strong>. I’ll tell you when it’s released.</label></li>
+<li><label><input type="checkbox">HW3 is due <strong>Sunday, Nov.&nbsp;1</strong>. I’ll tell you when it’s released.</label></li>
 </ul>
 </section>
 <section id="thank-you" class="slide level2" data-background-color="#007155">
