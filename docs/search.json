@@ -1790,5 +1790,12 @@
     "title": "Week 8: Quarto + Storytelling with Data",
     "section": "Thank you!",
     "text": "Thank you!"
+  },
+  {
+    "objectID": "slides/week08.html#welcome-to-an-asynchronous-week",
+    "href": "slides/week08.html#welcome-to-an-asynchronous-week",
+    "title": "Week 8: Quarto + Storytelling with Data",
+    "section": "Welcome to an Asynchronous Week",
+    "text": "Welcome to an Asynchronous Week\n\nI’m at Purdue today, so this week is a recorded video plus these slides\nThe slides double as your follow-along guide. Hover over any code block and click the clipboard icon to copy it into Posit Cloud.\nPause the video whenever you want to type along or try something\nBy the end, you’ll have a short report rendered to both a web page and a PDF, and you’ll know how to render your team’s charter\n\n\nHi everyone. As you know, I’m at Purdue this week giving a seminar, so instead of meeting in Morrill we’re doing this one asynchronously. You’re watching a video of me walking through these slides, and the slides themselves are on the course website, so you can go back to them any time. Every code block on these slides has a little clipboard icon in the corner when you hover over it, so you never have to retype anything from the video. I’d really encourage you to have Posit Cloud open in another window and follow along. Pause me whenever you need to. By the end of this, you’ll have built a short report in Quarto and rendered it to both HTML and PDF, which is exactly the skill you need for your team charter this weekend."
   }
 ]
