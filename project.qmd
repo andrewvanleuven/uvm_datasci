@@ -89,8 +89,8 @@ This is graded on effort and communication quality, not on having "finished" ana
 
 ### Draft Deliverable + Revision (Week 14, 20%)
 
-A near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team's choice of report, slide deck, or simple dashboard, consistent with what's covered in Week 8.
+A near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team's choice of a slide deck or a dashboard, consistent with what's covered in Week 8.
 
 ### Final Deliverable + Presentation (Week 16, 20%)
 
-This is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It's a Quarto-rendered report, dashboard, or slide deck that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas.
+This is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It's a Quarto-rendered slide deck or dashboard that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas.

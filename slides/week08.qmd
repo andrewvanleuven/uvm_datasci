@@ -44,36 +44,36 @@ theme_minimal <- function(base_size = 16, ...) ggplot2::theme_minimal(base_size 
 - I'm at Purdue today, so this week is a recorded video plus these slides
 - The slides double as your **follow-along guide**. Hover over any code block and click the clipboard icon to copy it into Posit Cloud.
 - Pause the video whenever you want to type along or try something
-- By the end, you'll have a short report rendered to both a web page and a PDF, and you'll know how to render your team's charter
+- By the end, **the first half of HW3 will be done**: a short report, rendered to both a web page and a PDF. You'll also know how to render your team's charter.
 
 ::: {.notes}
-Hi everyone. As you know, I'm at Purdue this week giving a seminar, so instead of meeting in Morrill we're doing this one asynchronously. You're watching a video of me walking through these slides, and the slides themselves are on the course website, so you can go back to them any time. Every code block on these slides has a little clipboard icon in the corner when you hover over it, so you never have to retype anything from the video. I'd really encourage you to have Posit Cloud open in another window and follow along. Pause me whenever you need to. By the end of this, you'll have built a short report in Quarto and rendered it to both HTML and PDF, which is exactly the skill you need for your team charter this weekend.
+Hi everyone. As you know, I'm at Purdue this week giving a seminar, so instead of meeting in Morrill we're doing this one asynchronously. You're watching a video of me walking through these slides, and the slides themselves are on the course website, so you can go back to them any time. Every code block on these slides has a little clipboard icon in the corner when you hover over it, so you never have to retype anything from the video. I'd really encourage you to have Posit Cloud open in another window and follow along. Pause me whenever you need to. And here's the good news: we're going to build the first half of HW3 together, right here in the video. By the end, you'll have a short report in Quarto, rendered to both HTML and PDF, which is exactly the skill you need for your team charter this weekend.
 :::
 
 ## This Week's Plan
 
-- **Part 1: Anatomy of a Quarto document.** We'll build one together.
+- **Part 1: Anatomy of a Quarto document.** We'll build the first half of HW3 together.
 - **Part 2: One source, many formats.** HTML, PDF, slides, and dashboards.
 - **Part 3: Storytelling with data.** Turning analysis into something NBRC will read.
 - **Part 4: A short git primer.** What the homework command you've been running actually does.
-- **Then**: your Scope & Team Charter and HW3 (released today)
+- **Then**: the rest of HW3 (two more things) and your Scope & Team Charter
 
 ::: {.notes}
-Here's the plan. Four parts. First, we'll open up a Quarto document and look at what's actually inside it, and we'll build one together from scratch. Second, we'll see how that same file can become a web page, a PDF, a slide deck, or a dashboard by changing one line. Third, and this is the part I care most about, we'll talk about storytelling: how to turn analysis into something a busy person at NBRC will actually read. And fourth, a short git primer, mostly so you understand the command you've been running in the Terminal to get each homework. Then I'll wrap up with what's due.
+Here's the plan. Four parts. First, we'll open up a Quarto document and look at what's actually inside it, and we'll build one together from scratch. That document is the first half of HW3. Second, we'll see how that same file can become a web page, a PDF, a slide deck, or a dashboard by changing one line. Third, and this is the part I care most about, we'll talk about storytelling: how to turn analysis into something a busy person at NBRC will actually read. And fourth, a short git primer, mostly so you understand the command you've been running in the Terminal to get each homework. Then I'll wrap up with the second half of HW3 and what's due.
 :::
 
 ## Coming Up {.smaller}
 
 | When | What |
 |---|---|
-| **Sun. Oct. 25**, 11:59pm | **Scope & Team Charter** due: rendered to PDF, one copy emailed to me per team |
+| **Sun. Oct. 25**, 11:59pm | **Scope & Team Charter due**: rendered to PDF, one copy emailed to me per team |
 | **Thu. Oct. 29** | Back in person (Morrill 005): intro to GIS, Census data, and choropleth maps |
-| **Sun. Nov. 1**, 11:59pm | **HW3** due (released today) |
+| **Sun. Nov. 1**, 11:59pm | **HW3 due** (released today, and you'll start it during this video) |
 
 : {tbl-colwidths="[30,70]"}
 
 ::: {.notes}
-Quick look at the calendar. Your Scope and Team Charter is due this Sunday, October 25th, at 11:59pm. One PDF per team, emailed to me by one person. We'll cover exactly how to make that PDF in a few minutes. Next Thursday we're back in person in Morrill 005 and we start maps. And HW3 is released today and due Sunday, November 1st. It's short, and it practices exactly what's in this video.
+Quick look at the calendar. Your Scope and Team Charter is due this Sunday, October 25th, at 11:59pm. One PDF per team, emailed to me by one person. We'll cover exactly how to make that PDF in a few minutes. Next Thursday we're back in person in Morrill 005 and we start maps. And HW3 is released today and due Sunday, November 1st. You'll do the first half of it with me in this video, and the second half is just two more things.
 :::
 
 # Part 1: Anatomy of a Quarto Document {background-color="#007155"}
@@ -115,18 +115,21 @@ nrow(midwest)
 Every Quarto document has three ingredients. At the top, between the two lines of three dashes, is the YAML header. That's where settings for the whole document live: the title, the author, the output format. Then there's ordinary text written in Markdown, which is just a light way of adding formatting, like the two asterisks around "poorer" that make it bold. And then there are code chunks, the gray blocks that start with three backticks and r in curly braces. When you render, Quarto runs that code and drops the results right into the document. That's it. Everything else is detail.
 :::
 
-## Follow Along: Make a New Document {.smaller}
+## Follow Along: Get HW3 {.smaller}
 
-1. In your Posit Cloud workspace, go to **File → New File → Quarto Document…**
-2. Type a title, *Rural Poverty in the Midwest*, and your name
-3. Uncheck **Use visual markdown editor**
-4. Click **Create Empty Document** (bottom left of the window)
-5. Save it in your project's top folder as `week08_practice.qmd`
+In Posit Cloud, open the **Terminal** tab (next to Console, *not* the Console itself) and run this one line:
 
+```bash
+git fetch && git checkout origin/main -- homework/hw3.qmd
+```
+
+- Open `homework/hw3.qmd` from the Files pane. It's nearly empty: a header, plus the instructions in a note at the bottom.
+- **Everything we build in Part 1 goes in this file, above that note.** That's the first half of HW3.
 - If your editor ever looks like a word processor, flip the **Source / Visual** toggle at the top left back to **Source**
+- Starting a brand-new document later, like your charter? **File → New File → Quarto Document…**, then **Create Empty Document**.
 
 ::: {.notes}
-Let's build one. Open Posit Cloud and go to File, New File, Quarto Document. A window pops up. Give it the title Rural Poverty in the Midwest and put your name as the author. Uncheck "Use visual markdown editor," because I want you to see the raw file. Then click Create Empty Document, down in the bottom left corner. Save it right away in the top folder of your project as week08_practice.qmd. One tip: at the top left of the editor there's a toggle between Source and Visual. Visual mode looks like a word processor and hides the raw text. Everything I show you today is in Source mode, so if your screen ever looks different from mine, check that toggle.
+Let's build one, and let's make it count. Open Posit Cloud, and click the Terminal tab. That's the tab right next to the Console, not the Console itself. Paste in this one line and hit enter. In Part 4 I'll explain exactly what it does. Then open homework/hw3.qmd from the Files pane. It's almost empty. There's a header at the top, and at the bottom there's a note with the instructions, which won't show up in your rendered report. Everything we build together goes above that note, and when we're done, you'll have finished the first half of HW3. One tip: at the top left of the editor there's a toggle between Source and Visual. Visual mode looks like a word processor and hides the raw text. Everything I show you today is in Source mode, so if your screen ever looks different from mine, check that toggle. And for later: when you need a brand-new document, like your team charter, it's File, New File, Quarto Document, and then the Create Empty Document button in the bottom left of that window.
 :::
 
 ## The YAML Header {.smaller}
@@ -144,13 +147,14 @@ execute:
 ---
 ```
 
+- **YAML** stands for "YAML Ain't Markup Language" (a programmer joke). It's just a format for settings.
 - Each line is a `key: value` pair. **Indentation matters**: two spaces means "this belongs to the line above."
 - `date: today` fills in the date every time you render
 - `execute:` sets chunk options for the whole document. Here, it hides all code, messages, and warnings, because the reader is NBRC and not a programmer.
 - A YAML typo is one of the most common reasons a document won't render. When something breaks, check the header first.
 
 ::: {.notes}
-Replace what's at the top of your new file with this header. Each line is a key, a colon, and a value. Indentation matters a lot in YAML. Notice that echo, message, and warning are indented two spaces under execute. That's how YAML knows they belong to execute. date: today just fills in today's date whenever you render. And the execute section is new: it sets options for every code chunk in the document at once. Here we're saying hide the code, hide the messages, hide the warnings. Why? Because this is a report for a reader who doesn't care about our code. One practical tip: if a document refuses to render, the YAML is the first place to look. A missing space or a stray tab will break it.
+Replace the header at the top of hw3.qmd with this one, everything between and including the two lines of dashes, and put your own name in. YAML, by the way, stands for "YAML Ain't Markup Language." Yes, the acronym contains itself. Programmers think that's funny. All you need to know is that it's a simple format for settings. Each line is a key, a colon, and a value. Indentation matters a lot in YAML. Notice that echo, message, and warning are indented two spaces under execute. That's how YAML knows they belong to execute. date: today just fills in today's date whenever you render. And the execute section is new: it sets options for every code chunk in the document at once. Here we're saying hide the code, hide the messages, hide the warnings. Why? Because this is a report for a reader who doesn't care about our code. One practical tip: if a document refuses to render, the YAML is the first place to look. A missing space or a stray tab will break it.
 :::
 
 ## Markdown: Formatting Your Writing {.smallest}
@@ -177,7 +181,7 @@ Markdown is how you format text. Two asterisks for bold, one for italics. Pound 
 
 ## Code Chunks {.smaller}
 
-- Insert one with **Ctrl+Alt+I** (Mac: **Cmd+Option+I**), or the green **+C** button above the editor
+- Insert one with the green **+C** button above the editor, or **Code → Insert Chunk**
 - While you work, run a chunk with the green ▶ in its top-right corner, same as in your homework
 - Chunk options go at the very top of the chunk, each on a line starting with `#|`
 
@@ -192,14 +196,14 @@ ggplot(pov_df, aes(x = avg_poverty, y = state)) +
 ````
 
 ::: {.notes}
-Code chunks. You can type the three backticks yourself, but the shortcut is Control Alt I on Windows or Command Option I on a Mac, or the little green plus-C button at the top of the editor. While you're working, you run a chunk with the green play arrow, just like you have all semester. The new part is chunk options. They go at the very top of the chunk, on lines that start with a pound sign and a vertical bar. These control how the chunk shows up in the rendered document. Let's look at the ones you'll use most.
+Code chunks. You can type the three backticks yourself, or click the little green plus-C button at the top of the editor, or use Code, Insert Chunk from the menu. Desktop RStudio has a keyboard shortcut for this, but in a web browser it can collide with the browser's own shortcuts, so I'd stick with the button. While you're working, you run a chunk with the green play arrow, just like you have all semester. The new part is chunk options. They go at the very top of the chunk, on lines that start with a pound sign and a vertical bar. These control how the chunk shows up in the rendered document. Let's look at the ones you'll use most.
 :::
 
 ## Chunk Options You'll Actually Use {.smallest}
 
 | Option | What it does | Use it for |
 |---|---|---|
-| `echo: false` | Runs the code, shows only the result | Figures in a report for NBRC |
+| `echo: false` | Runs the code, shows only the result | Figures for NBRC |
 | `include: false` | Runs the code, shows nothing at all | Loading packages and data |
 | `message: false` | Hides messages | The startup text from `library(tidyverse)` |
 | `warning: false` | Hides warnings | Only after you've read them! |
@@ -217,7 +221,7 @@ Here are the six chunk options worth knowing. echo false runs the code but only 
 
 ## Follow Along: A Setup Chunk {.smaller}
 
-Add this chunk below your YAML header:
+Add this chunk right below your YAML header:
 
 ```{r}
 library(tidyverse)
@@ -261,7 +265,7 @@ When you render, the reader sees:
 
 - Inline code is a backtick, the letter `r`, a space, any R code, and a closing backtick
 - Use `round()` so readers see 13.7%, not 13.668967%
-- Never type a number from your output into your text by hand. When the data changes (say, a new ACS year), inline numbers update on their own.
+- Never type a number from your output into your text by hand. When the data changes (say, a new ACS year), inline numbers update on their own!
 
 ::: {.notes}
 This is one of my favorite things about Quarto. Inside a normal sentence, you can drop in a little bit of R code. It's a backtick, the letter r, a space, your code, and a closing backtick. When you render, Quarto runs that code and puts the result right in the sentence. So instead of me looking at my console, seeing 13.7, and typing 13.7 into my report, the report calculates it. Why does that matter? Because your data will change. You'll fix a filter, or swap in a newer year of the American Community Survey, and every number in your text updates by itself. Copying numbers by hand is how reports end up saying one thing in the text and another in the figure. Use round so the reader sees one decimal place instead of six.
@@ -290,7 +294,7 @@ The gap is widest in Illinois and narrowest in Indiana (@fig-poverty).
 ````
 
 - A figure's `label` must start with `fig-`
-- `@fig-poverty` becomes "Figure 1," with a link. Add another figure above it and the numbering updates itself.
+- `@fig-poverty` becomes "Figure 1," with a clickable link. Add another figure above it and the numbering updates itself.
 - The title states the finding. The caption says what's plotted and where the data came from.
 
 ::: {.notes}
@@ -358,15 +362,15 @@ County data come from the `midwest` dataset that ships with ggplot2, based on th
 ````
 
 ::: {.notes}
-Here's the whole file in one place. If you got lost anywhere along the way, just copy this whole thing into your week08_practice.qmd, replacing what's there. Notice the last section, About the Data. Every report you hand NBRC should end with something like this: where the data came from, what year, and any caveats a careful reader should know. Here the caveat is that these are simple averages across counties, so a tiny county counts as much as Cook County.
+Here's the whole file in one place. If you got lost anywhere along the way, copy this whole thing into hw3.qmd, replacing everything above the instructions note, and change the author to your name. Notice the last section, About the Data. Everything you hand NBRC should end with something like this: where the data came from, what year, and any caveats a careful reader should know. Here the caveat is that these are simple averages across counties, so a tiny county counts as much as Cook County.
 :::
 
 ## Render It {.smaller}
 
-- Click **Render** (or **Ctrl/Cmd+Shift+K**)
+- Click **Render**
 - Quarto runs every chunk from top to bottom in a **fresh R session**, then builds the document
 - That's why a document can fail to render even when every chunk ran fine in your Console: something you created in the Console never made it into the file. (Remember HW2's missing `library(tidyverse)`?)
-- `week08_practice.html` appears next to your `.qmd` in the Files pane
+- `hw3.html` appears next to `hw3.qmd` in your `homework` folder
 - If a pop-up blocker stops the preview, allow pop-ups for Posit Cloud, or click the gear icon next to Render and choose **Preview in Viewer Pane**
 
 ::: {.notes}
@@ -388,18 +392,19 @@ Now click Render. Here's something important about what happens. Quarto starts a
 : {tbl-colwidths="[30,70]"}
 
 - Same writing, same code, same figures. Only the `format:` line changes.
+- Your final NBRC deliverable is a **slide deck** or a **dashboard**, your team's choice. Both come from this same kind of file.
 - (A whole folder of `.qmd` files can also become a website. That's how the course site is built.)
 
 ::: {.notes}
-Part two. The format line in the YAML decides what kind of output you get, and everything else in the file stays the same. html gives you a web page. typst gives you a PDF. revealjs gives you slides, and this deck is revealjs. dashboard gives you a dashboard. docx gives you a Word file, if a partner ever asks for one. Your final NBRC deliverable can be a report, a slide deck, or a simple dashboard, and all three come from the same kind of file you just made.
+Part two. The format line in the YAML decides what kind of output you get, and everything else in the file stays the same. html gives you a web page. typst gives you a PDF. revealjs gives you slides, and this deck is revealjs. dashboard gives you a dashboard. docx gives you a Word file, if a partner ever asks for one. As I said in class last week, your final NBRC deliverable will be either a slide deck or a dashboard, your team's choice, and both come from the same kind of file you just made.
 :::
 
 ## PDF: `format: typst` {.smaller}
 
 - For a PDF, set `format: typst`. That's it.
-- **Try it now**: in `week08_practice.qmd`, change `format: html` to `format: typst` and click **Render**
-- `week08_practice.pdf` appears in your Files pane
-- **Your Scope & Team Charter is rendered this way**, and so is part of HW3
+- **Try it now**: in `hw3.qmd`, change `format: html` to `format: typst` and click **Render**
+- `hw3.pdf` appears in your `homework` folder
+- **Your Scope & Team Charter is rendered this way**, and so is HW3
 - A couple of optional extras:
 
 ```yaml
@@ -428,13 +433,13 @@ For a PDF, set format to typst. That's genuinely all there is to it. Try it righ
 - The bottom line first, in bold
 - Numbers that R calculated for you (437, 13.7%, 10.3%)
 - "Figure 1," linked to the figure
-- No code anywhere. It reads like a report, not a homework assignment.
+- No code anywhere. It reads like something you'd hand NBRC, not like an R script.
 :::
 
 ::::
 
 ::: {.notes}
-Here's what your PDF should look like. A title, your name, the date. The bottom line comes first, in bold. The numbers in that sentence were calculated by R, not typed by me. The figure has a caption and is numbered Figure 1, and the text refers to it. And there's no code anywhere. That's what echo false bought us. This is the shape I want your NBRC deliverables to have, just longer.
+Here's what your PDF should look like. A title, your name, the date. The bottom line comes first, in bold. The numbers in that sentence were calculated by R, not typed by me. The figure has a caption and is numbered Figure 1, and the text refers to it. And there's no code anywhere. That's what echo false bought us. Keep this picture in mind for your project: bottom line first, figures doing the talking, no code. That holds for a slide deck or a dashboard just as much as for a document like this one.
 :::
 
 ## Getting a PDF Out of Posit Cloud {.smaller}
@@ -463,14 +468,14 @@ format:
 - The **Render** button previews one format at a time. To render **all** of them, open the **Terminal** tab and run:
 
 ```bash
-quarto render week08_practice.qmd
+quarto render homework/hw3.qmd
 ```
 
 - `embed-resources: true` packs everything (figures included) into one HTML file you could email. All of your homework already uses it.
-- You'll do exactly this in HW3
+- **Do this now in `hw3.qmd`.** Once both files render, Part 1 of HW3 is done.
 
 ::: {.notes}
-You can also ask for more than one format. This is what HW3 asks you to do: html with embed-resources, and typst. When you list two formats, the Render button previews one of them. To get both, go to the Terminal tab, next to the Console, and run quarto render followed by the file name. That makes every format listed in the YAML. And embed-resources true just means the figures get packed into the HTML file itself, so it's a single file you could email to someone.
+You can also ask for more than one format. Do this now in hw3.qmd: html with embed-resources, and typst, exactly as on the slide. When you list two formats, the Render button previews one of them. To get both, go to the Terminal tab, next to the Console, and run quarto render followed by the file name. That makes every format listed in the YAML. And embed-resources true just means the figures get packed into the HTML file itself, so it's a single file you could email to someone. Once you see both hw3.html and hw3.pdf in your homework folder, you've finished Part 1 of HW3.
 :::
 
 ## Slides: `format: revealjs` {.smaller}
@@ -496,10 +501,10 @@ ggplot(pov_df, aes(x = avg_poverty, y = state, color = metro)) +
 ````
 
 - Each `##` heading starts a new slide
-- One good option for your presentation in Montpelier
+- One of your two options for the final deliverable
 
 ::: {.notes}
-Slides work the same way. Set format to revealjs, and now every double-pound heading starts a new slide. Code chunks still work, so your figures come straight from your analysis. If you fix something in the data, you re-render and your slides update. That's a real advantage when you're presenting to NBRC in December and you find a mistake the night before.
+Slides work the same way. Set format to revealjs, and now every double-pound heading starts a new slide. Code chunks still work, so your figures come straight from your analysis. If you fix something in the data, you re-render and your slides update. That's a real advantage when you're presenting to NBRC in December and you find a mistake the night before. This is one of your two options for the final deliverable.
 :::
 
 ## Dashboards: `format: dashboard` {.smaller}
@@ -527,11 +532,12 @@ ggplot(midwest, aes(x = percbelowpoverty)) +
 ````
 
 - Each `##` heading is a row, and each chunk becomes a card (with a `title`)
-- Good for a deliverable people will scan rather than read top to bottom
+- Your other option for the final deliverable. It suits an audience that will scan rather than read top to bottom.
+- **A housing example to look at**: [Housing Market at a Glance](https://ivelasq.github.io/mortgage-dashboard/), built with Quarto
 - More examples: [quarto.org/docs/dashboards](https://quarto.org/docs/dashboards/)
 
 ::: {.notes}
-And dashboards. Set format to dashboard. Here, a double-pound heading makes a row, and each code chunk becomes a card in that row, with the title you give it. A dashboard is a good fit when your audience will scan, not read from top to bottom. If your team is leaning that way for the final deliverable, the Quarto website has a good gallery of examples to start from. I'm not going to go deeper than this today. The point is just that it's the same kind of file.
+And dashboards. Set format to dashboard. Here, a double-pound heading makes a row, and each code chunk becomes a card in that row, with the title you give it. A dashboard is a good fit when your audience will scan, not read from top to bottom. This is your other option for the final deliverable. I've linked one example in particular, a housing market dashboard built with Quarto. Click through it, especially if you're on the Rural Housing team, because it's a good model of what a polished dashboard can look like. The Quarto website also has a gallery of examples to start from. I'm not going to go deeper than this today. The point is just that it's the same kind of file.
 :::
 
 # Part 3: Storytelling with Data {background-color="#007155"}
@@ -548,35 +554,36 @@ Part three: storytelling. I want to start with a distinction. Almost everything 
 
 ## Bottom Line Up Front {.smaller}
 
-- Busy readers, like agency staff and commissioners, often read the title, the first paragraph, and the figures. Then they stop.
-- So put the answer first. Don't make them read to the end to find out what you found.
-- A structure that works for a short report:
-    1. **Bottom line**: the finding, in one or two sentences
-    2. **Evidence**: one section per finding, each built around one figure
+- Busy readers, like agency staff and commissioners, look at the title, the first slide or two (or the top of a dashboard), and the figures. Then they stop.
+- So put the answer first. Don't make them wait until the end to find out what you found.
+- A structure that works for a slide deck (and for a short document like HW3):
+    1. **Bottom line**: the finding, in one or two sentences, right after the title
+    2. **Evidence**: one slide (or section) per finding, each built around one figure
     3. **What it means**: implications for NBRC. What could someone *do* with this?
     4. **About the data**: sources, years, and caveats
+- On a dashboard, same idea: the most important figure or number goes at the top
 - This is *not* the shape of a research paper (introduction, literature, methods, results). Write for the reader you actually have.
 
 ::: {.notes}
-The single most useful rule I can give you is bottom line up front. Think about who reads your report at NBRC. They're busy. They'll read the title, the first paragraph, maybe look at the figures, and then they'll move on to the next thing in their inbox. So the answer has to be at the top. Here's a structure that works. Lead with the bottom line. Then the evidence, one section per finding, each built around a figure. Then what it means for NBRC: what decision could someone make with this? And close with a short note about the data. Notice that this is the opposite of how a lot of us were trained to write academic papers, where the findings come at the end. That's fine for a journal. It's not fine for a partner.
+The single most useful rule I can give you is bottom line up front. Think about who looks at your work at NBRC. They're busy. They'll read the title, the first slide or two, maybe look at the figures, and then they'll move on to the next thing in their inbox. So the answer has to come first. Here's a structure that works for a slide deck, and for a short document like HW3. Lead with the bottom line, right after the title. Then the evidence, one slide per finding, each built around a figure. Then what it means for NBRC: what decision could someone make with this? And close with a short note about the data. On a dashboard it's the same idea: the most important figure or number goes at the top, where people look first. Notice that this is the opposite of how a lot of us were trained to write academic papers, where the findings come at the end. That's fine for a journal. It's not fine for a partner.
 :::
 
 ## Let the Headings Tell the Story {.smaller}
 
-- Section headings can be findings too. *"Nonmetro counties are poorer in every state"* tells the reader more than *"Results."*
+- Slide titles and section headings can be findings too. *"Nonmetro counties are poorer in every state"* tells the reader more than *"Results."*
 - Figure titles state the takeaway (Week 7). Captions say what's plotted and where it came from.
 - Use `@fig-` references so your text and your figures point at each other
-- **A quick test**: read only your headings and figure titles, in order. If they tell the whole story on their own, your structure works.
+- **A quick test**: read only your slide titles (or headings) and figure titles, in order. If they tell the whole story on their own, your structure works.
 
 ::: {.notes}
-Your headings are prime real estate. A heading that says "Results" tells the reader nothing. A heading that says "Nonmetro counties are poorer in every state" tells them the finding even if they read nothing else. Same with figure titles, which we talked about last week. Here's a test I use on my own writing: read only the headings and the figure titles, in order, and skip everything else. If that skeleton tells the whole story, the structure is working. If it doesn't, no amount of polishing the paragraphs will fix it.
+Your slide titles and headings are prime real estate. A heading that says "Results" tells the reader nothing. A heading that says "Nonmetro counties are poorer in every state" tells them the finding even if they read nothing else. Same with figure titles, which we talked about last week. Here's a test I use on my own work: read only the slide titles or headings and the figure titles, in order, and skip everything else. If that skeleton tells the whole story, the structure is working. If it doesn't, no amount of polishing the paragraphs will fix it.
 :::
 
 ## Every Number Needs Context {.smaller}
 
 - "13.7%" means nothing on its own. Compared to what? Metro counties? Ten years ago? The state? The nation?
 - Round for readers, and name the units and the year every time
-- Normalize (per capita, per household, or a percentage) so big places don't win every comparison by default
+- Normalize (per capita, per household, or a percentage) so big places don't win every comparison by default. (**this is now the 5th or 6th time I've emphasized this!**)
 - Say what the data *can't* tell you. Honest caveats build trust with a partner like NBRC.
 
 ::: {.notes}
@@ -617,7 +624,7 @@ git fetch && git checkout origin/main -- homework/hw3.qmd
 - Your Posit Cloud workspace is a git repo, copied from mine on GitHub
 - `git fetch` downloads my latest commits from GitHub, without changing any of your files
 - `git checkout origin/main -- homework/hw3.qmd` then replaces **just that one file** with my newest version
-- That's why it's safe: your other homework, data, and practice files are left alone
+- That's why it's safe: your other homework, your data, and everything else are left alone
 - (Still don't use the **Pull** button in the Git pane. It tries to update everything at once.)
 - Want more? [*Happy Git and GitHub for the useR*](https://happygitwithr.com) is the standard guide for R users
 
@@ -627,31 +634,32 @@ And here's the payoff. You've actually been using git all semester. Your workspa
 
 # Your Turn {background-color="#007155"}
 
-## Getting HW3 {.smaller}
+## HW3, Part 2: Two More Things {.smaller}
 
-HW3 is released today. In Posit Cloud, open the **Terminal** tab (next to Console, *not* the Console itself) and run this one line:
+**Part 1** is the report you just built along with me. **Part 2** is on your own (the instructions are also in the note at the bottom of `hw3.qmd`):
+
+1. **Add one new section** before "About the Data" that answers a different question about `midwest`, with a different type of figure than the dumbbell. It needs a heading that states the finding, a captioned figure you refer to with `@fig-`, and two or three sentences with at least one inline R number.
+2. **Render both formats** in the Terminal: `quarto render homework/hw3.qmd`
+
+- **Due Sunday, Nov. 1, 11:59pm**
+- Skipped the follow-along? Get the file with this line in the **Terminal** tab, then start Part 1 from the slides:
 
 ```bash
 git fetch && git checkout origin/main -- homework/hw3.qmd
 ```
 
-- Then open `homework/hw3.qmd` from the Files pane. The instructions are inside.
-- **Due Sunday, Nov. 1, 11:59pm**
-- It's short: one question, one quick figure, one polished figure, and a few sentences, rendered to HTML and PDF
-- It uses everything from today: YAML, chunk options, a cross-referenced figure, inline code, and `typst`
-
 ::: {.notes}
-Which brings us to HW3. It's released as of today. Go to the Terminal tab in Posit Cloud. Not the Console, the Terminal, right next to it. Paste in this one line and hit enter. Then open homework/hw3.qmd and you'll find the instructions inside. It's due Sunday, November 1st. I've kept it deliberately short: pick a dataset, ask one question, make a quick exploratory figure and one polished figure, and write a few sentences. Then render it to both HTML and PDF. If you followed along today, you've already done every step once.
+Which brings us to the rest of HW3. If you followed along, Part 1 is already done: that's the report we just built. Part 2 is two more things. First, add one new section to your report, right before About the Data. It should answer a different question about the midwest data with a different kind of figure. Maybe college education and poverty, which is a relationship, so a scatterplot. Or how spread out poverty rates are, which is a distribution. The instructions at the bottom of hw3.qmd have a few ideas. Your section needs a heading that states the finding, a figure with a label and a caption, and two or three sentences that refer to the figure, include one number calculated with inline code, and say why you picked that type of figure. Second, render both formats with quarto render in the Terminal. That's it. It's due Sunday, November 1st. And if you watched this without following along, here's the line to get the file again. Run it in the Terminal, then go back through Part 1 of the slides.
 :::
 
 ## This Week's Work {.smaller}
 
-- [ ] **Finish `week08_practice.qmd`** and render it to HTML and to PDF (not graded, but it's the warm-up for everything below)
+- [ ] **HW3, Part 1**: build the report along with this video and render it to HTML and PDF. If it renders, your charter will too.
 - [ ] **Scope & Team Charter**: finish it with your team, render it with `format: typst`, and have one person email me the PDF by **Sunday, Oct. 25, 11:59pm**
-- [ ] **HW3**: get it with the line above, due **Sunday, Nov. 1, 11:59pm**
+- [ ] **HW3, Part 2**: one new section, then render both formats, due **Sunday, Nov. 1, 11:59pm**
 
 ::: {.notes}
-So, this week. First, finish the practice file and render it both ways. It isn't graded, but if it works, you know your charter will work. Second, get together with your team and finish the charter. Render it with format typst and have one person email it to me by Sunday night. Third, start HW3 whenever you're ready. It's due the following Sunday.
+So, this week. First, if you haven't already, finish Part 1 of HW3 and render it both ways. If that works, you know your charter will work. Second, get together with your team and finish the charter. Render it with format typst and have one person email it to me by Sunday night. Third, do Part 2 of HW3 whenever you're ready. It's due the following Sunday.
 :::
 
 ## Before Next Class (Oct. 29, in person) {.smaller}
