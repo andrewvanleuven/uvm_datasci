@@ -39,7 +39,7 @@ knitr::opts_chunk$set(fig.width = 8, fig.height = 4.5, fig.align = "center",
 theme_minimal <- function(base_size = 16, ...) ggplot2::theme_minimal(base_size = base_size, ...) + wide_margin
 ```
 
-## Welcome to an Async Week
+## Welcome to an Asynchronous Week
 
 - I'm at Purdue today, so this week is a recorded video plus these slides
 - The slides double as your **follow-along guide**. Hover over any code block and click the clipboard icon to copy it into Posit Cloud.
