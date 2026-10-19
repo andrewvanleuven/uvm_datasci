@@ -47,7 +47,7 @@ Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includ
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 8 | Oct 22 | **Asynchronous, no in-person meeting.** Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *Scope & Team Charter due Oct. 25 by 11:59pm.* | [Week 8](#) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
+| 8 | Oct 22 | **Asynchronous, no in-person meeting.** Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *Scope & Team Charter due Oct. 25 by 11:59pm.* | [Week 8](slides/week08.html) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
 
 ---
 
