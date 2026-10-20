@@ -140,6 +140,7 @@ title: "Rural Poverty in the Midwest"
 author: "Your Name"
 date: today
 format: html
+embed-resources: true
 execute:
   echo: false
   message: false
@@ -150,11 +151,12 @@ execute:
 - **YAML** ("YAML Ain't Markup Language"...a programmer joke): a format for settings
 - Each line is a `key: value` pair. **Indentation matters**: two spaces means "this belongs to the line above."
 - `date: today` fills in the date every time you render
+- `embed-resources: true` packs the styling and figures into the one `.html` file. Without it, Quarto puts them in a separate `hw3_files` folder, and the page looks broken when you open it in Posit Cloud.
 - `execute:` sets chunk options for the whole document. Here, it hides all code, messages, and warnings, because the reader is NBRC and not a programmer.
 - A YAML typo is one of the most common reasons a document won't render. When something breaks, check the header first.
 
 ::: {.notes}
-Replace the header at the top of hw3.qmd with this one, everything between and including the two lines of dashes, and put your own name in. YAML, by the way, stands for "YAML Ain't Markup Language." Yes, the acronym contains itself. Programmers think that's funny. All you need to know is that it's a simple format for settings. Each line is a key, a colon, and a value. Indentation matters a lot in YAML. Notice that echo, message, and warning are indented two spaces under execute. That's how YAML knows they belong to execute. date: today just fills in today's date whenever you render. And the execute section is new: it sets options for every code chunk in the document at once. Here we're saying hide the code, hide the messages, hide the warnings. Why? Because this is a report for a reader who doesn't care about our code. One practical tip: if a document refuses to render, the YAML is the first place to look. A missing space or a stray tab will break it.
+Replace the header at the top of hw3.qmd with this one, everything between and including the two lines of dashes, and put your own name in. YAML, by the way, stands for "YAML Ain't Markup Language." Yes, the acronym contains itself. Programmers think that's funny. All you need to know is that it's a simple format for settings. Each line is a key, a colon, and a value. Indentation matters a lot in YAML. Notice that echo, message, and warning are indented two spaces under execute. That's how YAML knows they belong to execute. date: today just fills in today's date whenever you render. embed-resources true tells Quarto to pack everything, the fonts, the styling, and the figures, into a single HTML file. Leave that line out and you get a plain, broken-looking page in Posit Cloud, because the styling ends up in a separate folder the viewer doesn't load. And the execute section is new: it sets options for every code chunk in the document at once. Here we're saying hide the code, hide the messages, hide the warnings. Why? Because this is a report for a reader who doesn't care about our code. One practical tip: if a document refuses to render, the YAML is the first place to look. A missing space or a stray tab will break it.
 :::
 
 ## Markdown: Formatting Your Writing {.smallest}
@@ -309,6 +311,7 @@ title: "Rural Poverty in the Midwest"
 author: "Your Name"
 date: today
 format: html
+embed-resources: true
 execute:
   echo: false
   message: false
@@ -459,8 +462,7 @@ Your PDF lives in Posit Cloud, so you need to get it onto your own computer to e
 
 ```yaml
 format:
-  html:
-    embed-resources: true
+  html: default
   typst: default
 ```
 
@@ -471,11 +473,11 @@ format:
 quarto render homework/hw3.qmd
 ```
 
-- `embed-resources: true` packs everything (figures included) into one HTML file you could email. All of your homework already uses it.
+- Keep the `embed-resources: true` line from before. It still applies to the HTML.
 - **Do this now in `hw3.qmd`.** Once both files render, Part 1 of HW3 is done.
 
 ::: {.notes}
-You can also ask for more than one format. Do this now in hw3.qmd: html with embed-resources, and typst, exactly as on the slide. When you list two formats, the Render button previews one of them. To get both, go to the Terminal tab, next to the Console, and run quarto render followed by the file name. That makes every format listed in the YAML. And embed-resources true just means the figures get packed into the HTML file itself, so it's a single file you could email to someone. Once you see both hw3.html and hw3.pdf in your homework folder, you've finished Part 1 of HW3.
+You can also ask for more than one format. Do this now in hw3.qmd: replace your format line with these three lines, exactly as on the slide, and keep the embed-resources line underneath. When you list two formats, the Render button previews one of them. To get both, go to the Terminal tab, next to the Console, and run quarto render followed by the file name. That makes every format listed in the YAML. Once you see both hw3.html and hw3.pdf in your homework folder, you've finished Part 1 of HW3.
 :::
 
 ## Slides: `format: revealjs` {.smaller}

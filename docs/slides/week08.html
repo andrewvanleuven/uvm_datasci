@@ -401,20 +401,22 @@ Andrew Van Leuven
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your Name"</span></span>
 <span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
 <span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
-<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
-<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb3-8"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb3-9"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb3-10"><a aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="cb3-8"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb3-9"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb3-10"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb3-11"><a aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><strong>YAML</strong> (“YAML Ain’t Markup Language”…a programmer joke): a format for settings</li>
 <li>Each line is a <code>key: value</code> pair. <strong>Indentation matters</strong>: two spaces means “this belongs to the line above.”</li>
 <li><code>date: today</code> fills in the date every time you render</li>
+<li><code>embed-resources: true</code> packs the styling and figures into the one <code>.html</code> file. Without it, Quarto puts them in a separate <code>hw3_files</code> folder, and the page looks broken when you open it in Posit Cloud.</li>
 <li><code>execute:</code> sets chunk options for the whole document. Here, it hides all code, messages, and warnings, because the reader is NBRC and not a programmer.</li>
 <li>A YAML typo is one of the most common reasons a document won’t render. When something breaks, check the header first.</li>
 </ul>
 <aside class="notes">
-<p>Replace the header at the top of hw3.qmd with this one, everything between and including the two lines of dashes, and put your own name in. YAML, by the way, stands for “YAML Ain’t Markup Language.” Yes, the acronym contains itself. Programmers think that’s funny. All you need to know is that it’s a simple format for settings. Each line is a key, a colon, and a value. Indentation matters a lot in YAML. Notice that echo, message, and warning are indented two spaces under execute. That’s how YAML knows they belong to execute. date: today just fills in today’s date whenever you render. And the execute section is new: it sets options for every code chunk in the document at once. Here we’re saying hide the code, hide the messages, hide the warnings. Why? Because this is a report for a reader who doesn’t care about our code. One practical tip: if a document refuses to render, the YAML is the first place to look. A missing space or a stray tab will break it.</p>
+<p>Replace the header at the top of hw3.qmd with this one, everything between and including the two lines of dashes, and put your own name in. YAML, by the way, stands for “YAML Ain’t Markup Language.” Yes, the acronym contains itself. Programmers think that’s funny. All you need to know is that it’s a simple format for settings. Each line is a key, a colon, and a value. Indentation matters a lot in YAML. Notice that echo, message, and warning are indented two spaces under execute. That’s how YAML knows they belong to execute. date: today just fills in today’s date whenever you render. embed-resources true tells Quarto to pack everything, the fonts, the styling, and the figures, into a single HTML file. Leave that line out and you get a plain, broken-looking page in Posit Cloud, because the styling ends up in a separate folder the viewer doesn’t load. And the execute section is new: it sets options for every code chunk in the document at once. Here we’re saying hide the code, hide the messages, hide the warnings. Why? Because this is a report for a reader who doesn’t care about our code. One practical tip: if a document refuses to render, the YAML is the first place to look. A missing space or a stray tab will break it.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -698,56 +700,57 @@ Andrew Van Leuven
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
 <span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> today</span></span>
 <span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
-<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
-<span id="cb8-9"><a aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
-<span id="cb8-10"><a aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb8-11"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb8-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb8-14"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a aria-hidden="true" tabindex="-1"></a>pov_df <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
-<span id="cb8-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb8-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state, metro) <span class="sc">|&gt;</span></span>
-<span id="cb8-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_poverty =</span> <span class="fu">mean</span>(percbelowpoverty), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
-<span id="cb8-19"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a aria-hidden="true" tabindex="-1"></a>metro_avg <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
-<span id="cb8-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(percbelowpoverty)) <span class="sc">|&gt;</span></span>
-<span id="cb8-23"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(avg)</span>
-<span id="cb8-24"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-25"><a aria-hidden="true" tabindex="-1"></a>nonmetro_avg <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
-<span id="cb8-26"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(inmetro <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-27"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(percbelowpoverty)) <span class="sc">|&gt;</span></span>
-<span id="cb8-28"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(avg)</span>
-<span id="cb8-29"><a aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-30"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-31"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Bottom Line</span></span>
-<span id="cb8-32"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-33"><a aria-hidden="true" tabindex="-1"></a>**Nonmetro counties are poorer than metro counties in every Midwest state.** Across all <span class="in">`r nrow(midwest)`</span> counties, the average nonmetro county had a poverty rate of <span class="in">`r round(nonmetro_avg, 1)`</span>%, compared with <span class="in">`r round(metro_avg, 1)`</span>% for metro counties (@fig-poverty).</span>
-<span id="cb8-34"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-35"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## The Gap, State by State</span></span>
-<span id="cb8-36"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-37"><a aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb8-38"><a aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-poverty</span></span>
-<span id="cb8-39"><a aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Average county poverty rate by state and metro status, 2000. Source: ggplot2::midwest."</span></span>
-<span id="cb8-40"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pov_df, <span class="fu">aes</span>(<span class="at">x =</span> avg_poverty, <span class="at">y =</span> <span class="fu">fct_reorder</span>(state, avg_poverty), <span class="at">color =</span> metro)) <span class="sc">+</span></span>
-<span id="cb8-41"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> state), <span class="at">color =</span> <span class="st">"gray70"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb8-42"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb8-43"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Metro"</span> <span class="ot">=</span> <span class="st">"gray50"</span>, <span class="st">"Nonmetro"</span> <span class="ot">=</span> <span class="st">"#007155"</span>)) <span class="sc">+</span></span>
-<span id="cb8-44"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb8-45"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nonmetro counties are poorer in every Midwest state"</span>,</span>
-<span id="cb8-46"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb8-47"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb8-48"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
-<span id="cb8-49"><a aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-50"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-51"><a aria-hidden="true" tabindex="-1"></a>The gap is widest in Illinois and narrowest in Indiana.</span>
-<span id="cb8-52"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-53"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## About the Data</span></span>
-<span id="cb8-54"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-55"><a aria-hidden="true" tabindex="-1"></a>County data come from the <span class="in">`midwest`</span> dataset that ships with ggplot2, based on the 2000 Census. Averages are simple county averages, not weighted by population.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a><span class="an">embed-resources:</span><span class="co"> true</span></span>
+<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
+<span id="cb8-9"><a aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb8-10"><a aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb8-11"><a aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb8-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a aria-hidden="true" tabindex="-1"></a>pov_df <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
+<span id="cb8-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Metro"</span>, <span class="st">"Nonmetro"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state, metro) <span class="sc">|&gt;</span></span>
+<span id="cb8-19"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_poverty =</span> <span class="fu">mean</span>(percbelowpoverty), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb8-20"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a aria-hidden="true" tabindex="-1"></a>metro_avg <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
+<span id="cb8-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-23"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(percbelowpoverty)) <span class="sc">|&gt;</span></span>
+<span id="cb8-24"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(avg)</span>
+<span id="cb8-25"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a aria-hidden="true" tabindex="-1"></a>nonmetro_avg <span class="ot">&lt;-</span> midwest <span class="sc">|&gt;</span></span>
+<span id="cb8-27"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(inmetro <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-28"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(percbelowpoverty)) <span class="sc">|&gt;</span></span>
+<span id="cb8-29"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(avg)</span>
+<span id="cb8-30"><a aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-31"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## Bottom Line</span></span>
+<span id="cb8-33"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a aria-hidden="true" tabindex="-1"></a>**Nonmetro counties are poorer than metro counties in every Midwest state.** Across all <span class="in">`r nrow(midwest)`</span> counties, the average nonmetro county had a poverty rate of <span class="in">`r round(nonmetro_avg, 1)`</span>%, compared with <span class="in">`r round(metro_avg, 1)`</span>% for metro counties (@fig-poverty).</span>
+<span id="cb8-35"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## The Gap, State by State</span></span>
+<span id="cb8-37"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-38"><a aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-39"><a aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-poverty</span></span>
+<span id="cb8-40"><a aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Average county poverty rate by state and metro status, 2000. Source: ggplot2::midwest."</span></span>
+<span id="cb8-41"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pov_df, <span class="fu">aes</span>(<span class="at">x =</span> avg_poverty, <span class="at">y =</span> <span class="fu">fct_reorder</span>(state, avg_poverty), <span class="at">color =</span> metro)) <span class="sc">+</span></span>
+<span id="cb8-42"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> state), <span class="at">color =</span> <span class="st">"gray70"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb8-43"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb8-44"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Metro"</span> <span class="ot">=</span> <span class="st">"gray50"</span>, <span class="st">"Nonmetro"</span> <span class="ot">=</span> <span class="st">"#007155"</span>)) <span class="sc">+</span></span>
+<span id="cb8-45"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb8-46"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nonmetro counties are poorer in every Midwest state"</span>,</span>
+<span id="cb8-47"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb8-48"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-49"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
+<span id="cb8-50"><a aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-51"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-52"><a aria-hidden="true" tabindex="-1"></a>The gap is widest in Illinois and narrowest in Indiana.</span>
+<span id="cb8-53"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-54"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## About the Data</span></span>
+<span id="cb8-55"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-56"><a aria-hidden="true" tabindex="-1"></a>County data come from the <span class="in">`midwest`</span> dataset that ships with ggplot2, based on the 2000 Census. Averages are simple county averages, not weighted by population.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>Here’s the whole file in one place. If you got lost anywhere along the way, copy this whole thing into hw3.qmd, replacing everything above the instructions note, and change the author to your name. Notice the last section, About the Data. Everything you hand NBRC should end with something like this: where the data came from, what year, and any caveats a careful reader should know. Here the caveat is that these are simple averages across counties, so a tiny county counts as much as Cook County.</p>
 <style type="text/css">
@@ -931,20 +934,19 @@ Andrew Van Leuven
 <section id="several-formats-at-once" class="slide level2 smaller">
 <h2>Several Formats at Once</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">typst</span><span class="kw">:</span><span class="at"> default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">typst</span><span class="kw">:</span><span class="at"> default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>List more than one format and Quarto can make all of them</li>
 <li>The <strong>Render</strong> button previews one format at a time. To render <strong>all</strong> of them, open the <strong>Terminal</strong> tab and run:</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render homework/hw3.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li><code>embed-resources: true</code> packs everything (figures included) into one HTML file you could email. All of your homework already uses it.</li>
+<li>Keep the <code>embed-resources: true</code> line from before. It still applies to the HTML.</li>
 <li><strong>Do this now in <code>hw3.qmd</code>.</strong> Once both files render, Part 1 of HW3 is done.</li>
 </ul>
 <aside class="notes">
-<p>You can also ask for more than one format. Do this now in hw3.qmd: html with embed-resources, and typst, exactly as on the slide. When you list two formats, the Render button previews one of them. To get both, go to the Terminal tab, next to the Console, and run quarto render followed by the file name. That makes every format listed in the YAML. And embed-resources true just means the figures get packed into the HTML file itself, so it’s a single file you could email to someone. Once you see both hw3.html and hw3.pdf in your homework folder, you’ve finished Part 1 of HW3.</p>
+<p>You can also ask for more than one format. Do this now in hw3.qmd: replace your format line with these three lines, exactly as on the slide, and keep the embed-resources line underneath. When you list two formats, the Render button previews one of them. To get both, go to the Terminal tab, next to the Console, and run quarto render followed by the file name. That makes every format listed in the YAML. Once you see both hw3.html and hw3.pdf in your homework folder, you’ve finished Part 1 of HW3.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
