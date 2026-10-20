@@ -44,22 +44,22 @@ theme_minimal <- function(base_size = 16, ...) ggplot2::theme_minimal(base_size 
 - I'm at Purdue today, so this week is a recorded video plus these slides
 - The slides double as your **follow-along guide**. Hover over any code block and click the clipboard icon to copy it into Posit Cloud.
 - Pause the video whenever you want to type along or try something
-- By the end, **the first half of HW3 will be done**: a short report, rendered to both a web page and a PDF. You'll also know how to render your team's charter.
+- By the end, **the first half of HW3 will already be done**: a short report, rendered to both a web page and a PDF. You'll also know how to render your team's charter.
 
 ::: {.notes}
 Hi everyone. As you know, I'm at Purdue this week giving a seminar, so instead of meeting in Morrill we're doing this one asynchronously. You're watching a video of me walking through these slides, and the slides themselves are on the course website, so you can go back to them any time. Every code block on these slides has a little clipboard icon in the corner when you hover over it, so you never have to retype anything from the video. I'd really encourage you to have Posit Cloud open in another window and follow along. Pause me whenever you need to. And here's the good news: we're going to build the first half of HW3 together, right here in the video. By the end, you'll have a short report in Quarto, rendered to both HTML and PDF, which is exactly the skill you need for your team charter this weekend.
 :::
 
-## This Week's Plan
+## This Week's Plan {.smaller}
 
 - **Part 1: Anatomy of a Quarto document.** We'll build the first half of HW3 together.
 - **Part 2: One source, many formats.** HTML, PDF, slides, and dashboards.
 - **Part 3: Storytelling with data.** Turning analysis into something NBRC will read.
-- **Part 4: A short git primer.** What the homework command you've been running actually does.
+<!-- - **Part 4: A short git primer.** What the homework command you've been running actually does. -->
 - **Then**: the rest of HW3 (two more things) and your Scope & Team Charter
 
 ::: {.notes}
-Here's the plan. Four parts. First, we'll open up a Quarto document and look at what's actually inside it, and we'll build one together from scratch. That document is the first half of HW3. Second, we'll see how that same file can become a web page, a PDF, a slide deck, or a dashboard by changing one line. Third, and this is the part I care most about, we'll talk about storytelling: how to turn analysis into something a busy person at NBRC will actually read. And fourth, a short git primer, mostly so you understand the command you've been running in the Terminal to get each homework. Then I'll wrap up with the second half of HW3 and what's due.
+Here's the plan. Three parts. First, we'll open up a Quarto document and look at what's actually inside it, and we'll build one together from scratch. That document is the first half of HW3. Second, we'll see how that same file can become a web page, a PDF, a slide deck, or a dashboard by changing one line. Third, and this is the part I care most about, we'll talk about storytelling: how to turn analysis into something a busy person at NBRC will actually read. Then I'll wrap up with the second half of HW3 and what's due.
 :::
 
 ## Coming Up {.smaller}
@@ -129,7 +129,7 @@ git fetch && git checkout origin/main -- homework/hw3.qmd
 - Starting a brand-new document later, like your charter? **File → New File → Quarto Document…**, then **Create Empty Document**.
 
 ::: {.notes}
-Let's build one, and let's make it count. Open Posit Cloud, and click the Terminal tab. That's the tab right next to the Console, not the Console itself. Paste in this one line and hit enter. In Part 4 I'll explain exactly what it does. Then open homework/hw3.qmd from the Files pane. It's almost empty. There's a header at the top, and at the bottom there's a note with the instructions, which won't show up in your rendered report. Everything we build together goes above that note, and when we're done, you'll have finished the first half of HW3. One tip: at the top left of the editor there's a toggle between Source and Visual. Visual mode looks like a word processor and hides the raw text. Everything I show you today is in Source mode, so if your screen ever looks different from mine, check that toggle. And for later: when you need a brand-new document, like your team charter, it's File, New File, Quarto Document, and then the Create Empty Document button in the bottom left of that window.
+Let's build one, and let's make it count. Open Posit Cloud, and click the Terminal tab. That's the tab right next to the Console, not the Console itself. Paste in this one line and hit enter. It's the same kind of command you've used to get earlier homework, and all it does is grab the new HW3 file. Then open homework/hw3.qmd from the Files pane. It's almost empty. There's a header at the top, and at the bottom there's a note with the instructions, which won't show up in your rendered report. Everything we build together goes above that note, and when we're done, you'll have finished the first half of HW3. One tip: at the top left of the editor there's a toggle between Source and Visual. Visual mode looks like a word processor and hides the raw text. Everything I show you today is in Source mode, so if your screen ever looks different from mine, check that toggle. And for later: when you need a brand-new document, like your team charter, it's File, New File, Quarto Document, and then the Create Empty Document button in the bottom left of that window.
 :::
 
 ## The YAML Header {.smaller}
@@ -147,7 +147,7 @@ execute:
 ---
 ```
 
-- **YAML** stands for "YAML Ain't Markup Language" (a programmer joke). It's just a format for settings.
+- **YAML** ("YAML Ain't Markup Language"...a programmer joke): a format for settings
 - Each line is a `key: value` pair. **Indentation matters**: two spaces means "this belongs to the line above."
 - `date: today` fills in the date every time you render
 - `execute:` sets chunk options for the whole document. Here, it hides all code, messages, and warnings, because the reader is NBRC and not a programmer.
@@ -507,7 +507,7 @@ ggplot(pov_df, aes(x = avg_poverty, y = state, color = metro)) +
 Slides work the same way. Set format to revealjs, and now every double-pound heading starts a new slide. Code chunks still work, so your figures come straight from your analysis. If you fix something in the data, you re-render and your slides update. That's a real advantage when you're presenting to NBRC in December and you find a mistake the night before. This is one of your two options for the final deliverable.
 :::
 
-## Dashboards: `format: dashboard` {.smaller}
+## Dashboards: `format: dashboard` {.smallest}
 
 ````markdown
 ---
@@ -546,7 +546,7 @@ And dashboards. Set format to dashboard. Here, a double-pound heading makes a ro
 
 - Most of what you've done in this course so far is **exploring**. You make lots of quick figures to find out what's in the data, and *you* are the audience.
 - A deliverable is **explaining**. You already know what you found, and your job is to get it into someone else's head quickly.
-- You'll make dozens of figures for your NBRC project and show a handful. Choosing which ones is most of the work.
+- Your group might end up making dozens of figures for your NBRC project and only show a handful. Choosing which ones is most of the work.
 
 ::: {.notes}
 Part three: storytelling. I want to start with a distinction. Almost everything you've done in R so far has been exploring. You make a quick plot, look at it, make another one. You're the audience, and it doesn't need to be pretty. A deliverable is a completely different job. Now you know the answer, and your job is to get that answer into somebody else's head as fast as possible. For your project, you'll probably make dozens of figures and end up showing maybe five. Deciding which five, and in what order, is the actual storytelling.
@@ -593,15 +593,15 @@ A few habits about numbers. A number alone doesn't mean anything. If I tell you 
 ## Hide the Machinery {.smaller}
 
 - NBRC staff don't need your code. Set `echo: false`, `message: false`, and `warning: false` for the whole document.
-- Keep your exploring in a separate file (like `exploration.qmd`) and only the explaining in the deliverable
+- Keep your exploring in a separate file (like `exploration.qmd` or even `exploration.R`) and only the explaining in the deliverable
 - Plain language: "renters paying more than 30% of income on rent," not `pct_rent_burden`
-- Read it out loud once before you hand it in
+- Read it out loud once (or many times) before you share with stakeholders! 
 
 ::: {.notes}
-Last thing on storytelling: hide the machinery. Your reader doesn't need to see your code or R's messages, so turn them off for the whole document. A habit that really helps on a team project is keeping two files: a messy exploration file where you try everything, and a clean deliverable file that only contains what you're explaining. And use plain language everywhere, including labels. Nobody at NBRC knows what your column names mean. Finally, read it out loud before you hand it in. You'll hear the awkward sentences right away.
+Last thing on storytelling: hide the machinery. Your reader doesn't need to see your code or R's messages, so turn them off for the whole document. A habit that really helps on a team project is keeping two files: a messy exploration file where you try everything, and a clean deliverable file that only contains what you're explaining. And use plain language everywhere, including labels. Nobody at NBRC knows what your column names mean. Finally, read it out loud, more than once if you can, before you share it with stakeholders. You'll hear the awkward sentences right away.
 :::
 
-# Part 4: A Short Git Primer {background-color="#007155"}
+<!-- # Part 4: A Short Git Primer {background-color="#007155"}
 
 ## What Git Is {.smaller}
 
@@ -630,7 +630,7 @@ git fetch && git checkout origin/main -- homework/hw3.qmd
 
 ::: {.notes}
 And here's the payoff. You've actually been using git all semester. Your workspace is a git repo, copied from mine on GitHub. When you run git fetch, you're downloading my latest commits, but nothing in your files changes yet. Then git checkout origin/main, dash dash, homework/hw3.qmd says: take just this one file from my latest version and put it in your project. Only that file. Your other homework and your data are untouched. That's also why I keep telling you not to press the Pull button, because pull tries to update everything at once and it will refuse once you've edited your homework. If you want to learn git properly, Happy Git and GitHub for the useR, by Jenny Bryan, is the guide most R users learn from.
-:::
+::: -->
 
 # Your Turn {background-color="#007155"}
 

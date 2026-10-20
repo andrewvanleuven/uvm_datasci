@@ -42,12 +42,12 @@ Week 6 is a normal in-class day (no mid-semester field trip), split between a gu
 ## Unit 3 — Communication {.unit-header}
 
 ::: {.callout-note appearance="minimal"}
-Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. Includes a brief git/GitHub primer. **This week is asynchronous** (instructor traveling): a recorded video plus self-guided materials.
+Quarto as a one-stop communication tool. Packages: `quarto`, `rmarkdown`. **This week is asynchronous** (instructor traveling): a recorded video plus self-guided materials.
 :::
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 8 | Oct 22 | **Asynchronous, no in-person meeting.** Quarto: reports, slides, dashboards; storytelling with data; git/GitHub basics. *Scope & Team Charter due Oct. 25 by 11:59pm.* | [Week 8](slides/week08.html) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
+| 8 | Oct 22 | **Asynchronous, no in-person meeting.** Quarto: reports, slides, dashboards; storytelling with data. *Scope & Team Charter due Oct. 25 by 11:59pm.* | [Week 8](slides/week08.html) | [R4DS: Quarto](https://r4ds.hadley.nz/quarto.html) |
 
 ---
 

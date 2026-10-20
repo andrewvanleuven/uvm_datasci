@@ -229,7 +229,7 @@ Andrew Van Leuven
 <li>I’m at Purdue today, so this week is a recorded video plus these slides</li>
 <li>The slides double as your <strong>follow-along guide</strong>. Hover over any code block and click the clipboard icon to copy it into Posit Cloud.</li>
 <li>Pause the video whenever you want to type along or try something</li>
-<li>By the end, <strong>the first half of HW3 will be done</strong>: a short report, rendered to both a web page and a PDF. You’ll also know how to render your team’s charter.</li>
+<li>By the end, <strong>the first half of HW3 will already be done</strong>: a short report, rendered to both a web page and a PDF. You’ll also know how to render your team’s charter.</li>
 </ul>
 <aside class="notes">
 <p>Hi everyone. As you know, I’m at Purdue this week giving a seminar, so instead of meeting in Morrill we’re doing this one asynchronously. You’re watching a video of me walking through these slides, and the slides themselves are on the course website, so you can go back to them any time. Every code block on these slides has a little clipboard icon in the corner when you hover over it, so you never have to retype anything from the video. I’d really encourage you to have Posit Cloud open in another window and follow along. Pause me whenever you need to. And here’s the good news: we’re going to build the first half of HW3 together, right here in the video. By the end, you’ll have a short report in Quarto, rendered to both HTML and PDF, which is exactly the skill you need for your team charter this weekend.</p>
@@ -245,17 +245,16 @@ Andrew Van Leuven
           display:block!important;
       }</style></aside>
 </section>
-<section id="this-weeks-plan" class="slide level2">
+<section id="this-weeks-plan" class="slide level2 smaller">
 <h2>This Week’s Plan</h2>
 <ul>
 <li><strong>Part 1: Anatomy of a Quarto document.</strong> We’ll build the first half of HW3 together.</li>
 <li><strong>Part 2: One source, many formats.</strong> HTML, PDF, slides, and dashboards.</li>
-<li><strong>Part 3: Storytelling with data.</strong> Turning analysis into something NBRC will read.</li>
-<li><strong>Part 4: A short git primer.</strong> What the homework command you’ve been running actually does.</li>
+<li><strong>Part 3: Storytelling with data.</strong> Turning analysis into something NBRC will read. <!-- - **Part 4: A short git primer.** What the homework command you've been running actually does. --></li>
 <li><strong>Then</strong>: the rest of HW3 (two more things) and your Scope &amp; Team Charter</li>
 </ul>
 <aside class="notes">
-<p>Here’s the plan. Four parts. First, we’ll open up a Quarto document and look at what’s actually inside it, and we’ll build one together from scratch. That document is the first half of HW3. Second, we’ll see how that same file can become a web page, a PDF, a slide deck, or a dashboard by changing one line. Third, and this is the part I care most about, we’ll talk about storytelling: how to turn analysis into something a busy person at NBRC will actually read. And fourth, a short git primer, mostly so you understand the command you’ve been running in the Terminal to get each homework. Then I’ll wrap up with the second half of HW3 and what’s due.</p>
+<p>Here’s the plan. Three parts. First, we’ll open up a Quarto document and look at what’s actually inside it, and we’ll build one together from scratch. That document is the first half of HW3. Second, we’ll see how that same file can become a web page, a PDF, a slide deck, or a dashboard by changing one line. Third, and this is the part I care most about, we’ll talk about storytelling: how to turn analysis into something a busy person at NBRC will actually read. Then I’ll wrap up with the second half of HW3 and what’s due.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -382,7 +381,7 @@ Andrew Van Leuven
 <li>Starting a brand-new document later, like your charter? <strong>File → New File → Quarto Document…</strong>, then <strong>Create Empty Document</strong>.</li>
 </ul>
 <aside class="notes">
-<p>Let’s build one, and let’s make it count. Open Posit Cloud, and click the Terminal tab. That’s the tab right next to the Console, not the Console itself. Paste in this one line and hit enter. In Part 4 I’ll explain exactly what it does. Then open homework/hw3.qmd from the Files pane. It’s almost empty. There’s a header at the top, and at the bottom there’s a note with the instructions, which won’t show up in your rendered report. Everything we build together goes above that note, and when we’re done, you’ll have finished the first half of HW3. One tip: at the top left of the editor there’s a toggle between Source and Visual. Visual mode looks like a word processor and hides the raw text. Everything I show you today is in Source mode, so if your screen ever looks different from mine, check that toggle. And for later: when you need a brand-new document, like your team charter, it’s File, New File, Quarto Document, and then the Create Empty Document button in the bottom left of that window.</p>
+<p>Let’s build one, and let’s make it count. Open Posit Cloud, and click the Terminal tab. That’s the tab right next to the Console, not the Console itself. Paste in this one line and hit enter. It’s the same kind of command you’ve used to get earlier homework, and all it does is grab the new HW3 file. Then open homework/hw3.qmd from the Files pane. It’s almost empty. There’s a header at the top, and at the bottom there’s a note with the instructions, which won’t show up in your rendered report. Everything we build together goes above that note, and when we’re done, you’ll have finished the first half of HW3. One tip: at the top left of the editor there’s a toggle between Source and Visual. Visual mode looks like a word processor and hides the raw text. Everything I show you today is in Source mode, so if your screen ever looks different from mine, check that toggle. And for later: when you need a brand-new document, like your team charter, it’s File, New File, Quarto Document, and then the Create Empty Document button in the bottom left of that window.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -408,7 +407,7 @@ Andrew Van Leuven
 <span id="cb3-9"><a aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
 <span id="cb3-10"><a aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li><strong>YAML</strong> stands for “YAML Ain’t Markup Language” (a programmer joke). It’s just a format for settings.</li>
+<li><strong>YAML</strong> (“YAML Ain’t Markup Language”…a programmer joke): a format for settings</li>
 <li>Each line is a <code>key: value</code> pair. <strong>Indentation matters</strong>: two spaces means “this belongs to the line above.”</li>
 <li><code>date: today</code> fills in the date every time you render</li>
 <li><code>execute:</code> sets chunk options for the whole document. Here, it hides all code, messages, and warnings, because the reader is NBRC and not a programmer.</li>
@@ -995,7 +994,7 @@ Andrew Van Leuven
           display:block!important;
       }</style></aside>
 </section>
-<section id="dashboards-format-dashboard" class="slide level2 smaller">
+<section id="dashboards-format-dashboard" class="slide level2 smallest">
 <h2>Dashboards: <code>format: dashboard</code></h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Midwest Poverty"</span></span>
@@ -1046,7 +1045,7 @@ Andrew Van Leuven
 <ul>
 <li>Most of what you’ve done in this course so far is <strong>exploring</strong>. You make lots of quick figures to find out what’s in the data, and <em>you</em> are the audience.</li>
 <li>A deliverable is <strong>explaining</strong>. You already know what you found, and your job is to get it into someone else’s head quickly.</li>
-<li>You’ll make dozens of figures for your NBRC project and show a handful. Choosing which ones is most of the work.</li>
+<li>Your group might end up making dozens of figures for your NBRC project and only show a handful. Choosing which ones is most of the work.</li>
 </ul>
 <aside class="notes">
 <p>Part three: storytelling. I want to start with a distinction. Almost everything you’ve done in R so far has been exploring. You make a quick plot, look at it, make another one. You’re the audience, and it doesn’t need to be pretty. A deliverable is a completely different job. Now you know the answer, and your job is to get that answer into somebody else’s head as fast as possible. For your project, you’ll probably make dozens of figures and end up showing maybe five. Deciding which five, and in what order, is the actual storytelling.</p>
@@ -1139,12 +1138,12 @@ Andrew Van Leuven
 <h2>Hide the Machinery</h2>
 <ul>
 <li>NBRC staff don’t need your code. Set <code>echo: false</code>, <code>message: false</code>, and <code>warning: false</code> for the whole document.</li>
-<li>Keep your exploring in a separate file (like <code>exploration.qmd</code>) and only the explaining in the deliverable</li>
+<li>Keep your exploring in a separate file (like <code>exploration.qmd</code> or even <code>exploration.R</code>) and only the explaining in the deliverable</li>
 <li>Plain language: “renters paying more than 30% of income on rent,” not <code>pct_rent_burden</code></li>
-<li>Read it out loud once before you hand it in</li>
+<li>Read it out loud once (or many times) before you share with stakeholders!</li>
 </ul>
 <aside class="notes">
-<p>Last thing on storytelling: hide the machinery. Your reader doesn’t need to see your code or R’s messages, so turn them off for the whole document. A habit that really helps on a team project is keeping two files: a messy exploration file where you try everything, and a clean deliverable file that only contains what you’re explaining. And use plain language everywhere, including labels. Nobody at NBRC knows what your column names mean. Finally, read it out loud before you hand it in. You’ll hear the awkward sentences right away.</p>
+<p>Last thing on storytelling: hide the machinery. Your reader doesn’t need to see your code or R’s messages, so turn them off for the whole document. A habit that really helps on a team project is keeping two files: a messy exploration file where you try everything, and a clean deliverable file that only contains what you’re explaining. And use plain language everywhere, including labels. Nobody at NBRC knows what your column names mean. Finally, read it out loud, more than once if you can, before you share it with stakeholders. You’ll hear the awkward sentences right away.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1156,59 +1155,36 @@ Andrew Van Leuven
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section></section>
-<section>
-<section id="part-4-a-short-git-primer" class="title-slide slide level1 center" data-background-color="#007155">
-<h1>Part 4: A Short Git Primer</h1>
+<!-- # Part 4: A Short Git Primer {background-color="#007155"}
 
-</section>
-<section id="what-git-is" class="slide level2 smaller">
-<h2>What Git Is</h2>
-<ul>
-<li><strong>Git</strong> keeps a history of a folder of files, called a <strong>repository</strong> (or “repo”). Each saved snapshot is a <strong>commit</strong>, with a short message about what changed.</li>
-<li><strong>GitHub</strong> is a website that stores a copy of a repo online so it can be shared</li>
-<li><strong>Push</strong> sends your commits up to GitHub. <strong>Fetch</strong> and <strong>pull</strong> bring new commits down.</li>
-<li>Why people use it: you can go back to any earlier version, and several people can work on the same project without emailing files back and forth</li>
-<li>You won’t need git for anything graded in this course. This is so the vocabulary isn’t new when you see it.</li>
-</ul>
-<aside class="notes">
-<p>Part four, quickly. Git is a tool that keeps a history of a folder. That folder is called a repository, or repo. Every time you save a snapshot, that’s a commit, and you attach a short message saying what changed. GitHub is a website that holds a copy of a repo online. Push sends your commits up to GitHub, and fetch or pull bring other people’s commits down. People use git because you can always go back to an earlier version, and because a team can work on the same code without emailing files named final, final2, final_REAL. You won’t be graded on any of this. I just want the words to be familiar.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="youve-already-used-it" class="slide level2 smaller">
-<h2>You’ve Already Used It</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch <span class="kw">&amp;&amp;</span> <span class="fu">git</span> checkout origin/main <span class="at">--</span> homework/hw3.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Your Posit Cloud workspace is a git repo, copied from mine on GitHub</li>
-<li><code>git fetch</code> downloads my latest commits from GitHub, without changing any of your files</li>
-<li><code>git checkout origin/main -- homework/hw3.qmd</code> then replaces <strong>just that one file</strong> with my newest version</li>
-<li>That’s why it’s safe: your other homework, your data, and everything else are left alone</li>
-<li>(Still don’t use the <strong>Pull</strong> button in the Git pane. It tries to update everything at once.)</li>
-<li>Want more? <a href="https://happygitwithr.com"><em>Happy Git and GitHub for the useR</em></a> is the standard guide for R users</li>
-</ul>
-<aside class="notes">
-<p>And here’s the payoff. You’ve actually been using git all semester. Your workspace is a git repo, copied from mine on GitHub. When you run git fetch, you’re downloading my latest commits, but nothing in your files changes yet. Then git checkout origin/main, dash dash, homework/hw3.qmd says: take just this one file from my latest version and put it in your project. Only that file. Your other homework and your data are untouched. That’s also why I keep telling you not to press the Pull button, because pull tries to update everything at once and it will refuse once you’ve edited your homework. If you want to learn git properly, Happy Git and GitHub for the useR, by Jenny Bryan, is the guide most R users learn from.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+## What Git Is {.smaller}
+
+- **Git** keeps a history of a folder of files, called a **repository** (or "repo"). Each saved snapshot is a **commit**, with a short message about what changed.
+- **GitHub** is a website that stores a copy of a repo online so it can be shared
+- **Push** sends your commits up to GitHub. **Fetch** and **pull** bring new commits down.
+- Why people use it: you can go back to any earlier version, and several people can work on the same project without emailing files back and forth
+- You won't need git for anything graded in this course. This is so the vocabulary isn't new when you see it.
+
+::: {.notes}
+Part four, quickly. Git is a tool that keeps a history of a folder. That folder is called a repository, or repo. Every time you save a snapshot, that's a commit, and you attach a short message saying what changed. GitHub is a website that holds a copy of a repo online. Push sends your commits up to GitHub, and fetch or pull bring other people's commits down. People use git because you can always go back to an earlier version, and because a team can work on the same code without emailing files named final, final2, final_REAL. You won't be graded on any of this. I just want the words to be familiar.
+:::
+
+## You've Already Used It {.smaller}
+
+```bash
+git fetch && git checkout origin/main -- homework/hw3.qmd
+```
+
+- Your Posit Cloud workspace is a git repo, copied from mine on GitHub
+- `git fetch` downloads my latest commits from GitHub, without changing any of your files
+- `git checkout origin/main -- homework/hw3.qmd` then replaces **just that one file** with my newest version
+- That's why it's safe: your other homework, your data, and everything else are left alone
+- (Still don't use the **Pull** button in the Git pane. It tries to update everything at once.)
+- Want more? [*Happy Git and GitHub for the useR*](https://happygitwithr.com) is the standard guide for R users
+
+::: {.notes}
+And here's the payoff. You've actually been using git all semester. Your workspace is a git repo, copied from mine on GitHub. When you run git fetch, you're downloading my latest commits, but nothing in your files changes yet. Then git checkout origin/main, dash dash, homework/hw3.qmd says: take just this one file from my latest version and put it in your project. Only that file. Your other homework and your data are untouched. That's also why I keep telling you not to press the Pull button, because pull tries to update everything at once and it will refuse once you've edited your homework. If you want to learn git properly, Happy Git and GitHub for the useR, by Jenny Bryan, is the guide most R users learn from.
+::: -->
 </section></section>
 <section>
 <section id="your-turn" class="title-slide slide level1 center" data-background-color="#007155">
@@ -1226,7 +1202,7 @@ Andrew Van Leuven
 <li><strong>Due Sunday, Nov.&nbsp;1, 11:59pm</strong></li>
 <li>Skipped the follow-along? Get the file with this line in the <strong>Terminal</strong> tab, then start Part 1 from the slides:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch <span class="kw">&amp;&amp;</span> <span class="fu">git</span> checkout origin/main <span class="at">--</span> homework/hw3.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch <span class="kw">&amp;&amp;</span> <span class="fu">git</span> checkout origin/main <span class="at">--</span> homework/hw3.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>Which brings us to the rest of HW3. If you followed along, Part 1 is already done: that’s the report we just built. Part 2 is two more things. First, add one new section to your report, right before About the Data. It should answer a different question about the midwest data with a different kind of figure. Maybe college education and poverty, which is a relationship, so a scatterplot. Or how spread out poverty rates are, which is a distribution. The instructions at the bottom of hw3.qmd have a few ideas. Your section needs a heading that states the finding, a figure with a label and a caption, and two or three sentences that refer to the figure, include one number calculated with inline code, and say why you picked that type of figure. Second, render both formats with quarto render in the Terminal. That’s it. It’s due Sunday, November 1st. And if you watched this without following along, here’s the line to get the file again. Run it in the Terminal, then go back through Part 1 of the slides.</p>
 <style type="text/css">
