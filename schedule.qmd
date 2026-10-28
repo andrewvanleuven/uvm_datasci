@@ -59,7 +59,7 @@ Supplemental to R4DS. See [*Analyzing US Census Data*](https://walker-data.com/c
 
 | Week | Date | Topic | Slides | Reading |
 |---|---|---|---|---|
-| 9 | Oct 29 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due Nov. 1 by 11:59pm.* | [Week 9](#) | *Analyzing US Census Data* (Chapters 1 and 4) |
+| 9 | Oct 29 | Intro to GIS; Census geography; sf and tidycensus; basic choropleths. *HW3 due Nov. 1 by 11:59pm.* | [Week 9](slides/week09.html) | *Analyzing US Census Data* (Chapters 1 and 4) |
 | 10 | Nov 5 | Advanced GIS; non-Census spatial data; publication-level cartography | [Week 10](#) | *Spatial Data Science* (skim Chapters 1-3) |
 | 11 | Nov 12 | **No class** (instructor at conference). *HW5 (maps) due Nov. 15 by 11:59pm.* |
 

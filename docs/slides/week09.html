@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../img/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Andrew Van Leuven">
+  <meta name="dcterms.date" content="2026-10-29">
+  <title>Applied Data Science &amp; Visualization – Week 9: Intro to GIS + Mapping Census Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-d83c470ef70aef37967b037746f293a4.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Week 9: Intro to GIS + Mapping Census Data</h1>
+  <p class="subtitle">CDAE 7990 · Applied Data Science &amp; Visualization</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andrew Van Leuven
+</div>
+</div>
+</div>
+
+  <p class="date">October 29, 2026</p>
+</section>
+<section class="slide level2">
+
+<!-- FIRST DRAFT (Oct 28). Every number on these slides was checked against the 2020-2024 ACS before rendering. -->
+</section>
+<section id="welcome-back" class="slide level2">
+<h2>Welcome Back</h2>
+<ul>
+<li>First time in the room since the asynchronous week. Thanks for working through the video.</li>
+<li>Tonight we start the last new unit of the semester: <strong>maps</strong></li>
+</ul>
+</section>
+<section id="coming-up" class="slide level2 smaller">
+<h2>Coming Up</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sun. Nov.&nbsp;1</strong>, 11:59pm</td>
+<td><strong>HW3 due</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Thu. Nov.&nbsp;5</strong></td>
+<td>Week 10: point data, spatial joins, and publication-quality maps</td>
+</tr>
+<tr class="odd">
+<td><strong>Thu. Nov.&nbsp;12</strong></td>
+<td><strong>No class</strong> (conference)</td>
+</tr>
+<tr class="even">
+<td><strong>Sun. Nov.&nbsp;15</strong>, 11:59pm</td>
+<td><strong>HW5 due</strong>: the maps problem set, covering tonight and next week</td>
+</tr>
+<tr class="odd">
+<td><strong>Thu. Nov.&nbsp;19</strong></td>
+<td>Project workday + peer critique (Preliminary Outputs due)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="todays-plan" class="slide level2">
+<h2>Today’s Plan</h2>
+<ul>
+<li><strong>What is GIS?</strong> Just enough of the big ideas to make maps without getting lost</li>
+<li><strong>Spatial data in R</strong>: <code>sf</code> objects, boundary files from <code>tigris</code>, and coordinate reference systems</li>
+<li><strong>Census geography</strong>: how counties, tracts, and block groups fit together</li>
+<li><strong><code>tidycensus</code></strong>: install your API key, find variables, and pull ACS data</li>
+<li><strong>Choropleth maps</strong>: from a raw <code>geom_sf()</code> to a map you’d hand to NBRC</li>
+<li><strong>Your Turn</strong>: a map for your team’s domain area</li>
+</ul>
+</section>
+<section id="follow-along" class="slide level2">
+<h2>Follow Along</h2>
+<ul>
+<li>Open your <strong>cdae7990_workspace</strong> project in Posit Cloud</li>
+<li>Make a new script: <strong>File → New File → R Script</strong>, and save it as <code>week09.R</code></li>
+<li>Run these lines at the top. If any <code>library()</code> call errors, run <code>source("setup.R")</code> and try again.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tigris)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tigris_use_cache =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>tigris_use_cache = TRUE</code> saves every boundary file you download, so the second time you ask for Vermont’s counties, R doesn’t download them again</li>
+</ul>
+</section>
+<section>
+<section id="what-is-gis" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>What Is GIS?</h1>
+
+</section>
+<section id="same-data-two-ways" class="slide level2">
+<h2>Same Data, Two Ways</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div style="font-size: 0.55em;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">County</th>
+<th style="text-align: left;">Median rent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chittenden</td>
+<td style="text-align: left;">$1,646</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Grand Isle</td>
+<td style="text-align: left;">$1,425</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Franklin</td>
+<td style="text-align: left;">$1,180</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Addison</td>
+<td style="text-align: left;">$1,177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Orange</td>
+<td style="text-align: left;">$1,173</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Washington</td>
+<td style="text-align: left;">$1,163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lamoille</td>
+<td style="text-align: left;">$1,160</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Windsor</td>
+<td style="text-align: left;">$1,118</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bennington</td>
+<td style="text-align: left;">$1,109</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Windham</td>
+<td style="text-align: left;">$1,056</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rutland</td>
+<td style="text-align: left;">$1,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Caledonia</td>
+<td style="text-align: left;">$920</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Orleans</td>
+<td style="text-align: left;">$892</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Essex</td>
+<td style="text-align: left;">$827</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>Same 14 numbers on both sides: median gross rent by Vermont county, 2020-2024 ACS. The table tells you Chittenden is highest. The map tells you that rent is highest around Burlington and the Champlain Islands and lowest in the Northeast Kingdom, which is a geographic story the table hides.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-is-gis-1" class="slide level2">
+<h2>What Is GIS?</h2>
+<ul>
+<li><strong>Geographic Information Systems</strong>: tools for storing, analyzing, and mapping data that has a location attached</li>
+<li>Any dataset with a “where” can go on a map: counties, towns, addresses, roads, watersheds</li>
+<li>Your NBRC project is inherently spatial: four states, a lot of rural counties, and questions about who has access to what and where</li>
+<li>GIS used to mean desktop software (ArcGIS, QGIS) and a lot of pointing and clicking. R now does most of what those programs do, in a script you can rerun.</li>
+<li>Tonight we learn the GIS ideas we need, when we need them. That’s also how Kyle Walker’s book handles it: no big theory chapter, just concepts as they come up.</li>
+</ul>
+</section>
+<section id="what-maps-can-do" class="slide level2">
+<h2>What Maps Can Do</h2>
+<!-- Recycled from the AAEA webinar's closing gallery. Talk through where each one comes from. -->
+<div class="quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img data-src="../img/week09/nebraska_lenders.png" alt="Thiessen polygon map of lenders in Nebraska, shaded by square miles, with very large polygons in the sparsely populated northwest"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img data-src="../img/week09/downtown_cluster.png" alt="Map of a city with hexagons showing a selected downtown cluster"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img data-src="../img/week09/social_capital.png" alt="Four US county maps comparing traditional and digital social capital, with hot spot clusters"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="four-ideas-for-tonight" class="slide level2 scrollable">
+<h2>Four Ideas for Tonight</h2>
+<ol type="1">
+<li><strong>Vector data</strong>: points, lines, and polygons</li>
+<li><strong><code>sf</code> objects</strong>: a data frame with a geometry column</li>
+<li><strong>Coordinate reference systems</strong>: how a round earth becomes a flat map</li>
+<li><strong>Census geography</strong>: the nested units that Census data come in</li>
+</ol>
+</section>
+<section id="vector-data-points-lines-polygons" class="slide level2">
+<h2>Vector Data: Points, Lines, Polygons</h2>
+<div class="cell quarto-layout-panel" data-layout-ncol="3" data-layout-align="center">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-5-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-5-3.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Almost everything you’ll use for NBRC is vector data. County statistics are polygons. A list of clinics, hospitals, or housing projects with addresses is points.</li>
+</ul>
+</section>
+<section id="raster-data-a-grid-of-cells" class="slide level2">
+<h2>Raster Data: A Grid of Cells</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li>A raster is a grid of cells, each holding a value, like the pixels in a photo</li>
+<li>Think elevation, land cover, satellite imagery, temperature, precipitation</li>
+<li>R handles rasters with the <code>terra</code> package, which is already in your workspace</li>
+<li>We won’t use rasters in this class, but you’ll see them in research on climate, agriculture, and land use</li>
+</ul>
+</div><div class="column" style="width:55%;">
+<p><img data-src="../img/week09/temperature_raster.jpeg" alt="Map of the contiguous United States showing average temperature as a smooth color gradient from blue in the north to red in the south"></p>
+</div></div>
+</section>
+<section id="four-kinds-of-maps" class="slide level2">
+<h2>Four Kinds of Maps</h2>
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/week09/choropleth.png" alt="Vermont counties shaded in grays"></p>
+<figcaption>Choropleth</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/week09/dot_map.png" alt="Outline of Vermont with black dots"></p>
+<figcaption>Dot map</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/week09/proportional_symbol.png" alt="Outline of Vermont with gray circles of different sizes"></p>
+<figcaption>Proportional symbol</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/week09/reference.jpg" alt="Reference map of Vermont with towns, highways, rivers, and Lake Champlain"></p>
+<figcaption>Reference</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Choropleth</strong>: areas shaded by a value. <strong>Dot map</strong>: one dot per thing. <strong>Proportional symbol</strong>: size shows quantity. <strong>Reference</strong>: shows where things are.</li>
+<li>Tonight is all choropleths. Next week adds points and symbols.</li>
+</ul>
+</section></section>
+<section>
+<section id="spatial-data-in-r" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Spatial Data in R</h1>
+
+</section>
+<section id="boundary-files-with-tigris" class="slide level2">
+<h2>Boundary Files with <code>tigris</code></h2>
+<ul>
+<li><strong>TIGER/Line</strong> files are the Census Bureau’s official boundaries: states, counties, tracts, roads, water, and more</li>
+<li>The <code>tigris</code> package downloads them straight into R</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>vt_counties <span class="ot">&lt;-</span> <span class="fu">counties</span>(<span class="st">"VT"</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Behind the scenes this is a <strong>shapefile</strong>, the most common file format for GIS data. You’ll read shapefiles you download yourself next week.</li>
+<li><code>cb = TRUE</code> asks for the simplified <em>cartographic boundary</em> version. More on that in a minute.</li>
+</ul>
+</section>
+<section id="whats-inside-an-sf-object" class="slide level2 smaller">
+<h2>What’s Inside an <code>sf</code> Object?</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>vt_counties <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(GEOID, NAME, ALAND)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 14 features and 3 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -73.43774 ymin: 42.72685 xmax: -71.46456 ymax: 45.01666
+Geodetic CRS:  NAD83
+First 10 features:
+     GEOID       NAME      ALAND                       geometry
+505  50027    Windsor 2510071971 MULTIPOLYGON (((-72.98015 4...
+724  50009      Essex 1715530626 MULTIPOLYGON (((-71.97482 4...
+1523 50015   Lamoille 1194643959 MULTIPOLYGON (((-72.92667 4...
+1774 50005  Caledonia 1681454161 MULTIPOLYGON (((-72.43412 4...
+1775 50001    Addison 1984788915 MULTIPOLYGON (((-73.43774 4...
+1863 50017     Orange 1779343340 MULTIPOLYGON (((-72.78702 4...
+1864 50007 Chittenden 1390433441 MULTIPOLYGON (((-73.36263 4...
+1879 50021    Rutland 2410117478 MULTIPOLYGON (((-73.43123 4...
+2020 50019    Orleans 1798880704 MULTIPOLYGON (((-72.53328 4...
+2623 50013 Grand Isle  211782349 MULTIPOLYGON (((-73.38997 4...</code></pre>
+</div>
+</div>
+<ul>
+<li>It’s a data frame with one extra column, <code>geometry</code>, that holds the shape of each county</li>
+<li>The header tells you the geometry type (MULTIPOLYGON), the bounding box, and the <strong>CRS</strong> (NAD83)</li>
+<li>Because it’s a data frame, <code>filter()</code>, <code>mutate()</code>, <code>select()</code>, and <code>left_join()</code> all work exactly the way you already know</li>
+</ul>
+</section>
+<section id="your-first-map" class="slide level2">
+<h2>Your First Map</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_counties) <span class="sc">+</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week09_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"><ul>
+<li><code>geom_sf()</code> reads the <code>geometry</code> column for you. No <code>aes(x, y)</code> needed.</li>
+</ul>
+</section>
+<section id="cartographic-boundaries-vs.-tigerline" class="slide level2">
+<h2>Cartographic Boundaries vs.&nbsp;TIGER/Line</h2>
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-9-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size: 0.6em; text-align: center;">
+<p>Zoomed in on the Connecticut River, where Windsor County meets New Hampshire. The point counts are for all 14 Vermont counties.</p>
+</div>
+</section>
+<section id="cartographic-boundaries-vs.-tigerline-1" class="slide level2">
+<h2>Cartographic Boundaries vs.&nbsp;TIGER/Line</h2>
+<ul>
+<li>Both files describe the same 14 counties. The cartographic boundary version (<code>cb = TRUE</code>) is <strong>simplified</strong>, so it traces each border with far fewer points.</li>
+<li>At the scale of a statewide or national map you can’t see the difference, and the smaller file downloads and draws faster</li>
+<li>In some places cb files are also clipped to the shoreline. Walker shows this for Michigan, where the TIGER/Line counties extend out into the Great Lakes.</li>
+<li><strong>Rule of thumb</strong>: use <code>cb = TRUE</code> for any map</li>
+</ul>
+</section>
+<section id="coordinate-reference-systems" class="slide level2">
+<h2>Coordinate Reference Systems</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li>The earth is round. Maps are flat. Something has to give.</li>
+<li>A <strong>coordinate reference system (CRS)</strong> says how a point on the round earth lands on a flat map</li>
+<li>Every projection distorts something: area, shape, distance, or direction. You choose what to protect.</li>
+</ul>
+</div><div class="column" style="width:55%;">
+<p><img data-src="../img/week09/projections.png" alt="Diagram comparing cylindrical, conic, and azimuthal map projections, showing how each wraps a flat surface around a globe"></p>
+</div></div>
+<div style="font-size: 0.5em;">
+<p>“Comparison of cartography surface development” by cmglee et al., <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
+</div>
+</section>
+<section id="the-same-states-two-crss" class="slide level2">
+<h2>The Same States, Two CRSs</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>lower48 <span class="ot">&lt;-</span> <span class="fu">states</span>(<span class="at">cb =</span> <span class="cn">TRUE</span>, <span class="at">resolution =</span> <span class="st">"20m"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>STUSPS <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AK"</span>, <span class="st">"HI"</span>, <span class="st">"PR"</span>))</span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lower48) <span class="sc">+</span></span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span>
+<span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lower48) <span class="sc">+</span></span>
+<span id="cb6-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb6-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">5070</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-10-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><code>coord_sf(crs = 5070)</code> reprojects the map as it’s drawn, without changing your data. The US looks like the US again.</li>
+</ul>
+</section>
+<section id="the-three-crss-youll-actually-see" class="slide level2 smaller">
+<h2>The Three CRSs You’ll Actually See</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 15%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>CRS</th>
+<th>EPSG code</th>
+<th>Where you’ll see it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NAD83</td>
+<td>4269</td>
+<td>Everything from the Census Bureau (<code>tigris</code>, <code>tidycensus</code>)</td>
+</tr>
+<tr class="even">
+<td>WGS84</td>
+<td>4326</td>
+<td>GPS coordinates, latitude/longitude columns, web maps</td>
+</tr>
+<tr class="odd">
+<td>Albers Equal Area</td>
+<td>5070</td>
+<td>Static maps of the US or a multi-state region</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>An <strong>EPSG code</strong> is just an ID number for a CRS. It’s what you hand to R.</li>
+<li>Check a layer’s CRS with <code>st_crs(vt_counties)</code>, and change it for good with <code>st_transform(vt_counties, 5070)</code></li>
+<li><strong>If two layers don’t line up, check the CRS first.</strong> It’s the most common beginner problem in GIS, and next week we’ll combine layers from different sources.</li>
+</ul>
+</section>
+<section id="break" class="slide level2" data-background-color="#007155">
+<h2>Break?</h2>
+</section></section>
+<section>
+<section id="census-geography" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Census Geography</h1>
+
+</section>
+<section id="the-census-hierarchy" class="slide level2">
+<h2>The Census Hierarchy</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/week09/census_hierarchy.png" class="quarto-figure quarto-figure-center" alt="Census Bureau diagram of the standard hierarchy of geographic entities, running from nation through regions, divisions, states, counties, census tracts, and block groups down to census blocks, with other geographies such as ZIP Code Tabulation Areas, places, and school districts branching off" height="560"></p>
+</figure>
+</div>
+<div style="font-size: 0.5em;">
+<p>Source: US Census Bureau, <a href="https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf">Standard Hierarchy of Census Geographic Entities</a></p>
+</div>
+</section>
+<section id="the-spine-state-county-tract-block-group" class="slide level2">
+<h2>The Spine: State → County → Tract → Block Group</h2>
+<ul>
+<li>The center line of that diagram is the one you’ll use most. Each level nests perfectly inside the one above it.</li>
+<li><strong>Tracts</strong> are drawn to hold roughly 4,000 people, so they’re small in cities and huge in rural areas</li>
+<li><strong>Block groups</strong> are pieces of tracts. They’re the smallest units the ACS reports.</li>
+<li>Some geographies don’t nest at all. A ZIP code (ZCTA) can cross county and even state lines.</li>
+</ul>
+</section>
+<section id="nesting-in-chittenden-county" class="slide level2">
+<h2>Nesting in Chittenden County</h2>
+<div class="cell quarto-layout-panel" data-layout-ncol="3" data-layout-align="center">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-11-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-11-3.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>chittenden_tracts <span class="ot">&lt;-</span> <span class="fu">tracts</span>(<span class="st">"VT"</span>, <span class="at">county =</span> <span class="st">"Chittenden"</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>chittenden_bgs <span class="ot">&lt;-</span> <span class="fu">block_groups</span>(<span class="st">"VT"</span>, <span class="at">county =</span> <span class="st">"Chittenden"</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Statewide, Vermont has 14 counties, 193 tracts, and 552 block groups</li>
+</ul>
+</section>
+<section id="every-unit-has-a-geoid" class="slide level2 smaller">
+<h2>Every Unit Has a GEOID</h2>
+<ul>
+<li>The <strong>GEOID</strong> is the ID that every Census dataset shares, and it’s your join key. It builds up one level at a time.</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>GEOID</th>
+<th>Digits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>State (Vermont)</td>
+<td><code>50</code></td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>County (Chittenden)</td>
+<td><code>50</code> <code>007</code></td>
+<td>2 + 3</td>
+</tr>
+<tr class="odd">
+<td>Tract (Census Tract 9)</td>
+<td><code>50</code> <code>007</code> <code>000900</code></td>
+<td>2 + 3 + 6</td>
+</tr>
+<tr class="even">
+<td>Block group 1</td>
+<td><code>50</code> <code>007</code> <code>000900</code> <code>1</code></td>
+<td>2 + 3 + 6 + 1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>GEOIDs are text, not numbers. Read Autauga County, Alabama (<code>01001</code>) in as a number and it becomes <code>1001</code>, which won’t join to anything.</li>
+</ul>
+</section></section>
+<section>
+<section id="tidycensus" class="title-slide slide level1 center" data-background-color="#007155">
+<h1><code>tidycensus</code></h1>
+
+</section>
+<section id="install-your-census-api-key-together" class="slide level2 scrollable">
+<h2>Install Your Census API Key (Together)</h2>
+<ol type="1">
+<li>Find the email from the Census Bureau, and make sure you clicked its activation link</li>
+<li>In the <strong>Console</strong> (not in your script), run this with your own key pasted in:</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">census_api_key</span>(<span class="st">"PASTE-YOUR-KEY-HERE"</span>, <span class="at">install =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="3" type="1">
+<li>Restart R: <strong>Session → Restart R</strong></li>
+<li>Check that it worked. This should print your key.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">"CENSUS_API_KEY"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="why-the-console" class="slide level2">
+<h2>Why the Console?</h2>
+<ul>
+<li>Your API key is like a password. It shouldn’t sit in a script or <code>.qmd</code> you email to me or publish later.</li>
+<li><code>install = TRUE</code> saves it to a hidden file in your project (<code>.Renviron</code>) that R reads every time it starts, so you only do this once</li>
+<li>If R says a key already exists, run the same line again with <code>overwrite = TRUE</code> added</li>
+</ul>
+</section>
+<section id="two-big-census-products" class="slide level2 smaller">
+<h2>Two Big Census Products</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 38%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Decennial Census</th>
+<th>American Community Survey (ACS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>How often</strong></td>
+<td>Every 10 years (2020 is the latest)</td>
+<td>Every year</td>
+</tr>
+<tr class="even">
+<td><strong>Who</strong></td>
+<td>Everyone</td>
+<td>A sample of households</td>
+</tr>
+<tr class="odd">
+<td><strong>What</strong></td>
+<td>A few questions: age, sex, race, ethnicity, housing tenure</td>
+<td>Much more: income, rent, home value, commuting, education, internet access</td>
+</tr>
+<tr class="even">
+<td><strong>Numbers</strong></td>
+<td>Counts</td>
+<td>Estimates, each with a margin of error</td>
+</tr>
+<tr class="odd">
+<td><strong>In R</strong></td>
+<td><code>get_decennial()</code></td>
+<td><code>get_acs()</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Almost everything you’ll want for NBRC (rent, income, broadband, commuting) comes from the ACS</li>
+</ul>
+</section>
+<section id="year-vs.-5-year-acs" class="slide level2">
+<h2>1-Year vs.&nbsp;5-Year ACS</h2>
+<ul>
+<li>The <strong>1-year ACS</strong> only covers places with 65,000 or more people</li>
+<li>The <strong>5-year ACS</strong> pools five years of responses, so it covers every county, tract, and block group</li>
+<li>How many Vermont counties have 1-year data?</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>vt_acs1 <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(<span class="at">geography =</span> <span class="st">"county"</span>, <span class="at">state =</span> <span class="st">"VT"</span>, <span class="at">survey =</span> <span class="st">"acs1"</span>,</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">variables =</span> <span class="st">"B01003_001"</span>, <span class="at">year =</span> <span class="dv">2024</span>)</span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>vt_acs1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  GEOID NAME                       variable   estimate   moe
+  &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+1 50007 Chittenden County, Vermont B01003_001   170851    NA</code></pre>
+</div>
+</div>
+<ul>
+<li>Only Chittenden. For rural work, you’ll almost always use the 5-year ACS, which is <code>get_acs()</code>’s default.</li>
+</ul>
+</section>
+<section id="finding-variables" class="slide level2 smaller">
+<h2>Finding Variables</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>acs_vars <span class="ot">&lt;-</span> <span class="fu">load_variables</span>(<span class="dv">2024</span>, <span class="st">"acs5"</span>)</span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>acs_vars <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(label, <span class="st">"Median gross rent"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb12-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, label)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 27 × 2
+  name       label                                             
+  &lt;chr&gt;      &lt;chr&gt;                                             
+1 B25031_001 Estimate!!Median gross rent --!!Total:            
+2 B25031_002 Estimate!!Median gross rent --!!Total:!!No bedroom
+3 B25031_003 Estimate!!Median gross rent --!!Total:!!1 bedroom 
+4 B25031_004 Estimate!!Median gross rent --!!Total:!!2 bedrooms
+5 B25031_005 Estimate!!Median gross rent --!!Total:!!3 bedrooms
+# ℹ 22 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>There are over 28,000 variables. In RStudio, <code>View(acs_vars)</code> gives you a search box.</li>
+<li>A name like <code>B25064_001</code> means <strong>table</strong> B25064, <strong>line</strong> 001</li>
+<li><a href="https://censusreporter.org">Census Reporter</a> is a friendlier way to browse tables before you come back to R</li>
+</ul>
+</section>
+<section id="your-first-get_acs-call" class="slide level2">
+<h2>Your First <code>get_acs()</code> Call</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>vt_rent <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"VT"</span>,</span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">rent =</span> <span class="st">"B25064_001"</span>),</span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span></span>
+<span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-7"><a aria-hidden="true" tabindex="-1"></a>vt_rent</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 5
+  GEOID NAME                       variable estimate   moe
+  &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+1 50001 Addison County, Vermont    rent         1177    60
+2 50003 Bennington County, Vermont rent         1109    45
+3 50005 Caledonia County, Vermont  rent          920    40
+4 50007 Chittenden County, Vermont rent         1646    31
+5 50009 Essex County, Vermont      rent          827   114
+# ℹ 9 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>Naming the variable (<code>rent = ...</code>) makes the <code>variable</code> column readable</li>
+<li>Every ACS row has an <strong>estimate</strong> and a <strong>moe</strong> (margin of error)</li>
+</ul>
+</section>
+<section id="margins-of-error-are-real" class="slide level2">
+<h2>Margins of Error Are Real</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>vt_rent_plot <span class="ot">&lt;-</span> vt_rent <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">county =</span> <span class="fu">str_remove</span>(NAME, <span class="st">" County, Vermont"</span>))</span>
+<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_rent_plot, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> <span class="fu">fct_reorder</span>(county, estimate))) <span class="sc">+</span></span>
+<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> estimate <span class="sc">-</span> moe, <span class="at">xmax =</span> estimate <span class="sc">+</span> moe), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"#007155"</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>()) <span class="sc">+</span></span>
+<span id="cb16-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Median gross rent, Vermont counties"</span>,</span>
+<span id="cb16-9"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"2020-2024 ACS 5-year estimates, with margins of error"</span>,</span>
+<span id="cb16-10"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="margins-of-error-are-real-output" class="slide level2 output-location-slide"><h2>Margins of Error Are Real</h2><div class="cell output-location-slide" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" style="width:75.0%"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="margins-of-error-are-real-1" class="slide level2">
+<h2>Margins of Error Are Real</h2>
+<ul>
+<li>Chittenden’s estimate is $1,646 ± $31. Essex County’s is $827 ± $114.</li>
+<li>Smaller populations mean fewer survey responses and wider margins</li>
+<li>Across Vermont, the typical county margin is about 5% of its estimate. For tracts it’s about 15%.</li>
+<li>This is the same figure Walker builds for Maine in Chapter 4 of the reading</li>
+<li><strong>For NBRC</strong>: when two rural counties look different, check that their margins don’t overlap before you say so</li>
+</ul>
+</section>
+<section id="wide-output" class="slide level2">
+<h2>Wide Output</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>vt_tenure <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"VT"</span>,</span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B25003_001"</span>, <span class="at">renter =</span> <span class="st">"B25003_003"</span>),</span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
+<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span></span>
+<span id="cb17-7"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-8"><a aria-hidden="true" tabindex="-1"></a>vt_tenure</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 6
+  GEOID NAME                       totalE totalM renterE renterM
+  &lt;chr&gt; &lt;chr&gt;                       &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 50001 Addison County, Vermont     14966    225    3105     261
+2 50003 Bennington County, Vermont  14987    334    3945     389
+3 50005 Caledonia County, Vermont   13091    256    2723     263
+4 50007 Chittenden County, Vermont  71456    541   25777     921
+5 50009 Essex County, Vermont        2823    140     496      78
+# ℹ 9 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li><code>output = "wide"</code> gives one row per county, with an <code>E</code> (estimate) and <code>M</code> (margin) column for each variable</li>
+<li>Wide is easier when you need to divide one variable by another, which is next</li>
+</ul>
+</section></section>
+<section>
+<section id="choropleth-maps" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Choropleth Maps</h1>
+
+</section>
+<section id="data-geometry-in-one-call" class="slide level2">
+<h2>Data + Geometry in One Call</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>vt_home_value <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"tract"</span>,</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"VT"</span>,</span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">home_value =</span> <span class="st">"B25077_001"</span>),</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>geometry = TRUE</code> asks <code>tidycensus</code> to fetch the matching <code>tigris</code> boundaries and join them for you</li>
+<li>You get back an <code>sf</code> object, ready for <code>geom_sf()</code></li>
+<li>Changing <code>geography = "tract"</code> to <code>"county"</code> or <code>"block group"</code> is the only edit you need to change the scale</li>
+</ul>
+</section>
+<section id="step-1-just-map-it" class="slide level2">
+<h2>Step 1: Just Map It</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_home_value) <span class="sc">+</span></span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> estimate))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week09_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
+<section id="step-2-make-it-readable" class="slide level2">
+<h2>Step 2: Make It Readable</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_home_value) <span class="sc">+</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> estimate), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(),</span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"gray85"</span>,</span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"Median</span><span class="sc">\n</span><span class="st">home value"</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"10 of Vermont's 15 priciest tracts</span><span class="sc">\n</span><span class="st">are in Chittenden County"</span>,</span>
+<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, table B25077"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="step-2-make-it-readable-output" class="slide level2 output-location-slide"><h2>Step 2: Make It Readable</h2><div class="cell output-location-slide" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" style="width:75.0%"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="what-changed" class="slide level2">
+<h2>What Changed</h2>
+<ul>
+<li><code>color = "white", linewidth = 0.1</code>: thin borders that separate tracts without shouting</li>
+<li><code>scale_fill_viridis_c()</code>: a sequential palette that reads well in grayscale and for colorblind viewers</li>
+<li><code>na.value = "gray85"</code>: one tract has no estimate. Gray says “no data” instead of hiding it.</li>
+<li><code>theme_void()</code>: drops the axes and grid. Latitude and longitude tick marks almost never help a reader.</li>
+<li>A title that states the finding, and a caption that names the source (Week 8’s storytelling rules apply to maps too)</li>
+</ul>
+</section>
+<section id="continuous-vs.-binned-color" class="slide level2">
+<h2>Continuous vs.&nbsp;Binned Color</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_home_value) <span class="sc">+</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> estimate), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_home_value) <span class="sc">+</span></span>
+<span id="cb22-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> estimate), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_b</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(), <span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">n.breaks =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-23-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="continuous-vs.-binned-color-1" class="slide level2">
+<h2>Continuous vs.&nbsp;Binned Color</h2>
+<ul>
+<li>A <strong>continuous</strong> scale (<code>_c</code>) gives every value its own shade. It’s honest, but readers can’t tell two shades apart.</li>
+<li>A <strong>binned</strong> scale (<code>_b</code>) groups values into a few classes. It’s easier to read, but where you put the breaks changes the story.</li>
+<li>Walker’s Chapter 6 compares classification methods (equal intervals, quantiles, natural breaks) if you want to go deeper</li>
+<li>ColorBrewer’s palettes work here too: <code>scale_fill_distiller()</code> for continuous and <code>scale_fill_fermenter()</code> for binned</li>
+</ul>
+</section>
+<section id="counts-vs.-rates" class="slide level2">
+<h2>Counts vs.&nbsp;Rates</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>vt_tenure_sf <span class="ot">&lt;-</span> vt_counties <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(vt_tenure, <span class="at">by =</span> <span class="st">"GEOID"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">renter_share =</span> renterE <span class="sc">/</span> totalE)</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_tenure_sf) <span class="sc">+</span></span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> renterE), <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb23-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"Purples"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb23-8"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb23-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Renter households"</span>) <span class="sc">+</span></span>
+<span id="cb23-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb23-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_tenure_sf) <span class="sc">+</span></span>
+<span id="cb23-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> renter_share), <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb23-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"Purples"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb23-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb23-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Share of households renting"</span>) <span class="sc">+</span></span>
+<span id="cb23-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-24-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="counts-vs.-rates-1" class="slide level2">
+<h2>Counts vs.&nbsp;Rates</h2>
+<ul>
+<li>A map of raw counts is mostly a map of where people live. Chittenden wins every count map.</li>
+<li>Divide by the right denominator: renters out of all households, seasonal homes out of all housing units</li>
+<li>Lamoille County has fewer than 3,300 renter households, but it has the second-highest renter share in the state</li>
+<li><strong>Choropleths should almost always show a rate, share, or median</strong>, not a raw count. Next week we’ll see better ways to show counts.</li>
+</ul>
+</section>
+<section id="scaling-up-the-nbrc-states" class="slide level2">
+<h2>Scaling Up: The NBRC States</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>nbrc_states <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ME"</span>, <span class="st">"NH"</span>, <span class="st">"NY"</span>, <span class="st">"VT"</span>)</span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>seasonal <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> nbrc_states,</span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">seasonal =</span> <span class="st">"B25004_006"</span>, <span class="at">units =</span> <span class="st">"B25001_001"</span>),</span>
+<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
+<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
+<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb24-10"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb24-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_share =</span> seasonalE <span class="sc">/</span> unitsE)</span>
+<span id="cb24-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a aria-hidden="true" tabindex="-1"></a>state_lines <span class="ot">&lt;-</span> <span class="fu">states</span>(<span class="at">cb =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(STUSPS <span class="sc">%in%</span> nbrc_states)</span>
+<span id="cb24-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(seasonal) <span class="sc">+</span></span>
+<span id="cb24-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> seasonal_share), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb24-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> state_lines, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-19"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">5070</span>) <span class="sc">+</span></span>
+<span id="cb24-20"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"YlGnBu"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb24-21"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb24-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb24-23"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"In some rural counties, a third</span><span class="sc">\n</span><span class="st">or more of homes are seasonal"</span>,</span>
+<span id="cb24-24"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of housing units held for seasonal,</span><span class="sc">\n</span><span class="st">recreational, or occasional use"</span>,</span>
+<span id="cb24-25"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, tables B25004 and B25001"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="scaling-up-the-nbrc-states-output" class="slide level2 output-location-slide"><h2>Scaling Up: The NBRC States</h2><div class="cell output-location-slide" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="whats-new-here" class="slide level2">
+<h2>What’s New Here</h2>
+<ul>
+<li><code>state = c("ME", "NH", "NY", "VT")</code> pulls four states in one call</li>
+<li>A second <code>geom_sf()</code> layer with <code>fill = NA</code> draws state outlines on top. Layers stack in the order you add them.</li>
+<li><code>coord_sf(crs = 5070)</code> makes a four-state map look right</li>
+<li>Hamilton County, NY tops the region at 65% seasonal units. Grand Isle and Essex, VT are both above a third.</li>
+<li>NBRC’s service area is a subset of the counties in these states, so we’ll trim this down when we get to your projects</li>
+</ul>
+</section></section>
+<section>
+<section id="your-turn" class="title-slide slide level1 center" data-background-color="#007155">
+<h1>Your Turn</h1>
+
+</section>
+<section id="your-turn-30-min" class="slide level2 smaller scrollable">
+<h2>Your Turn (30 min)</h2>
+<p>Work with your team. Pick <strong>one</strong> NBRC state.</p>
+<ol type="1">
+<li>Find an ACS variable that fits your domain area. Some starting points:
+<ul>
+<li><strong>Rural Housing</strong>: rent burden (B25070), year built (B25034), vacancy (B25004)</li>
+<li><strong>Rural Hub Services</strong>: internet access (B28002)</li>
+</ul></li>
+<li>Pull it with <code>get_acs()</code> for your state’s <strong>counties</strong>, with <code>geometry = TRUE</code></li>
+<li>Turn it into a share, not a count. You’ll need the table’s total line (usually <code>_001</code>) as the denominator.</li>
+<li>Make a choropleth with a readable palette, <code>theme_void()</code>, a title that states what you see, and a source caption</li>
+<li>Change <code>geography</code> to <code>"tract"</code>. Does the story change?</li>
+<li>Look at your margins of error. Is any part of your story shakier than you’d like?</li>
+</ol>
+</section>
+<section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
+<h2>Your Turn: One Way to Do It</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>me_internet <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"ME"</span>,</span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B28002_001"</span>, <span class="at">no_internet =</span> <span class="st">"B28002_013"</span>),</span>
+<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
+<span id="cb25-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
+<span id="cb25-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb25-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb25-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">no_internet_share =</span> no_internetE <span class="sc">/</span> totalE)</span>
+<span id="cb25-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(me_internet) <span class="sc">+</span></span>
+<span id="cb25-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> no_internet_share), <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb25-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"OrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb25-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb25-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb25-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nearly 12% of households in</span><span class="sc">\n</span><span class="st">Aroostook and Washington counties</span><span class="sc">\n</span><span class="st">have no internet access"</span>,</span>
+<span id="cb25-17"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, table B28002"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="your-turn-one-way-to-do-it-output" class="slide level2 smaller output-location-slide"><h2>Your Turn: One Way to Do It</h2><div class="cell output-location-slide" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="before-next-class-nov.-5" class="slide level2 smaller">
+<h2>Before Next Class (Nov.&nbsp;5)</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>HW3</strong> is due <strong>Sunday, Nov.&nbsp;1</strong> at 11:59pm</label></li>
+<li><label><input type="checkbox"><strong>Reading</strong>: <a href="https://r-spatial.org/book/"><em>Spatial Data Science</em></a>, skim Chapters 1-3</label></li>
+<li><label><input type="checkbox">Keep your <code>week09.R</code> script. Next week builds on it.</label></li>
+<li><label><input type="checkbox"><strong>Next week</strong>: point data (turning a spreadsheet of addresses or coordinates into a map), spatial joins, and the finishing touches that make a map publication-ready (scale bars, north arrows, insets)</label></li>
+</ul>
+</section>
+<section id="thank-you" class="slide level2" data-background-color="#007155">
+<h2>Thank you!</h2>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p><a href="../index.html">CDAE 7990</a> · Week 9</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'speaker',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Shrink slide titles that wrap onto a second line (see .title-long in slides.scss).
+    (function () {
+      function fitTitles(slide) {
+        if (!slide) return;
+        slide.querySelectorAll("h2").forEach(function (h) {
+          h.classList.remove("title-long");
+          var style = getComputedStyle(h);
+          var lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2;
+          if (h.scrollHeight > lineHeight * 1.5) h.classList.add("title-long");
+        });
+      }
+      function run() {
+        Reveal.on("slidechanged", function (e) { fitTitles(e.currentSlide); });
+        if (Reveal.isReady()) fitTitles(Reveal.getCurrentSlide());
+        else Reveal.on("ready", function (e) { fitTitles(e.currentSlide); });
+      }
+      if (window.Reveal) run();
+      else window.addEventListener("load", run);
+    })();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/andrewvanleuven\.github\.io\/uvm_datasci");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

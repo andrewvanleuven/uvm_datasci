@@ -1776,5 +1776,362 @@
     "title": "Week 8: Quarto + Storytelling with Data",
     "section": "Thank you!",
     "text": "Thank you!"
+  },
+  {
+    "objectID": "slides/week09.html#welcome-back",
+    "href": "slides/week09.html#welcome-back",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Welcome Back",
+    "text": "Welcome Back\n\nFirst time in the room since the asynchronous week. Thanks for working through the video.\nTonight we start the last new unit of the semester: maps"
+  },
+  {
+    "objectID": "slides/week09.html#coming-up",
+    "href": "slides/week09.html#coming-up",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Coming Up",
+    "text": "Coming Up\n\n\n\n\n\n\n\nDate\nWhat\n\n\n\n\nSun. Nov. 1, 11:59pm\nHW3 due\n\n\nThu. Nov. 5\nWeek 10: point data, spatial joins, and publication-quality maps\n\n\nThu. Nov. 12\nNo class (conference)\n\n\nSun. Nov. 15, 11:59pm\nHW5 due: the maps problem set, covering tonight and next week\n\n\nThu. Nov. 19\nProject workday + peer critique (Preliminary Outputs due)"
+  },
+  {
+    "objectID": "slides/week09.html#todays-plan",
+    "href": "slides/week09.html#todays-plan",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nWhat is GIS? Just enough of the big ideas to make maps without getting lost\nSpatial data in R: sf objects, boundary files from tigris, and coordinate reference systems\nCensus geography: how counties, tracts, and block groups fit together\ntidycensus: install your API key, find variables, and pull ACS data\nChoropleth maps: from a raw geom_sf() to a map you’d hand to NBRC\nYour Turn: a map for your team’s domain area"
+  },
+  {
+    "objectID": "slides/week09.html#follow-along",
+    "href": "slides/week09.html#follow-along",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Follow Along",
+    "text": "Follow Along\n\nOpen your cdae7990_workspace project in Posit Cloud\nMake a new script: File → New File → R Script, and save it as week09.R\nRun these lines at the top. If any library() call errors, run source(\"setup.R\") and try again.\n\n\nlibrary(tidyverse)\nlibrary(sf)\nlibrary(tigris)\nlibrary(tidycensus)\noptions(tigris_use_cache = TRUE)\n\n\ntigris_use_cache = TRUE saves every boundary file you download, so the second time you ask for Vermont’s counties, R doesn’t download them again"
+  },
+  {
+    "objectID": "slides/week09.html#same-data-two-ways",
+    "href": "slides/week09.html#same-data-two-ways",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Same Data, Two Ways",
+    "text": "Same Data, Two Ways\n\n\n\n\n\n\n\n\nCounty\nMedian rent\n\n\n\n\nChittenden\n$1,646\n\n\nGrand Isle\n$1,425\n\n\nFranklin\n$1,180\n\n\nAddison\n$1,177\n\n\nOrange\n$1,173\n\n\nWashington\n$1,163\n\n\nLamoille\n$1,160\n\n\nWindsor\n$1,118\n\n\nBennington\n$1,109\n\n\nWindham\n$1,056\n\n\nRutland\n$1,000\n\n\nCaledonia\n$920\n\n\nOrleans\n$892\n\n\nEssex\n$827\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSame 14 numbers on both sides: median gross rent by Vermont county, 2020-2024 ACS. The table tells you Chittenden is highest. The map tells you that rent is highest around Burlington and the Champlain Islands and lowest in the Northeast Kingdom, which is a geographic story the table hides."
+  },
+  {
+    "objectID": "slides/week09.html#what-is-gis-1",
+    "href": "slides/week09.html#what-is-gis-1",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "What Is GIS?",
+    "text": "What Is GIS?\n\nGeographic Information Systems: tools for storing, analyzing, and mapping data that has a location attached\nAny dataset with a “where” can go on a map: counties, towns, addresses, roads, watersheds\nYour NBRC project is inherently spatial: four states, a lot of rural counties, and questions about who has access to what and where\nGIS used to mean desktop software (ArcGIS, QGIS) and a lot of pointing and clicking. R now does most of what those programs do, in a script you can rerun.\nTonight we learn the GIS ideas we need, when we need them. That’s also how Kyle Walker’s book handles it: no big theory chapter, just concepts as they come up."
+  },
+  {
+    "objectID": "slides/week09.html#what-maps-can-do",
+    "href": "slides/week09.html#what-maps-can-do",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "What Maps Can Do",
+    "text": "What Maps Can Do"
+  },
+  {
+    "objectID": "slides/week09.html#four-ideas-for-tonight",
+    "href": "slides/week09.html#four-ideas-for-tonight",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Four Ideas for Tonight",
+    "text": "Four Ideas for Tonight\n\nVector data: points, lines, and polygons\nsf objects: a data frame with a geometry column\nCoordinate reference systems: how a round earth becomes a flat map\nCensus geography: the nested units that Census data come in"
+  },
+  {
+    "objectID": "slides/week09.html#vector-data-points-lines-polygons",
+    "href": "slides/week09.html#vector-data-points-lines-polygons",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Vector Data: Points, Lines, Polygons",
+    "text": "Vector Data: Points, Lines, Polygons\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlmost everything you’ll use for NBRC is vector data. County statistics are polygons. A list of clinics, hospitals, or housing projects with addresses is points."
+  },
+  {
+    "objectID": "slides/week09.html#raster-data-a-grid-of-cells",
+    "href": "slides/week09.html#raster-data-a-grid-of-cells",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Raster Data: A Grid of Cells",
+    "text": "Raster Data: A Grid of Cells\n\n\n\nA raster is a grid of cells, each holding a value, like the pixels in a photo\nThink elevation, land cover, satellite imagery, temperature, precipitation\nR handles rasters with the terra package, which is already in your workspace\nWe won’t use rasters in this class, but you’ll see them in research on climate, agriculture, and land use"
+  },
+  {
+    "objectID": "slides/week09.html#four-kinds-of-maps",
+    "href": "slides/week09.html#four-kinds-of-maps",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Four Kinds of Maps",
+    "text": "Four Kinds of Maps\n\n\n\n\n\n\nChoropleth\n\n\n\n\n\n\n\nDot map\n\n\n\n\n\n\n\nProportional symbol\n\n\n\n\n\n\n\nReference\n\n\n\n\n\n\nChoropleth: areas shaded by a value. Dot map: one dot per thing. Proportional symbol: size shows quantity. Reference: shows where things are.\nTonight is all choropleths. Next week adds points and symbols."
+  },
+  {
+    "objectID": "slides/week09.html#boundary-files-with-tigris",
+    "href": "slides/week09.html#boundary-files-with-tigris",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Boundary Files with tigris",
+    "text": "Boundary Files with tigris\n\nTIGER/Line files are the Census Bureau’s official boundaries: states, counties, tracts, roads, water, and more\nThe tigris package downloads them straight into R\n\n\nvt_counties &lt;- counties(\"VT\", cb = TRUE)\n\n\nBehind the scenes this is a shapefile, the most common file format for GIS data. You’ll read shapefiles you download yourself next week.\ncb = TRUE asks for the simplified cartographic boundary version. More on that in a minute."
+  },
+  {
+    "objectID": "slides/week09.html#whats-inside-an-sf-object",
+    "href": "slides/week09.html#whats-inside-an-sf-object",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "What’s Inside an sf Object?",
+    "text": "What’s Inside an sf Object?\n\nvt_counties |&gt;\n  select(GEOID, NAME, ALAND)\n\nSimple feature collection with 14 features and 3 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -73.43774 ymin: 42.72685 xmax: -71.46456 ymax: 45.01666\nGeodetic CRS:  NAD83\nFirst 10 features:\n     GEOID       NAME      ALAND                       geometry\n505  50027    Windsor 2510071971 MULTIPOLYGON (((-72.98015 4...\n724  50009      Essex 1715530626 MULTIPOLYGON (((-71.97482 4...\n1523 50015   Lamoille 1194643959 MULTIPOLYGON (((-72.92667 4...\n1774 50005  Caledonia 1681454161 MULTIPOLYGON (((-72.43412 4...\n1775 50001    Addison 1984788915 MULTIPOLYGON (((-73.43774 4...\n1863 50017     Orange 1779343340 MULTIPOLYGON (((-72.78702 4...\n1864 50007 Chittenden 1390433441 MULTIPOLYGON (((-73.36263 4...\n1879 50021    Rutland 2410117478 MULTIPOLYGON (((-73.43123 4...\n2020 50019    Orleans 1798880704 MULTIPOLYGON (((-72.53328 4...\n2623 50013 Grand Isle  211782349 MULTIPOLYGON (((-73.38997 4...\n\n\n\nIt’s a data frame with one extra column, geometry, that holds the shape of each county\nThe header tells you the geometry type (MULTIPOLYGON), the bounding box, and the CRS (NAD83)\nBecause it’s a data frame, filter(), mutate(), select(), and left_join() all work exactly the way you already know"
+  },
+  {
+    "objectID": "slides/week09.html#your-first-map",
+    "href": "slides/week09.html#your-first-map",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Your First Map",
+    "text": "Your First Map\n\nggplot(vt_counties) +\n  geom_sf()\n\n\n\ngeom_sf() reads the geometry column for you. No aes(x, y) needed."
+  },
+  {
+    "objectID": "slides/week09.html#cartographic-boundaries-vs.-tigerline",
+    "href": "slides/week09.html#cartographic-boundaries-vs.-tigerline",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Cartographic Boundaries vs. TIGER/Line",
+    "text": "Cartographic Boundaries vs. TIGER/Line\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nZoomed in on the Connecticut River, where Windsor County meets New Hampshire. The point counts are for all 14 Vermont counties."
+  },
+  {
+    "objectID": "slides/week09.html#cartographic-boundaries-vs.-tigerline-1",
+    "href": "slides/week09.html#cartographic-boundaries-vs.-tigerline-1",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Cartographic Boundaries vs. TIGER/Line",
+    "text": "Cartographic Boundaries vs. TIGER/Line\n\nBoth files describe the same 14 counties. The cartographic boundary version (cb = TRUE) is simplified, so it traces each border with far fewer points.\nAt the scale of a statewide or national map you can’t see the difference, and the smaller file downloads and draws faster\nIn some places cb files are also clipped to the shoreline. Walker shows this for Michigan, where the TIGER/Line counties extend out into the Great Lakes.\nRule of thumb: use cb = TRUE for any map"
+  },
+  {
+    "objectID": "slides/week09.html#coordinate-reference-systems",
+    "href": "slides/week09.html#coordinate-reference-systems",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Coordinate Reference Systems",
+    "text": "Coordinate Reference Systems\n\n\n\nThe earth is round. Maps are flat. Something has to give.\nA coordinate reference system (CRS) says how a point on the round earth lands on a flat map\nEvery projection distorts something: area, shape, distance, or direction. You choose what to protect.\n\n\n\n\n\n“Comparison of cartography surface development” by cmglee et al., CC BY-SA 4.0, via Wikimedia Commons"
+  },
+  {
+    "objectID": "slides/week09.html#the-same-states-two-crss",
+    "href": "slides/week09.html#the-same-states-two-crss",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "The Same States, Two CRSs",
+    "text": "The Same States, Two CRSs\nlower48 &lt;- states(cb = TRUE, resolution = \"20m\") |&gt;\n  filter(!STUSPS %in% c(\"AK\", \"HI\", \"PR\"))\n\nggplot(lower48) +\n  geom_sf()\nggplot(lower48) +\n  geom_sf() +\n  coord_sf(crs = 5070)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncoord_sf(crs = 5070) reprojects the map as it’s drawn, without changing your data. The US looks like the US again."
+  },
+  {
+    "objectID": "slides/week09.html#the-three-crss-youll-actually-see",
+    "href": "slides/week09.html#the-three-crss-youll-actually-see",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "The Three CRSs You’ll Actually See",
+    "text": "The Three CRSs You’ll Actually See\n\n\n\n\n\n\n\n\nCRS\nEPSG code\nWhere you’ll see it\n\n\n\n\nNAD83\n4269\nEverything from the Census Bureau (tigris, tidycensus)\n\n\nWGS84\n4326\nGPS coordinates, latitude/longitude columns, web maps\n\n\nAlbers Equal Area\n5070\nStatic maps of the US or a multi-state region\n\n\n\n\nAn EPSG code is just an ID number for a CRS. It’s what you hand to R.\nCheck a layer’s CRS with st_crs(vt_counties), and change it for good with st_transform(vt_counties, 5070)\nIf two layers don’t line up, check the CRS first. It’s the most common beginner problem in GIS, and next week we’ll combine layers from different sources."
+  },
+  {
+    "objectID": "slides/week09.html#break",
+    "href": "slides/week09.html#break",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Break?",
+    "text": "Break?"
+  },
+  {
+    "objectID": "slides/week09.html#the-census-hierarchy",
+    "href": "slides/week09.html#the-census-hierarchy",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "The Census Hierarchy",
+    "text": "The Census Hierarchy\n\n\n\n\n\n\nSource: US Census Bureau, Standard Hierarchy of Census Geographic Entities"
+  },
+  {
+    "objectID": "slides/week09.html#the-spine-state-county-tract-block-group",
+    "href": "slides/week09.html#the-spine-state-county-tract-block-group",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "The Spine: State → County → Tract → Block Group",
+    "text": "The Spine: State → County → Tract → Block Group\n\nThe center line of that diagram is the one you’ll use most. Each level nests perfectly inside the one above it.\nTracts are drawn to hold roughly 4,000 people, so they’re small in cities and huge in rural areas\nBlock groups are pieces of tracts. They’re the smallest units the ACS reports.\nSome geographies don’t nest at all. A ZIP code (ZCTA) can cross county and even state lines."
+  },
+  {
+    "objectID": "slides/week09.html#nesting-in-chittenden-county",
+    "href": "slides/week09.html#nesting-in-chittenden-county",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Nesting in Chittenden County",
+    "text": "Nesting in Chittenden County\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nchittenden_tracts &lt;- tracts(\"VT\", county = \"Chittenden\", cb = TRUE)\nchittenden_bgs &lt;- block_groups(\"VT\", county = \"Chittenden\", cb = TRUE)\n\n\nStatewide, Vermont has 14 counties, 193 tracts, and 552 block groups"
+  },
+  {
+    "objectID": "slides/week09.html#every-unit-has-a-geoid",
+    "href": "slides/week09.html#every-unit-has-a-geoid",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Every Unit Has a GEOID",
+    "text": "Every Unit Has a GEOID\n\nThe GEOID is the ID that every Census dataset shares, and it’s your join key. It builds up one level at a time.\n\n\n\n\n\n\n\n\n\nLevel\nGEOID\nDigits\n\n\n\n\nState (Vermont)\n50\n2\n\n\nCounty (Chittenden)\n50 007\n2 + 3\n\n\nTract (Census Tract 9)\n50 007 000900\n2 + 3 + 6\n\n\nBlock group 1\n50 007 000900 1\n2 + 3 + 6 + 1\n\n\n\n\nGEOIDs are text, not numbers. Read Autauga County, Alabama (01001) in as a number and it becomes 1001, which won’t join to anything."
+  },
+  {
+    "objectID": "slides/week09.html#install-your-census-api-key-together",
+    "href": "slides/week09.html#install-your-census-api-key-together",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Install Your Census API Key (Together)",
+    "text": "Install Your Census API Key (Together)\n\nFind the email from the Census Bureau, and make sure you clicked its activation link\nIn the Console (not in your script), run this with your own key pasted in:\n\n\ncensus_api_key(\"PASTE-YOUR-KEY-HERE\", install = TRUE)\n\n\nRestart R: Session → Restart R\nCheck that it worked. This should print your key.\n\n\nSys.getenv(\"CENSUS_API_KEY\")"
+  },
+  {
+    "objectID": "slides/week09.html#why-the-console",
+    "href": "slides/week09.html#why-the-console",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Why the Console?",
+    "text": "Why the Console?\n\nYour API key is like a password. It shouldn’t sit in a script or .qmd you email to me or publish later.\ninstall = TRUE saves it to a hidden file in your project (.Renviron) that R reads every time it starts, so you only do this once\nIf R says a key already exists, run the same line again with overwrite = TRUE added"
+  },
+  {
+    "objectID": "slides/week09.html#two-big-census-products",
+    "href": "slides/week09.html#two-big-census-products",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Two Big Census Products",
+    "text": "Two Big Census Products\n\n\n\n\n\n\n\n\n\nDecennial Census\nAmerican Community Survey (ACS)\n\n\n\n\nHow often\nEvery 10 years (2020 is the latest)\nEvery year\n\n\nWho\nEveryone\nA sample of households\n\n\nWhat\nA few questions: age, sex, race, ethnicity, housing tenure\nMuch more: income, rent, home value, commuting, education, internet access\n\n\nNumbers\nCounts\nEstimates, each with a margin of error\n\n\nIn R\nget_decennial()\nget_acs()\n\n\n\n\nAlmost everything you’ll want for NBRC (rent, income, broadband, commuting) comes from the ACS"
+  },
+  {
+    "objectID": "slides/week09.html#year-vs.-5-year-acs",
+    "href": "slides/week09.html#year-vs.-5-year-acs",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "1-Year vs. 5-Year ACS",
+    "text": "1-Year vs. 5-Year ACS\n\nThe 1-year ACS only covers places with 65,000 or more people\nThe 5-year ACS pools five years of responses, so it covers every county, tract, and block group\nHow many Vermont counties have 1-year data?\n\n\nvt_acs1 &lt;- get_acs(geography = \"county\", state = \"VT\", survey = \"acs1\",\n                   variables = \"B01003_001\", year = 2024)\nvt_acs1\n\n# A tibble: 1 × 5\n  GEOID NAME                       variable   estimate   moe\n  &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;\n1 50007 Chittenden County, Vermont B01003_001   170851    NA\n\n\n\nOnly Chittenden. For rural work, you’ll almost always use the 5-year ACS, which is get_acs()’s default."
+  },
+  {
+    "objectID": "slides/week09.html#finding-variables",
+    "href": "slides/week09.html#finding-variables",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Finding Variables",
+    "text": "Finding Variables\n\nacs_vars &lt;- load_variables(2024, \"acs5\")\n\nacs_vars |&gt;\n  filter(str_detect(label, \"Median gross rent\")) |&gt;\n  select(name, label)\n\n# A tibble: 27 × 2\n  name       label                                             \n  &lt;chr&gt;      &lt;chr&gt;                                             \n1 B25031_001 Estimate!!Median gross rent --!!Total:            \n2 B25031_002 Estimate!!Median gross rent --!!Total:!!No bedroom\n3 B25031_003 Estimate!!Median gross rent --!!Total:!!1 bedroom \n4 B25031_004 Estimate!!Median gross rent --!!Total:!!2 bedrooms\n5 B25031_005 Estimate!!Median gross rent --!!Total:!!3 bedrooms\n# ℹ 22 more rows\n\n\n\nThere are over 28,000 variables. In RStudio, View(acs_vars) gives you a search box.\nA name like B25064_001 means table B25064, line 001\nCensus Reporter is a friendlier way to browse tables before you come back to R"
+  },
+  {
+    "objectID": "slides/week09.html#your-first-get_acs-call",
+    "href": "slides/week09.html#your-first-get_acs-call",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Your First get_acs() Call",
+    "text": "Your First get_acs() Call\n\nvt_rent &lt;- get_acs(\n  geography = \"county\",\n  state = \"VT\",\n  variables = c(rent = \"B25064_001\"),\n  year = 2024\n)\nvt_rent\n\n# A tibble: 14 × 5\n  GEOID NAME                       variable estimate   moe\n  &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;\n1 50001 Addison County, Vermont    rent         1177    60\n2 50003 Bennington County, Vermont rent         1109    45\n3 50005 Caledonia County, Vermont  rent          920    40\n4 50007 Chittenden County, Vermont rent         1646    31\n5 50009 Essex County, Vermont      rent          827   114\n# ℹ 9 more rows\n\n\n\nNaming the variable (rent = ...) makes the variable column readable\nEvery ACS row has an estimate and a moe (margin of error)"
+  },
+  {
+    "objectID": "slides/week09.html#margins-of-error-are-real",
+    "href": "slides/week09.html#margins-of-error-are-real",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Margins of Error Are Real",
+    "text": "Margins of Error Are Real\n\nvt_rent_plot &lt;- vt_rent |&gt;\n  mutate(county = str_remove(NAME, \" County, Vermont\"))\n\nggplot(vt_rent_plot, aes(x = estimate, y = fct_reorder(county, estimate))) +\n  geom_errorbar(aes(xmin = estimate - moe, xmax = estimate + moe), width = 0.3) +\n  geom_point(size = 3, color = \"#007155\") +\n  scale_x_continuous(labels = scales::label_dollar()) +\n  labs(title = \"Median gross rent, Vermont counties\",\n       subtitle = \"2020-2024 ACS 5-year estimates, with margins of error\",\n       x = NULL, y = NULL) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "slides/week09.html#margins-of-error-are-real-output",
+    "href": "slides/week09.html#margins-of-error-are-real-output",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Margins of Error Are Real",
+    "text": "Margins of Error Are Real"
+  },
+  {
+    "objectID": "slides/week09.html#margins-of-error-are-real-1",
+    "href": "slides/week09.html#margins-of-error-are-real-1",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Margins of Error Are Real",
+    "text": "Margins of Error Are Real\n\nChittenden’s estimate is $1,646 ± $31. Essex County’s is $827 ± $114.\nSmaller populations mean fewer survey responses and wider margins\nAcross Vermont, the typical county margin is about 5% of its estimate. For tracts it’s about 15%.\nThis is the same figure Walker builds for Maine in Chapter 4 of the reading\nFor NBRC: when two rural counties look different, check that their margins don’t overlap before you say so"
+  },
+  {
+    "objectID": "slides/week09.html#wide-output",
+    "href": "slides/week09.html#wide-output",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Wide Output",
+    "text": "Wide Output\n\nvt_tenure &lt;- get_acs(\n  geography = \"county\",\n  state = \"VT\",\n  variables = c(total = \"B25003_001\", renter = \"B25003_003\"),\n  year = 2024,\n  output = \"wide\"\n)\nvt_tenure\n\n# A tibble: 14 × 6\n  GEOID NAME                       totalE totalM renterE renterM\n  &lt;chr&gt; &lt;chr&gt;                       &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 50001 Addison County, Vermont     14966    225    3105     261\n2 50003 Bennington County, Vermont  14987    334    3945     389\n3 50005 Caledonia County, Vermont   13091    256    2723     263\n4 50007 Chittenden County, Vermont  71456    541   25777     921\n5 50009 Essex County, Vermont        2823    140     496      78\n# ℹ 9 more rows\n\n\n\noutput = \"wide\" gives one row per county, with an E (estimate) and M (margin) column for each variable\nWide is easier when you need to divide one variable by another, which is next"
+  },
+  {
+    "objectID": "slides/week09.html#data-geometry-in-one-call",
+    "href": "slides/week09.html#data-geometry-in-one-call",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Data + Geometry in One Call",
+    "text": "Data + Geometry in One Call\n\nvt_home_value &lt;- get_acs(\n  geography = \"tract\",\n  state = \"VT\",\n  variables = c(home_value = \"B25077_001\"),\n  year = 2024,\n  geometry = TRUE\n)\n\n\ngeometry = TRUE asks tidycensus to fetch the matching tigris boundaries and join them for you\nYou get back an sf object, ready for geom_sf()\nChanging geography = \"tract\" to \"county\" or \"block group\" is the only edit you need to change the scale"
+  },
+  {
+    "objectID": "slides/week09.html#step-1-just-map-it",
+    "href": "slides/week09.html#step-1-just-map-it",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Step 1: Just Map It",
+    "text": "Step 1: Just Map It\n\nggplot(vt_home_value) +\n  geom_sf(aes(fill = estimate))"
+  },
+  {
+    "objectID": "slides/week09.html#step-2-make-it-readable",
+    "href": "slides/week09.html#step-2-make-it-readable",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Step 2: Make It Readable",
+    "text": "Step 2: Make It Readable\n\nggplot(vt_home_value) +\n  geom_sf(aes(fill = estimate), color = \"white\", linewidth = 0.1) +\n  scale_fill_viridis_c(labels = scales::label_dollar(),\n                       na.value = \"gray85\",\n                       name = \"Median\\nhome value\") +\n  theme_void() +\n  labs(title = \"10 of Vermont's 15 priciest tracts\\nare in Chittenden County\",\n       caption = \"Source: 2020-2024 ACS 5-year estimates, table B25077\")"
+  },
+  {
+    "objectID": "slides/week09.html#step-2-make-it-readable-output",
+    "href": "slides/week09.html#step-2-make-it-readable-output",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Step 2: Make It Readable",
+    "text": "Step 2: Make It Readable"
+  },
+  {
+    "objectID": "slides/week09.html#what-changed",
+    "href": "slides/week09.html#what-changed",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "What Changed",
+    "text": "What Changed\n\ncolor = \"white\", linewidth = 0.1: thin borders that separate tracts without shouting\nscale_fill_viridis_c(): a sequential palette that reads well in grayscale and for colorblind viewers\nna.value = \"gray85\": one tract has no estimate. Gray says “no data” instead of hiding it.\ntheme_void(): drops the axes and grid. Latitude and longitude tick marks almost never help a reader.\nA title that states the finding, and a caption that names the source (Week 8’s storytelling rules apply to maps too)"
+  },
+  {
+    "objectID": "slides/week09.html#continuous-vs.-binned-color",
+    "href": "slides/week09.html#continuous-vs.-binned-color",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Continuous vs. Binned Color",
+    "text": "Continuous vs. Binned Color\nggplot(vt_home_value) +\n  geom_sf(aes(fill = estimate), color = NA) +\n  scale_fill_viridis_c(labels = scales::label_dollar(), name = NULL) +\n  theme_void()\nggplot(vt_home_value) +\n  geom_sf(aes(fill = estimate), color = NA) +\n  scale_fill_viridis_b(labels = scales::label_dollar(), name = NULL, n.breaks = 6) +\n  theme_void()"
+  },
+  {
+    "objectID": "slides/week09.html#continuous-vs.-binned-color-1",
+    "href": "slides/week09.html#continuous-vs.-binned-color-1",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Continuous vs. Binned Color",
+    "text": "Continuous vs. Binned Color\n\nA continuous scale (_c) gives every value its own shade. It’s honest, but readers can’t tell two shades apart.\nA binned scale (_b) groups values into a few classes. It’s easier to read, but where you put the breaks changes the story.\nWalker’s Chapter 6 compares classification methods (equal intervals, quantiles, natural breaks) if you want to go deeper\nColorBrewer’s palettes work here too: scale_fill_distiller() for continuous and scale_fill_fermenter() for binned"
+  },
+  {
+    "objectID": "slides/week09.html#counts-vs.-rates",
+    "href": "slides/week09.html#counts-vs.-rates",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Counts vs. Rates",
+    "text": "Counts vs. Rates\nvt_tenure_sf &lt;- vt_counties |&gt;\n  left_join(vt_tenure, by = \"GEOID\") |&gt;\n  mutate(renter_share = renterE / totalE)\n\nggplot(vt_tenure_sf) +\n  geom_sf(aes(fill = renterE), color = \"white\") +\n  scale_fill_distiller(palette = \"Purples\", direction = 1,\n                       labels = scales::label_comma(), name = NULL) +\n  labs(title = \"Renter households\") +\n  theme_void()\nggplot(vt_tenure_sf) +\n  geom_sf(aes(fill = renter_share), color = \"white\") +\n  scale_fill_distiller(palette = \"Purples\", direction = 1,\n                       labels = scales::label_percent(), name = NULL) +\n  labs(title = \"Share of households renting\") +\n  theme_void()"
+  },
+  {
+    "objectID": "slides/week09.html#counts-vs.-rates-1",
+    "href": "slides/week09.html#counts-vs.-rates-1",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Counts vs. Rates",
+    "text": "Counts vs. Rates\n\nA map of raw counts is mostly a map of where people live. Chittenden wins every count map.\nDivide by the right denominator: renters out of all households, seasonal homes out of all housing units\nLamoille County has fewer than 3,300 renter households, but it has the second-highest renter share in the state\nChoropleths should almost always show a rate, share, or median, not a raw count. Next week we’ll see better ways to show counts."
+  },
+  {
+    "objectID": "slides/week09.html#scaling-up-the-nbrc-states",
+    "href": "slides/week09.html#scaling-up-the-nbrc-states",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Scaling Up: The NBRC States",
+    "text": "Scaling Up: The NBRC States\n\nnbrc_states &lt;- c(\"ME\", \"NH\", \"NY\", \"VT\")\n\nseasonal &lt;- get_acs(\n  geography = \"county\",\n  state = nbrc_states,\n  variables = c(seasonal = \"B25004_006\", units = \"B25001_001\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  mutate(seasonal_share = seasonalE / unitsE)\n\nstate_lines &lt;- states(cb = TRUE) |&gt;\n  filter(STUSPS %in% nbrc_states)\n\nggplot(seasonal) +\n  geom_sf(aes(fill = seasonal_share), color = \"white\", linewidth = 0.1) +\n  geom_sf(data = state_lines, fill = NA, color = \"black\", linewidth = 0.4) +\n  coord_sf(crs = 5070) +\n  scale_fill_distiller(palette = \"YlGnBu\", direction = 1,\n                       labels = scales::label_percent(), name = NULL) +\n  theme_void() +\n  labs(title = \"In some rural counties, a third\\nor more of homes are seasonal\",\n       subtitle = \"Share of housing units held for seasonal,\\nrecreational, or occasional use\",\n       caption = \"Source: 2020-2024 ACS 5-year estimates, tables B25004 and B25001\")"
+  },
+  {
+    "objectID": "slides/week09.html#scaling-up-the-nbrc-states-output",
+    "href": "slides/week09.html#scaling-up-the-nbrc-states-output",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Scaling Up: The NBRC States",
+    "text": "Scaling Up: The NBRC States"
+  },
+  {
+    "objectID": "slides/week09.html#whats-new-here",
+    "href": "slides/week09.html#whats-new-here",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "What’s New Here",
+    "text": "What’s New Here\n\nstate = c(\"ME\", \"NH\", \"NY\", \"VT\") pulls four states in one call\nA second geom_sf() layer with fill = NA draws state outlines on top. Layers stack in the order you add them.\ncoord_sf(crs = 5070) makes a four-state map look right\nHamilton County, NY tops the region at 65% seasonal units. Grand Isle and Essex, VT are both above a third.\nNBRC’s service area is a subset of the counties in these states, so we’ll trim this down when we get to your projects"
+  },
+  {
+    "objectID": "slides/week09.html#your-turn-30-min",
+    "href": "slides/week09.html#your-turn-30-min",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Your Turn (30 min)",
+    "text": "Your Turn (30 min)\nWork with your team. Pick one NBRC state.\n\nFind an ACS variable that fits your domain area. Some starting points:\n\nRural Housing: rent burden (B25070), year built (B25034), vacancy (B25004)\nRural Hub Services: internet access (B28002)\n\nPull it with get_acs() for your state’s counties, with geometry = TRUE\nTurn it into a share, not a count. You’ll need the table’s total line (usually _001) as the denominator.\nMake a choropleth with a readable palette, theme_void(), a title that states what you see, and a source caption\nChange geography to \"tract\". Does the story change?\nLook at your margins of error. Is any part of your story shakier than you’d like?"
+  },
+  {
+    "objectID": "slides/week09.html#your-turn-one-way-to-do-it",
+    "href": "slides/week09.html#your-turn-one-way-to-do-it",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It\n\nme_internet &lt;- get_acs(\n  geography = \"county\",\n  state = \"ME\",\n  variables = c(total = \"B28002_001\", no_internet = \"B28002_013\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  mutate(no_internet_share = no_internetE / totalE)\n\nggplot(me_internet) +\n  geom_sf(aes(fill = no_internet_share), color = \"white\") +\n  scale_fill_distiller(palette = \"OrRd\", direction = 1,\n                       labels = scales::label_percent(), name = NULL) +\n  theme_void() +\n  labs(title = \"Nearly 12% of households in\\nAroostook and Washington counties\\nhave no internet access\",\n       caption = \"Source: 2020-2024 ACS 5-year estimates, table B28002\")"
+  },
+  {
+    "objectID": "slides/week09.html#your-turn-one-way-to-do-it-output",
+    "href": "slides/week09.html#your-turn-one-way-to-do-it-output",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Your Turn: One Way to Do It",
+    "text": "Your Turn: One Way to Do It"
+  },
+  {
+    "objectID": "slides/week09.html#before-next-class-nov.-5",
+    "href": "slides/week09.html#before-next-class-nov.-5",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Before Next Class (Nov. 5)",
+    "text": "Before Next Class (Nov. 5)\n\nHW3 is due Sunday, Nov. 1 at 11:59pm\nReading: Spatial Data Science, skim Chapters 1-3\nKeep your week09.R script. Next week builds on it.\nNext week: point data (turning a spreadsheet of addresses or coordinates into a map), spatial joins, and the finishing touches that make a map publication-ready (scale bars, north arrows, insets)"
+  },
+  {
+    "objectID": "slides/week09.html#thank-you",
+    "href": "slides/week09.html#thank-you",
+    "title": "Week 9: Intro to GIS + Mapping Census Data",
+    "section": "Thank you!",
+    "text": "Thank you!"
   }
 ]
