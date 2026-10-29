@@ -2153,7 +2153,7 @@
     "href": "slides/week09.html#your-turn-30-min",
     "title": "Week 9: Intro to GIS + Mapping Census Data",
     "section": "Your Turn (30 min)",
-    "text": "Your Turn (30 min)\nWork with your team. Pick one NBRC state.\n\nFind an ACS variable that fits your domain area. Some starting points:\n\nRural Housing: rent burden (B25070), year built (B25034), vacancy (B25004)\nRural Hub Services: place of work (B08009), the share of workers who leave their home town for work\n\nPull it with get_acs() for your state’s counties, with geometry = TRUE\nTurn it into a share, not a count. You’ll need the table’s total line (usually _001) as the denominator.\nMake a choropleth with a readable palette, theme_void(), a title that states what you see, and a source caption\nChange geography to \"tract\". Does the story change?\nLook at your margins of error. Is any part of your story shakier than you’d like?"
+    "text": "Your Turn (30 min)\nWork with your team. Pick one NBRC state.\n\nFind an ACS variable that fits your domain area. Some starting points:\n\nRural Housing: rent burden (B25070), year built (B25034), vacancy (B25004)\nRural Hub Services: place of work (B08009), the share of workers who leave their home town for work\n\nPull it with get_acs() for your state’s counties, with geometry = TRUE\nTurn it into a share, not a count. You’ll need the table’s total line (usually _001) as the denominator.\nMake a choropleth with a readable palette, theme_void(), a title that states what you see, and a source caption\nLook at your margins of error. Is any part of your story shakier than you’d like?"
   },
   {
     "objectID": "slides/week09.html#one-way-to-do-it-rural-housing",
@@ -2174,7 +2174,7 @@
     "href": "slides/week09.html#one-way-to-do-it-rural-hub-services",
     "title": "Week 9: Intro to GIS + Mapping Census Data",
     "section": "One Way to Do It: Rural Hub Services",
-    "text": "One Way to Do It: Rural Hub Services\n\nme_commute_out &lt;- get_acs(\n  geography = \"tract\",\n  state = \"ME\",\n  variables = c(total = \"B08009_001\", out_of_town = \"B08009_004\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  mutate(out_share = out_of_townE / totalE)\n\nggplot(me_commute_out) +\n  geom_sf(aes(fill = out_share), color = NA) +\n  scale_fill_distiller(palette = \"OrRd\", direction = 1,\n                       labels = scales::label_percent(), name = NULL) +\n  theme_void() +\n  labs(title = \"Hub towns keep their workers: in Augusta\\nand Presque Isle, fewer than a third\\ncommute out of town\",\n       subtitle = \"Share of workers who work outside\\ntheir town of residence\",\n       caption = \"Source: 2020-2024 ACS 5-year estimates, table B08009\")"
+    "text": "One Way to Do It: Rural Hub Services\n\nme_towns &lt;- get_acs(\n  geography = \"county subdivision\",\n  state = \"ME\",\n  variables = c(total = \"B08009_001\", out_of_town = \"B08009_004\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  mutate(out_share = out_of_townE / totalE)\n\nggplot(me_towns) +\n  geom_sf(aes(fill = out_share), color = NA) +\n  scale_fill_distiller(palette = \"OrRd\", direction = 1,\n                       labels = scales::label_percent(), name = NULL,\n                       na.value = \"gray90\") +\n  theme_void() +\n  labs(title = \"Bangor keeps two-thirds of its workers;\\nnext door in Brewer and Hampden,\\n70% commute out\",\n       subtitle = \"Share of workers who work outside\\ntheir town of residence\",\n       caption = \"Gray: unorganized territory with no workers\\nSource: 2020-2024 ACS 5-year estimates, table B08009\")"
   },
   {
     "objectID": "slides/week09.html#one-way-to-do-it-rural-hub-services-output",
@@ -2188,7 +2188,7 @@
     "href": "slides/week09.html#reading-these-two-maps",
     "title": "Week 9: Intro to GIS + Mapping Census Data",
     "section": "Reading These Two Maps",
-    "text": "Reading These Two Maps\n\nHousing: renters whose income the Census couldn’t compute (_011) come out of the denominator, so the share is out of renters it could measure\nHub services: in three out of four Maine tracts, most workers leave their town for work. The pale spots are where they go: Portland, Augusta, Bangor, Presque Isle, Houlton.\nTwo units at once. We mapped tracts, but B08009 asks about towns (Census calls them minor civil divisions). It’s published only for 12 states with strong town governments, including all four NBRC states. Its county-level cousin, B08007, hides all of this, because a commute from Hampden into Bangor never leaves Penobscot County.\nMargins of error on these tract shares run about ±7 to ±14 points. That’s too wide to rank one tract against its neighbor, but the hub pattern is much bigger than the noise.\ncolor = NA drops the tract outlines. With 400+ small polygons, white borders would cover the southern part of the state."
+    "text": "Reading These Two Maps\n\nHousing: renters whose income the Census couldn’t compute (_011) come out of the denominator, so the share is out of renters it could measure\nHub services: in 84% of Maine towns, most workers leave town for work. The pale spots are where they go: Augusta, Presque Isle, Houlton, Bangor, Portland.\nWhy towns? In New England, the county subdivision (the town) is often the best unit of analysis. It’s how people there think about where they live, and it’s the unit B08009 asks about. The table is published only for 12 states with strong town governments, including all four NBRC states.\nWhy not counties? The county version of this table (B08007) hides the pattern. A commute from Hampden into Bangor never leaves Penobscot County.\nMargins of error: about half of Maine’s towns have fewer than 500 workers, and the typical margin is about ±19 points. Read the big towns with confidence and the small ones with caution.\ncolor = NA drops the town outlines. With 500+ small polygons, white borders would cover much of the state."
   },
   {
     "objectID": "slides/week09.html#same-question-town-by-town",
@@ -2216,7 +2216,7 @@
     "href": "slides/week09.html#before-next-class-nov.-5",
     "title": "Week 9: Intro to GIS + Mapping Census Data",
     "section": "Before Next Class (Nov. 5)",
-    "text": "Before Next Class (Nov. 5)\n\nHW3 is due Sunday, Nov. 1 at 11:59pm\nReading: Spatial Data Science, skim Chapters 1-3\nKeep your week09.R script. Next week builds on it.\nNext week: point data (turning a spreadsheet of addresses or coordinates into a map), spatial joins, and the finishing touches that make a map publication-ready (scale bars, north arrows, insets)"
+    "text": "Before Next Class (Nov. 5)\n\nHW3 is due Sunday, Nov. 1 at 11:59pm\nReading: Spatial Data Science, skim Chapters 1-3\nIf you’ve been following along using week09.R script, keep it/save it. Next week builds on it. (if not, don’t worry!)\nNext week: point data (turning a spreadsheet of addresses or coordinates into a map), spatial joins, and the finishing touches that make a map publication-ready (scale bars, north arrows, insets)"
   },
   {
     "objectID": "slides/week09.html#thank-you",

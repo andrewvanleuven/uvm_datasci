@@ -1234,7 +1234,7 @@ First 10 features:
 <li>NBRC’s service area is a subset of the counties in these states, so let’s trim this down</li>
 </ul>
 </section>
-<section id="which-counties-are-nbrc" class="slide level2">
+<section id="which-counties-are-nbrc" class="slide level2 smaller">
 <h2>Which Counties Are NBRC?</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>nbrc_fips <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
@@ -1260,7 +1260,7 @@ First 10 features:
 </div>
 
 </section>
-<section id="which-counties-are-nbrc-output" class="slide level2 output-location-slide"><h2>Which Counties Are NBRC?</h2><div class="cell output-location-slide" data-layout-align="center">
+<section id="which-counties-are-nbrc-output" class="slide level2 smaller output-location-slide"><h2>Which Counties Are NBRC?</h2><div class="cell output-location-slide" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1295,7 +1295,6 @@ First 10 features:
 <li>Pull it with <code>get_acs()</code> for your state’s <strong>counties</strong>, with <code>geometry = TRUE</code></li>
 <li>Turn it into a share, not a count. You’ll need the table’s total line (usually <code>_001</code>) as the denominator.</li>
 <li>Make a choropleth with a readable palette, <code>theme_void()</code>, a title that states what you see, and a source caption</li>
-<li>Change <code>geography</code> to <code>"tract"</code>. Does the story change?</li>
 <li>Look at your margins of error. Is any part of your story shakier than you’d like?</li>
 </ol>
 </section>
@@ -1336,8 +1335,8 @@ First 10 features:
 </div></section><section id="one-way-to-do-it-rural-hub-services" class="slide level2 smaller">
 <h2>One Way to Do It: Rural Hub Services</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>me_commute_out <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
-<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"tract"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>me_towns <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county subdivision"</span>,</span>
 <span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"ME"</span>,</span>
 <span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B08009_001"</span>, <span class="at">out_of_town =</span> <span class="st">"B08009_004"</span>),</span>
 <span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
@@ -1346,16 +1345,25 @@ First 10 features:
 <span id="cb28-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
 <span id="cb28-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">out_share =</span> out_of_townE <span class="sc">/</span> totalE)</span>
 <span id="cb28-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(me_commute_out) <span class="sc">+</span></span>
+<span id="cb28-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(me_towns) <span class="sc">+</span></span>
 <span id="cb28-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> out_share), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb28-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"OrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
-<span id="cb28-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb28-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb28-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hub towns keep their workers: in Augusta</span><span class="sc">\n</span><span class="st">and Presque Isle, fewer than a third</span><span class="sc">\n</span><span class="st">commute out of town"</span>,</span>
-<span id="cb28-17"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of workers who work outside</span><span class="sc">\n</span><span class="st">their town of residence"</span>,</span>
-<span id="cb28-18"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, table B08009"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb28-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb28-15"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"gray90"</span>) <span class="sc">+</span></span>
+<span id="cb28-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb28-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bangor keeps two-thirds of its workers;</span><span class="sc">\n</span><span class="st">next door in Brewer and Hampden,</span><span class="sc">\n</span><span class="st">70% commute out"</span>,</span>
+<span id="cb28-18"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of workers who work outside</span><span class="sc">\n</span><span class="st">their town of residence"</span>,</span>
+<span id="cb28-19"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Gray: unorganized territory with no workers</span><span class="sc">\n</span><span class="st">Source: 2020-2024 ACS 5-year estimates, table B08009"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
+<!-- ## Reading These Two Maps {.smaller}
+
+- **Housing**: renters whose income the Census couldn't compute (`_011`) come out of the denominator, so the share is out of renters it could measure
+- **Hub services**: in 84% of Maine towns, most workers leave town for work. The pale spots are where they go: Augusta, Presque Isle, Houlton, Bangor, Portland.
+- **Why towns?** In New England, the **county subdivision** (the town) is often the best unit of analysis. It's how people there think about where they live, and it's the unit B08009 asks about. The table is published only for 12 states with strong town governments, including all four NBRC states.
+- **Why not counties?** The county version of this table (B08007) hides the pattern. A commute from Hampden into Bangor never leaves Penobscot County.
+- **Margins of error**: about half of Maine's towns have fewer than 500 workers, and the typical margin is about ±19 points. Read the big towns with confidence and the small ones with caution.
+- `color = NA` drops the town outlines. With 500+ small polygons, white borders would cover much of the state. -->
 </section>
 <section id="one-way-to-do-it-rural-hub-services-output" class="slide level2 smaller output-location-slide"><h2>One Way to Do It: Rural Hub Services</h2><div class="cell output-location-slide" data-layout-align="center">
 <div class="cell-output-display">
@@ -1365,68 +1373,12 @@ First 10 features:
 </figure>
 </div>
 </div>
-</div></section><section id="reading-these-two-maps" class="slide level2 smaller">
-<h2>Reading These Two Maps</h2>
-<ul>
-<li><strong>Housing</strong>: renters whose income the Census couldn’t compute (<code>_011</code>) come out of the denominator, so the share is out of renters it could measure</li>
-<li><strong>Hub services</strong>: in three out of four Maine tracts, most workers leave their town for work. The pale spots are where they go: Portland, Augusta, Bangor, Presque Isle, Houlton.</li>
-<li><strong>Two units at once.</strong> We mapped <em>tracts</em>, but B08009 asks about <em>towns</em> (Census calls them minor civil divisions). It’s published only for 12 states with strong town governments, including all four NBRC states. Its county-level cousin, B08007, hides all of this, because a commute from Hampden into Bangor never leaves Penobscot County.</li>
-<li><strong>Margins of error</strong> on these tract shares run about ±7 to ±14 points. That’s too wide to rank one tract against its neighbor, but the hub pattern is much bigger than the noise.</li>
-<li><code>color = NA</code> drops the tract outlines. With 400+ small polygons, white borders would cover the southern part of the state.</li>
-</ul>
-</section>
-<section id="same-question-town-by-town" class="slide level2 smaller">
-<h2>Same Question, Town by Town</h2>
-<ul>
-<li>In New England, the <strong>county subdivision</strong> (the town) is often the best unit of analysis. It’s how people there think about where they live, and it’s the unit B08009 actually asks about.</li>
-<li>One argument changes: <code>geography = "county subdivision"</code></li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>me_towns <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
-<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county subdivision"</span>,</span>
-<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"ME"</span>,</span>
-<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B08009_001"</span>, <span class="at">out_of_town =</span> <span class="st">"B08009_004"</span>),</span>
-<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
-<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
-<span id="cb29-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
-<span id="cb29-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb29-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">out_share =</span> out_of_townE <span class="sc">/</span> totalE)</span>
-<span id="cb29-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(me_towns) <span class="sc">+</span></span>
-<span id="cb29-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> out_share), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb29-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"OrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
-<span id="cb29-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>,</span>
-<span id="cb29-15"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"gray90"</span>) <span class="sc">+</span></span>
-<span id="cb29-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb29-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bangor keeps two-thirds of its workers;</span><span class="sc">\n</span><span class="st">next door in Brewer and Hampden,</span><span class="sc">\n</span><span class="st">70% commute out"</span>,</span>
-<span id="cb29-18"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of workers who work outside</span><span class="sc">\n</span><span class="st">their town of residence"</span>,</span>
-<span id="cb29-19"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Gray: unorganized territory with no workers</span><span class="sc">\n</span><span class="st">Source: 2020-2024 ACS 5-year estimates, table B08009"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-
-</section>
-<section id="same-question-town-by-town-output" class="slide level2 smaller output-location-slide"><h2>Same Question, Town by Town</h2><div class="cell output-location-slide" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
-</figure>
-</div>
-</div>
-</div></section><section id="tracts-or-towns" class="slide level2">
-<h2>Tracts or Towns?</h2>
-<ul>
-<li>Towns match the question. Bangor’s 34% is one number for one hub town, not an average of tracts that cross town lines.</li>
-<li>But Maine has about 530 towns and only about 400 tracts, and many towns have just a few hundred workers. The typical town’s margin of error is about ±19 points, compared with about ±12 for a tract.</li>
-<li>That’s why the town map looks speckled: some pale spots in Aroostook are tiny towns, not hubs. Read the big towns with confidence and the small ones with caution.</li>
-<li><strong>There’s no single right unit.</strong> Pick the one that matches your question, then check whether your margins of error can carry the story.</li>
-</ul>
-</section>
-<section id="before-next-class-nov.-5" class="slide level2 smaller">
+</div></section><section id="before-next-class-nov.-5" class="slide level2 smaller">
 <h2>Before Next Class (Nov.&nbsp;5)</h2>
 <ul class="task-list">
 <li><label><input type="checkbox"><strong>HW3</strong> is due <strong>Sunday, Nov.&nbsp;1</strong> at 11:59pm</label></li>
 <li><label><input type="checkbox"><strong>Reading</strong>: <a href="https://r-spatial.org/book/"><em>Spatial Data Science</em></a>, skim Chapters 1-3</label></li>
-<li><label><input type="checkbox">Keep your <code>week09.R</code> script. Next week builds on it.</label></li>
+<li><label><input type="checkbox">If you’ve been following along using <code>week09.R</code> script, keep it/save it. Next week builds on it. (if not, don’t worry!)</label></li>
 <li><label><input type="checkbox"><strong>Next week</strong>: point data (turning a spreadsheet of addresses or coordinates into a map), spatial joins, and the finishing touches that make a map publication-ready (scale bars, north arrows, insets)</label></li>
 </ul>
 </section>
