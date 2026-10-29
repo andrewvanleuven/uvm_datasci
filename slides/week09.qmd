@@ -67,7 +67,7 @@ vt_rent <- get_acs(geography = "county", state = "VT",
 
 : {tbl-colwidths="[30,70]"}
 
-## Today's Plan
+## Today's Plan {.smaller}
 
 - **What is GIS?** Just enough of the big ideas to make maps without getting lost
 - **Spatial data in R**: `sf` objects, boundary files from `tigris`, and coordinate reference systems
@@ -76,7 +76,14 @@ vt_rent <- get_acs(geography = "county", state = "VT",
 - **Choropleth maps**: from a raw `geom_sf()` to a map you'd hand to NBRC
 - **Your Turn**: a map for your team's domain area
 
-## Follow Along
+## First: Request a Census API Key {.smaller}
+
+- If you didn't do this after last week's video, do it now, before we start
+- Go to [api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html), enter your UVM email, and submit
+- The key arrives by email, sometimes after a few minutes. Open it and **click the activation link**, or the key won't work.
+- We'll install it together after the break. If you already have your key, just find that email so it's ready.
+
+## Follow Along {.smaller}
 
 - Open your **cdae7990_workspace** project in Posit Cloud
 - Make a new script: **File → New File → R Script**, and save it as `week09.R`
@@ -95,7 +102,7 @@ options(tigris_use_cache = TRUE)
 
 # What Is GIS? {background-color="#007155"}
 
-## Same Data, Two Ways
+## Same Data, Two Ways {.smaller}
 
 :::: {.columns}
 
@@ -115,7 +122,7 @@ vt_rent |>
 ```{r}
 #| echo: false
 #| fig-width: 5
-#| fig-height: 6.5
+#| fig-height: 3.5
 #| out-width: "100%"
 vt_counties |>
   left_join(vt_rent, by = "GEOID") |>
@@ -133,7 +140,7 @@ vt_counties |>
 Same 14 numbers on both sides: median gross rent by Vermont county, 2020-2024 ACS. The table tells you Chittenden is highest. The map tells you that rent is highest around Burlington and the Champlain Islands and lowest in the Northeast Kingdom, which is a geographic story the table hides.
 :::
 
-## What Is GIS?
+## What Is GIS? {.smaller}
 
 - **Geographic Information Systems**: tools for storing, analyzing, and mapping data that has a location attached
 - Any dataset with a "where" can go on a map: counties, towns, addresses, roads, watersheds
@@ -192,7 +199,7 @@ ggplot() +
 
 - Almost everything you'll use for NBRC is vector data. County statistics are polygons. A list of clinics, hospitals, or housing projects with addresses is points.
 
-## Raster Data: A Grid of Cells
+## Raster Data: A Grid of Cells {.smallest}
 
 :::: {.columns}
 
@@ -209,7 +216,7 @@ ggplot() +
 
 ::::
 
-## Four Kinds of Maps
+## Four Kinds of Maps {.smallest}
 
 ::: {layout-ncol=4}
 ![Choropleth](../img/week09/choropleth.png){fig-alt="Vermont counties shaded in grays"}
@@ -226,7 +233,7 @@ ggplot() +
 
 # Spatial Data in R {background-color="#007155"}
 
-## Boundary Files with `tigris`
+## Boundary Files with `tigris` {.smaller}
 
 - **TIGER/Line** files are the Census Bureau's official boundaries: states, counties, tracts, roads, water, and more
 - The `tigris` package downloads them straight into R
@@ -238,7 +245,7 @@ vt_counties <- counties("VT", cb = TRUE)
 - Behind the scenes this is a **shapefile**, the most common file format for GIS data. You'll read shapefiles you download yourself next week.
 - `cb = TRUE` asks for the simplified *cartographic boundary* version. More on that in a minute.
 
-## What's Inside an `sf` Object? {.smaller}
+## What's Inside an `sf` Object? {.smallest}
 
 ```{r}
 vt_counties |>
@@ -260,7 +267,7 @@ ggplot(vt_counties) +
 
 - `geom_sf()` reads the `geometry` column for you. No `aes(x, y)` needed.
 
-## Cartographic Boundaries vs. TIGER/Line
+## Cartographic Boundaries vs. TIGER/Line {.smaller}
 
 ```{r}
 #| echo: false
@@ -293,14 +300,14 @@ ggplot(vt_counties) +
 Zoomed in on the Connecticut River, where Windsor County meets New Hampshire. The point counts are for all 14 Vermont counties.
 :::
 
-## Cartographic Boundaries vs. TIGER/Line
+## Cartographic Boundaries vs. TIGER/Line {.smaller}
 
 - Both files describe the same 14 counties. The cartographic boundary version (`cb = TRUE`) is **simplified**, so it traces each border with far fewer points.
 - At the scale of a statewide or national map you can't see the difference, and the smaller file downloads and draws faster
 - In some places cb files are also clipped to the shoreline. Walker shows this for Michigan, where the TIGER/Line counties extend out into the Great Lakes.
 - **Rule of thumb**: use `cb = TRUE` for any map
 
-## Coordinate Reference Systems
+## Coordinate Reference Systems {.smallest}
 
 :::: {.columns}
 
@@ -320,7 +327,7 @@ Zoomed in on the Connecticut River, where Windsor County meets New Hampshire. Th
 "Comparison of cartography surface development" by cmglee et al., [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via Wikimedia Commons
 :::
 
-## The Same States, Two CRSs
+## The Same States, Two CRSs {.smaller}
 
 ```{r}
 #| layout-ncol: 2
@@ -354,16 +361,26 @@ ggplot(lower48) +
 - Check a layer's CRS with `st_crs(vt_counties)`, and change it for good with `st_transform(vt_counties, 5070)`
 - **If two layers don't line up, check the CRS first.** It's the most common beginner problem in GIS, and next week we'll combine layers from different sources.
 
-## Break? {background-color="#007155"}
+## Break {background-color="#007155"}
 
 # Census Geography {background-color="#007155"}
 
-## The Census Hierarchy
+## The Census Hierarchy {.smaller}
 
-![](../img/week09/census_hierarchy.png){fig-align="center" height="560" fig-alt="Census Bureau diagram of the standard hierarchy of geographic entities, running from nation through regions, divisions, states, counties, census tracts, and block groups down to census blocks, with other geographies such as ZIP Code Tabulation Areas, places, and school districts branching off"}
+:::: {.columns}
+
+::: {.column width="35%"}
+![](../img/week09/census_hierarchy.png){fig-alt="Census Bureau diagram of the standard hierarchy of geographic entities, running from nation through regions, divisions, states, counties, census tracts, and block groups down to census blocks, with other geographies such as ZIP Code Tabulation Areas, places, and school districts branching off"}
+:::
+
+::: {.column width="65%"}
+![](../img/week09/census_nesting_arcgis.png){fig-alt="Maps zooming in step by step: California in the nation, Los Angeles County in California, a tract in the county, a block group in the tract, a block in the block group, and the block's centroid"}
+:::
+
+::::
 
 ::: {style="font-size: 0.5em;"}
-Source: US Census Bureau, [Standard Hierarchy of Census Geographic Entities](https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf)
+Sources: US Census Bureau, [Standard Hierarchy of Census Geographic Entities](https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf); Esri, [Learn ArcGIS](https://learn.arcgis.com/)
 :::
 
 ## The Spine: State → County → Tract → Block Group
@@ -373,13 +390,13 @@ Source: US Census Bureau, [Standard Hierarchy of Census Geographic Entities](htt
 - **Block groups** are pieces of tracts. They're the smallest units the ACS reports.
 - Some geographies don't nest at all. A ZIP code (ZCTA) can cross county and even state lines.
 
-## Nesting in Chittenden County
+## Nesting in Chittenden County {.smaller}
 
 ```{r}
 #| echo: false
 #| layout-ncol: 3
 #| fig-width: 3.5
-#| fig-height: 4.5
+#| fig-height: 3.5
 #| out-width: "100%"
 chittenden <- vt_counties |> filter(NAME == "Chittenden")
 chittenden_tracts <- tracts("VT", county = "Chittenden", cb = TRUE)
@@ -424,7 +441,7 @@ chittenden_bgs <- block_groups("VT", county = "Chittenden", cb = TRUE)
 
 - GEOIDs are text, not numbers. Read Autauga County, Alabama (`01001`) in as a number and it becomes `1001`, which won't join to anything.
 
-# `tidycensus` {background-color="#007155"}
+# tidycensus {background-color="#007155"}
 
 ## Install Your Census API Key (Together)
 
@@ -464,7 +481,7 @@ Sys.getenv("CENSUS_API_KEY")
 
 - Almost everything you'll want for NBRC (rent, income, broadband, commuting) comes from the ACS
 
-## 1-Year vs. 5-Year ACS
+## 1-Year vs. 5-Year ACS {.smaller}
 
 - The **1-year ACS** only covers places with 65,000 or more people
 - The **5-year ACS** pools five years of responses, so it covers every county, tract, and block group
@@ -492,7 +509,7 @@ acs_vars |>
 - A name like `B25064_001` means **table** B25064, **line** 001
 - [Census Reporter](https://censusreporter.org) is a friendlier way to browse tables before you come back to R
 
-## Your First `get_acs()` Call
+## Your First `get_acs()` Call {.smaller}
 
 ```{r}
 vt_rent <- get_acs(
@@ -526,7 +543,7 @@ ggplot(vt_rent_plot, aes(x = estimate, y = fct_reorder(county, estimate))) +
   theme_minimal()
 ```
 
-## Margins of Error Are Real
+## Margins of Error Are Real {.smaller}
 
 - Chittenden's estimate is $1,646 ± $31. Essex County's is $827 ± $114.
 - Smaller populations mean fewer survey responses and wider margins
@@ -534,7 +551,7 @@ ggplot(vt_rent_plot, aes(x = estimate, y = fct_reorder(county, estimate))) +
 - This is the same figure Walker builds for Maine in Chapter 4 of the reading
 - **For NBRC**: when two rural counties look different, check that their margins don't overlap before you say so
 
-## Wide Output
+## Wide Output {.smaller}
 
 ```{r}
 vt_tenure <- get_acs(
@@ -593,7 +610,7 @@ ggplot(vt_home_value) +
        caption = "Source: 2020-2024 ACS 5-year estimates, table B25077")
 ```
 
-## What Changed
+## What Changed {.smaller}
 
 - `color = "white", linewidth = 0.1`: thin borders that separate tracts without shouting
 - `scale_fill_viridis_c()`: a sequential palette that reads well in grayscale and for colorblind viewers
@@ -601,12 +618,12 @@ ggplot(vt_home_value) +
 - `theme_void()`: drops the axes and grid. Latitude and longitude tick marks almost never help a reader.
 - A title that states the finding, and a caption that names the source (Week 8's storytelling rules apply to maps too)
 
-## Continuous vs. Binned Color
+## Continuous vs. Binned Color {.smaller}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4.5
-#| fig-height: 5
+#| fig-height: 3.5
 #| out-width: "100%"
 ggplot(vt_home_value) +
   geom_sf(aes(fill = estimate), color = NA) +
@@ -619,19 +636,19 @@ ggplot(vt_home_value) +
   theme_void()
 ```
 
-## Continuous vs. Binned Color
+## Continuous vs. Binned Color {.smaller}
 
 - A **continuous** scale (`_c`) gives every value its own shade. It's honest, but readers can't tell two shades apart.
 - A **binned** scale (`_b`) groups values into a few classes. It's easier to read, but where you put the breaks changes the story.
 - Walker's Chapter 6 compares classification methods (equal intervals, quantiles, natural breaks) if you want to go deeper
 - ColorBrewer's palettes work here too: `scale_fill_distiller()` for continuous and `scale_fill_fermenter()` for binned
 
-## Counts vs. Rates
+## Counts vs. Rates {.smallest}
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4.5
-#| fig-height: 5
+#| fig-height: 2.7
 #| out-width: "100%"
 vt_tenure_sf <- vt_counties |>
   left_join(vt_tenure, by = "GEOID") |>
@@ -652,7 +669,7 @@ ggplot(vt_tenure_sf) +
   theme_void()
 ```
 
-## Counts vs. Rates
+## Counts vs. Rates {.smaller}
 
 - A map of raw counts is mostly a map of where people live. Chittenden wins every count map.
 - Divide by the right denominator: renters out of all households, seasonal homes out of all housing units
@@ -663,8 +680,8 @@ ggplot(vt_tenure_sf) +
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5.5
-#| out-width: "85%"
+#| fig-height: 4
+#| out-width: "100%"
 nbrc_states <- c("ME", "NH", "NY", "VT")
 
 seasonal <- get_acs(
@@ -687,18 +704,65 @@ ggplot(seasonal) +
   scale_fill_distiller(palette = "YlGnBu", direction = 1,
                        labels = scales::label_percent(), name = NULL) +
   theme_void() +
-  labs(title = "In some rural counties, a third\nor more of homes are seasonal",
-       subtitle = "Share of housing units held for seasonal,\nrecreational, or occasional use",
+  theme(plot.title = element_text(size = 13),
+        plot.subtitle = element_text(size = 10),
+        plot.caption = element_text(size = 8)) +
+  labs(title = "In some rural counties, a third or more of homes are seasonal",
+       subtitle = "Share of housing units held for seasonal, recreational, or occasional use",
        caption = "Source: 2020-2024 ACS 5-year estimates, tables B25004 and B25001")
 ```
 
-## What's New Here
+## What's New Here {.smaller}
 
 - `state = c("ME", "NH", "NY", "VT")` pulls four states in one call
 - A second `geom_sf()` layer with `fill = NA` draws state outlines on top. Layers stack in the order you add them.
 - `coord_sf(crs = 5070)` makes a four-state map look right
 - Hamilton County, NY tops the region at 65% seasonal units. Grand Isle and Essex, VT are both above a third.
-- NBRC's service area is a subset of the counties in these states, so we'll trim this down when we get to your projects
+- NBRC's service area is a subset of the counties in these states, so let's trim this down
+
+## Which Counties Are NBRC?
+
+```{r}
+#| eval: false
+nbrc_fips <- read_csv(
+  "https://andrewvanleuven.github.io/uvm_datasci/data/nbrc_counties_fips.csv",
+  col_types = cols(.default = "c")
+)
+```
+
+```{r}
+#| include: false
+nbrc_fips <- read_csv("../data/nbrc_counties_fips.csv",
+                      col_types = cols(.default = "c"))
+```
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "85%"
+nbrc_counties <- counties(state = nbrc_states, cb = TRUE) |>
+  mutate(in_nbrc = GEOID %in% nbrc_fips$full_fips)
+
+ggplot(nbrc_counties) +
+  geom_sf(aes(fill = in_nbrc), color = "white", linewidth = 0.1) +
+  geom_sf(data = state_lines, fill = NA, color = "black", linewidth = 0.4) +
+  coord_sf(crs = 5070) +
+  scale_fill_manual(values = c("TRUE" = "#007155", "FALSE" = "gray85"),
+                    labels = c("TRUE" = "NBRC", "FALSE" = "Not NBRC"),
+                    breaks = c("TRUE", "FALSE"),
+                    name = NULL) +
+  theme_void() +
+  labs(title = "NBRC serves 63 counties in four states",
+       caption = "Source: NBRC county list; Census Bureau cartographic boundaries")
+```
+
+## Using the NBRC List {.smaller}
+
+- The list has one row per county and a `full_fips` column that matches the `GEOID` from `tigris` and `tidycensus`
+- `col_types = cols(.default = "c")` reads every column as text. FIPS codes are IDs, not numbers, and some start with a zero.
+- `GEOID %in% nbrc_fips$full_fips` is `TRUE` or `FALSE` for every county, which is all a two-color map needs
+- Only Vermont is in NBRC territory in full. Maine and New Hampshire leave out their southern counties, and New York leaves out 32 of its 62, including New York City and most of the state's larger metros.
+- To keep only NBRC counties for your project, `filter()` with the same test: `seasonal |> filter(GEOID %in% nbrc_fips$full_fips)`
 
 # Your Turn {background-color="#007155"}
 
@@ -708,37 +772,111 @@ Work with your team. Pick **one** NBRC state.
 
 1. Find an ACS variable that fits your domain area. Some starting points:
    - **Rural Housing**: rent burden (B25070), year built (B25034), vacancy (B25004)
-   - **Rural Hub Services**: internet access (B28002)
+   - **Rural Hub Services**: place of work (B08009), the share of workers who leave their home town for work
 2. Pull it with `get_acs()` for your state's **counties**, with `geometry = TRUE`
 3. Turn it into a share, not a count. You'll need the table's total line (usually `_001`) as the denominator.
 4. Make a choropleth with a readable palette, `theme_void()`, a title that states what you see, and a source caption
 5. Change `geography` to `"tract"`. Does the story change?
 6. Look at your margins of error. Is any part of your story shakier than you'd like?
 
-## Your Turn: One Way to Do It {.smaller}
+## One Way to Do It: Rural Housing {.smaller}
 
 ```{r}
 #| output-location: slide
 #| fig-height: 5.5
 #| out-width: "70%"
-me_internet <- get_acs(
+nh_rent_burden <- get_acs(
   geography = "county",
-  state = "ME",
-  variables = c(total = "B28002_001", no_internet = "B28002_013"),
+  state = "NH",
+  variables = c(total = "B25070_001", pct30 = "B25070_007",
+                pct35 = "B25070_008", pct40 = "B25070_009",
+                pct50 = "B25070_010", not_computed = "B25070_011"),
   year = 2024,
   output = "wide",
   geometry = TRUE
 ) |>
-  mutate(no_internet_share = no_internetE / totalE)
+  mutate(burdened_share = (pct30E + pct35E + pct40E + pct50E) /
+           (totalE - not_computedE))
 
-ggplot(me_internet) +
-  geom_sf(aes(fill = no_internet_share), color = "white") +
+ggplot(nh_rent_burden) +
+  geom_sf(aes(fill = burdened_share), color = "white") +
+  scale_fill_distiller(palette = "Purples", direction = 1,
+                       labels = scales::label_percent(), name = NULL) +
+  theme_void() +
+  labs(title = "In most New Hampshire counties,\nabout half of renters spend 30%\nor more of their income on rent",
+       caption = "Source: 2020-2024 ACS 5-year estimates, table B25070")
+```
+
+## One Way to Do It: Rural Hub Services {.smaller}
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "70%"
+me_commute_out <- get_acs(
+  geography = "tract",
+  state = "ME",
+  variables = c(total = "B08009_001", out_of_town = "B08009_004"),
+  year = 2024,
+  output = "wide",
+  geometry = TRUE
+) |>
+  mutate(out_share = out_of_townE / totalE)
+
+ggplot(me_commute_out) +
+  geom_sf(aes(fill = out_share), color = NA) +
   scale_fill_distiller(palette = "OrRd", direction = 1,
                        labels = scales::label_percent(), name = NULL) +
   theme_void() +
-  labs(title = "Nearly 12% of households in\nAroostook and Washington counties\nhave no internet access",
-       caption = "Source: 2020-2024 ACS 5-year estimates, table B28002")
+  labs(title = "Hub towns keep their workers: in Augusta\nand Presque Isle, fewer than a third\ncommute out of town",
+       subtitle = "Share of workers who work outside\ntheir town of residence",
+       caption = "Source: 2020-2024 ACS 5-year estimates, table B08009")
 ```
+
+## Reading These Two Maps {.smaller}
+
+- **Housing**: renters whose income the Census couldn't compute (`_011`) come out of the denominator, so the share is out of renters it could measure
+- **Hub services**: in three out of four Maine tracts, most workers leave their town for work. The pale spots are where they go: Portland, Augusta, Bangor, Presque Isle, Houlton.
+- **Two units at once.** We mapped *tracts*, but B08009 asks about *towns* (Census calls them minor civil divisions). It's published only for 12 states with strong town governments, including all four NBRC states. Its county-level cousin, B08007, hides all of this, because a commute from Hampden into Bangor never leaves Penobscot County.
+- **Margins of error** on these tract shares run about ±7 to ±14 points. That's too wide to rank one tract against its neighbor, but the hub pattern is much bigger than the noise.
+- `color = NA` drops the tract outlines. With 400+ small polygons, white borders would cover the southern part of the state.
+
+## Same Question, Town by Town {.smaller}
+
+- In New England, the **county subdivision** (the town) is often the best unit of analysis. It's how people there think about where they live, and it's the unit B08009 actually asks about.
+- One argument changes: `geography = "county subdivision"`
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "70%"
+me_towns <- get_acs(
+  geography = "county subdivision",
+  state = "ME",
+  variables = c(total = "B08009_001", out_of_town = "B08009_004"),
+  year = 2024,
+  output = "wide",
+  geometry = TRUE
+) |>
+  mutate(out_share = out_of_townE / totalE)
+
+ggplot(me_towns) +
+  geom_sf(aes(fill = out_share), color = NA) +
+  scale_fill_distiller(palette = "OrRd", direction = 1,
+                       labels = scales::label_percent(), name = NULL,
+                       na.value = "gray90") +
+  theme_void() +
+  labs(title = "Bangor keeps two-thirds of its workers;\nnext door in Brewer and Hampden,\n70% commute out",
+       subtitle = "Share of workers who work outside\ntheir town of residence",
+       caption = "Gray: unorganized territory with no workers\nSource: 2020-2024 ACS 5-year estimates, table B08009")
+```
+
+## Tracts or Towns?
+
+- Towns match the question. Bangor's 34% is one number for one hub town, not an average of tracts that cross town lines.
+- But Maine has about 530 towns and only about 400 tracts, and many towns have just a few hundred workers. The typical town's margin of error is about ±19 points, compared with about ±12 for a tract.
+- That's why the town map looks speckled: some pale spots in Aroostook are tiny towns, not hubs. Read the big towns with confidence and the small ones with caution.
+- **There's no single right unit.** Pick the one that matches your question, then check whether your margins of error can carry the story.
 
 ## Before Next Class (Nov. 5) {.smaller}
 

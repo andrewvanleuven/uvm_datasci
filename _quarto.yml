@@ -6,6 +6,8 @@ project:
     - "slides/*.qmd"
     - "!CLAUDE.md"
     - "!cdae7990_workspace/"
+  resources:
+    - "data/nbrc_counties_fips.csv"
 
 website:
   title: "Applied Data Science & Visualization"

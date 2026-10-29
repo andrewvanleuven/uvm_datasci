@@ -263,7 +263,7 @@ Andrew Van Leuven
 </tbody>
 </table>
 </section>
-<section id="todays-plan" class="slide level2">
+<section id="todays-plan" class="slide level2 smaller">
 <h2>Today’s Plan</h2>
 <ul>
 <li><strong>What is GIS?</strong> Just enough of the big ideas to make maps without getting lost</li>
@@ -274,7 +274,16 @@ Andrew Van Leuven
 <li><strong>Your Turn</strong>: a map for your team’s domain area</li>
 </ul>
 </section>
-<section id="follow-along" class="slide level2">
+<section id="first-request-a-census-api-key" class="slide level2 smaller">
+<h2>First: Request a Census API Key</h2>
+<ul>
+<li>If you didn’t do this after last week’s video, do it now, before we start</li>
+<li>Go to <a href="https://api.census.gov/data/key_signup.html">api.census.gov/data/key_signup.html</a>, enter your UVM email, and submit</li>
+<li>The key arrives by email, sometimes after a few minutes. Open it and <strong>click the activation link</strong>, or the key won’t work.</li>
+<li>We’ll install it together after the break. If you already have your key, just find that email so it’s ready.</li>
+</ul>
+</section>
+<section id="follow-along" class="slide level2 smaller">
 <h2>Follow Along</h2>
 <ul>
 <li>Open your <strong>cdae7990_workspace</strong> project in Posit Cloud</li>
@@ -297,7 +306,7 @@ Andrew Van Leuven
 <h1>What Is GIS?</h1>
 
 </section>
-<section id="same-data-two-ways" class="slide level2">
+<section id="same-data-two-ways" class="slide level2 smaller">
 <h2>Same Data, Two Ways</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -398,7 +407,7 @@ Andrew Van Leuven
           display:block!important;
       }</style></aside>
 </section>
-<section id="what-is-gis-1" class="slide level2">
+<section id="what-is-gis-1" class="slide level2 smaller">
 <h2>What Is GIS?</h2>
 <ul>
 <li><strong>Geographic Information Systems</strong>: tools for storing, analyzing, and mapping data that has a location attached</li>
@@ -436,7 +445,7 @@ Andrew Van Leuven
 </section>
 <section id="vector-data-points-lines-polygons" class="slide level2">
 <h2>Vector Data: Points, Lines, Polygons</h2>
-<div class="cell quarto-layout-panel" data-layout-ncol="3" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="3">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -465,7 +474,7 @@ Andrew Van Leuven
 <li>Almost everything you’ll use for NBRC is vector data. County statistics are polygons. A list of clinics, hospitals, or housing projects with addresses is points.</li>
 </ul>
 </section>
-<section id="raster-data-a-grid-of-cells" class="slide level2">
+<section id="raster-data-a-grid-of-cells" class="slide level2 smallest">
 <h2>Raster Data: A Grid of Cells</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
@@ -479,7 +488,7 @@ Andrew Van Leuven
 <p><img data-src="../img/week09/temperature_raster.jpeg" alt="Map of the contiguous United States showing average temperature as a smooth color gradient from blue in the north to red in the south"></p>
 </div></div>
 </section>
-<section id="four-kinds-of-maps" class="slide level2">
+<section id="four-kinds-of-maps" class="slide level2 smallest">
 <h2>Four Kinds of Maps</h2>
 <div class="quarto-layout-panel" data-layout-ncol="4">
 <div class="quarto-layout-row">
@@ -527,7 +536,7 @@ Andrew Van Leuven
 <h1>Spatial Data in R</h1>
 
 </section>
-<section id="boundary-files-with-tigris" class="slide level2">
+<section id="boundary-files-with-tigris" class="slide level2 smaller">
 <h2>Boundary Files with <code>tigris</code></h2>
 <ul>
 <li><strong>TIGER/Line</strong> files are the Census Bureau’s official boundaries: states, counties, tracts, roads, water, and more</li>
@@ -541,7 +550,7 @@ Andrew Van Leuven
 <li><code>cb = TRUE</code> asks for the simplified <em>cartographic boundary</em> version. More on that in a minute.</li>
 </ul>
 </section>
-<section id="whats-inside-an-sf-object" class="slide level2 smaller">
+<section id="whats-inside-an-sf-object" class="slide level2 smallest">
 <h2>What’s Inside an <code>sf</code> Object?</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>vt_counties <span class="sc">|&gt;</span></span>
@@ -583,9 +592,9 @@ First 10 features:
 <li><code>geom_sf()</code> reads the <code>geometry</code> column for you. No <code>aes(x, y)</code> needed.</li>
 </ul>
 </section>
-<section id="cartographic-boundaries-vs.-tigerline" class="slide level2">
+<section id="cartographic-boundaries-vs.-tigerline" class="slide level2 smaller">
 <h2>Cartographic Boundaries vs.&nbsp;TIGER/Line</h2>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -607,7 +616,7 @@ First 10 features:
 <p>Zoomed in on the Connecticut River, where Windsor County meets New Hampshire. The point counts are for all 14 Vermont counties.</p>
 </div>
 </section>
-<section id="cartographic-boundaries-vs.-tigerline-1" class="slide level2">
+<section id="cartographic-boundaries-vs.-tigerline-1" class="slide level2 smaller">
 <h2>Cartographic Boundaries vs.&nbsp;TIGER/Line</h2>
 <ul>
 <li>Both files describe the same 14 counties. The cartographic boundary version (<code>cb = TRUE</code>) is <strong>simplified</strong>, so it traces each border with far fewer points.</li>
@@ -616,7 +625,7 @@ First 10 features:
 <li><strong>Rule of thumb</strong>: use <code>cb = TRUE</code> for any map</li>
 </ul>
 </section>
-<section id="coordinate-reference-systems" class="slide level2">
+<section id="coordinate-reference-systems" class="slide level2 smallest">
 <h2>Coordinate Reference Systems</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
@@ -632,7 +641,7 @@ First 10 features:
 <p>“Comparison of cartography surface development” by cmglee et al., <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
 </div>
 </section>
-<section id="the-same-states-two-crss" class="slide level2">
+<section id="the-same-states-two-crss" class="slide level2 smaller">
 <h2>The Same States, Two CRSs</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>lower48 <span class="ot">&lt;-</span> <span class="fu">states</span>(<span class="at">cb =</span> <span class="cn">TRUE</span>, <span class="at">resolution =</span> <span class="st">"20m"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>STUSPS <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AK"</span>, <span class="st">"HI"</span>, <span class="st">"PR"</span>))</span>
@@ -642,7 +651,7 @@ First 10 features:
 <span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lower48) <span class="sc">+</span></span>
 <span id="cb6-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
 <span id="cb6-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">5070</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -704,22 +713,23 @@ First 10 features:
 </ul>
 </section>
 <section id="break" class="slide level2" data-background-color="#007155">
-<h2>Break?</h2>
+<h2>Break</h2>
 </section></section>
 <section>
 <section id="census-geography" class="title-slide slide level1 center" data-background-color="#007155">
 <h1>Census Geography</h1>
 
 </section>
-<section id="the-census-hierarchy" class="slide level2">
+<section id="the-census-hierarchy" class="slide level2 smaller">
 <h2>The Census Hierarchy</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../img/week09/census_hierarchy.png" class="quarto-figure quarto-figure-center" alt="Census Bureau diagram of the standard hierarchy of geographic entities, running from nation through regions, divisions, states, counties, census tracts, and block groups down to census blocks, with other geographies such as ZIP Code Tabulation Areas, places, and school districts branching off" height="560"></p>
-</figure>
-</div>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p><img data-src="../img/week09/census_hierarchy.png" alt="Census Bureau diagram of the standard hierarchy of geographic entities, running from nation through regions, divisions, states, counties, census tracts, and block groups down to census blocks, with other geographies such as ZIP Code Tabulation Areas, places, and school districts branching off"></p>
+</div><div class="column" style="width:65%;">
+<p><img data-src="../img/week09/census_nesting_arcgis.png" alt="Maps zooming in step by step: California in the nation, Los Angeles County in California, a tract in the county, a block group in the tract, a block in the block group, and the block's centroid"></p>
+</div></div>
 <div style="font-size: 0.5em;">
-<p>Source: US Census Bureau, <a href="https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf">Standard Hierarchy of Census Geographic Entities</a></p>
+<p>Sources: US Census Bureau, <a href="https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf">Standard Hierarchy of Census Geographic Entities</a>; Esri, <a href="https://learn.arcgis.com/">Learn ArcGIS</a></p>
 </div>
 </section>
 <section id="the-spine-state-county-tract-block-group" class="slide level2">
@@ -731,9 +741,9 @@ First 10 features:
 <li>Some geographies don’t nest at all. A ZIP code (ZCTA) can cross county and even state lines.</li>
 </ul>
 </section>
-<section id="nesting-in-chittenden-county" class="slide level2">
+<section id="nesting-in-chittenden-county" class="slide level2 smaller">
 <h2>Nesting in Chittenden County</h2>
-<div class="cell quarto-layout-panel" data-layout-ncol="3" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="3">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -813,7 +823,7 @@ First 10 features:
 </section></section>
 <section>
 <section id="tidycensus" class="title-slide slide level1 center" data-background-color="#007155">
-<h1><code>tidycensus</code></h1>
+<h1>tidycensus</h1>
 
 </section>
 <section id="install-your-census-api-key-together" class="slide level2 scrollable">
@@ -888,7 +898,7 @@ First 10 features:
 <li>Almost everything you’ll want for NBRC (rent, income, broadband, commuting) comes from the ACS</li>
 </ul>
 </section>
-<section id="year-vs.-5-year-acs" class="slide level2">
+<section id="year-vs.-5-year-acs" class="slide level2 smaller">
 <h2>1-Year vs.&nbsp;5-Year ACS</h2>
 <ul>
 <li>The <strong>1-year ACS</strong> only covers places with 65,000 or more people</li>
@@ -936,7 +946,7 @@ First 10 features:
 <li><a href="https://censusreporter.org">Census Reporter</a> is a friendlier way to browse tables before you come back to R</li>
 </ul>
 </section>
-<section id="your-first-get_acs-call" class="slide level2">
+<section id="your-first-get_acs-call" class="slide level2 smaller">
 <h2>Your First <code>get_acs()</code> Call</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>vt_rent <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
@@ -988,7 +998,7 @@ First 10 features:
 </figure>
 </div>
 </div>
-</div></section><section id="margins-of-error-are-real-1" class="slide level2">
+</div></section><section id="margins-of-error-are-real-1" class="slide level2 smaller">
 <h2>Margins of Error Are Real</h2>
 <ul>
 <li>Chittenden’s estimate is $1,646 ± $31. Essex County’s is $827 ± $114.</li>
@@ -998,7 +1008,7 @@ First 10 features:
 <li><strong>For NBRC</strong>: when two rural counties look different, check that their margins don’t overlap before you say so</li>
 </ul>
 </section>
-<section id="wide-output" class="slide level2">
+<section id="wide-output" class="slide level2 smaller">
 <h2>Wide Output</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>vt_tenure <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
@@ -1078,7 +1088,7 @@ First 10 features:
 </figure>
 </div>
 </div>
-</div></section><section id="what-changed" class="slide level2">
+</div></section><section id="what-changed" class="slide level2 smaller">
 <h2>What Changed</h2>
 <ul>
 <li><code>color = "white", linewidth = 0.1</code>: thin borders that separate tracts without shouting</li>
@@ -1088,7 +1098,7 @@ First 10 features:
 <li>A title that states the finding, and a caption that names the source (Week 8’s storytelling rules apply to maps too)</li>
 </ul>
 </section>
-<section id="continuous-vs.-binned-color" class="slide level2">
+<section id="continuous-vs.-binned-color" class="slide level2 smaller">
 <h2>Continuous vs.&nbsp;Binned Color</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vt_home_value) <span class="sc">+</span></span>
 <span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> estimate), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
@@ -1098,7 +1108,7 @@ First 10 features:
 <span id="cb22-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> estimate), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb22-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_b</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>(), <span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">n.breaks =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
 <span id="cb22-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1117,7 +1127,7 @@ First 10 features:
 </div>
 </div>
 </section>
-<section id="continuous-vs.-binned-color-1" class="slide level2">
+<section id="continuous-vs.-binned-color-1" class="slide level2 smaller">
 <h2>Continuous vs.&nbsp;Binned Color</h2>
 <ul>
 <li>A <strong>continuous</strong> scale (<code>_c</code>) gives every value its own shade. It’s honest, but readers can’t tell two shades apart.</li>
@@ -1126,7 +1136,7 @@ First 10 features:
 <li>ColorBrewer’s palettes work here too: <code>scale_fill_distiller()</code> for continuous and <code>scale_fill_fermenter()</code> for binned</li>
 </ul>
 </section>
-<section id="counts-vs.-rates" class="slide level2">
+<section id="counts-vs.-rates" class="slide level2 smallest">
 <h2>Counts vs.&nbsp;Rates</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>vt_tenure_sf <span class="ot">&lt;-</span> vt_counties <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(vt_tenure, <span class="at">by =</span> <span class="st">"GEOID"</span>) <span class="sc">|&gt;</span></span>
@@ -1144,7 +1154,7 @@ First 10 features:
 <span id="cb23-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb23-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Share of households renting"</span>) <span class="sc">+</span></span>
 <span id="cb23-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1163,7 +1173,7 @@ First 10 features:
 </div>
 </div>
 </section>
-<section id="counts-vs.-rates-1" class="slide level2">
+<section id="counts-vs.-rates-1" class="slide level2 smaller">
 <h2>Counts vs.&nbsp;Rates</h2>
 <ul>
 <li>A map of raw counts is mostly a map of where people live. Chittenden wins every count map.</li>
@@ -1197,9 +1207,12 @@ First 10 features:
 <span id="cb24-20"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"YlGnBu"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
 <span id="cb24-21"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb24-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb24-23"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"In some rural counties, a third</span><span class="sc">\n</span><span class="st">or more of homes are seasonal"</span>,</span>
-<span id="cb24-24"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of housing units held for seasonal,</span><span class="sc">\n</span><span class="st">recreational, or occasional use"</span>,</span>
-<span id="cb24-25"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, tables B25004 and B25001"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb24-23"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb24-24"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb24-25"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb24-26"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"In some rural counties, a third or more of homes are seasonal"</span>,</span>
+<span id="cb24-27"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of housing units held for seasonal, recreational, or occasional use"</span>,</span>
+<span id="cb24-28"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, tables B25004 and B25001"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -1207,18 +1220,62 @@ First 10 features:
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
-</div></section><section id="whats-new-here" class="slide level2">
+</div></section><section id="whats-new-here" class="slide level2 smaller">
 <h2>What’s New Here</h2>
 <ul>
 <li><code>state = c("ME", "NH", "NY", "VT")</code> pulls four states in one call</li>
 <li>A second <code>geom_sf()</code> layer with <code>fill = NA</code> draws state outlines on top. Layers stack in the order you add them.</li>
 <li><code>coord_sf(crs = 5070)</code> makes a four-state map look right</li>
 <li>Hamilton County, NY tops the region at 65% seasonal units. Grand Isle and Essex, VT are both above a third.</li>
-<li>NBRC’s service area is a subset of the counties in these states, so we’ll trim this down when we get to your projects</li>
+<li>NBRC’s service area is a subset of the counties in these states, so let’s trim this down</li>
+</ul>
+</section>
+<section id="which-counties-are-nbrc" class="slide level2">
+<h2>Which Counties Are NBRC?</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>nbrc_fips <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://andrewvanleuven.github.io/uvm_datasci/data/nbrc_counties_fips.csv"</span>,</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span> <span class="st">"c"</span>)</span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>nbrc_counties <span class="ot">&lt;-</span> <span class="fu">counties</span>(<span class="at">state =</span> nbrc_states, <span class="at">cb =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">in_nbrc =</span> GEOID <span class="sc">%in%</span> nbrc_fips<span class="sc">$</span>full_fips)</span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nbrc_counties) <span class="sc">+</span></span>
+<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> in_nbrc), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> state_lines, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">5070</span>) <span class="sc">+</span></span>
+<span id="cb26-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"#007155"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"gray85"</span>),</span>
+<span id="cb26-9"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"NBRC"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"Not NBRC"</span>),</span>
+<span id="cb26-10"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>),</span>
+<span id="cb26-11"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb26-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb26-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"NBRC serves 63 counties in four states"</span>,</span>
+<span id="cb26-14"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: NBRC county list; Census Bureau cartographic boundaries"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="which-counties-are-nbrc-output" class="slide level2 output-location-slide"><h2>Which Counties Are NBRC?</h2><div class="cell output-location-slide" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="using-the-nbrc-list" class="slide level2 smaller">
+<h2>Using the NBRC List</h2>
+<ul>
+<li>The list has one row per county and a <code>full_fips</code> column that matches the <code>GEOID</code> from <code>tigris</code> and <code>tidycensus</code></li>
+<li><code>col_types = cols(.default = "c")</code> reads every column as text. FIPS codes are IDs, not numbers, and some start with a zero.</li>
+<li><code>GEOID %in% nbrc_fips$full_fips</code> is <code>TRUE</code> or <code>FALSE</code> for every county, which is all a two-color map needs</li>
+<li>Only Vermont is in NBRC territory in full. Maine and New Hampshire leave out their southern counties, and New York leaves out 32 of its 62, including New York City and most of the state’s larger metros.</li>
+<li>To keep only NBRC counties for your project, <code>filter()</code> with the same test: <code>seasonal |&gt; filter(GEOID %in% nbrc_fips$full_fips)</code></li>
 </ul>
 </section></section>
 <section>
@@ -1233,7 +1290,7 @@ First 10 features:
 <li>Find an ACS variable that fits your domain area. Some starting points:
 <ul>
 <li><strong>Rural Housing</strong>: rent burden (B25070), year built (B25034), vacancy (B25004)</li>
-<li><strong>Rural Hub Services</strong>: internet access (B28002)</li>
+<li><strong>Rural Hub Services</strong>: place of work (B08009), the share of workers who leave their home town for work</li>
 </ul></li>
 <li>Pull it with <code>get_acs()</code> for your state’s <strong>counties</strong>, with <code>geometry = TRUE</code></li>
 <li>Turn it into a share, not a count. You’ll need the table’s total line (usually <code>_001</code>) as the denominator.</li>
@@ -1242,38 +1299,129 @@ First 10 features:
 <li>Look at your margins of error. Is any part of your story shakier than you’d like?</li>
 </ol>
 </section>
-<section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
-<h2>Your Turn: One Way to Do It</h2>
+<section id="one-way-to-do-it-rural-housing" class="slide level2 smaller">
+<h2>One Way to Do It: Rural Housing</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>me_internet <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
-<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
-<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"ME"</span>,</span>
-<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B28002_001"</span>, <span class="at">no_internet =</span> <span class="st">"B28002_013"</span>),</span>
-<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
-<span id="cb25-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
-<span id="cb25-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
-<span id="cb25-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb25-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">no_internet_share =</span> no_internetE <span class="sc">/</span> totalE)</span>
-<span id="cb25-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(me_internet) <span class="sc">+</span></span>
-<span id="cb25-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> no_internet_share), <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb25-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"OrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
-<span id="cb25-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb25-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb25-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nearly 12% of households in</span><span class="sc">\n</span><span class="st">Aroostook and Washington counties</span><span class="sc">\n</span><span class="st">have no internet access"</span>,</span>
-<span id="cb25-17"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, table B28002"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>nh_rent_burden <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"NH"</span>,</span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B25070_001"</span>, <span class="at">pct30 =</span> <span class="st">"B25070_007"</span>,</span>
+<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>                <span class="at">pct35 =</span> <span class="st">"B25070_008"</span>, <span class="at">pct40 =</span> <span class="st">"B25070_009"</span>,</span>
+<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>                <span class="at">pct50 =</span> <span class="st">"B25070_010"</span>, <span class="at">not_computed =</span> <span class="st">"B25070_011"</span>),</span>
+<span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
+<span id="cb27-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
+<span id="cb27-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb27-10"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb27-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">burdened_share =</span> (pct30E <span class="sc">+</span> pct35E <span class="sc">+</span> pct40E <span class="sc">+</span> pct50E) <span class="sc">/</span></span>
+<span id="cb27-12"><a aria-hidden="true" tabindex="-1"></a>           (totalE <span class="sc">-</span> not_computedE))</span>
+<span id="cb27-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nh_rent_burden) <span class="sc">+</span></span>
+<span id="cb27-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> burdened_share), <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb27-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"Purples"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb27-17"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb27-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb27-19"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"In most New Hampshire counties,</span><span class="sc">\n</span><span class="st">about half of renters spend 30%</span><span class="sc">\n</span><span class="st">or more of their income on rent"</span>,</span>
+<span id="cb27-20"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, table B25070"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
-<section id="your-turn-one-way-to-do-it-output" class="slide level2 smaller output-location-slide"><h2>Your Turn: One Way to Do It</h2><div class="cell output-location-slide" data-layout-align="center">
+<section id="one-way-to-do-it-rural-housing-output" class="slide level2 smaller output-location-slide"><h2>One Way to Do It: Rural Housing</h2><div class="cell output-location-slide" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
 </figure>
 </div>
 </div>
-</div></section><section id="before-next-class-nov.-5" class="slide level2 smaller">
+</div></section><section id="one-way-to-do-it-rural-hub-services" class="slide level2 smaller">
+<h2>One Way to Do It: Rural Hub Services</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>me_commute_out <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"tract"</span>,</span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"ME"</span>,</span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B08009_001"</span>, <span class="at">out_of_town =</span> <span class="st">"B08009_004"</span>),</span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
+<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
+<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb28-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb28-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">out_share =</span> out_of_townE <span class="sc">/</span> totalE)</span>
+<span id="cb28-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(me_commute_out) <span class="sc">+</span></span>
+<span id="cb28-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> out_share), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb28-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"OrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb28-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb28-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb28-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hub towns keep their workers: in Augusta</span><span class="sc">\n</span><span class="st">and Presque Isle, fewer than a third</span><span class="sc">\n</span><span class="st">commute out of town"</span>,</span>
+<span id="cb28-17"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of workers who work outside</span><span class="sc">\n</span><span class="st">their town of residence"</span>,</span>
+<span id="cb28-18"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: 2020-2024 ACS 5-year estimates, table B08009"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="one-way-to-do-it-rural-hub-services-output" class="slide level2 smaller output-location-slide"><h2>One Way to Do It: Rural Hub Services</h2><div class="cell output-location-slide" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="reading-these-two-maps" class="slide level2 smaller">
+<h2>Reading These Two Maps</h2>
+<ul>
+<li><strong>Housing</strong>: renters whose income the Census couldn’t compute (<code>_011</code>) come out of the denominator, so the share is out of renters it could measure</li>
+<li><strong>Hub services</strong>: in three out of four Maine tracts, most workers leave their town for work. The pale spots are where they go: Portland, Augusta, Bangor, Presque Isle, Houlton.</li>
+<li><strong>Two units at once.</strong> We mapped <em>tracts</em>, but B08009 asks about <em>towns</em> (Census calls them minor civil divisions). It’s published only for 12 states with strong town governments, including all four NBRC states. Its county-level cousin, B08007, hides all of this, because a commute from Hampden into Bangor never leaves Penobscot County.</li>
+<li><strong>Margins of error</strong> on these tract shares run about ±7 to ±14 points. That’s too wide to rank one tract against its neighbor, but the hub pattern is much bigger than the noise.</li>
+<li><code>color = NA</code> drops the tract outlines. With 400+ small polygons, white borders would cover the southern part of the state.</li>
+</ul>
+</section>
+<section id="same-question-town-by-town" class="slide level2 smaller">
+<h2>Same Question, Town by Town</h2>
+<ul>
+<li>In New England, the <strong>county subdivision</strong> (the town) is often the best unit of analysis. It’s how people there think about where they live, and it’s the unit B08009 actually asks about.</li>
+<li>One argument changes: <code>geography = "county subdivision"</code></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>me_towns <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county subdivision"</span>,</span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"ME"</span>,</span>
+<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"B08009_001"</span>, <span class="at">out_of_town =</span> <span class="st">"B08009_004"</span>),</span>
+<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2024</span>,</span>
+<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
+<span id="cb29-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb29-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb29-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">out_share =</span> out_of_townE <span class="sc">/</span> totalE)</span>
+<span id="cb29-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(me_towns) <span class="sc">+</span></span>
+<span id="cb29-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> out_share), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb29-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"OrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb29-14"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(), <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-15"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"gray90"</span>) <span class="sc">+</span></span>
+<span id="cb29-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb29-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bangor keeps two-thirds of its workers;</span><span class="sc">\n</span><span class="st">next door in Brewer and Hampden,</span><span class="sc">\n</span><span class="st">70% commute out"</span>,</span>
+<span id="cb29-18"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Share of workers who work outside</span><span class="sc">\n</span><span class="st">their town of residence"</span>,</span>
+<span id="cb29-19"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Gray: unorganized territory with no workers</span><span class="sc">\n</span><span class="st">Source: 2020-2024 ACS 5-year estimates, table B08009"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="same-question-town-by-town-output" class="slide level2 smaller output-location-slide"><h2>Same Question, Town by Town</h2><div class="cell output-location-slide" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="week09_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="tracts-or-towns" class="slide level2">
+<h2>Tracts or Towns?</h2>
+<ul>
+<li>Towns match the question. Bangor’s 34% is one number for one hub town, not an average of tracts that cross town lines.</li>
+<li>But Maine has about 530 towns and only about 400 tracts, and many towns have just a few hundred workers. The typical town’s margin of error is about ±19 points, compared with about ±12 for a tract.</li>
+<li>That’s why the town map looks speckled: some pale spots in Aroostook are tiny towns, not hubs. Read the big towns with confidence and the small ones with caution.</li>
+<li><strong>There’s no single right unit.</strong> Pick the one that matches your question, then check whether your margins of error can carry the story.</li>
+</ul>
+</section>
+<section id="before-next-class-nov.-5" class="slide level2 smaller">
 <h2>Before Next Class (Nov.&nbsp;5)</h2>
 <ul class="task-list">
 <li><label><input type="checkbox"><strong>HW3</strong> is due <strong>Sunday, Nov.&nbsp;1</strong> at 11:59pm</label></li>
