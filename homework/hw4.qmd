@@ -47,8 +47,10 @@ This brings in a blank `hw4.qmd` starter and removes the old `hw5.qmd`, which yo
 
     ggplot(your_data) +
       geom_sf(aes(fill = your_share)) +
-      annotation_scale(location = "bl", unit_category = "imperial")
+      annotation_scale(location = "bl", unit_category = "imperial") # <1>
     ```
+
+    1. **This line adds the scale bar.** Add it (and the `+` before it) to the end of your own map code.
 
     A north arrow (`annotation_north_arrow()`) is optional.
 
@@ -80,7 +82,12 @@ This brings in a blank `hw4.qmd` starter and removes the old `hw5.qmd`, which yo
 
     The `filter()` drops administrative offices (such as a state college system's central office) and institutions that have closed or merged. This is the federal **IPEDS** directory, served by the Urban Institute's Education Data Portal.
 
-3.  **Turn the table into points** with `st_as_sf()`. The coordinate columns are `longitude` and `latitude`, in that order, and the CRS is `4326`.
+3.  **Turn the table into points** with `st_as_sf()`, the same way we did with airports in Week 10:
+
+    ```r
+    colleges_sf <- colleges |>
+      st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
+    ```
 
 4.  **Map the points** on top of your state's county boundaries (`counties("VT", cb = TRUE)`, with your state) or on top of your Part 1 map. Give it a title that states what you see and a caption naming the source: "Source: IPEDS, via the Urban Institute's Education Data Portal."
 
@@ -110,6 +117,19 @@ quarto render homework/hw4.qmd
 
 `hw4.html` should appear in your `homework` folder. Open it and check that both maps are there.
 
+## Turn It In: Email Me the HTML File
+
+::: {.callout-important title="Send the file itself, not a link"}
+A link to your Posit Cloud project only works for you, so download `hw4.html` and attach it to an email.
+
+1. In the **Files** pane, open the `homework` folder and check the box next to **`hw4.html`**
+2. Click **More** (the gear icon) and choose **Export...**
+3. Click **Download**. The file saves to your computer's Downloads folder.
+4. Attach `hw4.html` to an email to me by **Sunday, Nov. 15, 11:59pm**
+
+![Check the box next to your file, then More → Export... (this screenshot shows hw3.pdf; you want hw4.html)](../img/export.png){fig-alt="The Posit Cloud Files pane with a file checked and the More menu open, with Export... highlighted"}
+:::
+
 ## Checklist
 
 - [ ] One NBRC state, the same one for both parts
@@ -117,3 +137,4 @@ quarto render homework/hw4.qmd
 - [ ] Part 2: colleges as points over your state, with a title and a source caption
 - [ ] Two or three sentences under each map
 - [ ] `hw4.qmd` renders to HTML without errors
+- [ ] `hw4.html` downloaded with **More → Export...** and emailed to me as an attachment (not a link)

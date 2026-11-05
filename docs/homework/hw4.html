@@ -175,6 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-1-a-choropleth-of-census-data" id="toc-part-1-a-choropleth-of-census-data" class="nav-link" data-scroll-target="#part-1-a-choropleth-of-census-data">Part 1: A Choropleth of Census Data</a></li>
   <li><a href="#part-2-colleges-as-points" id="toc-part-2-colleges-as-points" class="nav-link" data-scroll-target="#part-2-colleges-as-points">Part 2: Colleges as Points</a></li>
   <li><a href="#render" id="toc-render" class="nav-link" data-scroll-target="#render">Render</a></li>
+  <li><a href="#turn-it-in-email-me-the-html-file" id="toc-turn-it-in-email-me-the-html-file" class="nav-link" data-scroll-target="#turn-it-in-email-me-the-html-file">Turn It In: Email Me the HTML File</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
   </ul>
 </nav>
@@ -247,11 +248,17 @@ Note
 <li>a <strong>caption</strong> that names the source and the table (for example, “Source: 2020-2024 ACS 5-year estimates, table B25070”)</li>
 <li>a <strong>scale bar</strong>, from the <code>ggspatial</code> package:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(your_data) <span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> your_share)) <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>, <span class="at">unit_category =</span> <span class="st">"imperial"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(your_data) <span class="sc">+</span></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> your_share)) <span class="sc">+</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-5" class="code-annotation-target"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>, <span class="at">unit_category =</span> <span class="st">"imperial"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="5" data-code-annotation="1"><strong>This line adds the scale bar.</strong> Add it (and the <code>+</code> before it) to the end of your own map code.</span>
+</dd>
+</dl>
 <p>A north arrow (<code>annotation_north_arrow()</code>) is optional.</p></li>
 <li><p>Under the map, write <strong>two or three sentences</strong> about what it shows. Include at least one specific number (a place and its value).</p></li>
 </ol>
@@ -260,21 +267,23 @@ Note
 <h2 class="anchored" data-anchor-id="part-2-colleges-as-points">Part 2: Colleges as Points</h2>
 <ol type="1">
 <li><p><strong>Install the <code>educationdata</code> package from GitHub.</strong> Run these two lines <strong>once, in the Console</strong>, not in <code>hw4.qmd</code>. (If they were in your <code>.qmd</code>, they’d reinstall the package every time you render.)</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"UrbanInstitute/education-data-package-r"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">upgrade =</span> <span class="st">"never"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"UrbanInstitute/education-data-package-r"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">upgrade =</span> <span class="st">"never"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>Pull your state’s colleges.</strong> This code goes in <code>hw4.qmd</code>. Change <code>fips = 50</code> to your state’s FIPS code: Maine is <code>23</code>, New Hampshire <code>33</code>, New York <code>36</code>, and Vermont <code>50</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(educationdata)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>colleges <span class="ot">&lt;-</span> <span class="fu">get_education_data</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">level =</span> <span class="st">"college-university"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">source =</span> <span class="st">"ipeds"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">topic =</span> <span class="st">"directory"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">filters =</span> <span class="fu">list</span>(<span class="at">year =</span> <span class="dv">2024</span>, <span class="at">fips =</span> <span class="dv">50</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(currently_active_ipeds <span class="sc">==</span> <span class="dv">1</span>, sector <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(educationdata)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>colleges <span class="ot">&lt;-</span> <span class="fu">get_education_data</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">level =</span> <span class="st">"college-university"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">source =</span> <span class="st">"ipeds"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">topic =</span> <span class="st">"directory"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">filters =</span> <span class="fu">list</span>(<span class="at">year =</span> <span class="dv">2024</span>, <span class="at">fips =</span> <span class="dv">50</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(currently_active_ipeds <span class="sc">==</span> <span class="dv">1</span>, sector <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The <code>filter()</code> drops administrative offices (such as a state college system’s central office) and institutions that have closed or merged. This is the federal <strong>IPEDS</strong> directory, served by the Urban Institute’s Education Data Portal.</p></li>
-<li><p><strong>Turn the table into points</strong> with <code>st_as_sf()</code>. The coordinate columns are <code>longitude</code> and <code>latitude</code>, in that order, and the CRS is <code>4326</code>.</p></li>
+<li><p><strong>Turn the table into points</strong> with <code>st_as_sf()</code>, the same way we did with airports in Week 10:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>colleges_sf <span class="ot">&lt;-</span> colleges <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>Map the points</strong> on top of your state’s county boundaries (<code>counties("VT", cb = TRUE)</code>, with your state) or on top of your Part 1 map. Give it a title that states what you see and a caption naming the source: “Source: IPEDS, via the Urban Institute’s Education Data Portal.”</p></li>
 <li><p><em>Optional</em>: color the points by <code>inst_control</code>, which is <code>1</code> for public, <code>2</code> for private nonprofit, and <code>3</code> for private for-profit. Turn it into labels first:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">control =</span> <span class="fu">case_when</span>(</span>
@@ -304,6 +313,34 @@ Note
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render homework/hw4.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>hw4.html</code> should appear in your <code>homework</code> folder. Open it and check that both maps are there.</p>
 </section>
+<section id="turn-it-in-email-me-the-html-file" class="level2">
+<h2 class="anchored" data-anchor-id="turn-it-in-email-me-the-html-file">Turn It In: Email Me the HTML File</h2>
+<div class="callout callout-style-default callout-important callout-titled" title="Send the file itself, not a link">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Send the file itself, not a link
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A link to your Posit Cloud project only works for you, so download <code>hw4.html</code> and attach it to an email.</p>
+<ol type="1">
+<li>In the <strong>Files</strong> pane, open the <code>homework</code> folder and check the box next to <strong><code>hw4.html</code></strong></li>
+<li>Click <strong>More</strong> (the gear icon) and choose <strong>Export…</strong></li>
+<li>Click <strong>Download</strong>. The file saves to your computer’s Downloads folder.</li>
+<li>Attach <code>hw4.html</code> to an email to me by <strong>Sunday, Nov.&nbsp;15, 11:59pm</strong></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/export.png" class="img-fluid figure-img" alt="The Posit Cloud Files pane with a file checked and the More menu open, with Export... highlighted"></p>
+<figcaption>Check the box next to your file, then More → Export… (this screenshot shows hw3.pdf; you want hw4.html)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="checklist" class="level2">
 <h2 class="anchored" data-anchor-id="checklist">Checklist</h2>
 <ul class="task-list">
@@ -312,6 +349,7 @@ Note
 <li><label><input type="checkbox">Part 2: colleges as points over your state, with a title and a source caption</label></li>
 <li><label><input type="checkbox">Two or three sentences under each map</label></li>
 <li><label><input type="checkbox"><code>hw4.qmd</code> renders to HTML without errors</label></li>
+<li><label><input type="checkbox"><code>hw4.html</code> downloaded with <strong>More → Export…</strong> and emailed to me as an attachment (not a link)</label></li>
 </ul>
 
 
