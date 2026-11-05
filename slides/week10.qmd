@@ -60,7 +60,7 @@ nbrc_fips <- read_csv("../data/nbrc_counties_fips.csv",
 | Date | What |
 |---|---|
 | **Thu. Nov. 12** | **No class** (conference) |
-| **Sun. Nov. 15**, 11:59pm | **HW5 due**: the maps problem set (released tonight) |
+| **Sun. Nov. 15**, 11:59pm | **HW4 due**: the maps problem set (released tonight) |
 | **Thu. Nov. 19** | Project workday + peer critique. **Preliminary Outputs due.** |
 | **Thu. Dec. 3** | Draft deliverables due |
 
@@ -74,7 +74,7 @@ nbrc_fips <- read_csv("../data/nbrc_counties_fips.csv",
 - **Spatial joins**: connecting points to the polygons they fall in (follow along if you like)
 - **What else maps can do**: dot density, proportional symbols, buffers, interactive maps (watch, don't type)
 - **Finishing touches**: scale bars, north arrows, insets, and a checklist
-- **Git, GitHub, and HW5**: installing a package from GitHub, then the homework
+- **Git, GitHub, and HW4**: installing a package from GitHub, then the homework
 
 ## Follow Along {.smaller}
 
@@ -513,7 +513,7 @@ ggplot(vt_seasonal) +
 - `annotation_scale()` and `annotation_north_arrow()` come from `ggspatial`, which is already in your workspace
 - `location = "bl"` means bottom left, and `"br"` is bottom right. Put them where they won't cover the data. `unit_category = "imperial"` gives miles.
 - `scale_y_continuous(expand = expansion(mult = c(0.12, 0.02)))` adds a little empty space below the map (12% of its height) so the scale bar doesn't sit on the towns
-- **Scale bar**: worth it whenever distance matters to the story (access, commuting, service areas). It's required on HW5.
+- **Scale bar**: worth it whenever distance matters to the story (access, commuting, service areas). It's required on HW4.
 - **North arrow**: optional. On a map of a familiar place with north at the top, most cartographers leave it off. Never let it compete with the data.
 
 ## Inset Maps: Where Is This? {.smaller}
@@ -561,7 +561,7 @@ seasonal_map +
 - [ ] A **scale bar** when distance matters
 - [ ] **Small-area caution**: check margins of error before you claim two places differ
 
-# Git, GitHub, and HW5 {background-color="#007155"}
+# Git, GitHub, and HW4 {background-color="#007155"}
 
 ## What Are Git and GitHub? {.smaller}
 
@@ -607,22 +607,23 @@ vt_colleges |>
 ```
 
 - The Urban Institute's Education Data Portal serves federal **IPEDS** data on every college and university. `fips = 50` is Vermont's state FIPS code.
-- It has `latitude` and `longitude` columns, so you already know the next step. That's HW5, Part 2.
+- It has `latitude` and `longitude` columns, so you already know the next step. That's HW4, Part 2.
 
-## Get HW5
+## Get HW4
 
 Open the **Terminal** tab (next to Console) and run this one line:
 
 ```bash
-git fetch && git checkout origin/main -- homework/hw5.qmd homework/HW5_INSTRUCTIONS_READ_ONLY.html
+git fetch && git checkout origin/main -- homework/hw4.qmd && rm -f homework/hw5.qmd
 ```
 
-- `hw5.qmd` is a blank starter. It's yours, and it's fine to replace everything in it.
-- The instructions are in `HW5_INSTRUCTIONS_READ_ONLY.html`. Click it in the Files pane and choose **View in Web Browser**.
+- `hw4.qmd` is a blank starter. It's yours, and it's fine to replace everything in it.
+- The old `hw5.qmd` gets deleted. There is no HW5.
+- The instructions are on the course website, linked from the schedule: [HW4 instructions](../homework/hw4.html)
 
-## HW5 at a Glance {.smaller}
+## HW4 at a Glance {.smaller}
 
-- **Due Sunday, Nov. 15** at 11:59pm. Render `hw5.qmd` to HTML.
+- **Due Sunday, Nov. 15** at 11:59pm. Render `hw4.qmd` to HTML.
 - **Part 1: A choropleth.** One NBRC state, one ACS variable that fits your team's domain, shown as a share or rate. Readable palette, a title that states the finding, a source caption, and a **scale bar**.
 - **Part 2: A point map.** Install `educationdata` from GitHub, pull your state's colleges, turn them into points with `st_as_sf()`, and map them over your state's counties
 - A few sentences under each map saying what it shows
@@ -630,7 +631,7 @@ git fetch && git checkout origin/main -- homework/hw5.qmd homework/HW5_INSTRUCTI
 ## Before Next Class (Nov. 19) {.smaller}
 
 - [ ] **No class Nov. 12**
-- [ ] **HW5** is due **Sunday, Nov. 15** at 11:59pm
+- [ ] **HW4** is due **Sunday, Nov. 15** at 11:59pm
 - [ ] **Preliminary Outputs** are due **Thursday, Nov. 19**: at least one polished figure or map for one of your research questions, plus a short framing of why it matters to NBRC
 - [ ] Come ready to give and receive feedback in the peer critique
 
