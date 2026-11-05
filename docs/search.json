@@ -2307,14 +2307,14 @@
     "href": "slides/week10.html#two-other-ways-in",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Two Other Ways In",
-    "text": "Two Other Ways In\nYou have a shapefile. A partner sends a .zip. Unzip it, keep all the pieces (.shp, .shx, .dbf, .prj) in one folder, and read the .shp:\n\ngrantees &lt;- read_sf(\"data/grantees/grantees.shp\")\n\nYou only have addresses. Turning addresses into coordinates is called geocoding. The tidygeocoder package can send them to the Census Bureau’s free geocoder. It isn’t in your workspace, so ask me if your team needs it.\n\nlibrary(tidygeocoder)\nclinics_geo &lt;- clinics |&gt;\n  geocode(address = full_address, method = \"census\")"
+    "text": "Two Other Ways In\nThese two are made-up examples, so don’t run them. There’s no grantees shapefile or clinics table in your workspace.\nYou have a shapefile. A partner sends a .zip. Unzip it, keep all the pieces (.shp, .shx, .dbf, .prj) in one folder, and read the .shp:\n\ngrantees &lt;- read_sf(\"data/grantees/grantees.shp\")\n\nYou only have addresses. Turning addresses into coordinates is called geocoding. The tidygeocoder package can send them to the Census Bureau’s free geocoder. It isn’t in your workspace, so ask me if your team needs it.\n\nlibrary(tidygeocoder)\nclinics_geo &lt;- clinics |&gt;\n  geocode(address = full_address, method = \"census\")"
   },
   {
     "objectID": "slides/week10.html#which-county-is-each-airport-in",
     "href": "slides/week10.html#which-county-is-each-airport-in",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Which County Is Each Airport In?",
-    "text": "Which County Is Each Airport In?\n\nairports has no state or county column. The only “where” is the point itself.\nLast week’s NBRC county layer knows its county name, state, and whether it’s in NBRC\n\n\nnbrc_counties &lt;- counties(state = nbrc_states, cb = TRUE) |&gt;\n  mutate(in_nbrc = GEOID %in% nbrc_fips$full_fips)\n\nairports_joined &lt;- airports_ne |&gt;\n  st_join(nbrc_counties)"
+    "text": "Which County Is Each Airport In?\n\nairports has no state or county column. The only “where” is the point itself.\nThe county layer knows each county’s name and state. Matching GEOID against full_fips adds whether it’s in NBRC.\n\n\nnbrc_counties &lt;- counties(state = nbrc_states, cb = TRUE) |&gt;\n  mutate(in_nbrc = GEOID %in% nbrc_fips$full_fips)\n\nairports_joined &lt;- airports_ne |&gt;\n  st_join(nbrc_counties)\n\n\nGEOID %in% nbrc_fips$full_fips is TRUE for the 63 NBRC counties and FALSE for the rest"
   },
   {
     "objectID": "slides/week10.html#what-st_join-gave-us",
@@ -2553,5 +2553,12 @@
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Thank you!",
     "text": "Thank you!"
+  },
+  {
+    "objectID": "slides/week10.html#which-counties-are-nbrc",
+    "href": "slides/week10.html#which-counties-are-nbrc",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Which Counties Are NBRC?",
+    "text": "Which Counties Are NBRC?\n\nNBRC doesn’t serve every county in its four states. The list of the 63 it does serve is a small CSV on the course site.\nIf you ran this last week, you already have nbrc_fips. Running it again is fine.\n\n\nnbrc_fips &lt;- read_csv(\n  \"https://andrewvanleuven.github.io/uvm_datasci/data/nbrc_counties_fips.csv\",\n  col_types = cols(.default = \"c\")\n)\n\n\nnbrc_fips\n\n# A tibble: 63 × 5\n  state state_fips county_name  county_fips full_fips\n  &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;    \n1 ME    23         Androscoggin 001         23001    \n2 ME    23         Aroostook    003         23003    \n3 ME    23         Franklin     007         23007    \n4 ME    23         Hancock      009         23009    \n5 ME    23         Kennebec     011         23011    \n# ℹ 58 more rows\n\n\n\nfull_fips is the county’s 5-digit FIPS code: 2 digits for the state, then 3 for the county. It’s the same ID that tigris and tidycensus call GEOID.\ncol_types = cols(.default = \"c\") reads every column as text, so county_fips keeps its leading zeros (001, not 1)"
   }
 ]

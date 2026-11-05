@@ -184,6 +184,8 @@ ggplot() +
 
 ## Two Other Ways In {.smaller}
 
+These two are made-up examples, so don't run them. There's no `grantees` shapefile or `clinics` table in your workspace.
+
 **You have a shapefile.** A partner sends a `.zip`. Unzip it, keep all the pieces (`.shp`, `.shx`, `.dbf`, `.prj`) in one folder, and read the `.shp`:
 
 ```{r}
@@ -202,10 +204,30 @@ clinics_geo <- clinics |>
 
 # Spatial Joins {background-color="#007155"}
 
+## Which Counties Are NBRC? {.smaller}
+
+- NBRC doesn't serve every county in its four states. The list of the 63 it does serve is a small CSV on the course site.
+- If you ran this last week, you already have `nbrc_fips`. Running it again is fine.
+
+```{r}
+#| eval: false
+nbrc_fips <- read_csv(
+  "https://andrewvanleuven.github.io/uvm_datasci/data/nbrc_counties_fips.csv",
+  col_types = cols(.default = "c")
+)
+```
+
+```{r}
+nbrc_fips
+```
+
+- `full_fips` is the county's 5-digit FIPS code: 2 digits for the state, then 3 for the county. It's the same ID that `tigris` and `tidycensus` call `GEOID`.
+- `col_types = cols(.default = "c")` reads every column as text, so `county_fips` keeps its leading zeros (`001`, not `1`)
+
 ## Which County Is Each Airport In?
 
 - `airports` has no state or county column. The only "where" is the point itself.
-- Last week's NBRC county layer knows its county name, state, and whether it's in NBRC
+- The county layer knows each county's name and state. Matching `GEOID` against `full_fips` adds whether it's in NBRC.
 
 ```{r}
 nbrc_counties <- counties(state = nbrc_states, cb = TRUE) |>
@@ -214,6 +236,8 @@ nbrc_counties <- counties(state = nbrc_states, cb = TRUE) |>
 airports_joined <- airports_ne |>
   st_join(nbrc_counties)
 ```
+
+- `GEOID %in% nbrc_fips$full_fips` is `TRUE` for the 63 NBRC counties and `FALSE` for the rest
 
 ## What `st_join()` Gave Us {.smaller}
 
