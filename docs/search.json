@@ -2224,5 +2224,334 @@
     "title": "Week 9: Intro to GIS + Mapping Census Data",
     "section": "Thank you!",
     "text": "Thank you!"
+  },
+  {
+    "objectID": "slides/week10.html#welcome-back",
+    "href": "slides/week10.html#welcome-back",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Welcome Back",
+    "text": "Welcome Back\n\nLast week: polygons, Census geography, and choropleths\nTonight is the last night of new material, and most of it is a tour. One new skill, then a lot of “here’s what’s possible.”"
+  },
+  {
+    "objectID": "slides/week10.html#coming-up",
+    "href": "slides/week10.html#coming-up",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Coming Up",
+    "text": "Coming Up\n\n\n\n\n\n\n\nDate\nWhat\n\n\n\n\nThu. Nov. 12\nNo class (conference)\n\n\nSun. Nov. 15, 11:59pm\nHW5 due: the maps problem set (released tonight)\n\n\nThu. Nov. 19\nProject workday + peer critique. Preliminary Outputs due.\n\n\nThu. Dec. 3\nDraft deliverables due\n\n\n\n\nPreliminary Outputs means at least one polished figure or map for one of your research questions. Two weeks from tonight."
+  },
+  {
+    "objectID": "slides/week10.html#todays-plan",
+    "href": "slides/week10.html#todays-plan",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\nPoints: turning a table of coordinates into a map (follow along, the one new skill)\nSpatial joins: connecting points to the polygons they fall in (follow along if you like)\nWhat else maps can do: dot density, proportional symbols, buffers, interactive maps (watch, don’t type)\nFinishing touches: scale bars, north arrows, insets, and a checklist\nGit, GitHub, and HW5: installing a package from GitHub, then the homework"
+  },
+  {
+    "objectID": "slides/week10.html#follow-along",
+    "href": "slides/week10.html#follow-along",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Follow Along",
+    "text": "Follow Along\n\nOpen your cdae7990_workspace project in Posit Cloud\nOpen last week’s week09.R, or make a new script and save it as week10.R\nRun these lines at the top. If any library() call errors, run source(\"setup.R\") and try again.\n\n\nlibrary(tidyverse)\nlibrary(sf)\nlibrary(tigris)\nlibrary(tidycensus)\nlibrary(nycflights13)\noptions(tigris_use_cache = TRUE)\n\n\nnycflights13 is back from Week 3. It has a table of US airports we’ll turn into a map."
+  },
+  {
+    "objectID": "slides/week10.html#most-location-data-starts-as-a-table",
+    "href": "slides/week10.html#most-location-data-starts-as-a-table",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Most Location Data Starts as a Table",
+    "text": "Most Location Data Starts as a Table\n\nA list of clinics, schools, grantee projects, or broadband sites usually arrives as a spreadsheet, not a shapefile\nIf it has a longitude and a latitude column, you’re one line away from a map\nnycflights13::airports is a good example\n\n\nairports\n\n# A tibble: 1,458 × 8\n  faa   name                           lat   lon   alt    tz dst   tzone\n  &lt;chr&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;\n1 04G   Lansdowne Airport             41.1 -80.6  1044    -5 A     Amer…\n2 06A   Moton Field Municipal Airpo…  32.5 -85.7   264    -6 A     Amer…\n3 06C   Schaumburg Regional           42.0 -88.1   801    -6 A     Amer…\n4 06N   Randall Airport               41.4 -74.4   523    -5 A     Amer…\n5 09J   Jekyll Island Airport         31.1 -81.4    11    -5 A     Amer…\n# ℹ 1,453 more rows\n\n\n\nTo R, lat and lon are just two numeric columns. Nothing here knows it’s a location yet."
+  },
+  {
+    "objectID": "slides/week10.html#from-table-to-sf-st_as_sf",
+    "href": "slides/week10.html#from-table-to-sf-st_as_sf",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "From Table to sf: st_as_sf()",
+    "text": "From Table to sf: st_as_sf()\n\nairports_sf &lt;- airports |&gt;\n  st_as_sf(coords = c(\"lon\", \"lat\"), crs = 4326)\n\nairports_sf\n\nSimple feature collection with 1458 features and 6 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: -176.646 ymin: 19.72137 xmax: 174.1136 ymax: 72.27083\nGeodetic CRS:  WGS 84\n# A tibble: 1,458 × 7\n  faa   name             alt    tz dst   tzone             geometry\n* &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;          &lt;POINT [°]&gt;\n1 04G   Lansdowne Air…  1044    -5 A     Amer… (-80.61958 41.13047)\n2 06A   Moton Field M…   264    -6 A     Amer… (-85.68003 32.46057)\n3 06C   Schaumburg Re…   801    -6 A     Amer… (-88.10124 41.98934)\n4 06N   Randall Airpo…   523    -5 A     Amer… (-74.39156 41.43191)\n5 09J   Jekyll Island…    11    -5 A     Amer… (-81.42778 31.07447)\n# ℹ 1,453 more rows\n\n\n\ncoords = c(\"lon\", \"lat\") names the x column first, then y. Longitude is x (east-west), latitude is y.\ncrs = 4326 says these are plain GPS coordinates (WGS84, from last week’s CRS table)\nThe lat and lon columns are gone. They now live in geometry, as POINTs."
+  },
+  {
+    "objectID": "slides/week10.html#your-first-point-map",
+    "href": "slides/week10.html#your-first-point-map",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Your First Point Map",
+    "text": "Your First Point Map\n\nggplot(airports_sf) +\n  geom_sf(size = 0.5)\n\n\n\nIt works, but it’s every US airport in the list, including Alaska, Hawaii, and a few Pacific islands. We want the NBRC states."
+  },
+  {
+    "objectID": "slides/week10.html#keep-only-the-points-inside",
+    "href": "slides/week10.html#keep-only-the-points-inside",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Keep Only the Points Inside",
+    "text": "Keep Only the Points Inside\n\nnbrc_states &lt;- c(\"ME\", \"NH\", \"NY\", \"VT\")\n\nstate_lines &lt;- states(cb = TRUE) |&gt;\n  filter(STUSPS %in% nbrc_states)\n\nairports_ne &lt;- airports_sf |&gt;\n  st_filter(state_lines)\n\nError in `stopifnot()`:\nℹ In argument: `&gt;...`.\nCaused by error in `st_geos_binop()`:\n! st_crs(x) == st_crs(y) is not TRUE\n\n\n\nst_filter() keeps the rows of one layer that touch another layer. Here it fails. Read the last line of the error."
+  },
+  {
+    "objectID": "slides/week10.html#layers-must-share-a-crs",
+    "href": "slides/week10.html#layers-must-share-a-crs",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Layers Must Share a CRS",
+    "text": "Layers Must Share a CRS\n\nst_crs(airports_sf)$input\n\n[1] \"EPSG:4326\"\n\nst_crs(state_lines)$input\n\n[1] \"NAD83\"\n\n\n\nLast week’s warning, in action: GPS points come in WGS84 (4326), and Census boundaries come in NAD83 (4269)\nFix it with st_transform(), which moves one layer into the other’s CRS\n\n\nairports_ne &lt;- airports_sf |&gt;\n  st_transform(st_crs(state_lines)) |&gt;\n  st_filter(state_lines)\n\nnrow(airports_ne)\n\n[1] 71\n\n\n\nggplot() will quietly line up mismatched layers when it draws. Operations like st_filter() and st_join() won’t, so transform first."
+  },
+  {
+    "objectID": "slides/week10.html#points-on-polygons",
+    "href": "slides/week10.html#points-on-polygons",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Points on Polygons",
+    "text": "Points on Polygons\n\nggplot() +\n  geom_sf(data = state_lines, fill = \"gray95\", color = \"gray50\") +\n  geom_sf(data = airports_ne, color = \"#007155\", size = 2) +\n  coord_sf(crs = 5070) +\n  theme_void() +\n  labs(title = paste(nrow(airports_ne), \"airports in the four NBRC states\"),\n       caption = \"Source: nycflights13::airports; Census Bureau cartographic boundaries\")"
+  },
+  {
+    "objectID": "slides/week10.html#points-on-polygons-output",
+    "href": "slides/week10.html#points-on-polygons-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Points on Polygons",
+    "text": "Points on Polygons"
+  },
+  {
+    "objectID": "slides/week10.html#two-other-ways-in",
+    "href": "slides/week10.html#two-other-ways-in",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Two Other Ways In",
+    "text": "Two Other Ways In\nYou have a shapefile. A partner sends a .zip. Unzip it, keep all the pieces (.shp, .shx, .dbf, .prj) in one folder, and read the .shp:\n\ngrantees &lt;- read_sf(\"data/grantees/grantees.shp\")\n\nYou only have addresses. Turning addresses into coordinates is called geocoding. The tidygeocoder package can send them to the Census Bureau’s free geocoder. It isn’t in your workspace, so ask me if your team needs it.\n\nlibrary(tidygeocoder)\nclinics_geo &lt;- clinics |&gt;\n  geocode(address = full_address, method = \"census\")"
+  },
+  {
+    "objectID": "slides/week10.html#which-county-is-each-airport-in",
+    "href": "slides/week10.html#which-county-is-each-airport-in",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Which County Is Each Airport In?",
+    "text": "Which County Is Each Airport In?\n\nairports has no state or county column. The only “where” is the point itself.\nLast week’s NBRC county layer knows its county name, state, and whether it’s in NBRC\n\n\nnbrc_counties &lt;- counties(state = nbrc_states, cb = TRUE) |&gt;\n  mutate(in_nbrc = GEOID %in% nbrc_fips$full_fips)\n\nairports_joined &lt;- airports_ne |&gt;\n  st_join(nbrc_counties)"
+  },
+  {
+    "objectID": "slides/week10.html#what-st_join-gave-us",
+    "href": "slides/week10.html#what-st_join-gave-us",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "What st_join() Gave Us",
+    "text": "What st_join() Gave Us\n\nairports_joined |&gt;\n  select(name, NAME, STUSPS, in_nbrc)\n\nSimple feature collection with 71 features and 4 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: -79.27204 ymin: 40.63975 xmax: -67.01269 ymax: 47.28556\nGeodetic CRS:  NAD83\n# A tibble: 71 × 5\n  name                    NAME  STUSPS in_nbrc             geometry\n  &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt;  &lt;lgl&gt;            &lt;POINT [°]&gt;\n1 Randall Airport         Oran… NY     FALSE   (-74.39156 41.43191)\n2 Finger Lakes Regional … Sene… NY     TRUE    (-76.78123 42.88356)\n3 Hamburg Inc Airport     Erie  NY     FALSE   (-78.91476 42.70089)\n4 Saratoga County Airport Sara… NY     TRUE    (-73.86164 43.05072)\n5 Albany Intl             Alba… NY     FALSE   (-73.80169 42.74827)\n# ℹ 66 more rows\n\n\n\nFor each airport, st_join() found the county it sits in and copied that county’s columns onto the airport’s row\nIt’s a left_join() where the key is location instead of an ID. Same idea, same “keep every row on the left” behavior."
+  },
+  {
+    "objectID": "slides/week10.html#airports-in-and-out-of-nbrc-territory",
+    "href": "slides/week10.html#airports-in-and-out-of-nbrc-territory",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Airports In and Out of NBRC Territory",
+    "text": "Airports In and Out of NBRC Territory\n\nggplot() +\n  geom_sf(data = nbrc_counties, fill = \"gray95\", color = \"white\") +\n  geom_sf(data = state_lines, fill = NA, color = \"gray50\") +\n  geom_sf(data = airports_joined, aes(color = in_nbrc), size = 2) +\n  scale_color_manual(values = c(\"TRUE\" = \"#007155\", \"FALSE\" = \"gray60\"),\n                     labels = c(\"TRUE\" = \"In an NBRC county\", \"FALSE\" = \"Outside NBRC\"),\n                     breaks = c(\"TRUE\", \"FALSE\"), name = NULL) +\n  coord_sf(crs = 5070) +\n  theme_void() +\n  theme(legend.position = \"top\")"
+  },
+  {
+    "objectID": "slides/week10.html#airports-in-and-out-of-nbrc-territory-output",
+    "href": "slides/week10.html#airports-in-and-out-of-nbrc-territory-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Airports In and Out of NBRC Territory",
+    "text": "Airports In and Out of NBRC Territory"
+  },
+  {
+    "objectID": "slides/week10.html#going-the-other-way-points-per-polygon",
+    "href": "slides/week10.html#going-the-other-way-points-per-polygon",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Going the Other Way: Points per Polygon",
+    "text": "Going the Other Way: Points per Polygon\n\nairport_counts &lt;- airports_joined |&gt;\n  st_drop_geometry() |&gt;\n  count(GEOID, name = \"n_airports\")\n\nnbrc_airports &lt;- nbrc_counties |&gt;\n  filter(in_nbrc) |&gt;\n  left_join(airport_counts, by = \"GEOID\") |&gt;\n  mutate(n_airports = replace_na(n_airports, 0))\n\nnbrc_airports |&gt;\n  st_drop_geometry() |&gt;\n  count(n_airports)\n\n  n_airports  n\n1          0 34\n2          1 23\n3          2  5\n4          4  1\n\n\n\nst_drop_geometry() turns the points back into a plain table, so count() is fast and the result joins by GEOID like any other table\nCounties with no airports don’t show up in the count at all. replace_na() turns their missing value into a real zero."
+  },
+  {
+    "objectID": "slides/week10.html#is-that-a-fact-about-the-region-or-about-the-data",
+    "href": "slides/week10.html#is-that-a-fact-about-the-region-or-about-the-data",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Is That a Fact About the Region, or About the Data?",
+    "text": "Is That a Fact About the Region, or About the Data?\n\nIn this list, 34 of NBRC’s 63 counties have no airport, including 9 of Vermont’s 14\nBut the list isn’t complete. It has 5 Vermont airports and skips many small public airfields, including Newport State Airport in Orleans County.\nThat’s a fact about nycflights13, not about Vermont. It’s fine for practice and wrong for a slide to NBRC.\nBefore you map a list of places, find out who made the list and what they left out"
+  },
+  {
+    "objectID": "slides/week10.html#spatial-join-cheat-sheet",
+    "href": "slides/week10.html#spatial-join-cheat-sheet",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Spatial Join Cheat Sheet",
+    "text": "Spatial Join Cheat Sheet\n\n\n\n\n\n\n\nYou want to…\nUse\n\n\n\n\nTurn lat/lon columns into points\nst_as_sf(coords = c(\"lon\", \"lat\"), crs = 4326)\n\n\nPut two layers in the same CRS\nst_transform(x, st_crs(y))\n\n\nKeep only the points inside some polygons\nst_filter(points, polygons)\n\n\nAdd each polygon’s columns to the points in it\nst_join(points, polygons)\n\n\nCount points per polygon\nst_join(), then st_drop_geometry(), count(), and left_join()\n\n\n\n\nThat’s the whole new skill set for tonight. Everything after the break is a tour."
+  },
+  {
+    "objectID": "slides/week10.html#break",
+    "href": "slides/week10.html#break",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Break",
+    "text": "Break"
+  },
+  {
+    "objectID": "slides/week10.html#watch-dont-type",
+    "href": "slides/week10.html#watch-dont-type",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Watch, Don’t Type",
+    "text": "Watch, Don’t Type\n\nThe next few slides show maps your team might want for NBRC\nYou won’t be graded on any of them, and you don’t need to follow along. The code is on the slides so you can come back to it.\nEach one builds on what you already know: get_acs(), geom_sf(), and tonight’s points"
+  },
+  {
+    "objectID": "slides/week10.html#dot-density-one-dot-per-20-households",
+    "href": "slides/week10.html#dot-density-one-dot-per-20-households",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Dot Density: One Dot per 20 Households",
+    "text": "Dot Density: One Dot per 20 Households\n\nchittenden_tenure &lt;- get_acs(\n  geography = \"block group\",\n  state = \"VT\",\n  county = \"Chittenden\",\n  variables = c(Owner = \"B25003_002\", Renter = \"B25003_003\"),\n  year = 2024,\n  geometry = TRUE\n)\n\ntenure_dots &lt;- as_dot_density(\n  chittenden_tenure,\n  value = \"estimate\",\n  values_per_dot = 20,\n  group = \"variable\"\n)\n\n\n\nggplot() +\n  geom_sf(data = chittenden_tenure, fill = \"white\", color = \"gray85\", linewidth = 0.1) +\n  geom_sf(data = tenure_dots, aes(color = variable), size = 0.2) +\n  scale_color_manual(values = c(Owner = \"#1b9e77\", Renter = \"#d95f02\"), name = NULL) +\n  guides(color = guide_legend(override.aes = list(size = 3))) +\n  theme_void() +\n  labs(title = \"Four in ten of Chittenden County's renter\\nhouseholds live in the city of Burlington\",\n       caption = \"One dot = 20 households, placed at random\\nwithin its block group\\nSource: 2020-2024 ACS 5-year estimates, table B25003\")"
+  },
+  {
+    "objectID": "slides/week10.html#dot-density-one-dot-per-20-households-output",
+    "href": "slides/week10.html#dot-density-one-dot-per-20-households-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Dot Density: One Dot per 20 Households",
+    "text": "Dot Density: One Dot per 20 Households"
+  },
+  {
+    "objectID": "slides/week10.html#dot-density",
+    "href": "slides/week10.html#dot-density",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Dot Density",
+    "text": "Dot Density\n\nas_dot_density() comes with tidycensus. It scatters dots at random inside each polygon, one per 20 households here.\nIt shows counts without the “Chittenden wins every map” problem from last week, because empty land stays empty\nThe dots are placed at random inside each block group. They aren’t real addresses, so say so in the caption.\nGood for: two or three groups in one place (owners and renters, age groups, workers by industry)"
+  },
+  {
+    "objectID": "slides/week10.html#proportional-symbols",
+    "href": "slides/week10.html#proportional-symbols",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Proportional Symbols",
+    "text": "Proportional Symbols\n\nnbrc_renters &lt;- get_acs(\n  geography = \"county\",\n  state = nbrc_states,\n  variables = c(renters = \"B25003_003\"),\n  year = 2024,\n  geometry = TRUE\n) |&gt;\n  filter(GEOID %in% nbrc_fips$full_fips)\n\nrenter_circles &lt;- nbrc_renters |&gt;\n  st_point_on_surface()\n\nggplot() +\n  geom_sf(data = nbrc_renters, fill = \"gray95\", color = \"white\") +\n  geom_sf(data = state_lines, fill = NA, color = \"gray50\") +\n  geom_sf(data = renter_circles, aes(size = estimate),\n          shape = 21, fill = \"#007155\", color = \"white\", alpha = 0.8) +\n  scale_size_area(max_size = 12, labels = scales::label_comma(),\n                  name = \"Renter\\nhouseholds\") +\n  coord_sf(crs = 5070) +\n  theme_void() +\n  labs(title = \"Six in ten of NBRC's renter households\\nlive in its New York counties\",\n       caption = \"Source: 2020-2024 ACS 5-year estimates, table B25003\")"
+  },
+  {
+    "objectID": "slides/week10.html#proportional-symbols-output",
+    "href": "slides/week10.html#proportional-symbols-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Proportional Symbols",
+    "text": "Proportional Symbols"
+  },
+  {
+    "objectID": "slides/week10.html#proportional-symbols-1",
+    "href": "slides/week10.html#proportional-symbols-1",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Proportional Symbols",
+    "text": "Proportional Symbols\n\nLast week’s rule: choropleths show rates, not counts. Proportional symbols are where counts go.\nst_point_on_surface() turns each county into one point inside it, and aes(size = estimate) scales the circle\nscale_size_area() makes a circle’s area, not its width, proportional to the count. That’s what eyes compare.\nPair it with a choropleth of the rate and you’ve shown both “how many” and “how common”"
+  },
+  {
+    "objectID": "slides/week10.html#buffers-whos-within-30-miles",
+    "href": "slides/week10.html#buffers-whos-within-30-miles",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Buffers: Who’s Within 30 Miles?",
+    "text": "Buffers: Who’s Within 30 Miles?\n\nvt_towns &lt;- county_subdivisions(\"VT\", cb = TRUE) |&gt;\n  st_transform(5070)\n\nbtv &lt;- airports_joined |&gt;\n  filter(faa == \"BTV\") |&gt;\n  st_transform(5070)\n\nbtv_buffer &lt;- st_buffer(btv, dist = 30 * 1609.34)\n\nvt_towns &lt;- vt_towns |&gt;\n  mutate(near_btv = st_intersects(st_point_on_surface(vt_towns), btv_buffer,\n                                  sparse = FALSE)[, 1])\n\nggplot() +\n  geom_sf(data = vt_towns, aes(fill = near_btv), color = \"white\", linewidth = 0.1) +\n  geom_sf(data = btv_buffer, fill = NA, color = \"black\", linetype = \"dashed\") +\n  geom_sf(data = btv, size = 3) +\n  scale_fill_manual(values = c(\"TRUE\" = \"#007155\", \"FALSE\" = \"gray85\"),\n                    labels = c(\"TRUE\" = \"Within 30 miles\", \"FALSE\" = \"Farther\"),\n                    breaks = c(\"TRUE\", \"FALSE\"), name = NULL) +\n  theme_void() +\n  labs(title = paste(sum(vt_towns$near_btv), \"of Vermont's\", nrow(vt_towns),\n                     \"towns are within\\n30 miles of Burlington International\"),\n       caption = \"Distance measured from each town's interior point, as the crow flies\")"
+  },
+  {
+    "objectID": "slides/week10.html#buffers-whos-within-30-miles-output",
+    "href": "slides/week10.html#buffers-whos-within-30-miles-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Buffers: Who’s Within 30 Miles?",
+    "text": "Buffers: Who’s Within 30 Miles?"
+  },
+  {
+    "objectID": "slides/week10.html#buffers-and-distance",
+    "href": "slides/week10.html#buffers-and-distance",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Buffers and Distance",
+    "text": "Buffers and Distance\n\nst_buffer() draws a ring a set distance around each feature. Distance is in the CRS’s units: meters for 5070, so 30 miles is 30 * 1609.34.\nst_intersects() asks which towns fall inside the ring\nst_distance() gives the actual distance between features, and st_nearest_feature() finds the closest one\nRural Hub Services: “how far is the nearest clinic, pharmacy, or grocery store?” is a buffer or distance question\nStraight-line distance understates a rural drive. Real drive times need a routing service, which is beyond this class."
+  },
+  {
+    "objectID": "slides/week10.html#interactive-maps-with-mapgl",
+    "href": "slides/week10.html#interactive-maps-with-mapgl",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Interactive Maps with mapgl",
+    "text": "Interactive Maps with mapgl\n\nlibrary(mapgl)\n\nvt_home_value &lt;- get_acs(\n  geography = \"tract\",\n  state = \"VT\",\n  variables = c(home_value = \"B25077_001\"),\n  year = 2024,\n  geometry = TRUE\n)\n\nmaplibre_view(vt_home_value, column = \"estimate\")"
+  },
+  {
+    "objectID": "slides/week10.html#interactive-maps-with-mapgl-output",
+    "href": "slides/week10.html#interactive-maps-with-mapgl-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Interactive Maps with mapgl",
+    "text": "Interactive Maps with mapgl"
+  },
+  {
+    "objectID": "slides/week10.html#interactive-maps",
+    "href": "slides/week10.html#interactive-maps",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Interactive Maps",
+    "text": "Interactive Maps\n\nmapgl is already in your workspace. maplibre_view() is the one-line version: hand it an sf object and a column.\nZoom, pan, and click a tract to see its value. The basemap underneath (roads, towns, water) is free.\nIt drops straight into a Quarto dashboard, which is one of your two final-deliverable options\nKyle Walker, who wrote tidycensus and the book you read for Week 9, also wrote mapgl. Its documentation has many more examples."
+  },
+  {
+    "objectID": "slides/week10.html#scale-bars-and-north-arrows",
+    "href": "slides/week10.html#scale-bars-and-north-arrows",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Scale Bars and North Arrows",
+    "text": "Scale Bars and North Arrows\n\nlibrary(ggspatial)\n\nvt_seasonal &lt;- get_acs(\n  geography = \"county subdivision\",\n  state = \"VT\",\n  variables = c(seasonal = \"B25004_006\", units = \"B25001_001\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  mutate(seasonal_share = seasonalE / unitsE)\n\nggplot(vt_seasonal) +\n  geom_sf(aes(fill = seasonal_share), color = \"white\", linewidth = 0.1) +\n  scale_fill_distiller(palette = \"YlGnBu\", direction = 1,\n                       labels = scales::label_percent(), name = NULL,\n                       na.value = \"gray85\") +\n  annotation_scale(location = \"bl\", unit_category = \"imperial\") +\n  annotation_north_arrow(location = \"br\", height = unit(1, \"cm\"),\n                         width = unit(1, \"cm\"), style = north_arrow_minimal()) +\n  theme_void() +\n  labs(title = \"In 51 Vermont towns, a third or more\\nof homes are seasonal\",\n       caption = \"Gray: no housing units\\nSource: 2020-2024 ACS 5-year estimates, tables B25004 and B25001\")"
+  },
+  {
+    "objectID": "slides/week10.html#scale-bars-and-north-arrows-output",
+    "href": "slides/week10.html#scale-bars-and-north-arrows-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Scale Bars and North Arrows",
+    "text": "Scale Bars and North Arrows"
+  },
+  {
+    "objectID": "slides/week10.html#do-you-need-them",
+    "href": "slides/week10.html#do-you-need-them",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Do You Need Them?",
+    "text": "Do You Need Them?\n\nannotation_scale() and annotation_north_arrow() come from ggspatial, which is already in your workspace\nlocation = \"bl\" means bottom left, and \"br\" is bottom right. Put them where they won’t cover the data. unit_category = \"imperial\" gives miles.\nScale bar: worth it whenever distance matters to the story (access, commuting, service areas). It’s required on HW5.\nNorth arrow: optional. On a map of a familiar place with north at the top, most cartographers leave it off. Never let it compete with the data."
+  },
+  {
+    "objectID": "slides/week10.html#inset-maps-where-is-this",
+    "href": "slides/week10.html#inset-maps-where-is-this",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Inset Maps: Where Is This?",
+    "text": "Inset Maps: Where Is This?\n\nlibrary(patchwork)\n\nlocator &lt;- ggplot() +\n  geom_sf(data = state_lines, aes(fill = STUSPS == \"VT\"), color = \"white\") +\n  scale_fill_manual(values = c(\"TRUE\" = \"#007155\", \"FALSE\" = \"gray80\"), guide = \"none\") +\n  coord_sf(crs = 5070) +\n  ggplot2::theme_void() +\n  theme(plot.background = element_rect(fill = \"white\", color = \"gray50\"))\n\nseasonal_map &lt;- ggplot(vt_seasonal) +\n  geom_sf(aes(fill = seasonal_share), color = \"white\", linewidth = 0.1) +\n  scale_fill_distiller(palette = \"YlGnBu\", direction = 1,\n                       labels = scales::label_percent(), name = NULL,\n                       na.value = \"gray85\") +\n  theme_void()\n\nseasonal_map +\n  inset_element(locator, left = 0.62, bottom = 0.05, right = 0.95, top = 0.35,\n                align_to = \"full\")"
+  },
+  {
+    "objectID": "slides/week10.html#inset-maps-where-is-this-output",
+    "href": "slides/week10.html#inset-maps-where-is-this-output",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Inset Maps: Where Is This?",
+    "text": "Inset Maps: Where Is This?"
+  },
+  {
+    "objectID": "slides/week10.html#inset-maps",
+    "href": "slides/week10.html#inset-maps",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Inset Maps",
+    "text": "Inset Maps\n\nA locator inset tells an outside reader where the main map sits. NBRC staff know where Vermont is, but a federal reviewer reading their report might not know where Essex County is.\ninset_element() comes from the patchwork package, which is not in your workspace. Install it with install.packages(\"patchwork\") if your team wants one.\nThe positions (left, bottom, right, top) run from 0 to 1 across the whole figure (align_to = \"full\"). Expect to nudge them a few times."
+  },
+  {
+    "objectID": "slides/week10.html#a-finished-map-checklist",
+    "href": "slides/week10.html#a-finished-map-checklist",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "A Finished-Map Checklist",
+    "text": "A Finished-Map Checklist\n\nA title that states the finding, not just the variable\nA source caption naming the data and the table or dataset\nRates, shares, or medians on a choropleth; counts as dots or symbols\nA readable palette, with missing data in gray and labeled as missing\nFormatted legend labels: label_percent(), label_dollar(), label_comma()\nA sensible CRS: 5070 for a multi-state map\ntheme_void(): no latitude and longitude grid\nA scale bar when distance matters\nSmall-area caution: check margins of error before you claim two places differ"
+  },
+  {
+    "objectID": "slides/week10.html#what-are-git-and-github",
+    "href": "slides/week10.html#what-are-git-and-github",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "What Are Git and GitHub?",
+    "text": "What Are Git and GitHub?\n\nGit keeps a history of a project. Each saved snapshot is a commit, so you can see what changed, when, and go back if you need to.\nGitHub is a website that hosts git projects so other people can download them, use them, and suggest changes\nYou’ve already used both. Every homework you’ve pulled with git fetch && git checkout ... came from my GitHub repository.\nMany R packages live on GitHub, often a newer version than the one on CRAN (where install.packages() looks), and sometimes only on GitHub\nYour team could use GitHub to share code for the final deliverable. Ask me if you want help setting that up."
+  },
+  {
+    "objectID": "slides/week10.html#installing-a-package-from-github",
+    "href": "slides/week10.html#installing-a-package-from-github",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Installing a Package from GitHub",
+    "text": "Installing a Package from GitHub\n\ninstall.packages() only searches CRAN. For GitHub, use the remotes package. Run these once, in the Console:\n\n\ninstall.packages(\"remotes\")\nremotes::install_github(\"UrbanInstitute/education-data-package-r\",\n                        upgrade = \"never\")\n\n\nupgrade = \"never\" stops it from asking whether to update every other package you have\nThe first argument is \"owner/repository\", copied from the GitHub address: github.com/UrbanInstitute/education-data-package-r\nThe repository name and the package name can differ. This one installs a package called educationdata, so you’ll load it with library(educationdata).\nInstalling from GitHub runs someone else’s code on your computer. Stick to sources you trust, like a university, a research institute, or a package author you know.\n\n\neducationdata is also on CRAN, but the point tonight is the GitHub workflow, and the GitHub version is the newest."
+  },
+  {
+    "objectID": "slides/week10.html#colleges-as-points",
+    "href": "slides/week10.html#colleges-as-points",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Colleges as Points",
+    "text": "Colleges as Points\n\nvt_colleges &lt;- get_education_data(\n  level = \"college-university\",\n  source = \"ipeds\",\n  topic = \"directory\",\n  filters = list(year = 2024, fips = 50)\n)\n\nvt_colleges |&gt;\n  select(inst_name, city, latitude, longitude) |&gt;\n  head()\n\n                     inst_name       city latitude longitude\n1           Bennington College Bennington 42.91955 -73.23780\n2            Champlain College Burlington 44.47329 -73.20275\n3 Community College of Vermont Montpelier 44.28081 -72.57377\n4              Goddard College Plainfield 44.27909 -72.43839\n5           Middlebury College Middlebury 44.00912 -73.17607\n6           Norwich University Northfield 44.14024 -72.65978\n\n\n\nThe Urban Institute’s Education Data Portal serves federal IPEDS data on every college and university. fips = 50 is Vermont’s state FIPS code.\nIt has latitude and longitude columns, so you already know the next step. That’s HW5, Part 2."
+  },
+  {
+    "objectID": "slides/week10.html#get-hw5",
+    "href": "slides/week10.html#get-hw5",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Get HW5",
+    "text": "Get HW5\nOpen the Terminal tab (next to Console) and run this one line:\ngit fetch && git checkout origin/main -- homework/hw5.qmd homework/HW5_INSTRUCTIONS_READ_ONLY.html\n\nhw5.qmd is a blank starter. It’s yours, and it’s fine to replace everything in it.\nThe instructions are in HW5_INSTRUCTIONS_READ_ONLY.html. Click it in the Files pane and choose View in Web Browser."
+  },
+  {
+    "objectID": "slides/week10.html#hw5-at-a-glance",
+    "href": "slides/week10.html#hw5-at-a-glance",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "HW5 at a Glance",
+    "text": "HW5 at a Glance\n\nDue Sunday, Nov. 15 at 11:59pm. Render hw5.qmd to HTML.\nPart 1: A choropleth. One NBRC state, one ACS variable that fits your team’s domain, shown as a share or rate. Readable palette, a title that states the finding, a source caption, and a scale bar.\nPart 2: A point map. Install educationdata from GitHub, pull your state’s colleges, turn them into points with st_as_sf(), and map them over your state’s counties\nA few sentences under each map saying what it shows"
+  },
+  {
+    "objectID": "slides/week10.html#before-next-class-nov.-19",
+    "href": "slides/week10.html#before-next-class-nov.-19",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Before Next Class (Nov. 19)",
+    "text": "Before Next Class (Nov. 19)\n\nNo class Nov. 12\nHW5 is due Sunday, Nov. 15 at 11:59pm\nPreliminary Outputs are due Thursday, Nov. 19: at least one polished figure or map for one of your research questions, plus a short framing of why it matters to NBRC\nCome ready to give and receive feedback in the peer critique"
+  },
+  {
+    "objectID": "slides/week10.html#thank-you",
+    "href": "slides/week10.html#thank-you",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Thank you!",
+    "text": "Thank you!"
   }
 ]

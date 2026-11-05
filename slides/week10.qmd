@@ -1,0 +1,607 @@
+---
+title: "Week 10: Points, Spatial Joins, and Finished Maps"
+subtitle: "CDAE 7990 · Applied Data Science & Visualization"
+author: "Andrew Van Leuven"
+date: "November 5, 2026"
+format:
+  revealjs:
+    theme: [default, ../slides.scss]
+    slide-number: true
+    show-slide-number: speaker
+    footer: "[CDAE 7990](../index.html) · Week 10"
+    logo: ""
+    transition: fade
+    code-line-numbers: false
+    scrollable: true
+    date-format: long
+execute:
+  echo: true
+  eval: true
+  message: false
+  warning: false
+---
+
+<!-- FIRST DRAFT (Nov 5). Numbers on these slides are computed inline or were checked against the data before rendering. -->
+
+```{r}
+#| include: false
+library(tidyverse)
+library(sf)
+library(tigris)
+library(tidycensus)
+library(nycflights13)
+library(ggspatial)
+library(educationdata)
+options(tigris_use_cache = TRUE)
+options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
+wide_margin <- theme(plot.margin = margin(5.5, 22, 5.5, 5.5))
+theme_set(theme_gray(base_size = 16) + wide_margin)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 4.5, fig.align = "center",
+                      dpi = 150, out.width = "85%")
+# Complete themes reset the base font size to 11, which is too small on a
+# projector. These wrappers keep the slide code clean (a bare theme_void())
+# while rendering at the same size as every other figure.
+theme_minimal <- function(base_size = 16, ...) ggplot2::theme_minimal(base_size = base_size, ...) + wide_margin
+theme_void <- function(base_size = 16, ...) ggplot2::theme_void(base_size = base_size, ...) +
+  theme(plot.title.position = "plot", plot.caption.position = "plot",
+        plot.margin = margin(5.5, 5.5, 5.5, 5.5))
+
+nbrc_fips <- read_csv("../data/nbrc_counties_fips.csv",
+                      col_types = cols(.default = "c"))
+```
+
+## Welcome Back
+
+- Last week: polygons, Census geography, and choropleths
+- Tonight is the last night of new material, and most of it is a tour. **One new skill**, then a lot of "here's what's possible."
+
+## Coming Up {.smaller}
+
+| Date | What |
+|---|---|
+| **Thu. Nov. 12** | **No class** (conference) |
+| **Sun. Nov. 15**, 11:59pm | **HW5 due**: the maps problem set (released tonight) |
+| **Thu. Nov. 19** | Project workday + peer critique. **Preliminary Outputs due.** |
+| **Thu. Dec. 3** | Draft deliverables due |
+
+: {tbl-colwidths="[30,70]"}
+
+- Preliminary Outputs means at least one polished figure or map for one of your research questions. Two weeks from tonight.
+
+## Today's Plan {.smaller}
+
+- **Points**: turning a table of coordinates into a map (follow along, the one new skill)
+- **Spatial joins**: connecting points to the polygons they fall in (follow along if you like)
+- **What else maps can do**: dot density, proportional symbols, buffers, interactive maps (watch, don't type)
+- **Finishing touches**: scale bars, north arrows, insets, and a checklist
+- **Git, GitHub, and HW5**: installing a package from GitHub, then the homework
+
+## Follow Along {.smaller}
+
+- Open your **cdae7990_workspace** project in Posit Cloud
+- Open last week's `week09.R`, or make a new script and save it as `week10.R`
+- Run these lines at the top. If any `library()` call errors, run `source("setup.R")` and try again.
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(sf)
+library(tigris)
+library(tidycensus)
+library(nycflights13)
+options(tigris_use_cache = TRUE)
+```
+
+- `nycflights13` is back from Week 3. It has a table of US airports we'll turn into a map.
+
+# Points {background-color="#007155"}
+
+## Most Location Data Starts as a Table
+
+- A list of clinics, schools, grantee projects, or broadband sites usually arrives as a spreadsheet, not a shapefile
+- If it has a **longitude** and a **latitude** column, you're one line away from a map
+- `nycflights13::airports` is a good example
+
+```{r}
+airports
+```
+
+- To R, `lat` and `lon` are just two numeric columns. Nothing here knows it's a location yet.
+
+## From Table to `sf`: `st_as_sf()` {.smaller}
+
+```{r}
+airports_sf <- airports |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+airports_sf
+```
+
+- `coords = c("lon", "lat")` names the x column first, then y. **Longitude is x** (east-west), latitude is y.
+- `crs = 4326` says these are plain GPS coordinates (WGS84, from last week's CRS table)
+- The `lat` and `lon` columns are gone. They now live in `geometry`, as POINTs.
+
+## Your First Point Map
+
+```{r}
+#| fig-height: 4
+#| out-width: "75%"
+ggplot(airports_sf) +
+  geom_sf(size = 0.5)
+```
+
+- It works, but it's every US airport in the list, including Alaska, Hawaii, and a few Pacific islands. We want the NBRC states.
+
+## Keep Only the Points Inside
+
+```{r}
+#| error: true
+nbrc_states <- c("ME", "NH", "NY", "VT")
+
+state_lines <- states(cb = TRUE) |>
+  filter(STUSPS %in% nbrc_states)
+
+airports_ne <- airports_sf |>
+  st_filter(state_lines)
+```
+
+- `st_filter()` keeps the rows of one layer that touch another layer. Here it fails. Read the last line of the error.
+
+## Layers Must Share a CRS {.smaller}
+
+```{r}
+st_crs(airports_sf)$input
+st_crs(state_lines)$input
+```
+
+- Last week's warning, in action: GPS points come in WGS84 (4326), and Census boundaries come in NAD83 (4269)
+- Fix it with `st_transform()`, which moves one layer into the other's CRS
+
+```{r}
+airports_ne <- airports_sf |>
+  st_transform(st_crs(state_lines)) |>
+  st_filter(state_lines)
+
+nrow(airports_ne)
+```
+
+- `ggplot()` will quietly line up mismatched layers when it draws. Operations like `st_filter()` and `st_join()` won't, so transform first.
+
+## Points on Polygons
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "80%"
+ggplot() +
+  geom_sf(data = state_lines, fill = "gray95", color = "gray50") +
+  geom_sf(data = airports_ne, color = "#007155", size = 2) +
+  coord_sf(crs = 5070) +
+  theme_void() +
+  labs(title = paste(nrow(airports_ne), "airports in the four NBRC states"),
+       caption = "Source: nycflights13::airports; Census Bureau cartographic boundaries")
+```
+
+## Two Other Ways In {.smaller}
+
+**You have a shapefile.** A partner sends a `.zip`. Unzip it, keep all the pieces (`.shp`, `.shx`, `.dbf`, `.prj`) in one folder, and read the `.shp`:
+
+```{r}
+#| eval: false
+grantees <- read_sf("data/grantees/grantees.shp")
+```
+
+**You only have addresses.** Turning addresses into coordinates is called **geocoding**. The `tidygeocoder` package can send them to the Census Bureau's free geocoder. It isn't in your workspace, so ask me if your team needs it.
+
+```{r}
+#| eval: false
+library(tidygeocoder)
+clinics_geo <- clinics |>
+  geocode(address = full_address, method = "census")
+```
+
+# Spatial Joins {background-color="#007155"}
+
+## Which County Is Each Airport In?
+
+- `airports` has no state or county column. The only "where" is the point itself.
+- Last week's NBRC county layer knows its county name, state, and whether it's in NBRC
+
+```{r}
+nbrc_counties <- counties(state = nbrc_states, cb = TRUE) |>
+  mutate(in_nbrc = GEOID %in% nbrc_fips$full_fips)
+
+airports_joined <- airports_ne |>
+  st_join(nbrc_counties)
+```
+
+## What `st_join()` Gave Us {.smaller}
+
+```{r}
+airports_joined |>
+  select(name, NAME, STUSPS, in_nbrc)
+```
+
+- For each airport, `st_join()` found the county it sits in and copied that county's columns onto the airport's row
+- It's a `left_join()` where the key is **location** instead of an ID. Same idea, same "keep every row on the left" behavior.
+
+## Airports In and Out of NBRC Territory
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "80%"
+ggplot() +
+  geom_sf(data = nbrc_counties, fill = "gray95", color = "white") +
+  geom_sf(data = state_lines, fill = NA, color = "gray50") +
+  geom_sf(data = airports_joined, aes(color = in_nbrc), size = 2) +
+  scale_color_manual(values = c("TRUE" = "#007155", "FALSE" = "gray60"),
+                     labels = c("TRUE" = "In an NBRC county", "FALSE" = "Outside NBRC"),
+                     breaks = c("TRUE", "FALSE"), name = NULL) +
+  coord_sf(crs = 5070) +
+  theme_void() +
+  theme(legend.position = "top")
+```
+
+## Going the Other Way: Points per Polygon {.smaller}
+
+```{r}
+airport_counts <- airports_joined |>
+  st_drop_geometry() |>
+  count(GEOID, name = "n_airports")
+
+nbrc_airports <- nbrc_counties |>
+  filter(in_nbrc) |>
+  left_join(airport_counts, by = "GEOID") |>
+  mutate(n_airports = replace_na(n_airports, 0))
+
+nbrc_airports |>
+  st_drop_geometry() |>
+  count(n_airports)
+```
+
+- `st_drop_geometry()` turns the points back into a plain table, so `count()` is fast and the result joins by `GEOID` like any other table
+- Counties with no airports don't show up in the count at all. `replace_na()` turns their missing value into a real zero.
+
+## Is That a Fact About the Region, or About the Data? {.smaller}
+
+```{r}
+#| echo: false
+no_airport <- sum(nbrc_airports$n_airports == 0)
+vt_no_airport <- sum(nbrc_airports$n_airports == 0 & nbrc_airports$STUSPS == "VT")
+```
+
+- In this list, `r no_airport` of NBRC's 63 counties have no airport, including `r vt_no_airport` of Vermont's 14
+- But the list isn't complete. It has `r sum(airports_joined$STUSPS == "VT")` Vermont airports and skips many small public airfields, including Newport State Airport in Orleans County.
+- That's a fact about `nycflights13`, not about Vermont. It's fine for practice and wrong for a slide to NBRC.
+- **Before you map a list of places, find out who made the list and what they left out**
+
+## Spatial Join Cheat Sheet {.smaller}
+
+| You want to... | Use |
+|---|---|
+| Turn lat/lon columns into points | `st_as_sf(coords = c("lon", "lat"), crs = 4326)` |
+| Put two layers in the same CRS | `st_transform(x, st_crs(y))` |
+| Keep only the points inside some polygons | `st_filter(points, polygons)` |
+| Add each polygon's columns to the points in it | `st_join(points, polygons)` |
+| Count points per polygon | `st_join()`, then `st_drop_geometry()`, `count()`, and `left_join()` |
+
+: {tbl-colwidths="[45,55]"}
+
+- That's the whole new skill set for tonight. Everything after the break is a tour.
+
+## Break {background-color="#007155"}
+
+# What Else Maps Can Do {background-color="#007155"}
+
+## Watch, Don't Type
+
+- The next few slides show maps your team might want for NBRC
+- You won't be graded on any of them, and you don't need to follow along. The code is on the slides so you can come back to it.
+- Each one builds on what you already know: `get_acs()`, `geom_sf()`, and tonight's points
+
+## Dot Density: One Dot per 20 Households {.smaller}
+
+```{r}
+chittenden_tenure <- get_acs(
+  geography = "block group",
+  state = "VT",
+  county = "Chittenden",
+  variables = c(Owner = "B25003_002", Renter = "B25003_003"),
+  year = 2024,
+  geometry = TRUE
+)
+
+tenure_dots <- as_dot_density(
+  chittenden_tenure,
+  value = "estimate",
+  values_per_dot = 20,
+  group = "variable"
+)
+```
+
+<!-- as_dot_density() runs in its own chunk on purpose: terra::dots() inside it keeps knitr from capturing a plot made in the same chunk. -->
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "70%"
+ggplot() +
+  geom_sf(data = chittenden_tenure, fill = "white", color = "gray85", linewidth = 0.1) +
+  geom_sf(data = tenure_dots, aes(color = variable), size = 0.2) +
+  scale_color_manual(values = c(Owner = "#1b9e77", Renter = "#d95f02"), name = NULL) +
+  guides(color = guide_legend(override.aes = list(size = 3))) +
+  theme_void() +
+  labs(title = "Four in ten of Chittenden County's renter\nhouseholds live in the city of Burlington",
+       caption = "One dot = 20 households, placed at random\nwithin its block group\nSource: 2020-2024 ACS 5-year estimates, table B25003")
+```
+
+## Dot Density {.smaller}
+
+- `as_dot_density()` comes with `tidycensus`. It scatters dots at random inside each polygon, one per 20 households here.
+- It shows **counts** without the "Chittenden wins every map" problem from last week, because empty land stays empty
+- The dots are placed at random inside each block group. They aren't real addresses, so say so in the caption.
+- Good for: two or three groups in one place (owners and renters, age groups, workers by industry)
+
+## Proportional Symbols {.smaller}
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "85%"
+nbrc_renters <- get_acs(
+  geography = "county",
+  state = nbrc_states,
+  variables = c(renters = "B25003_003"),
+  year = 2024,
+  geometry = TRUE
+) |>
+  filter(GEOID %in% nbrc_fips$full_fips)
+
+renter_circles <- nbrc_renters |>
+  st_point_on_surface()
+
+ggplot() +
+  geom_sf(data = nbrc_renters, fill = "gray95", color = "white") +
+  geom_sf(data = state_lines, fill = NA, color = "gray50") +
+  geom_sf(data = renter_circles, aes(size = estimate),
+          shape = 21, fill = "#007155", color = "white", alpha = 0.8) +
+  scale_size_area(max_size = 12, labels = scales::label_comma(),
+                  name = "Renter\nhouseholds") +
+  coord_sf(crs = 5070) +
+  theme_void() +
+  labs(title = "Six in ten of NBRC's renter households\nlive in its New York counties",
+       caption = "Source: 2020-2024 ACS 5-year estimates, table B25003")
+```
+
+## Proportional Symbols {.smaller}
+
+- Last week's rule: choropleths show rates, not counts. **Proportional symbols are where counts go.**
+- `st_point_on_surface()` turns each county into one point inside it, and `aes(size = estimate)` scales the circle
+- `scale_size_area()` makes a circle's *area*, not its width, proportional to the count. That's what eyes compare.
+- Pair it with a choropleth of the rate and you've shown both "how many" and "how common"
+
+## Buffers: Who's Within 30 Miles? {.smaller}
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "65%"
+vt_towns <- county_subdivisions("VT", cb = TRUE) |>
+  st_transform(5070)
+
+btv <- airports_joined |>
+  filter(faa == "BTV") |>
+  st_transform(5070)
+
+btv_buffer <- st_buffer(btv, dist = 30 * 1609.34)
+
+vt_towns <- vt_towns |>
+  mutate(near_btv = st_intersects(st_point_on_surface(vt_towns), btv_buffer,
+                                  sparse = FALSE)[, 1])
+
+ggplot() +
+  geom_sf(data = vt_towns, aes(fill = near_btv), color = "white", linewidth = 0.1) +
+  geom_sf(data = btv_buffer, fill = NA, color = "black", linetype = "dashed") +
+  geom_sf(data = btv, size = 3) +
+  scale_fill_manual(values = c("TRUE" = "#007155", "FALSE" = "gray85"),
+                    labels = c("TRUE" = "Within 30 miles", "FALSE" = "Farther"),
+                    breaks = c("TRUE", "FALSE"), name = NULL) +
+  theme_void() +
+  labs(title = paste(sum(vt_towns$near_btv), "of Vermont's", nrow(vt_towns),
+                     "towns are within\n30 miles of Burlington International"),
+       caption = "Distance measured from each town's interior point, as the crow flies")
+```
+
+## Buffers and Distance {.smaller}
+
+- `st_buffer()` draws a ring a set distance around each feature. Distance is in the CRS's units: meters for 5070, so 30 miles is `30 * 1609.34`.
+- `st_intersects()` asks which towns fall inside the ring
+- `st_distance()` gives the actual distance between features, and `st_nearest_feature()` finds the closest one
+- **Rural Hub Services**: "how far is the nearest clinic, pharmacy, or grocery store?" is a buffer or distance question
+- Straight-line distance understates a rural drive. Real drive times need a routing service, which is beyond this class.
+
+## Interactive Maps with `mapgl` {.smaller}
+
+```{r}
+#| output-location: slide
+#| echo: true
+library(mapgl)
+
+vt_home_value <- get_acs(
+  geography = "tract",
+  state = "VT",
+  variables = c(home_value = "B25077_001"),
+  year = 2024,
+  geometry = TRUE
+)
+
+maplibre_view(vt_home_value, column = "estimate")
+```
+
+## Interactive Maps {.smaller}
+
+- `mapgl` is already in your workspace. `maplibre_view()` is the one-line version: hand it an `sf` object and a column.
+- Zoom, pan, and click a tract to see its value. The basemap underneath (roads, towns, water) is free.
+- It drops straight into a **Quarto dashboard**, which is one of your two final-deliverable options
+- Kyle Walker, who wrote `tidycensus` and the book you read for Week 9, also wrote `mapgl`. Its [documentation](https://walker-data.com/mapgl/) has many more examples.
+
+# Finishing Touches {background-color="#007155"}
+
+## Scale Bars and North Arrows {.smaller}
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "65%"
+library(ggspatial)
+
+vt_seasonal <- get_acs(
+  geography = "county subdivision",
+  state = "VT",
+  variables = c(seasonal = "B25004_006", units = "B25001_001"),
+  year = 2024,
+  output = "wide",
+  geometry = TRUE
+) |>
+  mutate(seasonal_share = seasonalE / unitsE)
+
+ggplot(vt_seasonal) +
+  geom_sf(aes(fill = seasonal_share), color = "white", linewidth = 0.1) +
+  scale_fill_distiller(palette = "YlGnBu", direction = 1,
+                       labels = scales::label_percent(), name = NULL,
+                       na.value = "gray85") +
+  annotation_scale(location = "bl", unit_category = "imperial") +
+  annotation_north_arrow(location = "br", height = unit(1, "cm"),
+                         width = unit(1, "cm"), style = north_arrow_minimal()) +
+  theme_void() +
+  labs(title = "In 51 Vermont towns, a third or more\nof homes are seasonal",
+       caption = "Gray: no housing units\nSource: 2020-2024 ACS 5-year estimates, tables B25004 and B25001")
+```
+
+## Do You Need Them? {.smaller}
+
+- `annotation_scale()` and `annotation_north_arrow()` come from `ggspatial`, which is already in your workspace
+- `location = "bl"` means bottom left, and `"br"` is bottom right. Put them where they won't cover the data. `unit_category = "imperial"` gives miles.
+- **Scale bar**: worth it whenever distance matters to the story (access, commuting, service areas). It's required on HW5.
+- **North arrow**: optional. On a map of a familiar place with north at the top, most cartographers leave it off. Never let it compete with the data.
+
+## Inset Maps: Where Is This? {.smaller}
+
+```{r}
+#| output-location: slide
+#| fig-height: 5.5
+#| out-width: "70%"
+library(patchwork)
+
+locator <- ggplot() +
+  geom_sf(data = state_lines, aes(fill = STUSPS == "VT"), color = "white") +
+  scale_fill_manual(values = c("TRUE" = "#007155", "FALSE" = "gray80"), guide = "none") +
+  coord_sf(crs = 5070) +
+  ggplot2::theme_void() +
+  theme(plot.background = element_rect(fill = "white", color = "gray50"))
+
+seasonal_map <- ggplot(vt_seasonal) +
+  geom_sf(aes(fill = seasonal_share), color = "white", linewidth = 0.1) +
+  scale_fill_distiller(palette = "YlGnBu", direction = 1,
+                       labels = scales::label_percent(), name = NULL,
+                       na.value = "gray85") +
+  theme_void()
+
+seasonal_map +
+  inset_element(locator, left = 0.62, bottom = 0.05, right = 0.95, top = 0.35,
+                align_to = "full")
+```
+
+## Inset Maps {.smaller}
+
+- A **locator inset** tells an outside reader where the main map sits. NBRC staff know where Vermont is, but a federal reviewer reading their report might not know where Essex County is.
+- `inset_element()` comes from the `patchwork` package, which is **not** in your workspace. Install it with `install.packages("patchwork")` if your team wants one.
+- The positions (`left`, `bottom`, `right`, `top`) run from 0 to 1 across the whole figure (`align_to = "full"`). Expect to nudge them a few times.
+
+## A Finished-Map Checklist {.smaller}
+
+- [ ] A **title that states the finding**, not just the variable
+- [ ] A **source caption** naming the data and the table or dataset
+- [ ] **Rates, shares, or medians** on a choropleth; counts as dots or symbols
+- [ ] A **readable palette**, with missing data in gray and labeled as missing
+- [ ] **Formatted legend labels**: `label_percent()`, `label_dollar()`, `label_comma()`
+- [ ] **A sensible CRS**: 5070 for a multi-state map
+- [ ] **`theme_void()`**: no latitude and longitude grid
+- [ ] A **scale bar** when distance matters
+- [ ] **Small-area caution**: check margins of error before you claim two places differ
+
+# Git, GitHub, and HW5 {background-color="#007155"}
+
+## What Are Git and GitHub? {.smaller}
+
+- **Git** keeps a history of a project. Each saved snapshot is a **commit**, so you can see what changed, when, and go back if you need to.
+- **GitHub** is a website that hosts git projects so other people can download them, use them, and suggest changes
+- You've already used both. Every homework you've pulled with `git fetch && git checkout ...` came from my GitHub repository.
+- Many R packages live on GitHub, often a newer version than the one on CRAN (where `install.packages()` looks), and sometimes *only* on GitHub
+- Your team could use GitHub to share code for the final deliverable. Ask me if you want help setting that up.
+
+## Installing a Package from GitHub {.smaller}
+
+- `install.packages()` only searches CRAN. For GitHub, use the `remotes` package. Run these **once**, in the **Console**:
+
+```{r}
+#| eval: false
+install.packages("remotes")
+remotes::install_github("UrbanInstitute/education-data-package-r",
+                        upgrade = "never")
+```
+
+- `upgrade = "never"` stops it from asking whether to update every other package you have
+- The first argument is `"owner/repository"`, copied from the GitHub address: [github.com/UrbanInstitute/education-data-package-r](https://github.com/UrbanInstitute/education-data-package-r)
+- The repository name and the package name can differ. This one installs a package called `educationdata`, so you'll load it with `library(educationdata)`.
+- Installing from GitHub runs someone else's code on your computer. Stick to sources you trust, like a university, a research institute, or a package author you know.
+
+::: {.notes}
+educationdata is also on CRAN, but the point tonight is the GitHub workflow, and the GitHub version is the newest.
+:::
+
+## Colleges as Points {.smaller}
+
+```{r}
+vt_colleges <- get_education_data(
+  level = "college-university",
+  source = "ipeds",
+  topic = "directory",
+  filters = list(year = 2024, fips = 50)
+)
+
+vt_colleges |>
+  select(inst_name, city, latitude, longitude) |>
+  head()
+```
+
+- The Urban Institute's Education Data Portal serves federal **IPEDS** data on every college and university. `fips = 50` is Vermont's state FIPS code.
+- It has `latitude` and `longitude` columns, so you already know the next step. That's HW5, Part 2.
+
+## Get HW5
+
+Open the **Terminal** tab (next to Console) and run this one line:
+
+```bash
+git fetch && git checkout origin/main -- homework/hw5.qmd homework/HW5_INSTRUCTIONS_READ_ONLY.html
+```
+
+- `hw5.qmd` is a blank starter. It's yours, and it's fine to replace everything in it.
+- The instructions are in `HW5_INSTRUCTIONS_READ_ONLY.html`. Click it in the Files pane and choose **View in Web Browser**.
+
+## HW5 at a Glance {.smaller}
+
+- **Due Sunday, Nov. 15** at 11:59pm. Render `hw5.qmd` to HTML.
+- **Part 1: A choropleth.** One NBRC state, one ACS variable that fits your team's domain, shown as a share or rate. Readable palette, a title that states the finding, a source caption, and a **scale bar**.
+- **Part 2: A point map.** Install `educationdata` from GitHub, pull your state's colleges, turn them into points with `st_as_sf()`, and map them over your state's counties
+- A few sentences under each map saying what it shows
+
+## Before Next Class (Nov. 19) {.smaller}
+
+- [ ] **No class Nov. 12**
+- [ ] **HW5** is due **Sunday, Nov. 15** at 11:59pm
+- [ ] **Preliminary Outputs** are due **Thursday, Nov. 19**: at least one polished figure or map for one of your research questions, plus a short framing of why it matters to NBRC
+- [ ] Come ready to give and receive feedback in the peer critique
+
+## Thank you! {background-color="#007155"}
