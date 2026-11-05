@@ -31,7 +31,7 @@ This brings in a blank `hw4.qmd` starter and removes the old `hw5.qmd`, which yo
 
 ## Part 1: A Choropleth of Census Data
 
-1. Pick **one ACS variable** that fits your team's domain area (Rural Housing or Rural Hub Services). The Week 9 Your Turn slide has starting points.
+1. Pick **one ACS variable** that fits your team's domain area (or is simply just interesting to you). The Week 9 "Your Turn" slide has starting points.
 2. Pull it with `get_acs()` for your state, with `geometry = TRUE`. Counties or county subdivisions (towns) are both fine.
 3. Map a **share, rate, or median**, not a raw count. If your variable is a count, divide it by the table's total line.
 4. Your map needs:
@@ -47,10 +47,10 @@ This brings in a blank `hw4.qmd` starter and removes the old `hw5.qmd`, which yo
 
     ggplot(your_data) +
       geom_sf(aes(fill = your_share)) +
-      annotation_scale(location = "bl", unit_category = "imperial") # <1>
+      annotation_scale(location = "bl", unit_category = "imperial") # adds the scale bar
     ```
 
-    1. **This line adds the scale bar.** Add it (and the `+` before it) to the end of your own map code.
+    **The last line adds the scale bar.** Add it (and the `+` before it) to the end of your own map code.
 
     A north arrow (`annotation_north_arrow()`) is optional.
 

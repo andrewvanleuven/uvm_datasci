@@ -318,7 +318,7 @@ vt_no_airport <- sum(nbrc_airports$n_airports == 0 & nbrc_airports$STUSPS == "VT
 
 : {tbl-colwidths="[45,55]"}
 
-- That's the whole new skill set for tonight. Everything after the break is a tour.
+- That's the whole new skill set for tonight. Everything after the break is just FYI.
 
 ## Break {background-color="#007155"}
 
