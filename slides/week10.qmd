@@ -53,7 +53,7 @@ nbrc_fips <- read_csv("../data/nbrc_counties_fips.csv",
 ## Welcome Back
 
 - Last week: polygons, Census geography, and choropleths
-- Tonight is the last night of new material, and most of it is a tour. **One new skill**, then a lot of "here's what's possible."
+- Tonight is the last night of new material, and most of it is a tour. One new skill, then a lot of "here's what's possible."
 
 ## Coming Up {.smaller}
 
@@ -96,7 +96,7 @@ options(tigris_use_cache = TRUE)
 
 # Points {background-color="#007155"}
 
-## Most Location Data Starts as a Table
+## Most Location Data Starts as a Table {.smaller}
 
 - A list of clinics, schools, grantee projects, or broadband sites usually arrives as a spreadsheet, not a shapefile
 - If it has a **longitude** and a **latitude** column, you're one line away from a map
@@ -118,7 +118,7 @@ airports_sf
 ```
 
 - `coords = c("lon", "lat")` names the x column first, then y. **Longitude is x** (east-west), latitude is y.
-- `crs = 4326` says these are plain GPS coordinates (WGS84, from last week's CRS table)
+- `crs = 4326` says these are plain GPS coordinates (WGS84 CRS)
 - The `lat` and `lon` columns are gone. They now live in `geometry`, as POINTs.
 
 ## Your First Point Map
@@ -204,7 +204,7 @@ clinics_geo <- clinics |>
 
 # Spatial Joins {background-color="#007155"}
 
-## Which Counties Are NBRC? {.smaller}
+## Which Counties Are NBRC? {.smallest}
 
 - NBRC doesn't serve every county in its four states. The list of the 63 it does serve is a small CSV on the course site.
 - If you ran this last week, you already have `nbrc_fips`. Running it again is fine.
@@ -287,7 +287,7 @@ nbrc_airports |>
 - `st_drop_geometry()` turns the points back into a plain table, so `count()` is fast and the result joins by `GEOID` like any other table
 - Counties with no airports don't show up in the count at all. `replace_na()` turns their missing value into a real zero.
 
-## Is That a Fact About the Region, or About the Data? {.smaller}
+## A Fact About the Region? or Just the Data? {.smaller}
 
 ```{r}
 #| echo: false
@@ -371,16 +371,18 @@ ggplot() +
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5.5
+#| fig-height: 5
 #| out-width: "85%"
 nbrc_renters <- get_acs(
   geography = "county",
   state = nbrc_states,
-  variables = c(renters = "B25003_003"),
+  variables = c(renters = "B25003_003", households = "B25003_001"),
   year = 2024,
+  output = "wide",
   geometry = TRUE
 ) |>
-  filter(GEOID %in% nbrc_fips$full_fips)
+  filter(GEOID %in% nbrc_fips$full_fips) |>
+  mutate(renter_share = rentersE / householdsE)
 
 renter_circles <- nbrc_renters |>
   st_point_on_surface()
@@ -388,14 +390,16 @@ renter_circles <- nbrc_renters |>
 ggplot() +
   geom_sf(data = nbrc_renters, fill = "gray95", color = "white") +
   geom_sf(data = state_lines, fill = NA, color = "gray50") +
-  geom_sf(data = renter_circles, aes(size = estimate),
-          shape = 21, fill = "#007155", color = "white", alpha = 0.8) +
+  geom_sf(data = renter_circles, aes(size = rentersE, fill = renter_share),
+          shape = 21, color = "gray30", alpha = 0.9) +
   scale_size_area(max_size = 12, labels = scales::label_comma(),
                   name = "Renter\nhouseholds") +
+  scale_fill_distiller(palette = "YlGnBu", direction = 1,
+                       labels = scales::label_percent(), name = "Share\nrenting") +
   coord_sf(crs = 5070) +
   theme_void() +
   labs(title = "Six in ten of NBRC's renter households\nlive in its New York counties",
-       caption = "Source: 2020-2024 ACS 5-year estimates, table B25003")
+       caption = "Circle size: number of renter households. Color: share of households renting.\nSource: 2020-2024 ACS 5-year estimates, table B25003")
 ```
 
 ## Proportional Symbols {.smaller}
@@ -403,7 +407,7 @@ ggplot() +
 - Last week's rule: choropleths show rates, not counts. **Proportional symbols are where counts go.**
 - `st_point_on_surface()` turns each county into one point inside it, and `aes(size = estimate)` scales the circle
 - `scale_size_area()` makes a circle's *area*, not its width, proportional to the count. That's what eyes compare.
-- Pair it with a choropleth of the rate and you've shown both "how many" and "how common"
+- Here the circle's **size** is the count and its **color** is the rate (`renters / households`), so one map shows both "how many" and "how common"
 
 ## Buffers: Who's Within 30 Miles? {.smaller}
 
@@ -495,6 +499,7 @@ ggplot(vt_seasonal) +
   scale_fill_distiller(palette = "YlGnBu", direction = 1,
                        labels = scales::label_percent(), name = NULL,
                        na.value = "gray85") +
+  scale_y_continuous(expand = expansion(mult = c(0.12, 0.02))) +
   annotation_scale(location = "bl", unit_category = "imperial") +
   annotation_north_arrow(location = "br", height = unit(1, "cm"),
                          width = unit(1, "cm"), style = north_arrow_minimal()) +
@@ -507,6 +512,7 @@ ggplot(vt_seasonal) +
 
 - `annotation_scale()` and `annotation_north_arrow()` come from `ggspatial`, which is already in your workspace
 - `location = "bl"` means bottom left, and `"br"` is bottom right. Put them where they won't cover the data. `unit_category = "imperial"` gives miles.
+- `scale_y_continuous(expand = expansion(mult = c(0.12, 0.02)))` adds a little empty space below the map (12% of its height) so the scale bar doesn't sit on the towns
 - **Scale bar**: worth it whenever distance matters to the story (access, commuting, service areas). It's required on HW5.
 - **North arrow**: optional. On a map of a familiar place with north at the top, most cartographers leave it off. Never let it compete with the data.
 
