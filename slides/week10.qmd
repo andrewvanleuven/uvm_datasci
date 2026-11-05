@@ -35,16 +35,20 @@ library(educationdata)
 options(tigris_use_cache = TRUE)
 options(pillar.print_max = 5, pillar.print_min = 5, width = 72)
 wide_margin <- theme(plot.margin = margin(5.5, 22, 5.5, 5.5))
-theme_set(theme_gray(base_size = 16) + wide_margin)
+# Centered one-line titles; each map chunk's fig-width is set so its title fills the width.
+centered_titles <- theme(plot.title = element_text(hjust = 0.5, size = 16),
+                         plot.subtitle = element_text(hjust = 0.5),
+                         plot.caption = element_text(size = 11))
+theme_set(theme_gray(base_size = 16) + wide_margin + centered_titles)
 knitr::opts_chunk$set(fig.width = 8, fig.height = 4.5, fig.align = "center",
                       dpi = 150, out.width = "85%")
 # Complete themes reset the base font size to 11, which is too small on a
 # projector. These wrappers keep the slide code clean (a bare theme_void())
 # while rendering at the same size as every other figure.
-theme_minimal <- function(base_size = 16, ...) ggplot2::theme_minimal(base_size = base_size, ...) + wide_margin
+theme_minimal <- function(base_size = 16, ...) ggplot2::theme_minimal(base_size = base_size, ...) + wide_margin + centered_titles
 theme_void <- function(base_size = 16, ...) ggplot2::theme_void(base_size = base_size, ...) +
   theme(plot.title.position = "plot", plot.caption.position = "plot",
-        plot.margin = margin(5.5, 5.5, 5.5, 5.5))
+        plot.margin = margin(5.5, 5.5, 5.5, 5.5)) + centered_titles
 
 nbrc_fips <- read_csv("../data/nbrc_counties_fips.csv",
                       col_types = cols(.default = "c"))
@@ -171,14 +175,16 @@ nrow(airports_ne)
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5.5
+#| fig-width: 7
+#| fig-height: 4.2
 #| out-width: "80%"
 ggplot() +
   geom_sf(data = state_lines, fill = "gray95", color = "gray50") +
   geom_sf(data = airports_ne, color = "#007155", size = 2) +
   coord_sf(crs = 5070) +
   theme_void() +
-  labs(title = paste(nrow(airports_ne), "airports in the four NBRC states"),
+  labs(title = paste("Most of the", nrow(airports_ne),
+                     "airports in the four NBRC states are in New York"),
        caption = "Source: nycflights13::airports; Census Bureau cartographic boundaries")
 ```
 
@@ -224,7 +230,7 @@ nbrc_fips
 - `full_fips` is the county's 5-digit FIPS code: 2 digits for the state, then 3 for the county. It's the same ID that `tigris` and `tidycensus` call `GEOID`.
 - `col_types = cols(.default = "c")` reads every column as text, so `county_fips` keeps its leading zeros (`001`, not `1`)
 
-## Which County Is Each Airport In?
+## Which County Is Each Airport In? {.smaller}
 
 - `airports` has no state or county column. The only "where" is the point itself.
 - The county layer knows each county's name and state. Matching `GEOID` against `full_fips` adds whether it's in NBRC.
@@ -253,7 +259,7 @@ airports_joined |>
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5.5
+#| fig-height: 5
 #| out-width: "80%"
 ggplot() +
   geom_sf(data = nbrc_counties, fill = "gray95", color = "white") +
@@ -348,16 +354,17 @@ tenure_dots <- as_dot_density(
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5.5
-#| out-width: "70%"
+#| fig-width: 7.2
+#| fig-height: 4
+#| out-width: "100%"
 ggplot() +
   geom_sf(data = chittenden_tenure, fill = "white", color = "gray85", linewidth = 0.1) +
   geom_sf(data = tenure_dots, aes(color = variable), size = 0.2) +
-  scale_color_manual(values = c(Owner = "#1b9e77", Renter = "#d95f02"), name = NULL) +
+  scale_color_manual(values = c(Owner = "#0b1eca", Renter = "#ff6f00"), name = NULL) +
   guides(color = guide_legend(override.aes = list(size = 3))) +
   theme_void() +
-  labs(title = "Four in ten of Chittenden County's renter\nhouseholds live in the city of Burlington",
-       caption = "One dot = 20 households, placed at random\nwithin its block group\nSource: 2020-2024 ACS 5-year estimates, table B25003")
+  labs(title = "Four in ten Chittenden County renter households live in Burlington",
+       caption = "One dot = 20 households, placed at random within its block group\nSource: 2020-2024 ACS 5-year estimates, table B25003")
 ```
 
 ## Dot Density {.smaller}
@@ -371,7 +378,8 @@ ggplot() +
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5
+#| fig-width: 7.2
+#| fig-height: 4.5
 #| out-width: "85%"
 nbrc_renters <- get_acs(
   geography = "county",
@@ -398,14 +406,14 @@ ggplot() +
                        labels = scales::label_percent(), name = "Share\nrenting") +
   coord_sf(crs = 5070) +
   theme_void() +
-  labs(title = "Six in ten of NBRC's renter households\nlive in its New York counties",
+  labs(title = "Six in ten of NBRC's renter households live in its New York counties",
        caption = "Circle size: number of renter households. Color: share of households renting.\nSource: 2020-2024 ACS 5-year estimates, table B25003")
 ```
 
 ## Proportional Symbols {.smaller}
 
 - Last week's rule: choropleths show rates, not counts. **Proportional symbols are where counts go.**
-- `st_point_on_surface()` turns each county into one point inside it, and `aes(size = estimate)` scales the circle
+- `st_point_on_surface()` turns each county into one point inside it, and `aes(size = rentersE)` scales the circle
 - `scale_size_area()` makes a circle's *area*, not its width, proportional to the count. That's what eyes compare.
 - Here the circle's **size** is the count and its **color** is the rate (`renters / households`), so one map shows both "how many" and "how common"
 
@@ -413,7 +421,8 @@ ggplot() +
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5.5
+#| fig-width: 7.8
+#| fig-height: 5.4
 #| out-width: "65%"
 vt_towns <- county_subdivisions("VT", cb = TRUE) |>
   st_transform(5070)
@@ -437,7 +446,7 @@ ggplot() +
                     breaks = c("TRUE", "FALSE"), name = NULL) +
   theme_void() +
   labs(title = paste(sum(vt_towns$near_btv), "of Vermont's", nrow(vt_towns),
-                     "towns are within\n30 miles of Burlington International"),
+                     "towns are within 30 miles of Burlington International"),
        caption = "Distance measured from each town's interior point, as the crow flies")
 ```
 
@@ -480,7 +489,8 @@ maplibre_view(vt_home_value, column = "estimate")
 
 ```{r}
 #| output-location: slide
-#| fig-height: 5.5
+#| fig-width: 6.6
+#| fig-height: 4.5
 #| out-width: "65%"
 library(ggspatial)
 
@@ -502,9 +512,9 @@ ggplot(vt_seasonal) +
   scale_y_continuous(expand = expansion(mult = c(0.12, 0.02))) +
   annotation_scale(location = "bl", unit_category = "imperial") +
   annotation_north_arrow(location = "br", height = unit(1, "cm"),
-                         width = unit(1, "cm"), style = north_arrow_minimal()) +
+                         width = unit(1, "cm"), style = north_arrow_fancy_orienteering()) +
   theme_void() +
-  labs(title = "In 51 Vermont towns, a third or more\nof homes are seasonal",
+  labs(title = "In 51 Vermont towns, a third or more of homes are seasonal",
        caption = "Gray: no housing units\nSource: 2020-2024 ACS 5-year estimates, tables B25004 and B25001")
 ```
 
@@ -543,9 +553,67 @@ seasonal_map +
                 align_to = "full")
 ```
 
+## Where Is This?
+
+```{r}
+#| echo: false
+#| fig-width: 6.2
+#| fig-height: 4.4
+#| out-width: "80%"
+pa_counties <- counties("PA", cb = TRUE) |>
+  st_transform(5070)
+
+westmoreland <- pa_counties |>
+  filter(GEOID == "42129")
+
+west_roads <- primary_secondary_roads("PA") |>
+  st_transform(5070) |>
+  st_intersection(westmoreland) |>
+  filter(st_geometry_type(geometry) %in% c("LINESTRING", "MULTILINESTRING"))
+
+west_colleges <- get_education_data(
+  level = "college-university",
+  source = "ipeds",
+  topic = "directory",
+  filters = list(year = 2024, fips = 42)
+) |>
+  filter(currently_active_ipeds == 1, sector > 0, county_fips == 42129) |>
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326) |>
+  st_transform(5070)
+
+west_map <- ggplot() +
+  geom_sf(data = westmoreland, fill = "gray95", color = "gray50") +
+  geom_sf(data = west_roads, color = "gray30", alpha = 0.5) +
+  geom_sf(data = west_colleges, color = "#007155", size = 3) +
+  theme_void()
+
+west_map
+```
+
+## With a Locator Inset
+
+```{r}
+#| echo: false
+#| fig-width: 6.2
+#| fig-height: 4.4
+#| out-width: "80%"
+pa_locator <- ggplot() +
+  geom_sf(data = pa_counties, aes(fill = GEOID == "42129"), color = "white", linewidth = 0.1) +
+  scale_fill_manual(values = c("TRUE" = "#007155", "FALSE" = "gray80"), guide = "none") +
+  ggplot2::theme_void() +
+  theme(plot.background = element_rect(fill = "white", color = "gray50"))
+
+(west_map +
+   labs(title = "Colleges & Universities in Westmoreland County, PA",
+        caption = "Roads: Census Bureau TIGER/Line\nSource: IPEDS, via the Urban Institute's Education Data Portal")) +
+  inset_element(pa_locator, left = 0.73, bottom = 0.63, right = 1, top = 0.89,
+                align_to = "full")
+```
+
 ## Inset Maps {.smaller}
 
-- A **locator inset** tells an outside reader where the main map sits. NBRC staff know where Vermont is, but a federal reviewer reading their report might not know where Essex County is.
+- A **locator inset** tells an outside reader where the main map sits. Vermont's outline is easy to recognize. Westmoreland County's isn't, and without the inset that map could be anywhere.
+- NBRC staff know their region, but a federal reviewer reading their report might not know where Essex County, Vermont, or Franklin County, New York, is
 - `inset_element()` comes from the `patchwork` package, which is **not** in your workspace. Install it with `install.packages("patchwork")` if your team wants one.
 - The positions (`left`, `bottom`, `right`, `top`) run from 0 to 1 across the whole figure (`align_to = "full"`). Expect to nudge them a few times.
 
@@ -591,7 +659,7 @@ remotes::install_github("UrbanInstitute/education-data-package-r",
 educationdata is also on CRAN, but the point tonight is the GitHub workflow, and the GitHub version is the newest.
 :::
 
-## Colleges as Points {.smaller}
+## Colleges as Points {.smallest}
 
 ```{r}
 vt_colleges <- get_education_data(
@@ -599,7 +667,8 @@ vt_colleges <- get_education_data(
   source = "ipeds",
   topic = "directory",
   filters = list(year = 2024, fips = 50)
-)
+) |>
+  filter(currently_active_ipeds == 1, sector > 0)
 
 vt_colleges |>
   select(inst_name, city, latitude, longitude) |>
@@ -607,6 +676,7 @@ vt_colleges |>
 ```
 
 - The Urban Institute's Education Data Portal serves federal **IPEDS** data on every college and university. `fips = 50` is Vermont's state FIPS code.
+- The `filter()` drops administrative offices (like a state college system's central office) and institutions that have closed or merged
 - It has `latitude` and `longitude` columns, so you already know the next step. That's HW4, Part 2.
 
 ## Get HW4

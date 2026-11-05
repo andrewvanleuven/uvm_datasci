@@ -2293,7 +2293,7 @@
     "href": "slides/week10.html#points-on-polygons",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Points on Polygons",
-    "text": "Points on Polygons\n\nggplot() +\n  geom_sf(data = state_lines, fill = \"gray95\", color = \"gray50\") +\n  geom_sf(data = airports_ne, color = \"#007155\", size = 2) +\n  coord_sf(crs = 5070) +\n  theme_void() +\n  labs(title = paste(nrow(airports_ne), \"airports in the four NBRC states\"),\n       caption = \"Source: nycflights13::airports; Census Bureau cartographic boundaries\")"
+    "text": "Points on Polygons\n\nggplot() +\n  geom_sf(data = state_lines, fill = \"gray95\", color = \"gray50\") +\n  geom_sf(data = airports_ne, color = \"#007155\", size = 2) +\n  coord_sf(crs = 5070) +\n  theme_void() +\n  labs(title = paste(\"Most of the\", nrow(airports_ne),\n                     \"airports in the four NBRC states are in New York\"),\n       caption = \"Source: nycflights13::airports; Census Bureau cartographic boundaries\")"
   },
   {
     "objectID": "slides/week10.html#points-on-polygons-output",
@@ -2377,7 +2377,7 @@
     "href": "slides/week10.html#dot-density-one-dot-per-20-households",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Dot Density: One Dot per 20 Households",
-    "text": "Dot Density: One Dot per 20 Households\n\nchittenden_tenure &lt;- get_acs(\n  geography = \"block group\",\n  state = \"VT\",\n  county = \"Chittenden\",\n  variables = c(Owner = \"B25003_002\", Renter = \"B25003_003\"),\n  year = 2024,\n  geometry = TRUE\n)\n\ntenure_dots &lt;- as_dot_density(\n  chittenden_tenure,\n  value = \"estimate\",\n  values_per_dot = 20,\n  group = \"variable\"\n)\n\n\n\nggplot() +\n  geom_sf(data = chittenden_tenure, fill = \"white\", color = \"gray85\", linewidth = 0.1) +\n  geom_sf(data = tenure_dots, aes(color = variable), size = 0.2) +\n  scale_color_manual(values = c(Owner = \"#1b9e77\", Renter = \"#d95f02\"), name = NULL) +\n  guides(color = guide_legend(override.aes = list(size = 3))) +\n  theme_void() +\n  labs(title = \"Four in ten of Chittenden County's renter\\nhouseholds live in the city of Burlington\",\n       caption = \"One dot = 20 households, placed at random\\nwithin its block group\\nSource: 2020-2024 ACS 5-year estimates, table B25003\")"
+    "text": "Dot Density: One Dot per 20 Households\n\nchittenden_tenure &lt;- get_acs(\n  geography = \"block group\",\n  state = \"VT\",\n  county = \"Chittenden\",\n  variables = c(Owner = \"B25003_002\", Renter = \"B25003_003\"),\n  year = 2024,\n  geometry = TRUE\n)\n\ntenure_dots &lt;- as_dot_density(\n  chittenden_tenure,\n  value = \"estimate\",\n  values_per_dot = 20,\n  group = \"variable\"\n)\n\n\n\nggplot() +\n  geom_sf(data = chittenden_tenure, fill = \"white\", color = \"gray85\", linewidth = 0.1) +\n  geom_sf(data = tenure_dots, aes(color = variable), size = 0.2) +\n  scale_color_manual(values = c(Owner = \"#0b1eca\", Renter = \"#ff6f00\"), name = NULL) +\n  guides(color = guide_legend(override.aes = list(size = 3))) +\n  theme_void() +\n  labs(title = \"Four in ten Chittenden County renter households live in Burlington\",\n       caption = \"One dot = 20 households, placed at random within its block group\\nSource: 2020-2024 ACS 5-year estimates, table B25003\")"
   },
   {
     "objectID": "slides/week10.html#dot-density-one-dot-per-20-households-output",
@@ -2398,7 +2398,7 @@
     "href": "slides/week10.html#proportional-symbols",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Proportional Symbols",
-    "text": "Proportional Symbols\n\nnbrc_renters &lt;- get_acs(\n  geography = \"county\",\n  state = nbrc_states,\n  variables = c(renters = \"B25003_003\", households = \"B25003_001\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  filter(GEOID %in% nbrc_fips$full_fips) |&gt;\n  mutate(renter_share = rentersE / householdsE)\n\nrenter_circles &lt;- nbrc_renters |&gt;\n  st_point_on_surface()\n\nggplot() +\n  geom_sf(data = nbrc_renters, fill = \"gray95\", color = \"white\") +\n  geom_sf(data = state_lines, fill = NA, color = \"gray50\") +\n  geom_sf(data = renter_circles, aes(size = rentersE, fill = renter_share),\n          shape = 21, color = \"gray30\", alpha = 0.9) +\n  scale_size_area(max_size = 12, labels = scales::label_comma(),\n                  name = \"Renter\\nhouseholds\") +\n  scale_fill_distiller(palette = \"YlGnBu\", direction = 1,\n                       labels = scales::label_percent(), name = \"Share\\nrenting\") +\n  coord_sf(crs = 5070) +\n  theme_void() +\n  labs(title = \"Six in ten of NBRC's renter households\\nlive in its New York counties\",\n       caption = \"Circle size: number of renter households. Color: share of households renting.\\nSource: 2020-2024 ACS 5-year estimates, table B25003\")"
+    "text": "Proportional Symbols\n\nnbrc_renters &lt;- get_acs(\n  geography = \"county\",\n  state = nbrc_states,\n  variables = c(renters = \"B25003_003\", households = \"B25003_001\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  filter(GEOID %in% nbrc_fips$full_fips) |&gt;\n  mutate(renter_share = rentersE / householdsE)\n\nrenter_circles &lt;- nbrc_renters |&gt;\n  st_point_on_surface()\n\nggplot() +\n  geom_sf(data = nbrc_renters, fill = \"gray95\", color = \"white\") +\n  geom_sf(data = state_lines, fill = NA, color = \"gray50\") +\n  geom_sf(data = renter_circles, aes(size = rentersE, fill = renter_share),\n          shape = 21, color = \"gray30\", alpha = 0.9) +\n  scale_size_area(max_size = 12, labels = scales::label_comma(),\n                  name = \"Renter\\nhouseholds\") +\n  scale_fill_distiller(palette = \"YlGnBu\", direction = 1,\n                       labels = scales::label_percent(), name = \"Share\\nrenting\") +\n  coord_sf(crs = 5070) +\n  theme_void() +\n  labs(title = \"Six in ten of NBRC's renter households live in its New York counties\",\n       caption = \"Circle size: number of renter households. Color: share of households renting.\\nSource: 2020-2024 ACS 5-year estimates, table B25003\")"
   },
   {
     "objectID": "slides/week10.html#proportional-symbols-output",
@@ -2412,14 +2412,14 @@
     "href": "slides/week10.html#proportional-symbols-1",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Proportional Symbols",
-    "text": "Proportional Symbols\n\nLast week’s rule: choropleths show rates, not counts. Proportional symbols are where counts go.\nst_point_on_surface() turns each county into one point inside it, and aes(size = estimate) scales the circle\nscale_size_area() makes a circle’s area, not its width, proportional to the count. That’s what eyes compare.\nHere the circle’s size is the count and its color is the rate (renters / households), so one map shows both “how many” and “how common”"
+    "text": "Proportional Symbols\n\nLast week’s rule: choropleths show rates, not counts. Proportional symbols are where counts go.\nst_point_on_surface() turns each county into one point inside it, and aes(size = rentersE) scales the circle\nscale_size_area() makes a circle’s area, not its width, proportional to the count. That’s what eyes compare.\nHere the circle’s size is the count and its color is the rate (renters / households), so one map shows both “how many” and “how common”"
   },
   {
     "objectID": "slides/week10.html#buffers-whos-within-30-miles",
     "href": "slides/week10.html#buffers-whos-within-30-miles",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Buffers: Who’s Within 30 Miles?",
-    "text": "Buffers: Who’s Within 30 Miles?\n\nvt_towns &lt;- county_subdivisions(\"VT\", cb = TRUE) |&gt;\n  st_transform(5070)\n\nbtv &lt;- airports_joined |&gt;\n  filter(faa == \"BTV\") |&gt;\n  st_transform(5070)\n\nbtv_buffer &lt;- st_buffer(btv, dist = 30 * 1609.34)\n\nvt_towns &lt;- vt_towns |&gt;\n  mutate(near_btv = st_intersects(st_point_on_surface(vt_towns), btv_buffer,\n                                  sparse = FALSE)[, 1])\n\nggplot() +\n  geom_sf(data = vt_towns, aes(fill = near_btv), color = \"white\", linewidth = 0.1) +\n  geom_sf(data = btv_buffer, fill = NA, color = \"black\", linetype = \"dashed\") +\n  geom_sf(data = btv, size = 3) +\n  scale_fill_manual(values = c(\"TRUE\" = \"#007155\", \"FALSE\" = \"gray85\"),\n                    labels = c(\"TRUE\" = \"Within 30 miles\", \"FALSE\" = \"Farther\"),\n                    breaks = c(\"TRUE\", \"FALSE\"), name = NULL) +\n  theme_void() +\n  labs(title = paste(sum(vt_towns$near_btv), \"of Vermont's\", nrow(vt_towns),\n                     \"towns are within\\n30 miles of Burlington International\"),\n       caption = \"Distance measured from each town's interior point, as the crow flies\")"
+    "text": "Buffers: Who’s Within 30 Miles?\n\nvt_towns &lt;- county_subdivisions(\"VT\", cb = TRUE) |&gt;\n  st_transform(5070)\n\nbtv &lt;- airports_joined |&gt;\n  filter(faa == \"BTV\") |&gt;\n  st_transform(5070)\n\nbtv_buffer &lt;- st_buffer(btv, dist = 30 * 1609.34)\n\nvt_towns &lt;- vt_towns |&gt;\n  mutate(near_btv = st_intersects(st_point_on_surface(vt_towns), btv_buffer,\n                                  sparse = FALSE)[, 1])\n\nggplot() +\n  geom_sf(data = vt_towns, aes(fill = near_btv), color = \"white\", linewidth = 0.1) +\n  geom_sf(data = btv_buffer, fill = NA, color = \"black\", linetype = \"dashed\") +\n  geom_sf(data = btv, size = 3) +\n  scale_fill_manual(values = c(\"TRUE\" = \"#007155\", \"FALSE\" = \"gray85\"),\n                    labels = c(\"TRUE\" = \"Within 30 miles\", \"FALSE\" = \"Farther\"),\n                    breaks = c(\"TRUE\", \"FALSE\"), name = NULL) +\n  theme_void() +\n  labs(title = paste(sum(vt_towns$near_btv), \"of Vermont's\", nrow(vt_towns),\n                     \"towns are within 30 miles of Burlington International\"),\n       caption = \"Distance measured from each town's interior point, as the crow flies\")"
   },
   {
     "objectID": "slides/week10.html#buffers-whos-within-30-miles-output",
@@ -2461,7 +2461,7 @@
     "href": "slides/week10.html#scale-bars-and-north-arrows",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Scale Bars and North Arrows",
-    "text": "Scale Bars and North Arrows\n\nlibrary(ggspatial)\n\nvt_seasonal &lt;- get_acs(\n  geography = \"county subdivision\",\n  state = \"VT\",\n  variables = c(seasonal = \"B25004_006\", units = \"B25001_001\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  mutate(seasonal_share = seasonalE / unitsE)\n\nggplot(vt_seasonal) +\n  geom_sf(aes(fill = seasonal_share), color = \"white\", linewidth = 0.1) +\n  scale_fill_distiller(palette = \"YlGnBu\", direction = 1,\n                       labels = scales::label_percent(), name = NULL,\n                       na.value = \"gray85\") +\n  scale_y_continuous(expand = expansion(mult = c(0.12, 0.02))) +\n  annotation_scale(location = \"bl\", unit_category = \"imperial\") +\n  annotation_north_arrow(location = \"br\", height = unit(1, \"cm\"),\n                         width = unit(1, \"cm\"), style = north_arrow_minimal()) +\n  theme_void() +\n  labs(title = \"In 51 Vermont towns, a third or more\\nof homes are seasonal\",\n       caption = \"Gray: no housing units\\nSource: 2020-2024 ACS 5-year estimates, tables B25004 and B25001\")"
+    "text": "Scale Bars and North Arrows\n\nlibrary(ggspatial)\n\nvt_seasonal &lt;- get_acs(\n  geography = \"county subdivision\",\n  state = \"VT\",\n  variables = c(seasonal = \"B25004_006\", units = \"B25001_001\"),\n  year = 2024,\n  output = \"wide\",\n  geometry = TRUE\n) |&gt;\n  mutate(seasonal_share = seasonalE / unitsE)\n\nggplot(vt_seasonal) +\n  geom_sf(aes(fill = seasonal_share), color = \"white\", linewidth = 0.1) +\n  scale_fill_distiller(palette = \"YlGnBu\", direction = 1,\n                       labels = scales::label_percent(), name = NULL,\n                       na.value = \"gray85\") +\n  scale_y_continuous(expand = expansion(mult = c(0.12, 0.02))) +\n  annotation_scale(location = \"bl\", unit_category = \"imperial\") +\n  annotation_north_arrow(location = \"br\", height = unit(1, \"cm\"),\n                         width = unit(1, \"cm\"), style = north_arrow_fancy_orienteering()) +\n  theme_void() +\n  labs(title = \"In 51 Vermont towns, a third or more of homes are seasonal\",\n       caption = \"Gray: no housing units\\nSource: 2020-2024 ACS 5-year estimates, tables B25004 and B25001\")"
   },
   {
     "objectID": "slides/week10.html#scale-bars-and-north-arrows-output",
@@ -2496,7 +2496,7 @@
     "href": "slides/week10.html#inset-maps",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Inset Maps",
-    "text": "Inset Maps\n\nA locator inset tells an outside reader where the main map sits. NBRC staff know where Vermont is, but a federal reviewer reading their report might not know where Essex County is.\ninset_element() comes from the patchwork package, which is not in your workspace. Install it with install.packages(\"patchwork\") if your team wants one.\nThe positions (left, bottom, right, top) run from 0 to 1 across the whole figure (align_to = \"full\"). Expect to nudge them a few times."
+    "text": "Inset Maps\n\nA locator inset tells an outside reader where the main map sits. Vermont’s outline is easy to recognize. Westmoreland County’s isn’t, and without the inset that map could be anywhere.\nNBRC staff know their region, but a federal reviewer reading their report might not know where Essex County, Vermont, or Franklin County, New York, is\ninset_element() comes from the patchwork package, which is not in your workspace. Install it with install.packages(\"patchwork\") if your team wants one.\nThe positions (left, bottom, right, top) run from 0 to 1 across the whole figure (align_to = \"full\"). Expect to nudge them a few times."
   },
   {
     "objectID": "slides/week10.html#a-finished-map-checklist",
@@ -2524,7 +2524,7 @@
     "href": "slides/week10.html#colleges-as-points",
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "Colleges as Points",
-    "text": "Colleges as Points\n\nvt_colleges &lt;- get_education_data(\n  level = \"college-university\",\n  source = \"ipeds\",\n  topic = \"directory\",\n  filters = list(year = 2024, fips = 50)\n)\n\nvt_colleges |&gt;\n  select(inst_name, city, latitude, longitude) |&gt;\n  head()\n\n                     inst_name       city latitude longitude\n1           Bennington College Bennington 42.91955 -73.23780\n2            Champlain College Burlington 44.47329 -73.20275\n3 Community College of Vermont Montpelier 44.28081 -72.57377\n4              Goddard College Plainfield 44.27909 -72.43839\n5           Middlebury College Middlebury 44.00912 -73.17607\n6           Norwich University Northfield 44.14024 -72.65978\n\n\n\nThe Urban Institute’s Education Data Portal serves federal IPEDS data on every college and university. fips = 50 is Vermont’s state FIPS code.\nIt has latitude and longitude columns, so you already know the next step. That’s HW4, Part 2."
+    "text": "Colleges as Points\n\nvt_colleges &lt;- get_education_data(\n  level = \"college-university\",\n  source = \"ipeds\",\n  topic = \"directory\",\n  filters = list(year = 2024, fips = 50)\n) |&gt;\n  filter(currently_active_ipeds == 1, sector &gt; 0)\n\nvt_colleges |&gt;\n  select(inst_name, city, latitude, longitude) |&gt;\n  head()\n\n                     inst_name       city latitude longitude\n1           Bennington College Bennington 42.91955 -73.23780\n2            Champlain College Burlington 44.47329 -73.20275\n3 Community College of Vermont Montpelier 44.28081 -72.57377\n4           Middlebury College Middlebury 44.00912 -73.17607\n5           Norwich University Northfield 44.14024 -72.65978\n6     O'Briens Aveda Institute  Williston 44.44720 -73.10272\n\n\n\nThe Urban Institute’s Education Data Portal serves federal IPEDS data on every college and university. fips = 50 is Vermont’s state FIPS code.\nThe filter() drops administrative offices (like a state college system’s central office) and institutions that have closed or merged\nIt has latitude and longitude columns, so you already know the next step. That’s HW4, Part 2."
   },
   {
     "objectID": "slides/week10.html#get-hw5",
@@ -2707,5 +2707,26 @@
     "title": "HW4: Maps",
     "section": "Turn It In: Email Me the HTML File",
     "text": "Turn It In: Email Me the HTML File\n\n\n\n\n\n\nImportantSend the file itself, not a link\n\n\n\nA link to your Posit Cloud project only works for you, so download hw4.html and attach it to an email.\n\nIn the Files pane, open the homework folder and check the box next to hw4.html\nClick More (the gear icon) and choose Export…\nClick Download. The file saves to your computer’s Downloads folder.\nAttach hw4.html to an email to me by Sunday, Nov. 15, 11:59pm\n\n\n\n\nCheck the box next to your file, then More → Export… (this screenshot shows hw3.pdf; you want hw4.html)"
+  },
+  {
+    "objectID": "slides/week10.html#where-is-this-county",
+    "href": "slides/week10.html#where-is-this-county",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Where Is This County?",
+    "text": "Where Is This County?"
+  },
+  {
+    "objectID": "slides/week10.html#where-is-this",
+    "href": "slides/week10.html#where-is-this",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "Where Is This?",
+    "text": "Where Is This?"
+  },
+  {
+    "objectID": "slides/week10.html#with-a-locator-inset",
+    "href": "slides/week10.html#with-a-locator-inset",
+    "title": "Week 10: Points, Spatial Joins, and Finished Maps",
+    "section": "With a Locator Inset",
+    "text": "With a Locator Inset"
   }
 ]
