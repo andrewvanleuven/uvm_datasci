@@ -1,0 +1,295 @@
+---
+title: "Aging in the Northern Border Region"
+subtitle: "An example slide deck for CDAE 7990"
+author: "Andrew Van Leuven"
+date: today
+date-format: long
+format:
+  revealjs:
+    slide-number: true
+    embed-resources: true
+    footer: "Example deck · CDAE 7990"
+execute:
+  echo: false
+  warning: false
+  message: false
+fig-width: 10
+fig-height: 5
+---
+
+```{r}
+#| label: setup
+
+# ---------------------------------------------------------------------------
+# EXAMPLE SLIDE DECK for CDAE 7990.
+# Everything here is code from class: get_acs() (Week 9), dplyr (Weeks 2-3),
+# ggplot2 (Weeks 4-7), st_as_sf() / st_join() / scale bars (Week 10).
+# Press S while viewing the deck to see the speaker notes: that's the story
+# the presenter tells over each figure.
+# ---------------------------------------------------------------------------
+
+library(tidyverse)
+library(tidycensus)
+library(sf)
+library(tigris)
+library(ggspatial)
+
+options(tigris_use_cache = TRUE)
+theme_set(theme_minimal(base_size = 16))
+
+age_purple  <- "#54278F"
+home_orange <- "#B04E0A"
+
+# ---- NBRC counties --------------------------------------------------------
+nbrc_counties <- read_csv("../data/nbrc_counties_fips.csv",
+                          col_types = cols(.default = "c"))
+nbrc_states <- c("ME", "NH", "NY", "VT")
+
+# ---- Age, from ACS table B01001 (Sex by Age) -----------------------------
+# Line 001 is total population; 020-025 are men 65+, 044-049 are women 65+.
+age_vars <- c(total = "B01001_001",
+              "B01001_020", "B01001_021", "B01001_022",
+              "B01001_023", "B01001_024", "B01001_025",
+              "B01001_044", "B01001_045", "B01001_046",
+              "B01001_047", "B01001_048", "B01001_049")
+
+acs_2024 <- get_acs(geography = "county", state = nbrc_states,
+                    variables = age_vars, year = 2024) |>
+  mutate(year = 2024)
+acs_2019 <- get_acs(geography = "county", state = nbrc_states,
+                    variables = age_vars, year = 2019) |>
+  mutate(year = 2019)
+us_2024 <- get_acs(geography = "us", variables = age_vars, year = 2024) |>
+  mutate(year = 2024)
+
+# Add up the twelve 65+ lines: one row per county (or the U.S.) per year
+age_df <- bind_rows(acs_2024, acs_2019, us_2024) |>
+  mutate(group = if_else(variable == "total", "pop", "pop65")) |>
+  group_by(GEOID, year, group) |>
+  summarize(estimate = sum(estimate), .groups = "drop") |>
+  pivot_wider(names_from = group, values_from = estimate) |>
+  mutate(share65 = pop65 / pop)
+
+us_share   <- age_df |> filter(GEOID == "1") |> pull(share65)
+us_pop65   <- age_df |> filter(GEOID == "1") |> pull(pop65)
+
+# One row per NBRC county, with both years side by side
+county_df <- age_df |>
+  filter(GEOID %in% nbrc_counties$full_fips) |>
+  pivot_wider(names_from = year, values_from = c(pop, pop65, share65)) |>
+  left_join(nbrc_counties |> select(GEOID = full_fips, state, county_name),
+            by = "GEOID") |>
+  mutate(label = paste0(county_name, ", ", state))
+
+# Regional share: add up counts first, then divide
+nbrc_share <- sum(county_df$pop65_2024) / sum(county_df$pop_2024)
+n_above_us <- sum(county_df$share65_2024 > us_share)
+
+# ---- Nursing homes, from CMS ----------------------------------------------
+homes_df <- read_csv("data/NH_ProviderInfo_Oct2026.csv", show_col_types = FALSE) |>
+  filter(State %in% c(state.abb, "DC")) |>
+  select(name = `Provider Name`, state = State,
+         beds = `Number of Certified Beds`, stars = `Overall Rating`,
+         lon = Longitude, lat = Latitude)
+
+county_shapes <- counties(state = nbrc_states, cb = TRUE, year = 2024,
+                          progress_bar = FALSE) |>
+  filter(GEOID %in% nbrc_counties$full_fips) |>
+  select(GEOID)
+
+# Points, then keep only the homes inside NBRC counties
+nbrc_homes <- homes_df |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326) |>
+  st_transform(st_crs(county_shapes)) |>
+  st_join(county_shapes, left = FALSE)
+
+county_beds <- nbrc_homes |>
+  st_drop_geometry() |>
+  group_by(GEOID) |>
+  summarize(homes = n(), beds = sum(beds, na.rm = TRUE))
+
+county_df <- county_df |>
+  left_join(county_beds, by = "GEOID") |>
+  mutate(homes = replace_na(homes, 0),
+         beds  = replace_na(beds, 0),
+         beds_per_1k = beds / pop65_2024 * 1000)
+
+county_map <- county_shapes |>
+  left_join(county_df, by = "GEOID")
+
+no_home <- county_df |> filter(homes == 0) |> arrange(desc(pop65_2024))
+
+nbrc_one_star <- mean(nbrc_homes$stars == 1, na.rm = TRUE)
+us_one_star   <- mean(homes_df$stars == 1, na.rm = TRUE)
+```
+
+## The Bottom Line
+
+- **Older:** `{r} scales::percent(nbrc_share, accuracy = 0.1)` of the region's residents are 65 or older, compared with `{r} scales::percent(us_share, accuracy = 0.1)` nationally
+- **Everywhere:** `{r} n_above_us` of the 63 NBRC counties are older than the U.S. as a whole
+- **Least care where need is greatest:** the oldest counties have the fewest nursing home beds per senior, and `{r} nrow(no_home)` counties have no certified nursing home at all
+
+::: {.notes}
+Bottom line first. This region is older than the country, and it's not one or two retirement counties pulling the average up: nearly every county is older than the U.S. And when we lay nursing homes on top of that, the capacity is thinnest in exactly the places with the most older residents. The rest of the deck shows the evidence for each of those three points.
+:::
+
+## The Region Is Older Than the Country
+
+```{r}
+#| label: map-share
+
+ggplot(county_map) +
+  geom_sf(aes(fill = share65_2024), color = "white", linewidth = 0.3) +
+  scale_fill_distiller(palette = "Purples", direction = 1,
+                       labels = scales::label_percent(accuracy = 1),
+                       name = "Residents 65+") +
+  annotation_scale(location = "br", unit_category = "imperial") +
+  labs(caption = "Source: ACS 5-year estimates, 2020–2024, table B01001") +
+  theme_void(base_size = 16) +
+  theme(legend.position = "bottom",
+        legend.key.width = unit(2.5, "cm"),
+        plot.caption = element_text(color = "grey40", hjust = 0))
+```
+
+::: {.notes}
+Each county is shaded by the share of its residents who are 65 or older. The lightest counties are around 15 percent, which is still about the national average of 17 percent. The darkest are over 30 percent. Point out Hamilton County in the Adirondacks, where one in three residents is 65 or older, and Carroll County, New Hampshire, close behind.
+:::
+
+## The Oldest Counties Keep Getting Older
+
+```{r}
+#| label: dumbbell
+
+oldest_15 <- county_df |>
+  slice_max(share65_2024, n = 15) |>
+  select(label, share65_2019, share65_2024) |>
+  pivot_longer(c(share65_2019, share65_2024),
+               names_to = "period", values_to = "share65") |>
+  mutate(period = if_else(period == "share65_2019", "2015–2019", "2020–2024"))
+
+ggplot(oldest_15, aes(x = share65, y = fct_reorder(label, share65), color = period)) +
+  geom_line(aes(group = label), color = "grey70", linewidth = 1.5) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("2015–2019" = "grey60", "2020–2024" = age_purple)) +
+  scale_x_continuous(labels = scales::label_percent(accuracy = 1)) +
+  labs(x = "Share of residents 65+", y = NULL, color = NULL) +
+  theme(legend.position = "top",
+        panel.grid.major.y = element_blank())
+```
+
+::: {.notes}
+Same dumbbell recipe as Week 7. Grey is five years earlier, purple is now. Every one of the fifteen oldest counties moved to the right, most of them by two to four points in five years. So this isn't a snapshot of a region that happens to be old. It's a region that keeps aging.
+:::
+
+## Five Counties Have No Certified Nursing Home {.smaller}
+
+:::: {.columns}
+
+::: {.column width="72%"}
+```{r}
+#| label: map-homes
+#| fig-width: 7
+#| fig-height: 5.5
+
+ggplot() +
+  geom_sf(data = county_map, aes(fill = homes == 0), color = "white", linewidth = 0.3) +
+  geom_sf(data = nbrc_homes, aes(size = beds), color = home_orange, alpha = 0.6) +
+  scale_fill_manual(values = c("TRUE" = "grey35", "FALSE" = "grey88"),
+                    labels = c("TRUE" = "No nursing home", "FALSE" = "At least one"),
+                    name = NULL) +
+  scale_size_area(max_size = 6, name = "Certified beds") +
+  annotation_scale(location = "br", unit_category = "imperial") +
+  theme_void(base_size = 14) +
+  theme(legend.position = "bottom", legend.box = "vertical")
+```
+:::
+
+::: {.column width="28%"}
+**No certified nursing home** (residents 65+):
+
+```{r}
+#| label: no-home-list
+#| output: asis
+
+# output: asis lets cat() write markdown: here, one bullet per county
+cat(paste0("- ", no_home$label, " (", scales::comma(no_home$pop65_2024), ")"),
+    sep = "\n")
+```
+:::
+
+::::
+
+::: {.notes}
+Each orange circle is a Medicare- or Medicaid-certified nursing home, sized by beds. The dark grey counties have none. Most of them are small, but Hancock County, Maine has about fifteen thousand residents 65 and older and no certified nursing home in the CMS data. Caveat for the audience: this file doesn't include assisted living, and people do cross county lines for care.
+:::
+
+## Older Counties Have Fewer Beds per Senior
+
+```{r}
+#| label: scatter
+
+ggplot(county_df, aes(x = share65_2024, y = beds_per_1k)) +
+  geom_smooth(method = "lm", se = FALSE, color = "grey60") +
+  geom_point(aes(size = pop65_2024), color = age_purple, alpha = 0.6) +
+  scale_x_continuous(labels = scales::label_percent(accuracy = 1)) +
+  scale_size_area(max_size = 9, labels = scales::label_comma(),
+                  name = "Residents 65+") +
+  labs(x = "Share of residents 65+",
+       y = "Certified beds per\n1,000 residents 65+",
+       caption = "Each circle is one NBRC county")
+```
+
+::: {.notes}
+Each dot is a county. Moving right means an older county; moving up means more nursing home beds for each senior. The trend line slopes down: the older the county, the fewer beds per senior. It's a moderate relationship, a correlation of about minus 0.4, and there's a lot of scatter, so I wouldn't use this to predict any single county. But the direction is the opposite of what you'd want.
+:::
+
+## More Than a Quarter of the Region's Nursing Homes Have One Star
+
+```{r}
+#| label: stars
+
+star_shares <- bind_rows(
+  nbrc_homes |> st_drop_geometry() |> mutate(group = "NBRC region"),
+  homes_df |> mutate(group = "United States")
+) |>
+  filter(!is.na(stars)) |>
+  count(group, stars) |>
+  group_by(group) |>
+  mutate(share = n / sum(n))
+
+ggplot(star_shares, aes(x = factor(stars), y = share, fill = group)) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(values = c("NBRC region" = home_orange,
+                               "United States" = "grey65")) +
+  scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
+  labs(x = "CMS overall rating (stars)", y = "Share of rated homes", fill = NULL,
+       caption = "Source: CMS Nursing Home Provider Information, October 2026") +
+  theme(legend.position = "top", panel.grid.major.x = element_blank())
+```
+
+::: {.notes}
+CMS rates every certified nursing home from one to five stars, based on inspections, staffing, and quality measures. In the region, `{r} scales::percent(nbrc_one_star, accuracy = 1)` of homes have one star, against `{r} scales::percent(us_one_star, accuracy = 1)` nationally, and the region has fewer five-star homes than the country does. So the capacity question from the last slide is also a quality question.
+:::
+
+## What This Means for NBRC
+
+- The oldest counties have the least nursing home capacity per senior, which makes them the natural place to look first when weighing elder care investment
+- Nursing homes are also employers, and their staffing is part of the region's workforce story
+- **Next step:** add assisted living and home health, which these counts leave out
+
+::: {.notes}
+This is where the deck turns from "here's what the data say" to "here's why it matters to you." Keep it short and keep it tied to the evidence you just showed. Notice that the last bullet admits what this analysis doesn't cover. That's not a weakness; it tells the partner exactly what to ask for next.
+:::
+
+## About the Data {.smaller}
+
+- **Population:** American Community Survey 5-year estimates (2015–2019 and 2020–2024), table B01001, pulled with `tidycensus`. Regional shares add up county counts first, then divide.
+- **Nursing homes:** CMS Nursing Home Provider Information, October 2026. Medicare- and Medicaid-certified homes only, placed in counties with a spatial join on their coordinates.
+- **Region:** the 63 NBRC counties in Maine, New Hampshire, New York, and Vermont
+- **Caveats:** ACS figures carry margins of error, widest for the smallest counties. Beds per senior ignores people crossing county lines for care.
+
+::: {.notes}
+Keep a data slide at the end, not the beginning. Anyone who wants to check your work can find it here, and everyone else got the findings first.
+:::
+
+## Thank you! {background-color="#007155"}

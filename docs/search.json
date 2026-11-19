@@ -865,7 +865,7 @@
     "href": "project.html#deliverable-format",
     "title": "Community Partner Project",
     "section": "Deliverable Format",
-    "text": "Deliverable Format\nEach of the four graded milestones below builds directly on the last. There’s no single “project” handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.\n\nScope & Team Charter (due Oct. 25, 10%)\nA short planning document, not an analysis. At this point in the semester, teams have core R/tidyverse skills but haven’t yet covered spatial analysis (Weeks 9–10) and are just starting the Quarto unit (Week 8). Should include:\n\nTeam roster and a rough division of responsibilities\nThe domain area (Rural Housing or Rural Hub Services) and 2–3 concrete research questions the team plans to answer for NBRC\nA first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)\nA work plan mapped to the remaining milestones below\n\nSubmit one charter per team: a Quarto document (.qmd) rendered to PDF with format: typst in the YAML header, with one copy of the PDF emailed to the instructor per team. The point at this stage is alignment within the team and with the instructor, not production value.\n\n\nPreliminary Outputs + Peer Critique (Week 12, 20%)\nBy this point teams have covered spatial analysis and Quarto, so this milestone should look like real, if rough, output. Expect to bring:\n\nAt least one polished chart or map addressing one of your research questions, built in R (ggplot2/sf)\nA short written or verbal framing of what the visualization shows and why it matters to NBRC\nParticipation in structured peer critique, giving and receiving feedback with at least one other team in class\n\nThis is graded on effort and communication quality, not on having “finished” analysis. The critique is meant to catch problems while there’s still time to fix them.\n\n\nDraft Deliverable + Revision (Week 14, 20%)\nA near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team’s choice of a slide deck or a dashboard, consistent with what’s covered in Week 8.\n\n\nFinal Deliverable + Presentation (Week 16, 20%)\nThis is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It’s a Quarto-rendered slide deck or dashboard that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas."
+    "text": "Deliverable Format\nEach of the four graded milestones below builds directly on the last. There’s no single “project” handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.\nTo see what a finished deliverable can look like, see the Example Deliverables page: the same story told as a slide deck and as a dashboard, on a topic outside both teams’ domains.\n\nScope & Team Charter (due Oct. 25, 10%)\nA short planning document, not an analysis. At this point in the semester, teams have core R/tidyverse skills but haven’t yet covered spatial analysis (Weeks 9–10) and are just starting the Quarto unit (Week 8). Should include:\n\nTeam roster and a rough division of responsibilities\nThe domain area (Rural Housing or Rural Hub Services) and 2–3 concrete research questions the team plans to answer for NBRC\nA first pass at data sources (ACS, BLS, USDA ERS, TIGER shapefiles, possible NBRC-provided data)\nA work plan mapped to the remaining milestones below\n\nSubmit one charter per team: a Quarto document (.qmd) rendered to PDF with format: typst in the YAML header, with one copy of the PDF emailed to the instructor per team. The point at this stage is alignment within the team and with the instructor, not production value.\n\n\nPreliminary Outputs + Peer Critique (Week 12, 20%)\nBy this point teams have covered spatial analysis and Quarto, so this milestone should look like real, if rough, output. Expect to bring:\n\nAt least one polished chart or map addressing one of your research questions, built in R (ggplot2/sf)\nA short written or verbal framing of what the visualization shows and why it matters to NBRC\nParticipation in structured peer critique, giving and receiving feedback with at least one other team in class\n\nThis is graded on effort and communication quality, not on having “finished” analysis. The critique is meant to catch problems while there’s still time to fix them.\n\n\nDraft Deliverable + Revision (Week 14, 20%)\nA near-complete version of the final deliverable: full narrative structure, multiple visualizations/maps, and a clear throughline connecting data to a recommendation or insight for NBRC. Submitted for instructor feedback, with in-class time for revision afterward. Should be built in Quarto, with the team’s choice of a slide deck or a dashboard, consistent with what’s covered in Week 8.\n\n\nFinal Deliverable + Presentation (Week 16, 20%)\nThis is the polished, NBRC-facing version of the Draft Deliverable, incorporating Week 14 feedback. It’s a Quarto-rendered slide deck or dashboard that could credibly be handed to NBRC staff. Delivered in person in Montpelier alongside a short team presentation to NBRC stakeholders. All teams follow the same general structure so the final outputs can be assembled into one unified product across domain areas."
   },
   {
     "objectID": "index.html#course-overview",
@@ -2728,5 +2728,89 @@
     "title": "Week 10: Points, Spatial Joins, and Finished Maps",
     "section": "With a Locator Inset",
     "text": "With a Locator Inset"
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#the-bottom-line",
+    "href": "examples/nbrc_aging_slides.html#the-bottom-line",
+    "title": "Aging in the Northern Border Region",
+    "section": "The Bottom Line",
+    "text": "The Bottom Line\n\nOlder: 21.2% of the region’s residents are 65 or older, compared with 17.2% nationally\nEverywhere: 61 of the 63 NBRC counties are older than the U.S. as a whole\nLeast care where need is greatest: the oldest counties have the fewest nursing home beds per senior, and 5 counties have no certified nursing home at all\n\n\nBottom line first. This region is older than the country, and it’s not one or two retirement counties pulling the average up: nearly every county is older than the U.S. And when we lay nursing homes on top of that, the capacity is thinnest in exactly the places with the most older residents. The rest of the deck shows the evidence for each of those three points."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#the-region-is-older-than-the-country",
+    "href": "examples/nbrc_aging_slides.html#the-region-is-older-than-the-country",
+    "title": "Aging in the Northern Border Region",
+    "section": "The Region Is Older Than the Country",
+    "text": "The Region Is Older Than the Country\n\n\nEach county is shaded by the share of its residents who are 65 or older. The lightest counties are around 15 percent, which is still about the national average of 17 percent. The darkest are over 30 percent. Point out Hamilton County in the Adirondacks, where one in three residents is 65 or older, and Carroll County, New Hampshire, close behind."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#the-oldest-counties-keep-getting-older",
+    "href": "examples/nbrc_aging_slides.html#the-oldest-counties-keep-getting-older",
+    "title": "Aging in the Northern Border Region",
+    "section": "The Oldest Counties Keep Getting Older",
+    "text": "The Oldest Counties Keep Getting Older\n\n\nSame dumbbell recipe as Week 7. Grey is five years earlier, purple is now. Every one of the fifteen oldest counties moved to the right, most of them by two to four points in five years. So this isn’t a snapshot of a region that happens to be old. It’s a region that keeps aging."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#five-counties-have-no-certified-nursing-home",
+    "href": "examples/nbrc_aging_slides.html#five-counties-have-no-certified-nursing-home",
+    "title": "Aging in the Northern Border Region",
+    "section": "Five Counties Have No Certified Nursing Home",
+    "text": "Five Counties Have No Certified Nursing Home\n\n\n\n\n\n\n\n\n\n\n\n\nNo certified nursing home (residents 65+):\n\nHancock, ME (15,021)\nSchoharie, NY (7,181)\nGrand Isle, VT (1,755)\nHamilton, NY (1,718)\nEssex, VT (1,651)\n\n\n\nEach orange circle is a Medicare- or Medicaid-certified nursing home, sized by beds. The dark grey counties have none. Most of them are small, but Hancock County, Maine has about fifteen thousand residents 65 and older and no certified nursing home in the CMS data. Caveat for the audience: this file doesn’t include assisted living, and people do cross county lines for care."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#older-counties-have-fewer-beds-per-senior",
+    "href": "examples/nbrc_aging_slides.html#older-counties-have-fewer-beds-per-senior",
+    "title": "Aging in the Northern Border Region",
+    "section": "Older Counties Have Fewer Beds per Senior",
+    "text": "Older Counties Have Fewer Beds per Senior\n\n\nEach dot is a county. Moving right means an older county; moving up means more nursing home beds for each senior. The trend line slopes down: the older the county, the fewer beds per senior. It’s a moderate relationship, a correlation of about minus 0.4, and there’s a lot of scatter, so I wouldn’t use this to predict any single county. But the direction is the opposite of what you’d want."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#more-than-a-quarter-of-the-regions-nursing-homes-have-one-star",
+    "href": "examples/nbrc_aging_slides.html#more-than-a-quarter-of-the-regions-nursing-homes-have-one-star",
+    "title": "Aging in the Northern Border Region",
+    "section": "More Than a Quarter of the Region’s Nursing Homes Have One Star",
+    "text": "More Than a Quarter of the Region’s Nursing Homes Have One Star\n\n\nCMS rates every certified nursing home from one to five stars, based on inspections, staffing, and quality measures. In the region, 27% of homes have one star, against 19% nationally, and the region has fewer five-star homes than the country does. So the capacity question from the last slide is also a quality question."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#what-this-means-for-nbrc",
+    "href": "examples/nbrc_aging_slides.html#what-this-means-for-nbrc",
+    "title": "Aging in the Northern Border Region",
+    "section": "What This Means for NBRC",
+    "text": "What This Means for NBRC\n\nThe oldest counties have the least nursing home capacity per senior, which makes them the natural place to look first when weighing elder care investment\nNursing homes are also employers, and their staffing is part of the region’s workforce story\nNext step: add assisted living and home health, which these counts leave out\n\n\nThis is where the deck turns from “here’s what the data say” to “here’s why it matters to you.” Keep it short and keep it tied to the evidence you just showed. Notice that the last bullet admits what this analysis doesn’t cover. That’s not a weakness; it tells the partner exactly what to ask for next."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#about-the-data",
+    "href": "examples/nbrc_aging_slides.html#about-the-data",
+    "title": "Aging in the Northern Border Region",
+    "section": "About the Data",
+    "text": "About the Data\n\nPopulation: American Community Survey 5-year estimates (2015–2019 and 2020–2024), table B01001, pulled with tidycensus. Regional shares add up county counts first, then divide.\nNursing homes: CMS Nursing Home Provider Information, October 2026. Medicare- and Medicaid-certified homes only, placed in counties with a spatial join on their coordinates.\nRegion: the 63 NBRC counties in Maine, New Hampshire, New York, and Vermont\nCaveats: ACS figures carry margins of error, widest for the smallest counties. Beds per senior ignores people crossing county lines for care.\n\n\nKeep a data slide at the end, not the beginning. Anyone who wants to check your work can find it here, and everyone else got the findings first."
+  },
+  {
+    "objectID": "examples/nbrc_aging_slides.html#thank-you",
+    "href": "examples/nbrc_aging_slides.html#thank-you",
+    "title": "Aging in the Northern Border Region",
+    "section": "Thank you!",
+    "text": "Thank you!"
+  },
+  {
+    "objectID": "examples/index.html",
+    "href": "examples/index.html",
+    "title": "Example Deliverables",
+    "section": "",
+    "text": "Your final NBRC deliverable is a slide deck or a dashboard, your team’s choice. These two examples show what a finished version of each can look like. Both tell the same story with the same data: aging and nursing homes across the 63 NBRC counties, a topic picked so it doesn’t overlap with either team’s domain. Click a preview to open it."
+  },
+  {
+    "objectID": "examples/index.html#slide-deck-or-dashboard",
+    "href": "examples/index.html#slide-deck-or-dashboard",
+    "title": "Example Deliverables",
+    "section": "Slide Deck or Dashboard?",
+    "text": "Slide Deck or Dashboard?\n\nA slide deck\nA slide deck is a strung-together collection of visualizations that requires the presenter to tell a story. You decide the order, so you can build an argument one step at a time: the bottom line first, then one finding per slide, then what it means for NBRC. Each slide title states its finding, and the figure underneath is the evidence. What connects the slides is you. In the example, that narration lives in the speaker notes, which is a good habit for your own deck: the notes are the story you’ll tell in Montpelier.\n\n\nA dashboard\nA dashboard has no presenter, so it has to tell the story on its own. Readers choose where to look and in what order, which means the most important numbers go at the top, every card’s title states its finding, and the details sit one hover or click away. A dashboard is something NBRC staff can come back to after we leave and explore for themselves, for example by looking up their own county. You’ll still present it on December 17, but it also has to make sense to someone who never heard your presentation.\n\n\n\n\n\n\n\n\n\nSlide deck\nDashboard\n\n\n\n\nWho tells the story?\nYou, the presenter\nThe page itself\n\n\nWho picks the order?\nYou do, one slide at a time\nThe reader does\n\n\nBest for\nMaking an argument to a room\nA reference people come back to\n\n\nWhere the details go\nSpeaker notes and a data slide at the end\nHover text, popups, and a data page\n\n\nYAML\nformat: revealjs\nformat: dashboard"
+  },
+  {
+    "objectID": "examples/index.html#how-hard-is-the-code",
+    "href": "examples/index.html#how-hard-is-the-code",
+    "title": "Example Deliverables",
+    "section": "How Hard Is the Code?",
+    "text": "How Hard Is the Code?\nThe slide deck uses only code from class: get_acs() from Week 9, dplyr and pivot_wider() from Weeks 2–3, ggplot2 from Weeks 4–7 (the dumbbell is the Week 7 recipe), and st_as_sf(), st_join(), and scale bars from Week 10 and HW4.\nThe dashboard is mostly the same code in the dashboard layout from Week 8. It adds four new pieces, each marked NEW: in the source:\n\nValue boxes, the colored number tiles: a ::: {.valuebox} block with a title, a number, and an optional line underneath\nThe interactive map: the long version of maplibre_view() from Week 10, with two layers, legends, and click-for-details popups\nThe searchable table: reactable(), which needs install.packages(\"reactable\") once\nStyling in a small dashboard.scss file, which is optional and safe to skip\n\nBoth files start by explaining what’s in them, and the comments walk through each step. The nursing home data is a CSV saved in examples/data/, and the Census data comes from your own API key, the same way as in HW4."
   }
 ]

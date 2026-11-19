@@ -66,6 +66,8 @@ Teams will draw primarily on publicly available data:
 
 Each of the four graded milestones below builds directly on the last. There's no single "project" handed in at the end, just a steady accumulation of the same deliverable getting more complete and more polished.
 
+To see what a finished deliverable can look like, see the [Example Deliverables](examples/index.qmd) page: the same story told as a slide deck and as a dashboard, on a topic outside both teams' domains.
+
 ### Scope & Team Charter (due Oct. 25, 10%)
 
 A short planning document, not an analysis. At this point in the semester, teams have core R/tidyverse skills but haven't yet covered spatial analysis (Weeks 9–10) and are just starting the Quarto unit (Week 8). Should include:
