@@ -1033,7 +1033,7 @@
     "href": "schedule.html#unit-5-project",
     "title": "Course Schedule",
     "section": "Unit 5 — Project",
-    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\n\n\n\n\n12\nNov 19\nWorkday + peer critique. Preliminary Outputs + Peer Critique due (20% of project grade).\n\n\n13\nNov 26\nNo class (Thanksgiving)\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision. Draft Deliverable + Revision due (20% of project grade).\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n16\nDec 17\nField trip to Montpelier: final presentations (in-person). Final Deliverable + Presentation due (20% of project grade).\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: October 15, 2026"
+    "text": "Unit 5 — Project\n\n\n\n\n\n\nNo new instruction. Instructor acts as coach and reviewer.\n\n\n\n\n\n\nWeek\nDate\nTopic / Milestone\nSlides\n\n\n\n\n12\nNov 19\nWorkday + peer critique. Preliminary Outputs + Peer Critique due (20% of project grade).\nWeek 12\n\n\n13\nNov 26\nNo class (Thanksgiving)\n\n\n\n14\nDec 3\nDraft deliverables due; in-class feedback and revision. Draft Deliverable + Revision due (20% of project grade).\n\n\n\n15\nDec 10\nFinal polish; presentation prep; semester wrap-up\n\n\n\n16\nDec 17\nField trip to Montpelier: final presentations (in-person). Final Deliverable + Presentation due (20% of project grade).\n\n\n\n\n\nThis schedule is subject to change. Check back periodically to make sure you’re working from the most current version.\nLast updated: October 15, 2026"
   },
   {
     "objectID": "slides/week02.html#welcome-to-lafayette-l202",
@@ -2812,5 +2812,61 @@
     "title": "Example Deliverables",
     "section": "How Hard Is the Code?",
     "text": "How Hard Is the Code?\nThe slide deck uses only code from class: get_acs() from Week 9, dplyr and pivot_wider() from Weeks 2–3, ggplot2 from Weeks 4–7 (the dumbbell is the Week 7 recipe), and st_as_sf(), st_join(), and scale bars from Week 10 and HW4.\nThe dashboard is mostly the same code in the dashboard layout from Week 8. It adds four new pieces, each marked NEW: in the source:\n\nValue boxes, the colored number tiles: a ::: {.valuebox} block with a title, a number, and an optional line underneath\nThe interactive map: the long version of maplibre_view() from Week 10, with two layers, legends, and click-for-details popups\nThe searchable table: reactable(), which needs install.packages(\"reactable\") once\nStyling in a small dashboard.scss file, which is optional and safe to skip\n\nBoth files start by explaining what’s in them, and the comments walk through each step. The nursing home data is a CSV saved in examples/data/, and the Census data comes from your own API key, the same way as in HW4."
+  },
+  {
+    "objectID": "slides/week12.html#todays-plan",
+    "href": "slides/week12.html#todays-plan",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\n\n\n\n\n\n\nTime (approx.)\nWhat\n\n\n\n\n4:35\nWelcome, today’s plan, and the example deliverables\n\n\n4:45\nPresentation 1: one team presents, then feedback\n\n\n5:10\nPresentation 2: the other team presents, then feedback\n\n\n5:35\nBreak\n\n\n5:45\nOne-on-one meetings: I meet with each team\n\n\n~6:30\nDone\n\n\n\n\nToday is the Preliminary Outputs + Peer Critique milestone (20% of the project grade)"
+  },
+  {
+    "objectID": "slides/week12.html#example-deliverables",
+    "href": "slides/week12.html#example-deliverables",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "Example Deliverables",
+    "text": "Example Deliverables\n\n\n\nSlide deck: you tell the story, one figure per slide\n\n\nDashboard: the page tells the story on its own\n\n\nSame data, same story, two formats: andrewvanleuven.github.io/uvm_datasci/examples (also linked from the Project page)\nEach one has a “Read the code” link. Most of it is code we’ve already written in class."
+  },
+  {
+    "objectID": "slides/week12.html#how-the-presentations-work",
+    "href": "slides/week12.html#how-the-presentations-work",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "How the Presentations Work",
+    "text": "How the Presentations Work\nEach team presents to me and the other team. About 25 minutes per team:\n\nPresent (about 10 min). Your bottom line in one sentence, your figure(s), and why it matters to NBRC.\nClarifying questions (about 5 min). Quick factual questions only (“What’s the unit?” “Which years?”).\nFeedback (about 10 min). First from the other team, then from me.\n\n\nWhile presenting: listen, take notes, and don’t worry about defending every choice\nBefore you sit down: write down your team’s top 3 changes for the December 3 draft"
+  },
+  {
+    "objectID": "slides/week12.html#giving-useful-feedback",
+    "href": "slides/week12.html#giving-useful-feedback",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "Giving Useful Feedback",
+    "text": "Giving Useful Feedback\n\nWhat do you see? Can you say the takeaway in one sentence? Does it match theirs?\nIs the title a finding or a label? “Rent burden by county” is a label. “Nearly half of renters in Addison County pay more than 30% of income on rent” is a finding.\nOne figure, one message? If it takes two sentences to explain, it might be two figures.\nAre we being tricked? Look at the axes, the scales, and the color choices.\nWhat’s missing? A source, a benchmark (the state or the U.S.), a comparison over time?\nFor maps: a rate or share rather than a raw count? The right geography? A scale bar?\nWhy would NBRC care? Could a busy commissioner say what decision this informs?\n\nSpecific beats general: “the color scale hides the low end” helps more than “looks good.”"
+  },
+  {
+    "objectID": "slides/week12.html#how-today-is-graded",
+    "href": "slides/week12.html#how-today-is-graded",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "How Today Is Graded",
+    "text": "How Today Is Graded\n\nOne grade per team, 20% of the project grade\nGraded on effort and communication quality, not on finished analysis\n\n\n\n\n\n\n\n\nCriterion\nWhat I’m looking for\n\n\n\n\nOutput\nAt least one polished chart or map built in R (ggplot2/sf) that addresses one of your research questions\n\n\nFraming\nYou can say what it shows and why it matters to NBRC, in plain language\n\n\nFeedback\nYou give specific, usable feedback to the other team and take theirs on board"
+  },
+  {
+    "objectID": "slides/week12.html#one-on-one-meetings",
+    "href": "slides/week12.html#one-on-one-meetings",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "One-on-One Meetings",
+    "text": "One-on-One Meetings\nAfter both presentations, I’ll meet with each team as a group for about 20 minutes to:\n\nAnswer your questions\nGive you my own feedback on today’s output\nAgree on your top 3 changes for the December 3 draft\nConfirm your format: slide deck or dashboard\nWork through any code or data roadblocks\nCheck in on how the work is divided between now and December 17\n\nWhile the other team meets with me, start on your revisions."
+  },
+  {
+    "objectID": "slides/week12.html#the-rest-of-the-semester",
+    "href": "slides/week12.html#the-rest-of-the-semester",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "The Rest of the Semester",
+    "text": "The Rest of the Semester\n\n\n\n\n\n\n\nDate\nWhat\n\n\n\n\nNov 26\nNo class (Thanksgiving)\n\n\nDec 3 (Week 14)\nDraft Deliverable + Revision due (20%): a near-complete deck or dashboard. In-class feedback and revision.\n\n\nDec 10 (Week 15)\nFinal polish, presentation prep, and semester wrap-up\n\n\nDec 17 (Week 16)\nField trip to Montpelier: final presentations to NBRC (20%)\n\n\n\n\nFor the most part, class will end closer to 6:00–6:30 than the full three hours\nQuestions between classes? Email me or send me a message on Teams anytime."
+  },
+  {
+    "objectID": "slides/week12.html#thank-you",
+    "href": "slides/week12.html#thank-you",
+    "title": "Week 12: Preliminary Outputs + Peer Critique",
+    "section": "Thank you!",
+    "text": "Thank you!"
   }
 ]
