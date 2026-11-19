@@ -5,6 +5,7 @@ project:
     - "*.qmd"
     - "slides/*.qmd"
     - "homework/*.qmd"
+    - "examples/*.qmd"
     - "!CLAUDE.md"
     - "!cdae7990_workspace/"
   resources:

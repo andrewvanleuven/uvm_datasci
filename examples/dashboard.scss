@@ -1,0 +1,56 @@
+/*-- scss:defaults --*/
+$primary: #154734;
+$link-color: #154734;
+$font-size-base: 0.95rem;
+
+/*-- scss:rules --*/
+
+// Dashboard navbar in UVM green, matching the course site.
+.navbar {
+  background-color: $primary !important;
+}
+
+.navbar-brand, .navbar-title, .navbar-nav .nav-link {
+  color: #ffffff !important;
+}
+
+// Value boxes: keep the big number big and the comparison line quiet.
+// Hex value box colors (color="#54278F") don't flip the text to white,
+// so set it here for every value box.
+.bslib-value-box,
+.bslib-value-box .value-box-title,
+.bslib-value-box .value-box-value,
+.bslib-value-box .value-box-showcase,
+.bslib-value-box p {
+  color: #ffffff !important;
+}
+
+.bslib-value-box .value-box-value {
+  font-weight: 700;
+}
+
+.bslib-value-box p.vb-compare {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 0;
+}
+
+// The "Bottom line" card reads like a short memo.
+.bottom-line p {
+  line-height: 1.45;
+}
+
+// The all-bold lead sentence comes through without a <p>, so space it here.
+.bottom-line .card-body > strong:first-child {
+  display: block;
+  margin-bottom: 0.9rem;
+}
+
+// Keep big numbers from crowding out the comparison line in short rows.
+.bslib-value-box .value-box-value {
+  font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+}
+
+.bottom-line p {
+  margin-bottom: 0.9rem;
+}

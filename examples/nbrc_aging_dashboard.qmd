@@ -1,0 +1,527 @@
+---
+title: "Aging in the Northern Border Region"
+author: "Andrew Van Leuven"
+format:
+  dashboard:
+    theme: [cosmo, dashboard.scss]
+    embed-resources: true
+    nav-buttons:
+      - icon: code-slash
+        href: https://github.com/andrewvanleuven/uvm_datasci/blob/main/examples/nbrc_aging_dashboard.qmd
+        aria-label: "Source code for this dashboard"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+
+# ---------------------------------------------------------------------------
+# EXAMPLE DASHBOARD for CDAE 7990. Every number on every page is computed in
+# this file, so you can read top to bottom and see where each one comes from.
+#
+# Packages: everything here is in your Posit Cloud workspace except reactable
+# (the searchable table on the last page). Install it once with
+#   install.packages("reactable")
+# ---------------------------------------------------------------------------
+
+library(tidyverse)
+library(tidycensus)
+library(sf)
+library(tigris)
+library(ggspatial)
+library(mapgl)
+library(reactable)
+
+options(tigris_use_cache = TRUE)
+
+# One theme for every static figure, so the pages look like one product
+theme_set(theme_minimal(base_size = 14))
+
+# Small helpers for formatting numbers in text and value boxes
+pct <- function(x, digits = 1) scales::percent(x, accuracy = 10^-digits)
+# (\u00a0 is a non-breaking space: a value box value with a plain space breaks)
+pts <- function(x) paste0(ifelse(x > 0, "+", ""), round(100 * x, 1), "\u00a0pts")
+
+# One color per idea, used on every page:
+# purple = older residents, orange = nursing homes, grey = U.S. benchmark
+age_purple  <- "#54278F"
+home_orange <- "#B04E0A"
+```
+
+```{r}
+#| label: data-census
+
+# ---- 1. Which counties are in the NBRC region? ----------------------------
+# The same 63-county list we used in Week 9 (it lives in the site's data/ folder)
+nbrc_counties <- read_csv("../data/nbrc_counties_fips.csv",
+                          col_types = cols(.default = "c"))
+
+nbrc_states <- c("ME", "NH", "NY", "VT")
+
+# ---- 2. Age data from the ACS ---------------------------------------------
+# B01001 is "Sex by Age." Lines 020-025 are men 65+, lines 044-049 are women 65+.
+age_vars <- c(total = "B01001_001",
+              sprintf("B01001_%03d", c(20:25, 44:49)))
+
+# Add up the twelve 65+ lines into one count, then take the share
+sum_65_plus <- function(acs_df) {
+  acs_df |>
+    group_by(GEOID, NAME) |>
+    summarize(pop   = sum(estimate[variable == "total"]),
+              pop65 = sum(estimate[variable != "total"]),
+              .groups = "drop") |>
+    mutate(share65 = pop65 / pop)
+}
+
+# Counties, 2020-2024 ACS, with geometry for the maps
+county_age_2024 <- get_acs(geography = "county", state = nbrc_states,
+                           variables = age_vars, year = 2024,
+                           survey = "acs5") |>
+  sum_65_plus() |>
+  filter(GEOID %in% nbrc_counties$full_fips)
+
+# Counties, 2015-2019 ACS: the "before" picture for the change page
+county_age_2019 <- get_acs(geography = "county", state = nbrc_states,
+                           variables = age_vars, year = 2019,
+                           survey = "acs5") |>
+  sum_65_plus() |>
+  filter(GEOID %in% nbrc_counties$full_fips)
+
+# The whole country, both years, as a benchmark
+us_age_2024 <- get_acs(geography = "us", variables = age_vars,
+                       year = 2024, survey = "acs5") |> sum_65_plus()
+us_age_2019 <- get_acs(geography = "us", variables = age_vars,
+                       year = 2019, survey = "acs5") |> sum_65_plus()
+
+# One row per county with both years side by side
+county_change <- county_age_2024 |>
+  select(GEOID, NAME, pop, pop65, share65) |>
+  left_join(county_age_2019 |> select(GEOID, share65_2019 = share65),
+            by = "GEOID") |>
+  mutate(change = share65 - share65_2019,
+         county = str_remove(NAME, " County"),     # "Essex, Vermont"
+         state  = str_extract(NAME, "[^,]+$") |> str_trim())
+
+# Regional totals (sum the counts first, THEN divide; don't average shares)
+nbrc_share_2024 <- sum(county_age_2024$pop65) / sum(county_age_2024$pop)
+nbrc_share_2019 <- sum(county_age_2019$pop65) / sum(county_age_2019$pop)
+us_share_2024   <- us_age_2024$share65
+us_share_2019   <- us_age_2019$share65
+
+n_above_us <- sum(county_change$share65 > us_share_2024)
+
+# County shapes from TIGER (cartographic boundary files, cb = TRUE)
+county_shapes <- counties(state = nbrc_states, cb = TRUE, year = 2024,
+                          progress_bar = FALSE) |>
+  filter(GEOID %in% nbrc_counties$full_fips) |>
+  select(GEOID)
+```
+
+```{r}
+#| label: data-nursing-homes
+
+# ---- 3. Nursing homes from CMS --------------------------------------------
+# CMS "Provider Information" file: one row per Medicare/Medicaid-certified
+# nursing home in the country, with coordinates, beds, and star ratings.
+# https://data.cms.gov/provider-data/dataset/4pq5-n9py
+# The download link changes every month, so we saved a dated copy.
+homes_raw <- read_csv("data/NH_ProviderInfo_Oct2026.csv",
+                      show_col_types = FALSE)
+
+# Keep the columns we use and give them short names
+homes_us <- homes_raw |>
+  filter(State %in% c(state.abb, "DC")) |>          # 50 states + DC
+  transmute(name      = str_to_title(`Provider Name`),
+            town      = str_to_title(`City/Town`),
+            state     = State,
+            beds      = `Number of Certified Beds`,
+            residents = `Average Number of Residents per Day`,
+            stars     = `Overall Rating`,
+            ownership = `Ownership Type`,
+            turnover  = `Total nursing staff turnover`,
+            staff_hrs = `Reported Total Nurse Staffing Hours per Resident per Day`,
+            lon = Longitude, lat = Latitude)
+
+# Points: st_as_sf() turns lon/lat columns into geometry (as in HW4)
+homes_sf <- homes_us |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326) |>
+  st_transform(st_crs(county_shapes))
+
+# Spatial join: which NBRC county does each home sit in?
+# left = FALSE drops every home outside the region.
+nbrc_homes <- homes_sf |>
+  st_join(county_shapes, left = FALSE)
+
+# Beds per county, then per 1,000 residents 65+
+county_beds <- nbrc_homes |>
+  st_drop_geometry() |>
+  group_by(GEOID) |>
+  summarize(homes = n(), beds = sum(beds, na.rm = TRUE))
+
+county_stats <- county_change |>
+  left_join(county_beds, by = "GEOID") |>
+  mutate(homes = replace_na(homes, 0),
+         beds  = replace_na(beds, 0),
+         beds_per_1k = beds / pop65 * 1000)
+
+# Regional and national benchmarks
+nbrc_beds_per_1k <- sum(county_stats$beds) / sum(county_stats$pop65) * 1000
+us_beds_per_1k   <- sum(homes_us$beds, na.rm = TRUE) / us_age_2024$pop65 * 1000
+
+no_home_counties <- county_stats |> filter(homes == 0)
+
+nbrc_turnover <- median(nbrc_homes$turnover, na.rm = TRUE)
+us_turnover   <- median(homes_us$turnover, na.rm = TRUE)
+nbrc_staff    <- median(nbrc_homes$staff_hrs, na.rm = TRUE)
+us_staff      <- median(homes_us$staff_hrs, na.rm = TRUE)
+
+# Share of rated homes with one star
+one_star <- function(x) mean(x == 1, na.rm = TRUE)
+nbrc_one_star <- one_star(nbrc_homes$stars)
+us_one_star   <- one_star(homes_us$stars)
+
+# Do older counties have fewer beds per senior?
+age_beds_cor <- cor(county_stats$share65, county_stats$beds_per_1k)
+
+# The map layers need everything in one sf object per layer
+county_map <- county_shapes |>
+  left_join(county_stats, by = "GEOID")
+```
+
+# Overview
+
+## Row {height="22%"}
+
+::: {.valuebox icon="people-fill" color="#54278F"}
+Residents age 65+
+
+`{r} pct(nbrc_share_2024)`
+
+[U.S.: `{r} pct(us_share_2024)`]{.vb-compare}
+:::
+
+::: {.valuebox icon="graph-up-arrow" color="#54278F"}
+Change since 2015–2019
+
+`{r} pts(nbrc_share_2024 - nbrc_share_2019)`
+
+[U.S.: `{r} pts(us_share_2024 - us_share_2019)`]{.vb-compare}
+:::
+
+::: {.valuebox icon="building" color="#B04E0A"}
+Nursing homes in the region
+
+`{r} nrow(nbrc_homes)`
+
+[`{r} scales::comma(sum(nbrc_homes$beds, na.rm = TRUE))` certified beds]{.vb-compare}
+:::
+
+::: {.valuebox icon="hospital" color="#B04E0A"}
+Beds per 1,000 residents 65+
+
+`{r} round(nbrc_beds_per_1k, 1)`
+
+[U.S.: `{r} round(us_beds_per_1k, 1)`]{.vb-compare}
+:::
+
+## Row {height="78%"}
+
+### Column {width="70%"}
+
+```{r}
+#| label: map-overview
+#| title: "Share of residents 65+ by county, with nursing homes (circle area = beds)"
+
+# Popups: one HTML string per feature, shown when you click it
+county_map <- county_map |>
+  mutate(
+    hover = county,
+    popup = glue::glue(
+      "<strong>{county}</strong><br>",
+      "Residents 65+: {pct(share65)}<br>",
+      "Nursing homes: {homes}<br>",
+      "Beds per 1,000 residents 65+: {round(beds_per_1k, 1)}"
+    )
+  )
+
+# Circle AREA should track beds, so the radius grows with the square root
+home_points <- nbrc_homes |>
+  st_transform(4326) |>
+  mutate(
+    radius = sqrt(beds) * 0.9,
+    star_text = if_else(is.na(stars), "not rated",
+                        paste0(stars, " of 5 stars")),
+    hover = name,
+    popup = glue::glue(
+      "<strong>{name}</strong><br>{town}, {state}<br>",
+      "Certified beds: {beds}<br>",
+      "CMS rating: {star_text}<br>",
+      "Nursing staff turnover: {ifelse(is.na(turnover), 'n/a', paste0(turnover, '%'))}"
+    )
+  )
+
+purples <- RColorBrewer::brewer.pal(5, "Purples")
+share_breaks <- c(0.15, 0.19, 0.23, 0.27, 0.31)
+
+legend_beds <- c(50, 150, 300)
+
+maplibre(style = carto_style("positron"),
+         bounds = st_transform(county_map, 4326)) |>
+  add_fill_layer(
+    id = "Counties",
+    source = st_transform(county_map, 4326),
+    fill_color = interpolate(column = "share65",
+                             values = share_breaks,
+                             stops = purples),
+    fill_opacity = 0.75,
+    fill_outline_color = "white",
+    tooltip = "hover",
+    popup = "popup"
+  ) |>
+  add_circle_layer(
+    id = "Nursing homes",
+    source = home_points,
+    circle_color = home_orange,
+    circle_radius = get_column("radius"),
+    circle_opacity = 0.8,
+    circle_stroke_color = "white",
+    circle_stroke_width = 1,
+    tooltip = "hover",
+    popup = "popup"
+  ) |>
+  add_legend(
+    "Residents 65+",
+    values = pct(share_breaks, 0),
+    colors = purples,
+    type = "continuous",
+    position = "bottom-left",
+    width = "250px"
+  ) |>
+  add_legend(
+    "Certified beds",
+    values = legend_beds,
+    colors = rep(home_orange, 3),
+    sizes = 2 * sqrt(legend_beds) * 0.9,
+    type = "categorical",
+    circular_patches = TRUE,
+    position = "bottom-right",
+    margin_bottom = 30,
+    add = TRUE
+  ) |>
+  add_layers_control(position = "top-right", collapsible = FALSE) |>
+  add_navigation_control(position = "top-left") |>
+  add_fullscreen_control(position = "top-left")
+```
+
+### Column {width="30%"}
+
+::: {.card .bottom-line title="Bottom line"}
+**The Northern Border region is older than the country and getting older faster. The oldest counties tend to have the fewest nursing home beds per senior.**
+
+**Older.** `{r} pct(nbrc_share_2024)` of the region's residents are 65 or older, compared with `{r} pct(us_share_2024)` nationally. `{r} n_above_us` of the 63 NBRC counties are above the national share.
+
+**Aging faster.** Since 2015–2019, the region's 65+ share rose `{r} round(100 * (nbrc_share_2024 - nbrc_share_2019), 1)` points, against `{r} round(100 * (us_share_2024 - us_share_2019), 1)` points for the U.S.
+
+**Care is thinnest where need is highest.** Counties with a larger 65+ share have fewer nursing home beds per 1,000 seniors (correlation of `{r} round(age_beds_cor, 2)`). `{r} nrow(no_home_counties)` counties have no certified nursing home at all.
+
+**How to use this map.** Hover over a county or a circle for its name and click for details. Use the box in the top right to turn the nursing homes off.
+:::
+
+# Aging
+
+## Row
+
+```{r}
+#| label: map-change
+#| title: "Every NBRC county got older between 2015–2019 and 2020–2024"
+
+change_map <- ggplot(county_map) +
+  geom_sf(aes(fill = change), color = "white", linewidth = 0.3) +
+  scale_fill_distiller(palette = "Purples", direction = 1,
+                       labels = \(x) paste0("+", round(100 * x, 1)),
+                       name = "Change in\n65+ share\n(points)") +
+  annotation_scale(location = "br", width_hint = 0.25) +
+  labs(caption = "Source: ACS 5-year estimates, 2015–2019 and 2020–2024, table B01001") +
+  theme_void(base_size = 14) +
+  theme(legend.position = "inside",
+        legend.position.inside = c(0.12, 0.35),
+        plot.caption = element_text(color = "grey40", hjust = 0))
+
+change_map
+```
+
+```{r}
+#| label: dumbbell
+#| title: "The 15 oldest counties, then and now"
+
+oldest_15 <- county_change |>
+  slice_max(share65, n = 15) |>
+  mutate(county = fct_reorder(county, share65))
+
+dumbbell <- ggplot(oldest_15) +
+  geom_vline(xintercept = us_share_2024, linetype = "dashed", color = "grey50") +
+  annotate("text", x = us_share_2024, y = levels(oldest_15$county)[15],
+           hjust = -0.05, vjust = 0.5,
+           label = paste0("U.S., 2020–24: ", pct(us_share_2024)),
+           color = "grey40", size = 3.8) +
+  geom_segment(aes(x = share65_2019, xend = share65, y = county, yend = county),
+               color = "grey70", linewidth = 1.2) +
+  geom_point(aes(x = share65_2019, y = county, color = "2015–2019"), size = 3.5) +
+  geom_point(aes(x = share65, y = county, color = "2020–2024"), size = 3.5) +
+  scale_color_manual(values = c("2015–2019" = "grey60", "2020–2024" = age_purple),
+                     name = NULL) +
+  scale_x_continuous(labels = scales::label_percent(accuracy = 1),
+                     limits = c(0.15, NA)) +
+  labs(x = "Share of residents 65+", y = NULL) +
+  theme(legend.position = "top",
+        panel.grid.major.y = element_blank())
+
+dumbbell
+```
+
+# Nursing Homes
+
+## Row {height="22%"}
+
+::: {.valuebox icon="person-walking" color="#B04E0A"}
+Median nursing staff turnover
+
+`{r} paste0(round(nbrc_turnover, 1), "%")`
+
+[U.S.: `{r} paste0(round(us_turnover, 1), "%")`]{.vb-compare}
+:::
+
+::: {.valuebox icon="star" color="#B04E0A"}
+Homes with a 1-star CMS rating
+
+`{r} pct(nbrc_one_star, 0)`
+
+[U.S.: `{r} pct(us_one_star, 0)`]{.vb-compare}
+:::
+
+::: {.valuebox icon="clock" color="#B04E0A"}
+Nurse staff hours per resident per day (median)
+
+`{r} round(nbrc_staff, 2)`
+
+[U.S.: `{r} round(us_staff, 2)`]{.vb-compare}
+:::
+
+## Row {height="78%"}
+
+```{r}
+#| label: scatter
+#| title: "Older counties have fewer nursing home beds per senior"
+
+# Label a handful of counties so readers can find their bearings:
+# the oldest, the youngest, the most beds per senior, and the largest
+# county with no nursing home. hjust keeps edge labels inside the panel.
+label_these <- county_stats |>
+  filter(share65 == max(share65) | beds_per_1k == max(beds_per_1k) |
+           share65 == min(share65) |
+           (homes == 0 & pop65 == max(pop65[homes == 0]))) |>
+  mutate(label = paste0(str_remove(county, ",.*"), ", ",
+                        state.abb[match(state, state.name)]),
+         hjust = case_when(share65 == max(county_stats$share65) ~ 1,
+                           share65 == min(county_stats$share65) ~ 0,
+                           .default = 0.5))
+
+beds_scatter <- ggplot(county_stats, aes(x = share65, y = beds_per_1k)) +
+  geom_hline(yintercept = nbrc_beds_per_1k, linetype = "dashed", color = "grey50") +
+  annotate("text", x = 0.335, y = nbrc_beds_per_1k, vjust = -0.5, hjust = 1,
+           label = "NBRC region overall", color = "grey40", size = 3.8) +
+  geom_smooth(method = "lm", se = FALSE, color = "grey60", linewidth = 0.8) +
+  geom_point(aes(size = pop65), color = age_purple, alpha = 0.6) +
+  geom_text(data = label_these, aes(label = label, hjust = hjust),
+            vjust = -1.2, size = 3.6, color = "grey20") +
+  scale_x_continuous(labels = scales::label_percent(accuracy = 1)) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.12))) +
+  scale_size_area(max_size = 9, labels = scales::label_comma(),
+                  name = "Residents 65+") +
+  labs(x = "Share of residents 65+ (2020–2024)",
+       y = "Certified beds per 1,000 residents 65+",
+       caption = "Each circle is one NBRC county. Grey line: linear trend.") +
+  theme(plot.caption = element_text(color = "grey40", hjust = 0))
+
+beds_scatter
+```
+
+```{r}
+#| label: stars
+#| title: "NBRC nursing homes skew toward lower CMS star ratings"
+
+star_shares <- bind_rows(
+  nbrc_homes |> st_drop_geometry() |> mutate(group = "NBRC region"),
+  homes_us |> mutate(group = "United States")
+) |>
+  filter(!is.na(stars)) |>
+  count(group, stars) |>
+  group_by(group) |>
+  mutate(share = n / sum(n)) |>
+  ungroup()
+
+star_bars <- ggplot(star_shares,
+                    aes(x = factor(stars), y = share, fill = group)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.75) +
+  geom_text(aes(label = pct(share, 0)),
+            position = position_dodge(width = 0.8),
+            vjust = -0.4, size = 3.6) +
+  scale_fill_manual(values = c("NBRC region" = home_orange,
+                               "United States" = "grey65"),
+                    name = NULL) +
+  scale_y_continuous(labels = scales::label_percent(accuracy = 1),
+                     expand = expansion(mult = c(0, 0.1))) +
+  labs(x = "CMS overall rating (stars)", y = "Share of rated homes",
+       caption = "Source: CMS Nursing Home Provider Information, October 2026") +
+  theme(legend.position = "top",
+        panel.grid.major.x = element_blank(),
+        plot.caption = element_text(color = "grey40", hjust = 0))
+
+star_bars
+```
+
+# Data & Methods
+
+## Row
+
+### Column {width="65%"}
+
+```{r}
+#| label: table
+#| title: !expr paste("All", nrow(nbrc_homes), "certified nursing homes in NBRC counties (search, sort, or filter)")
+
+home_table <- nbrc_homes |>
+  st_drop_geometry() |>
+  mutate(stars = if_else(is.na(stars), "not rated",
+                         strrep("★", stars))) |>
+  select(Name = name, Town = town, State = state, Beds = beds,
+         `Avg. residents` = residents, Rating = stars,
+         `Staff turnover (%)` = turnover, Ownership = ownership) |>
+  arrange(State, Town)
+
+reactable(home_table,
+          searchable = TRUE, filterable = TRUE, striped = TRUE,
+          highlight = TRUE, compact = TRUE, defaultPageSize = 15,
+          columns = list(
+            Name = colDef(minWidth = 200),
+            `Avg. residents` = colDef(format = colFormat(digits = 0)),
+            Ownership = colDef(minWidth = 160)
+          ))
+```
+
+### Column {width="35%"}
+
+::: {.card title="Sources and methods"}
+**Population.** American Community Survey 5-year estimates (2015–2019 and 2020–2024), table B01001 (Sex by Age), pulled with `tidycensus`. "65+" adds up the twelve age-and-sex lines for 65 and older. Regional shares add up counts across counties first and then divide, rather than averaging county percentages.
+
+**Nursing homes.** CMS Nursing Home Provider Information, October 2026 release. It covers Medicare- and Medicaid-certified nursing homes only, so assisted living and residential care are not in these counts. Each home was placed in a county with a spatial join (`st_join()`) on its CMS coordinates. One Amsterdam, NY home that CMS lists in Montgomery County falls just inside Fulton County this way; both are NBRC counties.
+
+**Region.** The 63 NBRC counties in Maine, New Hampshire, New York, and Vermont. County shapes are 2024 Census cartographic boundary files (`tigris`, `cb = TRUE`).
+
+**Caveats.** ACS figures are estimates with margins of error, which are widest for the smallest counties (Hamilton County, NY has fewer than 2,000 residents 65+). Beds per 1,000 seniors ignores people crossing county lines for care, so a county with no home may be served by a neighbor.
+
+**Code.** Every number in this dashboard is computed in its source file. Use the GitHub button in the top right to read it.
+:::
